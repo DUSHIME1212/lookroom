@@ -2,6 +2,7 @@
 //! On a wide window the panels move to a column beside the photo.
 
 pub mod edit;
+mod captions;
 mod design;
 mod extras;
 mod keys;

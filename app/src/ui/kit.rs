@@ -303,7 +303,7 @@ pub fn slider_on(
 }
 
 /// The value over a slider's knob, on top of everything so no panel edge cuts it off.
-fn value_bubble(ui: &Ui, tip: Pos2, text: &str) {
+pub fn value_bubble(ui: &Ui, tip: Pos2, text: &str) {
     let layer = egui::LayerId::new(Order::Tooltip, ui.scope_id().with("value-bubble"));
     let p = ui.ctx().layer_painter(layer);
     let galley = p.layout_no_wrap(text.to_string(), semi(11.5), Color32::WHITE);

@@ -560,6 +560,7 @@ impl App {
             });
         }
         note(ui, "Meme templates are fetched from Imgflip when you browse them. Their pictures belong to their owners.");
+        note(ui, "Auto Captions uses OpenAI's Whisper models (MIT) as converted by whisper.cpp (MIT), run by ffmpeg's whisper filter. The model you choose is downloaded once from Hugging Face.");
     }
 
     /// Plays a stretch of the timeline and stops at its end.

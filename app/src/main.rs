@@ -2,6 +2,7 @@
 
 mod assets;
 mod audio;
+mod captions;
 mod clips;
 mod bench;
 mod color;

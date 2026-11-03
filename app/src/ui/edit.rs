@@ -17,6 +17,12 @@ const RULER_H: f32 = 28.0;
 /// Narrower than this on screen, a clip or item is a plain bar.
 const SLIVER: f32 = 14.0;
 const NEAR_POINTER: f32 = 10.0;
+/// How close, on screen, a dragged edge must come to something to line up with it.
+const SNAP_PX: f32 = 9.0;
+/// The playhead stays in view: when it leaves, the view moves so it sits this far in.
+const FOLLOW_AT: f32 = 0.25;
+/// What each track is for, shown faintly when it is empty.
+const ROW_NAMES: [&str; ROWS] = ["Video", "Sound", "Effects", "Text, stickers and videos", "Music and sound effects"];
 const TOOLBAR_H: f32 = 40.0;
 const TRACK_HEADS_W: f32 = 156.0;
 const TREE_W: f32 = 132.0;
@@ -32,6 +38,8 @@ const EDGE: f32 = 9.0;
 const STRIP_COUNT: usize = 12;
 const STRIP_SIZE: (usize, usize) = (120, 68);
 const MIN_ZOOM: f32 = 1.0;
+/// Room each ruler label needs, in points.
+const RULER_LABEL_ROOM: f32 = 64.0;
 const MAX_ZOOM: f32 = 60.0;
 const YELLOW: Color32 = Color32::from_rgb(0xC8, 0xC8, 0x10);
 const SOUND: Color32 = Color32::from_rgb(0x2C, 0x80, 0xA8);
@@ -129,6 +137,13 @@ pub struct EditState {
     pub(super) motion: super::motion::MotionState,
     pub(super) extras: super::extras::ExtrasState,
     pub(super) design: super::design::DesignState,
+    pub(super) captions: super::captions::CaptionsState,
+    /// Edges, cuts and the playhead pull a dragged item to them.
+    pub snap: bool,
+    /// Where in a dragged item the pointer took hold, in frames from its start.
+    grab: i64,
+    /// What the drag is lined up with this frame, for the guide line.
+    snapped: Option<u32>,
 }
 
 impl Default for EditState {
@@ -150,8 +165,20 @@ impl Default for EditState {
             motion: Default::default(),
             extras: Default::default(),
             design: Default::default(),
+            captions: Default::default(),
+            snap: true,
+            grab: 0,
+            snapped: None,
         }
     }
+}
+
+/// A ruler or drag label: minutes and seconds, with frames when they matter.
+fn ruler_label(frame: u32, fps: u32, frames: bool) -> String {
+    let fps = fps.max(1);
+    let s = frame / fps;
+    let base = if s >= 3600 { format!("{}:{:02}:{:02}", s / 3600, s / 60 % 60, s % 60) } else { format!("{}:{:02}", s / 60, s % 60) };
+    if frames { format!("{base}.{:02}", frame % fps) } else { base }
 }
 
 fn clock(frame: u32, fps: f64) -> String {
@@ -226,6 +253,7 @@ impl App {
 
     pub(super) fn edit_layout(&mut self, ui: &mut Ui, ctx: &Context, screen: Rect) -> Rect {
         self.take_strips(ctx);
+        self.poll_captions(ctx);
         if self.edit.fullscreen {
             // The picture and its controls alone, as large as the screen allows.
             return self.preview_area(ui, screen.shrink(4.0));
@@ -493,6 +521,12 @@ impl App {
     }
 
     fn text_page(&mut self, ui: &mut Ui) {
+        let mut tab = self.edit.captions.tab;
+        segmented(ui, &["Text", "Captions"], &mut tab);
+        self.edit.captions.tab = tab;
+        if tab == 1 {
+            return self.captions_page(ui);
+        }
         let w = ui.available_width();
         let (r, _) = ui.allocate_exact_size(vec2(w, 38.0), Sense::hover());
         if action(ui, r, "Add Text", true, 13.5).clicked() {
@@ -831,6 +865,7 @@ impl App {
             y += rh[i] + ROW_GAP;
         }
         self.track_heads(ui, heads, &ys);
+        self.timeline_controls(ui, Rect::from_min_max(r.min, pos2(heads.right(), heads.top())));
         ui.painter().vline(heads.right(), r.top()..=bottom.top(), Stroke::new(1.0, PANEL_EDGE));
         self.tree(ui, tree);
         ui.painter().hline(r.x_range(), bottom.top(), Stroke::new(1.0, PANEL_EDGE));
@@ -867,6 +902,22 @@ impl App {
         // the ones near the pointer can be grabbed, which keeps hit-testing small.
         let pointer = ui.ctx().pointer_latest_pos();
         let near = |r: &Rect| pointer.is_some_and(|p| (p.x - r.center().x).abs() < r.width() + NEAR_POINTER);
+
+        let lane_hit = ui.interact(lanes, ui.scope_id().with("lanes"), Sense::click_and_drag());
+        if lane_hit.clicked()
+            && let Some(p) = lane_hit.interact_pointer_pos()
+        {
+            go = Some(to_frame(p.x));
+            self.picked = None;
+        }
+        if lane_hit.drag_started() {
+            self.edit.hold = Some(Hold::Head);
+        }
+        let mut used = [false; ROWS];
+        used[ROW_VIDEO] = first < last;
+        if self.project.clips.is_empty() && self.project.items.is_empty() {
+            clipped.text(lanes.center(), Align2::CENTER_CENTER, "Drag media here from the bin, or click a file there to add it", regular(13.0), MUTED);
+        }
 
         let y0 = ys[ROW_VIDEO];
         for i in first..last {
@@ -954,6 +1005,7 @@ impl App {
             }
             let bar = Rect::from_min_size(pos2(to_x(starts[i]), ys[ROW_SOUND]), vec2((c.len as f32 * scale - 2.0).max(4.0), rh[ROW_SOUND]));
             let fill = if sound_on && !c.muted { SOUND } else { Color32::from_gray(70) };
+            used[ROW_SOUND] = true;
             clipped.rect_filled(bar, 5, fill);
             if bar.width() < SLIVER {
                 continue;
@@ -979,6 +1031,7 @@ impl App {
                 continue;
             }
             drawn_to[row] = rect.left() + 1.0;
+            used[row] = true;
             clipped.rect_filled(rect, 5, colour_of(t));
             if !sliver {
                 let badge = Rect::from_center_size(pos2(rect.left() + 18.0, rect.center().y), Vec2::splat(24.0));
@@ -1011,10 +1064,14 @@ impl App {
                     Body::Audio { .. } => self.edit.rail,
                 };
             }
+            if resp.hovered() && free {
+                ui.ctx().set_cursor_icon(egui::CursorIcon::Grab);
+            }
             if resp.drag_started() && free {
                 self.picked = Some(Picked::Item(t.id));
                 self.edit.hold = Some(Hold::Item(t.id));
                 self.edit.spare = 0.0;
+                self.edit.grab = resp.interact_pointer_pos().map_or(0, |p| to_frame(p.x) as i64 - t.at as i64);
             }
             if free {
                 for (side, x) in [(0, rect.left()), (1, rect.right())] {
@@ -1034,6 +1091,10 @@ impl App {
             }
         }
 
+        for (row, name) in ROW_NAMES.iter().enumerate().filter(|(r, _)| !used[*r]) {
+            clipped.text(pos2(lanes.left() + 12.0, ys[row] + rh[row] / 2.0), Align2::LEFT_CENTER, name, regular(11.5), Color32::from_gray(80));
+        }
+
         let ruler_hit = ui.interact(ruler, ui.scope_id().with("ruler"), Sense::click_and_drag());
         if ruler_hit.drag_started() {
             self.edit.hold = Some(Hold::Head);
@@ -1046,6 +1107,31 @@ impl App {
         self.apply_hold(ui, scale, &to_frame, &ys, &mut go);
         if let Some(f) = go {
             self.seek_head(f);
+        }
+        // While a drag runs: the guide it lines up with, where a moved clip will land, and
+        // the time or length being set, beside the pointer.
+        if let Some(hold) = self.edit.hold {
+            if let Some(f) = self.edit.snapped {
+                clipped.vline(to_x(f), lanes.top()..=lanes.bottom(), Stroke::new(1.5, ACCENT));
+            }
+            if let (Hold::Clip(from), Some(p)) = (hold, pointer) {
+                let slot = self.project.slot_at(to_frame(p.x));
+                if slot != from && slot != from + 1 {
+                    let at = index.starts.get(slot).copied().unwrap_or(self.project.video_end());
+                    let x = to_x(at);
+                    clipped.vline(x, ys[ROW_VIDEO] - 4.0..=ys[ROW_VIDEO] + rh[ROW_VIDEO] + 4.0, Stroke::new(3.0, ACCENT));
+                }
+            }
+            if let (Some(text), Some(p)) = (self.drag_readout(hold), pointer) {
+                value_bubble(ui, p - vec2(0.0, 14.0), &text);
+            }
+        } else if self.run.is_some() || ui.input(|i| i.events.iter().any(|e| matches!(e, egui::Event::Key { pressed: true, .. }))) {
+            // The playhead stays in view as it plays, or as keys move it.
+            let x = to_x(self.head);
+            if x > area.right() - 24.0 || x < area.left() + 6.0 {
+                self.edit.scroll = (self.edit.scroll + x - (area.left() + area.width() * FOLLOW_AT)).max(0.0);
+                ui.ctx().request_repaint();
+            }
         }
 
         // Dropping something carried from the bin.
@@ -1072,37 +1158,137 @@ impl App {
     fn ruler(&self, ui: &Ui, r: Rect, scale: f32, left: f32) {
         let p = ui.painter().with_clip_rect(r);
         let fps = self.project.fps.max(1.0) as f32;
-        // The first spacing that leaves room for a time label.
-        let step = [1.0f32, 2.0, 5.0, 10.0, 30.0, 60.0, 120.0, 300.0, 600.0].into_iter().find(|s| s * fps * scale > 110.0).unwrap_or(1200.0);
-        let last = ((r.right() - left) / (step * fps * scale)).ceil() as i32;
-        for k in ((r.left() - left) / (step * fps * scale)).floor() as i32..=last {
-            let frame = (k.max(0) as f32 * step * fps) as u32;
-            let x = left + frame as f32 * scale;
-            p.vline(x, r.bottom() - 8.0..=r.bottom(), Stroke::new(1.0, BUTTON_EDGE));
-            p.text(pos2(x + 28.0, r.center().y), Align2::CENTER_CENTER, clock(frame, fps as f64), regular(11.0), MUTED);
+        let whole = fps.round().max(1.0) as u32;
+        // The first spacing, in frames, that leaves room for a label.
+        let steps = [1, 2, 5, 10, whole / 2, whole, whole * 2, whole * 5, whole * 10, whole * 30, whole * 60, whole * 120, whole * 300, whole * 600];
+        let step = steps.into_iter().filter(|s| *s > 0).find(|s| *s as f32 * scale > RULER_LABEL_ROOM).unwrap_or(whole * 1200);
+        let minor = if step >= 5 { step / 5 } else { 1 };
+        let first = ((r.left() - left) / scale).max(0.0) as u32 / minor * minor;
+        let last = ((r.right() - left) / scale).max(0.0) as u32 + minor;
+        let mut f = first;
+        while f <= last {
+            let x = left + f as f32 * scale;
+            let major = f % step == 0;
+            let tall = if major { 9.0 } else { 4.0 };
+            p.vline(x, r.bottom() - tall..=r.bottom(), Stroke::new(1.0, if major { MUTED } else { BUTTON_EDGE }));
+            if major {
+                p.text(pos2(x + 4.0, r.center().y - 2.0), Align2::LEFT_CENTER, ruler_label(f, whole, step < whole), regular(11.0), MUTED);
+            }
+            f += minor;
+        }
+    }
+
+    /// What a drag is setting, said beside the pointer: a start time, or a length.
+    fn drag_readout(&self, hold: Hold) -> Option<String> {
+        let fps = self.project.fps.max(1.0);
+        let secs = |f: u32| format!("{:.2} s", f as f64 / fps);
+        match hold {
+            Hold::Item(id) => self.project.items.iter().find(|t| t.id == id).map(|t| ruler_label(t.at, fps.round() as u32, true)),
+            Hold::ItemIn(id) | Hold::ItemOut(id) => self.project.items.iter().find(|t| t.id == id).map(|t| secs(t.len)),
+            Hold::TrimIn(id) | Hold::TrimOut(id) => self.project.clips.iter().find(|c| c.id == id).map(|c| secs(c.len)),
+            _ => None,
+        }
+    }
+
+    /// Lines things up as they are dragged: the playhead, every cut, and the edges of every
+    /// other item. `skip` is the item being dragged.
+    fn snap_targets(&self, skip: Option<u32>) -> Vec<u32> {
+        let index = self.timeline_index();
+        let mut v = vec![0, self.head];
+        for (i, s) in index.starts.iter().enumerate() {
+            v.push(*s);
+            v.push(s + self.project.clips[i].len);
+        }
+        for t in self.project.items.iter().filter(|t| Some(t.id) != skip) {
+            v.push(t.at);
+            v.push(t.end());
+        }
+        v.sort_unstable();
+        v.dedup();
+        v
+    }
+
+    /// Zoom out, a zoom bar, zoom in, fit, and the snapping magnet.
+    fn timeline_controls(&mut self, ui: &mut Ui, r: Rect) {
+        let y = r.center().y;
+        let b = |n: f32| Rect::from_center_size(pos2(r.left() + 18.0 + n * 28.0, y), Vec2::splat(26.0));
+        let snap = self.edit.snap;
+        if icon_button(ui, b(0.0), Icon::Magnet, if snap { "Snapping on (N). Hold Alt to drag freely" } else { "Snapping off (N)" }, snap).clicked() {
+            self.edit.snap = !snap;
+        }
+        if icon_button(ui, b(1.0), Icon::SearchMinus, "Zoom out (-)", false).clicked() {
+            self.zoom_by(0.8);
+        }
+        // A short bar between the two: where the zoom sits, from whole project to frames.
+        let track = Rect::from_min_max(pos2(b(1.0).right() + 2.0, y - 2.0), pos2(b(3.0).left() - 2.0, y + 2.0));
+        let resp = ui.interact(track.expand2(vec2(0.0, 8.0)), ui.scope_id().with("zoom-bar"), Sense::click_and_drag()).on_hover_text("Zoom");
+        if let Some(p) = resp.interact_pointer_pos()
+            && (resp.dragged() || resp.clicked())
+        {
+            let t = ((p.x - track.left()) / track.width()).clamp(0.0, 1.0);
+            self.edit.zoom = MIN_ZOOM * (MAX_ZOOM / MIN_ZOOM).powf(t);
+        }
+        let t = (self.edit.zoom / MIN_ZOOM).ln() / (MAX_ZOOM / MIN_ZOOM).ln();
+        let p = ui.painter();
+        p.rect_filled(track, 2, TRACK);
+        p.rect_filled(Rect::from_min_max(track.min, pos2(track.left() + track.width() * t, track.bottom())), 2, ACCENT);
+        p.circle_filled(pos2(track.left() + track.width() * t, y), 5.0, Color32::WHITE);
+        if icon_button(ui, b(3.0), Icon::SearchAdd, "Zoom in (=)", false).clicked() {
+            self.zoom_by(1.25);
+        }
+        if icon_button(ui, b(4.0), Icon::FitToScreen, "Fit the whole project (\\)", false).clicked() {
+            self.zoom_fit();
         }
     }
 
     fn apply_hold(&mut self, ui: &mut Ui, scale: f32, to_frame: &impl Fn(f32) -> u32, ys: &[f32; ROWS], go: &mut Option<u32>) {
         let rh = self.row_heights();
+        self.edit.snapped = None;
         let Some(hold) = self.edit.hold else { return };
-        let (down, delta, pos) = ui.input(|i| (i.pointer.primary_down(), i.pointer.delta().x, i.pointer.interact_pos()));
-        let frames = {
-            self.edit.spare += delta / scale;
-            let whole = self.edit.spare.trunc();
-            self.edit.spare -= whole;
-            whole as i64
+        let (down, delta, pos, free) = ui.input(|i| (i.pointer.primary_down(), i.pointer.delta().x, i.pointer.interact_pos(), i.modifiers.alt));
+        let at = pos.map(|p| to_frame(p.x) as i64);
+        let skip = match hold {
+            Hold::Item(id) | Hold::ItemIn(id) | Hold::ItemOut(id) => Some(id),
+            _ => None,
+        };
+        let targets = if self.edit.snap && !free { self.snap_targets(skip) } else { Vec::new() };
+        let reach = (SNAP_PX / scale).max(1.0) as i64;
+        // The nearest target within reach, and how far it is.
+        let pull = |f: i64| -> Option<(i64, u32)> {
+            let i = targets.partition_point(|t| (*t as i64) < f);
+            [i.checked_sub(1), Some(i)].into_iter().flatten().filter_map(|k| targets.get(k)).map(|t| (*t as i64 - f, *t)).filter(|(d, _)| d.abs() <= reach).min_by_key(|(d, _)| d.abs())
+        };
+        let mut lined = None;
+        let mut snapped = |f: i64| match pull(f) {
+            Some((d, t)) => {
+                lined = Some(t);
+                f + d
+            }
+            None => f,
         };
         match hold {
             Hold::Head => {
-                if let Some(p) = pos {
-                    *go = Some(to_frame(p.x));
+                if let Some(f) = at {
+                    *go = Some(snapped(f).max(0) as u32);
                 }
             }
-            Hold::TrimIn(id) => self.project.trim_clip_start(id, frames),
-            Hold::TrimOut(id) => self.project.trim_clip_end(id, frames),
-            Hold::Clip(from) => {
-                if !down && let Some(p) = pos {
+            Hold::TrimIn(id) => {
+                // The clip's start stays put on the timeline while its source moves, so this
+                // edge follows the pointer's movement rather than its place.
+                self.edit.spare += delta / scale;
+                let whole = self.edit.spare.trunc();
+                self.edit.spare -= whole;
+                self.project.trim_clip_start(id, whole as i64);
+            }
+            Hold::TrimOut(id) => {
+                let index = self.timeline_index();
+                if let (Some(f), Some(i)) = (at, index.clip_index(id)) {
+                    let end = (index.starts[i] + self.project.clips[i].len) as i64;
+                    self.project.trim_clip_end(id, snapped(f) - end);
+                }
+            }
+            Hold::Clip(_) => {
+                if !down && let (Some(p), Hold::Clip(from)) = (pos, hold) {
                     let slot = self.project.slot_at(to_frame(p.x));
                     let to = if slot > from { slot - 1 } else { slot };
                     self.project.move_clip(from, to);
@@ -1111,17 +1297,31 @@ impl App {
             }
             Hold::Item(id) => {
                 let row = pos.and_then(|p| (ROW_SOUND..ROWS).find(|r| p.y >= ys[*r] - ROW_GAP / 2.0 && p.y < ys[*r] + rh[*r] + ROW_GAP / 2.0));
-                if let Some(t) = self.project.items.iter_mut().find(|t| t.id == id) {
-                    t.at = (t.at as i64 + frames).max(0) as u32;
-                    if let Some(r) = row.filter(|r| matches!(t.body, Body::Audio { .. }) == matches!(*r, ROW_SOUND | ROW_MUSIC)) {
-                        t.row = r;
+                let grab = self.edit.grab;
+                if let (Some(f), Some(len)) = (at, self.project.items.iter().find(|t| t.id == id).map(|t| t.len as i64)) {
+                    // Either end may line up; the closer one wins.
+                    let want = (f - grab).max(0);
+                    let start = pull(want);
+                    let end = pull(want + len);
+                    let pick = match (start, end) {
+                        (Some(a), Some(b)) => Some(if a.0.abs() <= b.0.abs() { a } else { b }),
+                        (a, b) => a.or(b),
+                    };
+                    let new_at = (want + pick.map_or(0, |p| p.0)).max(0) as u32;
+                    lined = pick.map(|p| p.1);
+                    if let Some(t) = self.project.items.iter_mut().find(|t| t.id == id) {
+                        t.at = new_at;
+                        if let Some(r) = row.filter(|r| matches!(t.body, Body::Audio { .. }) == matches!(*r, ROW_SOUND | ROW_MUSIC)) {
+                            t.row = r;
+                        }
                     }
                 }
             }
             Hold::ItemIn(id) => {
                 let fps = self.project.fps.max(1.0);
-                if let Some(t) = self.project.items.iter_mut().find(|t| t.id == id) {
-                    let d = frames.clamp(-(t.at as i64), t.len as i64 - 2);
+                let want = at.map(&mut snapped);
+                if let (Some(f), Some(t)) = (want, self.project.items.iter_mut().find(|t| t.id == id)) {
+                    let d = (f - t.at as i64).clamp(-(t.at as i64), t.len as i64 - 2);
                     t.at = (t.at as i64 + d) as u32;
                     t.len = (t.len as i64 - d) as u32;
                     match &mut t.body {
@@ -1136,14 +1336,17 @@ impl App {
                 }
             }
             Hold::ItemOut(id) => {
-                if let Some(t) = self.project.items.iter_mut().find(|t| t.id == id) {
-                    t.len = (t.len as i64 + frames).max(2) as u32;
+                let want = at.map(&mut snapped);
+                if let (Some(f), Some(t)) = (want, self.project.items.iter_mut().find(|t| t.id == id)) {
+                    t.len = (f - t.at as i64).max(2) as u32;
                 }
             }
         }
+        self.edit.snapped = lined;
         if !down {
             self.edit.hold = None;
             self.edit.spare = 0.0;
+            self.edit.snapped = None;
             self.needs_activate = true;
         }
     }

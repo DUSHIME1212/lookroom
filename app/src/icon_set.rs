@@ -122,6 +122,12 @@ pub enum Icon {
     Login03,
     Logout03,
     Repeat,
+    Magnet,
+    SearchAdd,
+    SearchMinus,
+    FitToScreen,
+    ClosedCaption,
+    AiMic,
 }
 
 impl Icon {
@@ -245,6 +251,12 @@ impl Icon {
             Icon::Login03 => include_str!("../assets/hugeicons/login-03.svg"),
             Icon::Logout03 => include_str!("../assets/hugeicons/logout-03.svg"),
             Icon::Repeat => include_str!("../assets/hugeicons/repeat.svg"),
+            Icon::Magnet => include_str!("../assets/hugeicons/magnet.svg"),
+            Icon::SearchAdd => include_str!("../assets/hugeicons/search-add.svg"),
+            Icon::SearchMinus => include_str!("../assets/hugeicons/search-minus.svg"),
+            Icon::FitToScreen => include_str!("../assets/hugeicons/fit-to-screen.svg"),
+            Icon::ClosedCaption => include_str!("../assets/hugeicons/closed-caption.svg"),
+            Icon::AiMic => include_str!("../assets/hugeicons/ai-mic.svg"),
         }
     }
 }

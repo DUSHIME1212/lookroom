@@ -413,6 +413,8 @@ pub struct Motion {
     pub keys: Vec<TextKey>,
     /// Switched off in the layers list: kept, but not drawn.
     pub hidden: bool,
+    /// A set this belongs to, such as the captions Auto Captions wrote.
+    pub group: String,
 }
 
 pub const DEFAULT_WEIGHT: u16 = 600;
@@ -433,6 +435,7 @@ impl Default for Motion {
             repeat: Repeat::default(),
             keys: Vec::new(),
             hidden: false,
+            group: String::new(),
         }
     }
 }

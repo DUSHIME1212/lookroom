@@ -53,6 +53,7 @@ pub enum Act {
     Slower,
     SpeedPanel,
     PreviewFx,
+    Snap,
 }
 
 pub struct Binding {
@@ -112,6 +113,7 @@ pub const KEYS: &[Binding] = &[
     bind(Key::F, false, false, "F", VIEW, "Full screen", Act::FullScreen),
     bind(Key::F1, false, false, "F1", VIEW, "These shortcuts", Act::Help),
     bind(Key::P, false, false, "P", VIEW, "Preview the effect or transition", Act::PreviewFx),
+    bind(Key::N, false, false, "N", VIEW, "Snapping on or off", Act::Snap),
     bind(Key::Questionmark, false, false, "?", VIEW, "These shortcuts", Act::Help),
     bind(Key::E, true, false, "Ctrl E", FILE, "Export", Act::Export),
     bind(Key::S, true, false, "Ctrl S", FILE, "Save project", Act::Save),
@@ -266,6 +268,10 @@ impl App {
             Act::Slower => self.nudge_speed(false),
             Act::SpeedPanel => self.edit.motion.speed_open = !self.edit.motion.speed_open,
             Act::PreviewFx => self.preview_fx(),
+            Act::Snap => {
+                self.edit.snap = !self.edit.snap;
+                self.say(if self.edit.snap { "Snapping on" } else { "Snapping off" });
+            }
         }
     }
 }

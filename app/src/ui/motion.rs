@@ -620,6 +620,7 @@ impl App {
     /// What's loaded and from where, with ways to add more.
     pub(super) fn plugins_section(&mut self, ui: &mut Ui) {
         title(ui, "Plugins");
+        super::captions::plugin_row(ui);
         note(ui, "A plugin pack is a JSON file that adds text animations and looks. Packs hold no code, so they can't run anything.");
         let packs = self.plugins.packs.clone();
         for p in &packs {
