@@ -1,0 +1,152 @@
+{
+  "version": 2,
+  "name": "com.george.kye.PeekLUT_2.27.0_und3fined",
+  "request": "the same app especially how the presets of it looks",
+  "target": {
+    "kind": "local",
+    "path": "C:\\Users\\don360\\Downloads\\com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+  },
+  "stack": "Rust + egui (eframe)",
+  "status": "needs_you",
+  "note": "Claude Code stopped: You've hit your 5-hour limit · resets 1:10am (Africa/Cairo)",
+  "created_ms": 1793607390693,
+  "updated_ms": 1793655643488,
+  "checks": [
+    {
+      "round": 1,
+      "check": "build",
+      "passed": true,
+      "similarity": null,
+      "note": "Build succeeded.",
+      "artifacts": [],
+      "at_ms": 1793612017926
+    },
+    {
+      "round": 1,
+      "check": "app-screenshot",
+      "passed": true,
+      "similarity": null,
+      "note": "The program starts and draws (1600×1075).",
+      "artifacts": [
+        "checks\\round-1\\screenshot.png"
+      ],
+      "at_ms": 1793612021871
+    },
+    {
+      "round": 1,
+      "check": "mechanics",
+      "passed": true,
+      "similarity": null,
+      "note": "app/mechanics.json has 44 values (38 with a source, 6 estimated).",
+      "artifacts": [],
+      "at_ms": 1793612021875,
+      "claims": [
+        {
+          "title": "tile aspect ratio (1) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "tile corner radius (4) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "picture share of tile height (0.8) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "caption padding (4) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "caption minimum scale (0.5) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "dimmed tile opacity (0.6) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "preset panel share of editor height (0.2) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "preset panel minimum height (150) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "preset panel maximum height (250) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "preset panel padding (16) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "space under strip (20) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "group line width (1) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "group line opacity (0.4) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "panel title size (14) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "temperature minimum (-3000) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "temperature maximum (3000) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "temperature neutral (6500) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "tint minimum (-100) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "tint maximum (100) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "saturation neutral (1) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "halation threshold default (0.7) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "halation glow default (50) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "grain size default (1) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "grain roughness default (1) is used in the code",
+          "passed": true
+        },
+        {
+          "title": "built-in table size (33) is used in the code",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "agent_session": "6d5dc208-c82c-4fdd-8c90-eb43b87a6ba1",
+  "allowed_actions": [],
+  "last_reply": "I'll start with what's already been captured, then load the tools for opening the program.There's already earlier work in the app folder, so I'll check where it got to before doing anything else.The strip's 20-point bottom space checks out. Next I'll trace the colour pipeline through its filter types and find where the panel sets the strip's height.A 4,309-line function that reads the colour tables looks very much like the master render. It's too big to return in one piece, so I'll pull the saved copy and go through it.The export has the full function. I'll pull it out and list which fields it uses, in order, since that sequence is the order the colour steps run.I'm adding a short progress list here, since the rest of this work splits into clear steps. Then I'll trace the order of the steps through the render function.I'll set up the progress list, then finish mapping the render function: the rest of its sequence, plus a table of field names against their offsets from the class's own records.Now I have all the names and offsets. I'll label the render function with them and read off the actual sequence.That failure is only a path mismatch: Windows Python can't read Git Bash's `/tmp` path. I'll switch the script to relative paths and run it from that folder.The batch tool uses the built-in engine, which stopped short of this region. The single-function tool goes through Ghidra, so I'll call that for each one.All checks pass. The one question left needs the original running on a real iPhone, which I can't do from here. I'll note in that record what I did instead and close out the list.You now have a working desktop version of the photo editor with the original's preset strip: square tiles showing your own photo with each look applied, white caption bars that turn blue when selected, and thin lines between groups. It also has the sliders, film and effects tools, masks, crop, colour tables, saving your own presets and export, and it passes every Craft Anything check.\n\nIn this last round I read the original's code and fixed two things. The preset panel now uses the original's real sizing rule, 20% of the window height, and the colour steps run in the original's order, with colour tables after the sliders, which changes how every look comes out.\n\nThe preset names and colour tables are my own recreations, not the originals, so the looks are similar in style but won't match exactly, and the slider strengths are my estimates. Some of the original's rarer tools, such as Super 8 and tone curves, aren't included. I also never saw the original running, because no picture of that screen exists in its files, so the panel is built from the code's measurements and hasn't been compared with the real thing.\n\nIf you can, send a phone screenshot of the original's preset screen and ask me to match anything that looks different.",
+  "asset_budget_usd": 5.0,
+  "generate_assets": false
+}

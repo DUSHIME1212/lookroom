@@ -1,0 +1,108 @@
+{
+  "id": "ev_aa4e168d5babfbb54a409fb7bd286d7f0271799826347d937a8a16e5098ec816",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 30,
+    "mode": "literal",
+    "offset": 0,
+    "pattern": "PresetsView"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011ac8e0",
+        "references": [],
+        "section": "__const",
+        "text": "Technicolor3StripPresetsView"
+      },
+      {
+        "address": "0x1011cf950",
+        "references": [],
+        "section": "__const",
+        "text": "ToneCurveFilterSliderPresetsView"
+      },
+      {
+        "address": "0x1011db0b0",
+        "references": [],
+        "section": "__const",
+        "text": "PresetsViewModel"
+      },
+      {
+        "address": "0x1011db380",
+        "references": [],
+        "section": "__const",
+        "text": "PresetsView"
+      },
+      {
+        "address": "0x10138fe90",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x101391d70",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x101392420",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x10139b150",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x1014146b0",
+        "references": [
+          {
+            "from": "0x10059f39c",
+            "function": "sub_10059f318"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/PresetsView.swift"
+      },
+      {
+        "address": "0x1014d3330",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC7PeekLUT16PresetsViewModel"
+      }
+    ],
+    "total": 10
+  },
+  "summary": "10 strings match \"PresetsView\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 10,
+    "total": 10
+  },
+  "locations": [],
+  "links": []
+}

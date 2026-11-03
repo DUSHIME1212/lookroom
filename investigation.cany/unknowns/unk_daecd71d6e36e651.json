@@ -1,0 +1,14 @@
+{
+  "id": "unk_daecd71d6e36e651",
+  "revision": 1,
+  "question": "Do the original's presets look the same with this app's own colour tables?",
+  "severity": "medium",
+  "domain": "color",
+  "status": "open",
+  "probes": [
+    "The person confirms permission to reuse the original's table files",
+    "Compare preset screenshots from the original on a real iPhone"
+  ],
+  "evidence_for": [],
+  "evidence_against": []
+}

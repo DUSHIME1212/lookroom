@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Lookroom
+GenericName=Photo and Video Editor
+Comment=Grade, edit and animate photos and video
+Exec=lookroom %F
+Icon=lookroom
+Terminal=false
+Categories=AudioVideo;Video;Graphics;Photography;
+MimeType=image/jpeg;image/png;image/tiff;image/webp;image/heic;video/mp4;video/quicktime;video/x-matroska;video/webm;
+StartupWMClass=lookroom

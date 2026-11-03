@@ -1,0 +1,45 @@
+{
+  "id": "ev_064aa41efa2eb01da37b62e00b7be0f3693749e5351b4b35018e56793d31741b",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10059e074"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x10059e074",
+    "function": "FUN_10059e074",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_retain_x8 replaced with injection: _objc_retain_fixup */\r\n\r\nvoid FUN_10059e074(long *param_1,long param_2,long *param_3)\r\n\r\n{\r\n  long lVar1;\r\n  long lVar2;\r\n  long lVar3;\r\n  long lVar4;\r\n  long lVar5;\r\n  undefined8 uVar6;\r\n  undefined *puVar7;\r\n  undefined1 *puVar8;\r\n  undefined *puVar9;\r\n  undefined *puVar10;\r\n  long extraout_x8;\r\n  undefined1 *puVar11;\r\n  long lVar12;\r\n  undefined1 auStack_170 [64];\r\n  undefined1 *local_130;\r\n  long lStack_128;\r\n  long lStack_120;\r\n  long lStack_118;\r\n  long local_110;\r\n  undefined8 uStack_ff;\r\n  undefined1 *local_f0;\r\n  long lStack_e8;\r\n  long local_e0;\r\n  long local_d8;\r\n  long local_d0;\r\n  undefined1 uStack_c8;\r\n  undefined1 local_c0;\r\n  undefined7 uStack_bf;\r\n  undefined1 local_b8;\r\n  undefined1 *local_b0;\r\n  long lStack_a8;\r\n  long lStack_a0;\r\n  long lStack_98;\r\n  long local_90;\r\n  undefined1 uStack_88;\r\n  undefined7 uStack_87;\r\n  undefined1 uStack_80;\r\n  undefined8 uStack_7f;\r\n  \r\n  lVar3 = 0;\r\n  __s7SwiftUI5ImageV12ResizingModeOMa();\r\n  lVar12 = *(long *)(lVar3 + -8);\r\n  lVar4 = lVar3;\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(lVar12 + 0x40));\r\n  puVar11 = auStack_170 + -(extraout_x8 + 0xfU & 0xfffffffffffffff0);\r\n  __s7SwiftUI5ColorV5clearACvgZ();\r\n  lVar5 = 0;\r\n  FUN_10059a430();\r\n  local_f0 = *(undefined1 **)(param_2 + *(int *)(lVar5 + 0x18));\r\n  local_b8 = local_f0 == (undefined1 *)0x0;\r\n  if ((bool)local_b8) {\r\n    lVar5 = *param_3;\r\n    lVar1 = param_3[1];\r\n    lVar2 = param_3[2];\r\n    uVar6 = 0;\r\n    FUN_10059a270(0);\r\n    puVar7 = &DAT_1017857c0;\r\n    FUN_1000057bc(&DAT_1017857c0,FUN_10059a270,&TargetProtocolConformanceDescriptor_1011db154);\r\n    __s7SwiftUI11StateObjectV12wrappedValuexvg(lVar5,lVar1,(char)lVar2,uVar6,puVar7);\r\n    _swift_release(*(undefined8 *)(lVar5 + _TtC7PeekLUT16PresetsViewModel::sourceImageUIImage),lVar5\r\n                  );\r\n    __s7SwiftUI5ImageV02uiC0ACSo7UIImageC_tcfC(lVar5);\r\n    (**(code **)(lVar12 + 0x68))\r\n              (puVar11,*(undefined4 *)\r\n                        PTR___s7SwiftUI5ImageV12ResizingModeO7stretchyA2EmFWC_1015fe158,lVar3);\r\n    puVar8 = puVar11;\r\n    __s7SwiftUI5ImageV9resizable9capInsets12resizingModeAcA04EdgeF0V_AC08ResizingH0OtF\r\n              (0,0,0,0,puVar11,lVar5);\r\n    _swift_release(lVar5);\r\n    (**(code **)(lVar12 + 8))(puVar11,lVar3);\r\n    lStack_e8 = 0;\r\n    local_e0 = CONCAT62(local_e0._2_6_,0x101);\r\n    local_f0 = puVar8;\r\n  }\r\n  else {\r\n    lStack_e8 = 2;\r\n    local_c0 = 0;\r\n    uStack_bf = 0;\r\n    local_d8 = 0;\r\n    local_d0 = 0;\r\n    local_e0 = 0;\r\n    uStack_c8 = 0;\r\n  }\r\n  puVar7 = &DAT_101786d40;\r\n  FUN_100005318(&DAT_101786d40,&DAT_1011bab40);\r\n  puVar9 = puVar7;\r\n  FUN_1000a6ca8();\r\n  puVar10 = puVar9;\r\n  FUN_100055d5c();\r\n  __s7SwiftUI19_ConditionalContentVA2A4ViewRzAaDR_rlE7storageACyxq_GAC7StorageOyxq__G_tcfC\r\n            (&local_b0,&local_f0,&DAT_10162f7e0,puVar7,puVar9,puVar10);\r\n  lStack_e8 = lStack_a8;\r\n  local_f0 = local_b0;\r\n  local_d8 = lStack_98;\r\n  local_e0 = lStack_a0;\r\n  local_d0 = local_90;\r\n  uStack_bf = (undefined7)uStack_7f;\r\n  local_b8 = (undefined1)((ulong)uStack_7f >> 0x38);\r\n  lStack_128 = lStack_a8;\r\n  local_130 = local_b0;\r\n  lStack_118 = lStack_98;\r\n  lStack_120 = lStack_a0;\r\n  local_110 = local_90;\r\n  uStack_ff = uStack_7f;\r\n  *param_1 = lVar4;\r\n  param_1[6] = CONCAT71(uStack_87,uStack_88);\r\n  param_1[5] = local_90;\r\n  param_1[2] = lStack_a8;\r\n  param_1[1] = (long)local_b0;\r\n  param_1[4] = lStack_98;\r\n  param_1[3] = lStack_a0;\r\n  *(undefined8 *)((long)param_1 + 0x39) = uStack_7f;\r\n  *(ulong *)((long)param_1 + 0x31) = CONCAT17(uStack_80,uStack_87);\r\n  _swift_retain(lVar4);\r\n  FUN_100035c44(&local_130,auStack_170,&DAT_1017a6858,&DAT_1011db6f8);\r\n  FUN_1000374ac(&local_f0,&DAT_1017a6860,&DAT_1011db700);\r\n  _swift_release(lVar4);\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_10059e074(long *param_1,long param_2,long *param_3);"
+  },
+  "summary": "Pseudo-C for FUN_10059e074 from the Deep engine (126 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10059e074"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

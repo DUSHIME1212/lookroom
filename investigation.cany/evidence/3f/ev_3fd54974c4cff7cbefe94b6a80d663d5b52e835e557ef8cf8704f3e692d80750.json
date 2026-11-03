@@ -1,0 +1,57 @@
+{
+  "id": "ev_3fd54974c4cff7cbefe94b6a80d663d5b52e835e557ef8cf8704f3e692d80750",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_functions_search",
+  "params": {
+    "case_sensitive": false,
+    "limit": 60,
+    "mode": "literal",
+    "offset": 0,
+    "pattern": "RenderPipeline"
+  },
+  "result": {
+    "functions": 0,
+    "imports": 2,
+    "matches": [
+      {
+        "address": "0x1015fb660",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/Metal.framework/Metal",
+        "name": "_OBJC_CLASS_$_MTLRenderPipelineColorAttachmentDescriptor"
+      },
+      {
+        "address": "0x1015fb668",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/Metal.framework/Metal",
+        "name": "_OBJC_CLASS_$_MTLRenderPipelineDescriptor"
+      }
+    ],
+    "total": 2
+  },
+  "summary": "0 functions and 2 imports match \"RenderPipeline\".",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "function_limit",
+      "message": "function discovery stopped after 50000 functions; the function list is incomplete and some code is not analysed"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 2,
+    "total": 2
+  },
+  "locations": [],
+  "links": []
+}

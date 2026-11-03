@@ -1,0 +1,45 @@
+{
+  "id": "ev_1bce43c780a259cae7c45327789e0251891e8ad09d4ef750a4dd1cd293eb0fe8",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x100f312cc"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100f312cc",
+    "function": "FUN_100f31008",
+    "pseudo_code": "\r\n/* WARNING: Type propagation algorithm not settling */\r\n\r\nundefined1  [16] FUN_100f31008(void)\r\n\r\n{\r\n  char *pcVar1;\r\n  ulong uVar2;\r\n  int iVar3;\r\n  long lVar4;\r\n  long lVar5;\r\n  ulong *puVar6;\r\n  undefined *puVar7;\r\n  long extraout_x8;\r\n  long extraout_x8_00;\r\n  ulong uVar8;\r\n  ulong *puVar9;\r\n  long lVar10;\r\n  ulong uVar11;\r\n  long lVar12;\r\n  undefined1 auVar13 [16];\r\n  ulong uStack_60;\r\n  ulong local_58 [3];\r\n  \r\n  lVar4 = 0;\r\n  __s10Foundation3URLVMa();\r\n  lVar12 = *(long *)(lVar4 + -8);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(lVar12 + 0x40));\r\n  lVar10 = (long)&uStack_60 - (extraout_x8 + 0xfU & 0xfffffffffffffff0);\r\n  lVar5 = 0;\r\n  FUN_100f314bc();\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(*(long *)(lVar5 + -8) + 0x40));\r\n  puVar9 = (ulong *)(lVar10 - (extraout_x8_00 + 0xfU & 0xfffffffffffffff0));\r\n  FUN_100f314f4();\r\n  puVar6 = puVar9;\r\n  _swift_getEnumCaseMultiPayload(puVar9,lVar5);\r\n  iVar3 = (int)puVar6;\r\n  if (3 < iVar3) {\r\n    if (iVar3 < 6) {\r\n      if (iVar3 == 4) {\r\n        uVar11 = *puVar9;\r\n        local_58[1] = 0;\r\n        local_58[2] = 0xe000000000000000;\r\n        __ss11_StringGutsV4growyySiF(0x1e);\r\n        _swift_bridgeObjectRelease(local_58[2]);\r\n        local_58[1] = 0xd00000000000001c;\r\n        local_58[2] = 0x800000010144db20;\r\n        local_58[0] = CONCAT44(local_58[0]._4_4_,(int)uVar11);\r\n        puVar7 = PTR___ss5Int32Vs23CustomStringConvertiblesWP_1016002e8;\r\n        __ss23CustomStringConvertibleP11descriptionSSvgTj\r\n                  (PTR___ss5Int32VN_1016002e0,PTR___ss5Int32Vs23CustomStringConvertiblesWP_1016002e8\r\n                  );\r\n        __sSS6appendyySSF();\r\n      }\r\n      else {\r\n        uVar11 = *puVar9;\r\n        puVar7 = (undefined *)puVar9[1];\r\n        local_58[1] = 0;\r\n        local_58[2] = 0xe000000000000000;\r\n        __ss11_StringGutsV4growyySiF(0x29);\r\n        _swift_bridgeObjectRelease(local_58[2]);\r\n        local_58[1] = 0xd000000000000027;\r\n        local_58[2] = 0x800000010144daf0;\r\n        __sSS6appendyySSF(uVar11,puVar7);\r\n      }\r\n      _swift_bridgeObjectRelease(puVar7);\r\n      goto LAB_100f3149c;\r\n    }\r\n    if (iVar3 != 6) {\r\n      local_58[2] = 0x800000010144dbc0;\r\n      local_58[1] = 0xd00000000000002b;\r\n      goto LAB_100f3149c;\r\n    }\r\n    uVar11 = *puVar9;\r\n    uVar2 = puVar9[1];\r\n    uVar8 = puVar9[2];\r\n    local_58[1] = 0;\r\n    local_58[2] = 0xe000000000000000;\r\n    __ss11_StringGutsV4growyySiF(0x1b);\r\n    _swift_bridgeObjectRelease(local_58[2]);\r\n    local_58[1] = 0xd000000000000015;\r\n    local_58[2] = 0x800000010144dad0;\r\n    __sSS6appendyySSF(uVar11,uVar2);\r\n    _swift_bridgeObjectRelease(uVar2);\r\n    __sSS6appendyySSF(0x203a,0xe200000000000000);\r\n    local_58[0] = uVar8;\r\n    _swift_errorRetain(uVar8);\r\n    puVar7 = &DAT_1017eed10;\r\n    FUN_100005318(&DAT_1017eed10,&DAT_1012417f0);\r\n    __sSS10describingSSx_tclufC(local_58,puVar7);\r\n    __sSS6appendyySSF();\r\n    _swift_bridgeObjectRelease(puVar7);\r\nLAB_100f31348:\r\n    _swift_errorRelease(uVar8);\r\n    goto LAB_100f3149c;\r\n  }\r\n  if (iVar3 < 2) {\r\n    if (iVar3 == 0) {\r\n      uVar8 = *puVar9;\r\n      local_58[1] = 0;\r\n      local_58[2] = 0xe000000000000000;\r\n      __ss11_StringGutsV4growyySiF(0x1a);\r\n      __sSS6appendyySSF(0xd000000000000018,0x800000010144dba0);\r\n      puVar7 = &DAT_1017eab60;\r\n      local_58[0] = uVar8;\r\n      FUN_100005318(&DAT_1017eab60,&DAT_10123a410);\r\n      __ss15_print_unlockedyyx_q_zts16TextOutputStreamR_r0_lF\r\n                (local_58,local_58 + 1,puVar7,PTR___ss26DefaultStringInterpolationVN_1015ffff0,\r\n                 PTR___ss26DefaultStringInterpolationVs16TextOutputStreamsWP_101600000);\r\n      goto LAB_100f31348;\r\n    }\r\n    (**(code **)(lVar12 + 0x20))(lVar10,puVar9,lVar4);\r\n    local_58[1] = 0;\r\n    local_58[2] = 0xe000000000000000;\r\n    __ss11_StringGutsV4growyySiF(0x14);\r\n    _swift_bridgeObjectRelease(local_58[2]);\r\n    pcVar1 = \"No video track in \";\r\n    local_58[1] = 0xd000000000000012;\r\nLAB_100f31448:\r\n    local_58[2] = (ulong)(pcVar1 + -0x20) | 0x8000000000000000;\r\n    __s10Foundation3URLV17lastPathComponentSSvg();\r\n    __sSS6appendyySSF();\r\n    _swift_bridgeObjectRelease(puVar9);\r\n  }\r\n  else {\r\n    if (iVar3 != 2) {\r\n      (**(code **)(lVar12 + 0x20))(lVar10,puVar9,lVar4);\r\n      local_58[1] = 0;\r\n      local_58[2] = 0xe000000000000000;\r\n      __ss11_StringGutsV4growyySiF(0x18);\r\n      _swift_bridgeObjectRelease(local_58[2]);\r\n      pcVar1 = \"Decoded 0 frames from \";\r\n      local_58[1] = 0xd000000000000016;\r\n      goto LAB_100f31448;\r\n    }\r\n    puVar7 = &DAT_1017eed18;\r\n    FUN_100005318(&DAT_1017eed18,&DAT_1012417f8);\r\n    uVar11 = *(ulong *)((long)puVar9 + (long)*(int *)(puVar7 + 0x30));\r\n    (**(code **)(lVar12 + 0x20))(lVar10,puVar9,lVar4);\r\n    local_58[1] = 0;\r\n    local_58[2] = 0xe000000000000000;\r\n    __ss11_StringGutsV4growyySiF(0x1f);\r\n    _swift_bridgeObjectRelease(local_58[2]);\r\n    local_58[1] = 0xd000000000000019;\r\n    local_58[2] = 0x800000010144db60;\r\n    __s10Foundation3URLV17lastPathComponentSSvg();\r\n    __sSS6appendyySSF();\r\n    _swift_bridgeObjectRelease(puVar9);\r\n    __sSS6appendyySSF(0x203a,0xe200000000000000);\r\n    local_58[0] = uVar11;\r\n    _swift_errorRetain(uVar11);\r\n    puVar7 = &DAT_1017eed10;\r\n    FUN_100005318(&DAT_1017eed10,&DAT_1012417f0);\r\n    __sSS10describingSSx_tclufC(local_58,puVar7);\r\n    __sSS6appendyySSF();\r\n    _swift_bridgeObjectRelease(puVar7);\r\n    _swift_errorRelease(uVar11);\r\n  }\r\n  uVar2 = local_58[2];\r\n  uVar11 = local_58[1];\r\n  (**(code **)(lVar12 + 8))(lVar10,lVar4);\r\n  local_58[1] = uVar11;\r\n  local_58[2] = uVar2;\r\nLAB_100f3149c:\r\n  auVar13._8_8_ = local_58[2];\r\n  auVar13._0_8_ = local_58[1];\r\n  return auVar13;\r\n}\r\n\r\n",
+    "signature": "undefined1  [16] FUN_100f31008(void);"
+  },
+  "summary": "Pseudo-C for FUN_100f31008 from the Deep engine (169 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100f312cc"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

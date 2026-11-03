@@ -1,0 +1,126 @@
+{
+  "id": "ev_6814783050d5d84180b85157fa8c9a1bf9f279083a1ca4039ab4c67375756196",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 30,
+    "mode": "literal",
+    "offset": 0,
+    "pattern": "vignette"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x10138f508",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "super8Vignette"
+      },
+      {
+        "address": "0x101394b2a",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vignette"
+      },
+      {
+        "address": "0x1013b982c",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vignette"
+      },
+      {
+        "address": "0x1013b9d43",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vignette"
+      },
+      {
+        "address": "0x1013ba968",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "super8Vignette"
+      },
+      {
+        "address": "0x1013bac2d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vignette"
+      },
+      {
+        "address": "0x1013bb4c8",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vignette"
+      },
+      {
+        "address": "0x1013bbd1f",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_vignette"
+      },
+      {
+        "address": "0x1013fda85",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8Vignette"
+      },
+      {
+        "address": "0x101403880",
+        "references": [
+          {
+            "from": "0x10008a248",
+            "function": "sub_10008a024"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Works like a reverse vignette, gently lifting clarity, brightness, and contrast through the middle of the frame to guide the eye to your subject."
+      },
+      {
+        "address": "0x10144cf77",
+        "references": [],
+        "section": "__cstring",
+        "text": "vignette"
+      },
+      {
+        "address": "0x1014f7f3f",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "_vignette"
+      },
+      {
+        "address": "0x1015325bc",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "vignette"
+      }
+    ],
+    "total": 13
+  },
+  "summary": "13 strings match \"vignette\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 13,
+    "total": 13
+  },
+  "locations": [],
+  "links": []
+}

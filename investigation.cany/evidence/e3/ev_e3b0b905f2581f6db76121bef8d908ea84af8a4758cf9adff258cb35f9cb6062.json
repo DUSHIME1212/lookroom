@@ -1,0 +1,45 @@
+{
+  "id": "ev_e3b0b905f2581f6db76121bef8d908ea84af8a4758cf9adff258cb35f9cb6062",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x1005a92b0"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x1005a92b0",
+    "function": "FUN_1005a92b0",
+    "pseudo_code": "\r\nvoid FUN_1005a92b0(void)\r\n\r\n{\r\n  long unaff_x20;\r\n  \r\n  FUN_10059af58(*(undefined8 *)(unaff_x20 + 0x10));\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_1005a92b0(void);"
+  },
+  "summary": "Pseudo-C for FUN_1005a92b0 from the Deep engine (10 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1005a92b0"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

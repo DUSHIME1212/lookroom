@@ -1,0 +1,45 @@
+{
+  "id": "ev_f8ea35ac824819df9108963386562beb0074703025c7ac27d98ff5fe07258b6d",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x100f4e088"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100f4e088",
+    "function": "FUN_100f4e088",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_retain_x21 replaced with injection: _objc_retain_fixup */\r\n\r\nvoid FUN_100f4e088(undefined8 *param_1,undefined8 param_2,long param_3)\r\n\r\n{\r\n  ulong uVar1;\r\n  undefined *puVar2;\r\n  undefined *puVar3;\r\n  undefined *puVar4;\r\n  undefined *puVar5;\r\n  long lVar6;\r\n  byte *pbVar7;\r\n  undefined *local_78;\r\n  undefined8 local_70;\r\n  undefined8 uStack_68;\r\n  undefined8 local_60;\r\n  undefined8 uStack_58;\r\n  undefined8 uStack_50;\r\n  undefined8 uStack_48;\r\n  \r\n  lVar6 = *(long *)(param_3 + 0x10);\r\n  pbVar7 = (byte *)(param_3 + 0x20);\r\n  do {\r\n    if (lVar6 == 0) {\r\n      puVar2 = &DAT_1017ef478;\r\n      FUN_100005318(&DAT_1017ef478,&DAT_101241f68);\r\n      puVar3 = puVar2;\r\n      FUN_100f523f4();\r\n      puVar4 = &DAT_1017eeb30;\r\n      local_78 = puVar3;\r\n      FUN_100005318(&DAT_1017eeb30,&DAT_101241620);\r\n      puVar3 = &DAT_1017ef488;\r\n      FUN_100005eb0(&DAT_1017ef488,&DAT_1017ef478,&DAT_101241f68,\r\n                    &TargetProtocolConformanceDescriptor_101242e14);\r\n      puVar5 = &DAT_1017ef490;\r\n      FUN_100005eb0(&DAT_1017ef490,&DAT_1017ef478,&DAT_101241f68,\r\n                    &TargetProtocolConformanceDescriptor_101242e30);\r\n      FUN_100f52700(&local_70,&local_78,puVar4,puVar2,puVar3,puVar5);\r\n      goto LAB_100f4e18c;\r\n    }\r\n    uVar1 = (ulong)*pbVar7;\r\n    FUN_100f44424(uVar1,0xb9);\r\n    lVar6 = lVar6 + -1;\r\n    pbVar7 = pbVar7 + 1;\r\n  } while ((uVar1 & 1) == 0);\r\n  FUN_100e7dba0(0);\r\n  FUN_100f52760(&local_70);\r\nLAB_100f4e18c:\r\n  param_1[1] = uStack_68;\r\n  *param_1 = local_70;\r\n  param_1[3] = uStack_58;\r\n  param_1[2] = local_60;\r\n  param_1[5] = uStack_48;\r\n  param_1[4] = uStack_50;\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_100f4e088(undefined8 *param_1,undefined8 param_2,long param_3);"
+  },
+  "summary": "Pseudo-C for FUN_100f4e088 from the Deep engine (58 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100f4e088"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

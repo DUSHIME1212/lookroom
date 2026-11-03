@@ -1,0 +1,38 @@
+{
+  "id": "ev_4fdb71e0276752d8e8eae04e0d00ccc143231d2e4a0a1a7c59600936a886416d",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_find",
+  "params": {
+    "address": "0x100553f6c"
+  },
+  "result": {
+    "address": "0x100553f6c",
+    "entry": "0x100553e94",
+    "function": "sub_100553e94",
+    "offset": 216
+  },
+  "summary": "0x100553f6c is inside sub_100553e94 (+0xd8).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100553f6c"
+    }
+  ],
+  "links": []
+}

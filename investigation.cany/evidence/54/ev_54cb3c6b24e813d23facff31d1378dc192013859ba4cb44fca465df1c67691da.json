@@ -1,0 +1,46 @@
+{
+  "id": "ev_54cb3c6b24e813d23facff31d1378dc192013859ba4cb44fca465df1c67691da",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_data_show",
+  "params": {
+    "address": "0x1011a8990",
+    "type": "f64"
+  },
+  "result": {
+    "address": "0x1011a8990",
+    "name": null,
+    "references_to": 51,
+    "section": "__const",
+    "type": "f64",
+    "value": "0.8"
+  },
+  "summary": "0x1011a8990 looks like f64.",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "no_type_recovery",
+      "message": "the clean-room engine doesn't recover declared types; this reads the bytes and infers what they look like"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1011a8990"
+    }
+  ],
+  "links": []
+}

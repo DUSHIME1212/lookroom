@@ -1,0 +1,45 @@
+{
+  "id": "ev_f780eb4df1fa51f2708456b44f3497cc2f52c2aeb3768a11a4cde2183aea0939",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x1005ee2d0"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x1005ee2d0",
+    "function": "FUN_1005ee2d0",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_opt_self replaced with injection: _objc_retain_fixup */\r\n/* WARNING: Function: _objc_retainAutoreleasedReturnValue replaced with injection:\r\n   _objc_retain_fixup */\r\n/* WARNING: Function: _objc_release_x23 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_release_x19 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee450) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee4bc) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee4d4) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee4d8) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee530) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee7e8) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee548) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee5ac) */\r\n/* WARNING: Removing unreachable block (ram,0x0001005ee324) */\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_1005ee2d0(void)\r\n\r\n{\r\n  char *pcVar1;\r\n  undefined1 uVar2;\r\n  int iVar3;\r\n  code *pcVar4;\r\n  undefined8 uVar5;\r\n  undefined8 uVar6;\r\n  undefined8 uVar7;\r\n  undefined *puVar8;\r\n  undefined *puVar9;\r\n  long *plVar10;\r\n  long lVar11;\r\n  undefined8 uVar12;\r\n  ulong uVar13;\r\n  long lVar14;\r\n  ulong uVar15;\r\n  undefined8 uVar16;\r\n  ulong *puVar17;\r\n  ulong uVar18;\r\n  long unaff_x22;\r\n  ulong uVar19;\r\n  ulong uVar20;\r\n  undefined8 uVar21;\r\n  ulong uVar22;\r\n  long lVar23;\r\n  \r\n  FUN_1005e6230(*(undefined8 *)(unaff_x22 + 0x90),0x7365725072657355,0xec0000002f737465,9);\r\n  *(undefined8 *)(unaff_x22 + 0x28) = 0x746c694672657375;\r\n  uVar7 = *(undefined8 *)(unaff_x22 + 0x88);\r\n  lVar14 = *(long *)(unaff_x22 + 0x68);\r\n  uVar6 = *(undefined8 *)(unaff_x22 + 0x70);\r\n  uVar21 = *(undefined8 *)(unaff_x22 + 0x60);\r\n  *(undefined8 *)(unaff_x22 + 0x30) = 0xef6e6f736a2e7265;\r\n  uVar5 = uVar6;\r\n  (**(code **)(lVar14 + 0x68))\r\n            (uVar6,*(undefined4 *)\r\n                    PTR___s10Foundation3URLV13DirectoryHintO13inferFromPathyA2EmFWC_1015f8a10,uVar21\r\n            );\r\n  FUN_100034b54();\r\n  __s10Foundation3URLV9appending4path13directoryHintACx_AC09DirectoryF0OtSyRzlF\r\n            (uVar7,(undefined8 *)(unaff_x22 + 0x28),uVar6,PTR___sSSN_1015ff0e8,uVar5);\r\n  (**(code **)(lVar14 + 8))(uVar6);\r\n  uVar6 = 1;\r\n  __s10Foundation3URLV4path14percentEncodedSSSb_tF(1);\r\n  uVar7 = uVar6;\r\n  FUN_10007b340();\r\n  FUN_100633c84(unaff_x22 + 0x38,uVar6,uVar21,&DAT_101638b50,uVar7);\r\n  uVar16 = *(undefined8 *)(unaff_x22 + 0x38);\r\n  uVar5 = uVar16;\r\n  FUN_1006373e8();\r\n  uVar7 = 0;\r\n  __s10Foundation11JSONDecoderCMa();\r\n  _swift_allocObject();\r\n  __s10Foundation11JSONDecoderCACycfc();\r\n  puVar8 = &DAT_1017a6ae0;\r\n  FUN_100005318(&DAT_1017a6ae0,&DAT_1011dab90);\r\n  puVar9 = puVar8;\r\n  FUN_10007b380();\r\n  __s10Foundation11JSONDecoderC6decode_4fromxxm_AA4DataVtKSeRzlFTj\r\n            (unaff_x22 + 0x40,puVar8,uVar5,uVar21,puVar8,puVar9);\r\n  _swift_release(uVar7);\r\n  uVar18 = *(ulong *)(unaff_x22 + 0x40);\r\n  uVar19 = *(ulong *)(uVar18 + 0x10);\r\n  _swift_bridgeObjectRetain(uVar18);\r\n  uVar6 = ram0x0001011dd028;\r\n  uVar7 = s_0User_Filters_1011dd020._0_8_;\r\n  uVar13 = uVar18;\r\n  if (uVar19 != 0) {\r\n    uVar20 = 0;\r\n    lVar14 = *(long *)(unaff_x22 + 0x50);\r\n    do {\r\n      if (*(ulong *)(uVar18 + 0x10) <= uVar20) {\r\n                    /* WARNING: Does not return */\r\n        pcVar4 = (code *)SoftwareBreakpoint(1,0x1005ee7c8);\r\n        (*pcVar4)();\r\n      }\r\n      puVar17 = *(ulong **)(unaff_x22 + 0x58);\r\n      lVar11 = 0;\r\n      FUN_10055da0c();\r\n      uVar15 = (ulong)*(byte *)(*(long *)(lVar11 + -8) + 0x50);\r\n      uVar22 = uVar15 + 0x20 & (uVar15 ^ 0xffffffffffffffff);\r\n      lVar23 = *(long *)(*(long *)(lVar11 + -8) + 0x48) * uVar20;\r\n      iVar3 = *(int *)(lVar14 + 0x30);\r\n      *puVar17 = uVar20;\r\n      FUN_1000352f8(uVar18 + uVar22 + lVar23,(long)puVar17 + (long)iVar3,FUN_10055da0c);\r\n      uVar15 = uVar13;\r\n      _swift_isUniquelyReferenced_nonNull_native();\r\n      if ((uVar15 & 1) == 0) {\r\n        FUN_1005c6948();\r\n      }\r\n      if (*(ulong *)(uVar13 + 0x10) <= uVar20) {\r\n                    /* WARNING: Does not return */\r\n        pcVar4 = (code *)SoftwareBreakpoint(1,0x1005ee7cc);\r\n        (*pcVar4)();\r\n      }\r\n      lVar23 = uVar13 + uVar22 + lVar23;\r\n      pcVar1 = (char *)(lVar23 + *(int *)(lVar11 + 0x28));\r\n      uVar12 = *(undefined8 *)(pcVar1 + 8);\r\n      *(undefined8 *)(pcVar1 + 8) = uVar6;\r\n      *(undefined8 *)pcVar1 = uVar7;\r\n      _swift_bridgeObjectRelease(uVar12);\r\n      if (*(ulong *)(uVar13 + 0x10) <= uVar20) {\r\n                    /* WARNING: Does not return */\r\n        pcVar4 = (code *)SoftwareBreakpoint(1,0x1005ee7d0);\r\n        (*pcVar4)();\r\n      }\r\n      uVar20 = uVar20 + 1;\r\n      uVar12 = *(undefined8 *)(unaff_x22 + 0x58);\r\n      *(undefined1 *)(lVar23 + *(int *)(lVar11 + 0x2c)) = 1;\r\n      FUN_1000374ac(uVar12,&DAT_1017a7ce0,&DAT_1011dd070);\r\n    } while (uVar19 != uVar20);\r\n  }\r\n  FUN_100034964(uVar5,uVar21);\r\n  _swift_release(uVar16);\r\n  _swift_bridgeObjectRelease(uVar18);\r\n  *(ulong *)(unaff_x22 + 0xb0) = uVar13;\r\n  if (DAT_1017a7390 != -1) {\r\n    _swift_once(&DAT_1017a7390,FUN_1005b5d88);\r\n  }\r\n  uVar7 = DAT_1018c3020;\r\n  puVar8 = &DAT_1011dd078;\r\n  _swift_getKeyPath(&DAT_1011dd078);\r\n  puVar9 = &DAT_1011dd0a0;\r\n  _swift_getKeyPath(&DAT_1011dd0a0);\r\n  _swift_retain(uVar7);\r\n  __s7Combine9PublishedV18_enclosingInstance7wrapped7storagexqd___s24ReferenceWritableKeyPathCyqd__xGAHyqd__ACyxGGtcRld__CluigZ\r\n            (unaff_x22 + 200);\r\n  _swift_release(uVar7);\r\n  _swift_release(puVar9);\r\n  _swift_release(puVar8);\r\n  plVar10 = (long *)(ulong)DAT_1011a8e14;\r\n  lVar14 = (long)DAT_1011a8e10;\r\n  uVar2 = *(undefined1 *)(unaff_x22 + 200);\r\n  _swift_task_alloc();\r\n  *(long **)(unaff_x22 + 0xb8) = plVar10;\r\n  *plVar10 = unaff_x22;\r\n  plVar10[1] = (long)FUN_1005ee800;\r\n  (*(code *)((long)&DAT_1011a8e10 + lVar14))(uVar2,0,0);\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_1005ee2d0(void);"
+  },
+  "summary": "Pseudo-C for FUN_1005ee2d0 from the Deep engine (160 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1005ee2d0"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

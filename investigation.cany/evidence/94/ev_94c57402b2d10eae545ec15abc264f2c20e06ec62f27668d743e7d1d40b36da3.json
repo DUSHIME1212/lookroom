@@ -1,0 +1,77 @@
+{
+  "id": "ev_94c57402b2d10eae545ec15abc264f2c20e06ec62f27668d743e7d1d40b36da3",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_functions_decompile",
+  "params": {
+    "addresses": [
+      "0x100f45280",
+      "0x100f45618",
+      "0x100f4e088",
+      "0x100e97020",
+      "0x100e9798c",
+      "0x100e8fddc"
+    ]
+  },
+  "result": {
+    "failed": 6,
+    "items": [
+      {
+        "error": "No function named or at 0x100f45280",
+        "input": "0x100f45280",
+        "ok": false
+      },
+      {
+        "error": "No function named or at 0x100f45618",
+        "input": "0x100f45618",
+        "ok": false
+      },
+      {
+        "error": "No function named or at 0x100f4e088",
+        "input": "0x100f4e088",
+        "ok": false
+      },
+      {
+        "error": "No function named or at 0x100e97020",
+        "input": "0x100e97020",
+        "ok": false
+      },
+      {
+        "error": "No function named or at 0x100e9798c",
+        "input": "0x100e9798c",
+        "ok": false
+      },
+      {
+        "error": "No function named or at 0x100e8fddc",
+        "input": "0x100e8fddc",
+        "ok": false
+      }
+    ],
+    "succeeded": 0
+  },
+  "summary": "Decompiled 0 of 6 functions.",
+  "confidence": "inferred",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "pseudo_code_inferred",
+      "message": "pseudo-C from the clean-room lifter is register-level and approximate"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 6,
+    "total": 6
+  },
+  "locations": [],
+  "links": []
+}

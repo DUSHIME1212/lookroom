@@ -1,0 +1,7 @@
+# Build output: 3 GB here, and every machine makes its own.
+/target/
+/dist/
+# Local screenshots from testing the app.
+/shots/
+# Hallmark's working files, if it is ever run here.
+/.hallmark/

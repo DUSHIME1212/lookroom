@@ -1,0 +1,224 @@
+{
+  "id": "ev_b22ef0a28efddf5af296bb2e915eb40070e31b3c683ae2b925fd7cf8238c4726",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 30,
+    "mode": "literal",
+    "offset": 0,
+    "pattern": "RenderPipeline"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011ce830",
+        "references": [],
+        "section": "__const",
+        "text": "LayeredRenderPipeline"
+      },
+      {
+        "address": "0x1011d2230",
+        "references": [],
+        "section": "__const",
+        "text": "RenderPipelineType"
+      },
+      {
+        "address": "0x101241f28",
+        "references": [],
+        "section": "__const",
+        "text": "RenderPipeline"
+      },
+      {
+        "address": "0x1012429b0",
+        "references": [],
+        "section": "__const",
+        "text": "RenderPipelineBaselineSupport"
+      },
+      {
+        "address": "0x101397b40",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "mainRenderPipeline"
+      },
+      {
+        "address": "0x101398aa0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "layerRenderPipeline"
+      },
+      {
+        "address": "0x10139aed0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_renderPipelineContext"
+      },
+      {
+        "address": "0x10144db10",
+        "references": [],
+        "section": "__cstring",
+        "text": "RenderPipeline.render returned nil for "
+      },
+      {
+        "address": "0x10144dd30",
+        "references": [],
+        "section": "__cstring",
+        "text": "⚠️ [RenderPipeline:"
+      },
+      {
+        "address": "0x10144dda0",
+        "references": [],
+        "section": "__cstring",
+        "text": "RenderPipeline.render returned nil"
+      },
+      {
+        "address": "0x101459290",
+        "references": [],
+        "section": "__cstring",
+        "text": "MTIRenderPipelineKernel.m"
+      },
+      {
+        "address": "0x1014592aa",
+        "references": [],
+        "section": "__cstring",
+        "text": "count <= MTIRenderPipelineMaximumColorAttachmentCount"
+      },
+      {
+        "address": "0x1014d2a80",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC7PeekLUT21LayeredRenderPipeline"
+      },
+      {
+        "address": "0x1014dbdd0",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC12GradingTools14RenderPipeline"
+      },
+      {
+        "address": "0x1014dcb4e",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTILayerRenderPipelineKey"
+      },
+      {
+        "address": "0x1014dcd2a",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIRenderPipeline"
+      },
+      {
+        "address": "0x1014dcd3c",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIRenderPipelineKernelConfiguration"
+      },
+      {
+        "address": "0x1014dcd61",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIRenderPipelineKernel"
+      },
+      {
+        "address": "0x1014dedc7",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipelineKernel\",R,N"
+      },
+      {
+        "address": "0x1014e22b2",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipeline\",R,C,N,V_passthroughRenderPipeline"
+      },
+      {
+        "address": "0x1014e2308",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipeline\",R,C,N,V_unpremultiplyAlphaRenderPipeline"
+      },
+      {
+        "address": "0x1014e2357",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipelineKernel\",R,N,V_kernel"
+      },
+      {
+        "address": "0x1014e25ec",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTLRenderPipelineReflection\",R,N,V_reflection"
+      },
+      {
+        "address": "0x1014e34b8",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "newRenderPipelineStateWithDescriptor:options:completionHandler:"
+      },
+      {
+        "address": "0x1014e3860",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"NSMutableDictionary\",R,N,V_renderPipelineCache"
+      },
+      {
+        "address": "0x1014e7b53",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "alphaToOneInPlaceRenderPipeline"
+      },
+      {
+        "address": "0x1014e7d6a",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"<MTLRenderPipelineState>\",R,N,V_state"
+      },
+      {
+        "address": "0x1014e9780",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipeline\",R,C,N,V_alphaToOneInPlaceRenderPipeline"
+      },
+      {
+        "address": "0x1014e97ce",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipeline\",R,C,N,V_premultiplyAlphaInPlaceRenderPipeline"
+      },
+      {
+        "address": "0x1014e9832",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipeline\",R,N"
+      }
+    ],
+    "total": 72
+  },
+  "summary": "72 strings match \"RenderPipeline\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 30,
+    "total": 72,
+    "next_offset": 30
+  },
+  "locations": [],
+  "links": []
+}

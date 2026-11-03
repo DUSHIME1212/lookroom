@@ -1,0 +1,45 @@
+{
+  "id": "ev_e5af05079db770724c1570a92446ea582c6a34c8905319e1906af9f9ee2ca9b9",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10059adac"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x10059ac84",
+    "function": "FUN_10059ac84",
+    "pseudo_code": "\r\nvoid FUN_10059ac84(undefined8 param_1,ulong param_2)\r\n\r\n{\r\n  undefined1 *puVar1;\r\n  long lVar2;\r\n  undefined *puVar3;\r\n  undefined8 *puVar4;\r\n  undefined *puVar5;\r\n  undefined *puVar6;\r\n  undefined8 uVar7;\r\n  undefined8 uVar8;\r\n  uint uVar9;\r\n  undefined1 *puVar10;\r\n  long extraout_x8;\r\n  long extraout_x8_00;\r\n  ulong uVar11;\r\n  long lVar12;\r\n  undefined8 auStack_110 [10];\r\n  undefined1 auStack_c0 [12];\r\n  uint local_b4;\r\n  undefined8 local_b0;\r\n  undefined *local_a8;\r\n  long local_a0;\r\n  undefined8 local_98;\r\n  undefined4 local_90 [2];\r\n  undefined8 local_88;\r\n  undefined8 local_80;\r\n  undefined8 uStack_78;\r\n  ulong local_70;\r\n  \r\n  lVar2 = 0;\r\n  local_98 = param_1;\r\n  __s7SwiftUI21PinnedScrollableViewsVMa();\r\n  puVar5 = PTR___s7SwiftUI21PinnedScrollableViewsVMa_1015fce80;\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(*(long *)(lVar2 + -8) + 0x40));\r\n  puVar10 = auStack_c0 + -(extraout_x8 + 0xfU & 0xfffffffffffffff0);\r\n  puVar3 = &DAT_1017a66f0;\r\n  FUN_100005318(&DAT_1017a66f0,&DAT_1011db478);\r\n  local_a0 = *(long *)(puVar3 + -8);\r\n  local_a8 = puVar3;\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(long *)(local_a0 + 0x40) + 0xfU & 0xfffffffffffffff0);\r\n  lVar12 = (long)puVar10 - extraout_x8_00;\r\n  local_70 = param_2;\r\n  __s7SwiftUI17VerticalAlignmentV6centerACvgZ();\r\n  local_90[0] = 0;\r\n  puVar4 = &DAT_101789b40;\r\n  FUN_1000057bc(&DAT_101789b40,puVar5,\r\n                PTR___s7SwiftUI21PinnedScrollableViewsVs9OptionSetAAMc_1015fce98);\r\n  __ss9OptionSetP8rawValuex03RawD0Qz_tcfCTj(puVar10,local_90,lVar2,puVar4);\r\n  puVar5 = &DAT_1017a6718;\r\n  FUN_100005318(&DAT_1017a6718,&DAT_1011db488);\r\n  puVar6 = puVar5;\r\n  FUN_1005a92b8();\r\n  uVar9 = 1;\r\n  __s7SwiftUI10LazyHStackV9alignment7spacing11pinnedViews7contentACyxGAA17VerticalAlignmentV_12CoreGraphics7CGFloatVSgAA016PinnedScrollableH0VxyXEtcfC\r\n            (lVar12,puVar3,0,1,puVar10,FUN_1005a92b0,&local_80,puVar5,puVar6);\r\n  uVar7 = 0x5020656d616e6552;\r\n  uVar8 = 0xed00007465736572;\r\n  __s7SwiftUI18LocalizedStringKeyV13stringLiteralACSS_tcfC(0x5020656d616e6552,0xed00007465736572);\r\n  lVar2 = 0;\r\n  local_b4 = uVar9;\r\n  local_b0 = uVar7;\r\n  FUN_1005a8dac();\r\n  puVar1 = (undefined1 *)(param_2 + (long)*(int *)(lVar2 + 0x24));\r\n  local_88 = *(undefined8 *)(puVar1 + 8);\r\n  local_90[0] = CONCAT31(local_90[0]._1_3_,*puVar1);\r\n  FUN_100005318(&DAT_101788270,&DAT_1011a9650);\r\n  __s7SwiftUI5StateV14projectedValueAA7BindingVyxGvg(&local_80);\r\n  uVar11 = local_70 & 0xff;\r\n  puVar3 = &DAT_1017a66f8;\r\n  local_70 = param_2;\r\n  FUN_100005318(&DAT_1017a66f8,&DAT_1011db480);\r\n  puVar5 = &DAT_1017a6700;\r\n  FUN_100005eb0(&DAT_1017a6700,&DAT_1017a66f0,&DAT_1011db478,\r\n                PTR___s7SwiftUI10LazyHStackVyxGAA4ViewAAMc_1015fbb50);\r\n  puVar6 = &DAT_1017a6708;\r\n  FUN_100005eb0(&DAT_1017a6708,&DAT_1017a66f8,&DAT_1011db480,\r\n                PTR___s7SwiftUI9TupleViewVyxGAA0D0AAMc_1015fe848);\r\n  *(undefined **)(lVar12 + -0x18) = puVar6;\r\n  *(undefined **)(lVar12 + -0x10) = PTR___s7SwiftUI4TextVAA4ViewAAWP_1015fd828;\r\n  *(undefined **)(lVar12 + -0x20) = puVar5;\r\n  *(undefined **)(lVar12 + -0x30) = puVar3;\r\n  *(undefined **)(lVar12 + -0x28) = PTR___s7SwiftUI4TextVN_1015fd838;\r\n  puVar3 = local_a8;\r\n  *(undefined8 *)(lVar12 + -0x40) = 0;\r\n  *(undefined **)(lVar12 + -0x38) = puVar3;\r\n  *(undefined8 **)(lVar12 + -0x50) = &local_80;\r\n  *(code **)(lVar12 + -0x48) = FUN_10059d11c;\r\n  __s7SwiftUI4ViewPAAE5alert_11isPresented7actions7messageQrAA18LocalizedStringKeyV_AA7BindingVySbGqd__yXEqd_0_yXEtAaBRd__AaBRd_0_r0_lF\r\n            (local_98,local_b0,uVar8,local_b4 & 1,puVar10,local_80,uStack_78,uVar11,FUN_1005a9348);\r\n  _swift_bridgeObjectRelease(puVar10);\r\n  _swift_bridgeObjectRelease(uVar8);\r\n  _swift_release(uStack_78);\r\n  _swift_release(local_80);\r\n  (**(code **)(local_a0 + 8))(lVar12,puVar3);\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_10059ac84(undefined8 param_1,ulong param_2);"
+  },
+  "summary": "Pseudo-C for FUN_10059ac84 from the Deep engine (99 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10059ac84"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

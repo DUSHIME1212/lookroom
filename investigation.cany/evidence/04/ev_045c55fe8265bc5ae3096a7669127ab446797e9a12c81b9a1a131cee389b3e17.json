@@ -1,0 +1,49 @@
+{
+  "id": "ev_045c55fe8265bc5ae3096a7669127ab446797e9a12c81b9a1a131cee389b3e17",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_callers_list",
+  "params": {
+    "function": "0x10059d11c"
+  },
+  "result": {
+    "address_taken": 1,
+    "callers": [],
+    "entry": "0x10059d11c",
+    "function": "sub_10059d11c"
+  },
+  "summary": "sub_10059d11c is called from 0 places and its address is taken 1 times.",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "direct_calls_only",
+      "message": "callers that reach it through function pointers are not listed (see address_taken)"
+    },
+    {
+      "code": "no_static_callers",
+      "message": "no direct callers found; it may be an entry point, a callback or only reached indirectly"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 0,
+    "total": 0
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10059d11c"
+    }
+  ],
+  "links": []
+}

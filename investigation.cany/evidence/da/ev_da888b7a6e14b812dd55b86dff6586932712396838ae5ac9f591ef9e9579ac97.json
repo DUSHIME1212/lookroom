@@ -1,0 +1,40 @@
+{
+  "id": "ev_da888b7a6e14b812dd55b86dff6586932712396838ae5ac9f591ef9e9579ac97",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "apple_swift_types_list",
+  "params": {
+    "category": null,
+    "pattern": "Preset"
+  },
+  "result": {
+    "counts": {},
+    "symbols_examined": 5877,
+    "types": {}
+  },
+  "summary": "0 Swift symbols describing 0 types.",
+  "confidence": "inferred",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "mangling_heuristic",
+      "message": "types are classified from the mangled names without a full demangler; nested generic types may be misfiled"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [],
+  "links": []
+}

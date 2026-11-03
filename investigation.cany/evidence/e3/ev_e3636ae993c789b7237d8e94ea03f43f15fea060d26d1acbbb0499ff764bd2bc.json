@@ -1,0 +1,75 @@
+{
+  "id": "ev_e3636ae993c789b7237d8e94ea03f43f15fea060d26d1acbbb0499ff764bd2bc",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_functions_search",
+  "params": {
+    "case_sensitive": false,
+    "limit": 120,
+    "mode": "literal",
+    "offset": 0,
+    "pattern": "preset"
+  },
+  "result": {
+    "functions": 0,
+    "imports": 5,
+    "matches": [
+      {
+        "address": "0x1015fa260",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+        "name": "_AVAssetExportPresetAppleProRes422LPCM"
+      },
+      {
+        "address": "0x1015fa268",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+        "name": "_AVAssetExportPresetAppleProRes4444LPCM"
+      },
+      {
+        "address": "0x1015fa270",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+        "name": "_AVAssetExportPresetHEVCHighestQuality"
+      },
+      {
+        "address": "0x1015fa278",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+        "name": "_AVAssetExportPresetHighestQuality"
+      },
+      {
+        "address": "0x1015fa280",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/AVFoundation.framework/AVFoundation",
+        "name": "_AVAssetExportPresetPassthrough"
+      }
+    ],
+    "total": 5
+  },
+  "summary": "0 functions and 5 imports match \"preset\".",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "function_limit",
+      "message": "function discovery stopped after 50000 functions; the function list is incomplete and some code is not analysed"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 5,
+    "total": 5
+  },
+  "locations": [],
+  "links": []
+}

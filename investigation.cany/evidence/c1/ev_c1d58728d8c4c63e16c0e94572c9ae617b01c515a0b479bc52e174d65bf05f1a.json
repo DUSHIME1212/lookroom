@@ -1,0 +1,298 @@
+{
+  "id": "ev_c1d58728d8c4c63e16c0e94572c9ae617b01c515a0b479bc52e174d65bf05f1a",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 40,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "MTIColorLookup|MTICLAHE|MTIVibrance|MTIColorMatrix|MTIMultilayer|MTIExposure|HighlightShadow|WhiteBalance|temperatureAndTint|adjustingExposure|applyFilters|applyLUT|buildFilterChain|filterChain|renderPipeline"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011ce830",
+        "references": [],
+        "section": "__const",
+        "text": "LayeredRenderPipeline"
+      },
+      {
+        "address": "0x1011d2230",
+        "references": [],
+        "section": "__const",
+        "text": "RenderPipelineType"
+      },
+      {
+        "address": "0x101238970",
+        "references": [],
+        "section": "__const",
+        "text": "C7HighlightShadowTintFilter"
+      },
+      {
+        "address": "0x101241f28",
+        "references": [],
+        "section": "__const",
+        "text": "RenderPipeline"
+      },
+      {
+        "address": "0x1012429b0",
+        "references": [],
+        "section": "__const",
+        "text": "RenderPipelineBaselineSupport"
+      },
+      {
+        "address": "0x101243292",
+        "references": [],
+        "section": "__const",
+        "text": "MTIColorMatrix"
+      },
+      {
+        "address": "0x10129f62c",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So17MTIExposureFilterC"
+      },
+      {
+        "address": "0x101349598",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So20MTIColorLookupFilterC"
+      },
+      {
+        "address": "0x10138b0b2",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So17MTIVibranceFilterC"
+      },
+      {
+        "address": "0x10138c256",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So30MTIMultilayerCompositingFilterC"
+      },
+      {
+        "address": "0x101390860",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "highlightShadows"
+      },
+      {
+        "address": "0x101397b40",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "mainRenderPipeline"
+      },
+      {
+        "address": "0x101398aa0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "layerRenderPipeline"
+      },
+      {
+        "address": "0x10139aed0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_renderPipelineContext"
+      },
+      {
+        "address": "0x1014137b0",
+        "references": [
+          {
+            "from": "0x10053aaa4",
+            "function": "sub_10053aa84"
+          }
+        ],
+        "section": "__cstring",
+        "text": "CIHighlightShadowAdjust"
+      },
+      {
+        "address": "0x101413810",
+        "references": [
+          {
+            "from": "0x10053a814",
+            "function": "sub_10053a7f4"
+          },
+          {
+            "from": "0x10053a95c",
+            "function": "sub_10053a93c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "CITemperatureAndTint"
+      },
+      {
+        "address": "0x10144c5d0",
+        "references": [],
+        "section": "__cstring",
+        "text": "C7HighlightShadowTint"
+      },
+      {
+        "address": "0x10144db10",
+        "references": [],
+        "section": "__cstring",
+        "text": "RenderPipeline.render returned nil for "
+      },
+      {
+        "address": "0x10144dd30",
+        "references": [],
+        "section": "__cstring",
+        "text": "⚠️ [RenderPipeline:"
+      },
+      {
+        "address": "0x10144dda0",
+        "references": [],
+        "section": "__cstring",
+        "text": "RenderPipeline.render returned nil"
+      },
+      {
+        "address": "0x10144e1f7",
+        "references": [],
+        "section": "__cstring",
+        "text": "\n//\n//  MTIShader.h\n//  Pods\n//\n//  Created by YuAo on 02/07/2017.\n//\n//\n\n#ifndef MTIShaderLib_h\n#define MTIShaderLib_h\n\n#ifdef __METAL_VERSION__\n\n#include <metal_stdlib>\n\nusing namespace metal;\n\n#endif /* __METAL_VERSION__ */\n\n#include <simd/simd.h>\n\nstruct MTIVertex {\n    vector_float4 position;\n    vector_float2 textureCoordinate;\n};\ntypedef struct MTIVertex MTIVertex;\n\nstruct MTIColorMatrix {\n    matrix_float4x4 matrix;\n    vector_float4 bias;\n};\ntypedef struct MTIColorMatrix MTIColorMatrix;\n\nstruct MTICLAHELUTGeneratorInputParameters {\n    uint histogramBins;\n    uint clipLimit;\n    uint totalPixelCountPerTile;\n    uint numberOfLUTs;\n};\ntypedef struct MTICLAHELUTGeneratorInputParameters MTICLAHELUTGeneratorInputParameters;\n\nstruct MTIMultilayerCompositingLayerShadingParameters {\n    vector_float2 canvasSize;\n    \n    float opacity;\n    \n    int maskComponent;\n    bool maskHasPremultipliedAlpha;\n    bool maskUsesOneMinusValue;\n    \n    int compositingMaskComponent;\n    bool compositingMaskHasPremultipliedAlpha;\n    bool compositingMaskUsesOneMinusValue;\n    \n    vector_float4 tintColor;\n    vector_float4 cornerRadius;\n    \n    vector_float2 layerSize;\n};\ntypedef struct MTIMultilayerCompositingLayerShadingParameters MTIMultilayerCompositingLayerShadingParameters;\n\nstruct MTIMultilayerCompositingLayerVertex {\n    vector_float4 position;\n    vector_float2 textureCoordinate;\n    vector_float2 positionInLayer;\n};\ntypedef struct MTIMultilayerCompositingLayerVertex MTIMultilayerCompositingLayerVertex;\n\n\n#ifdef __METAL_VERSION__\n\nnamespace metalpetal {\n    \n    typedef ::MTIVertex VertexIn;\n    \n    typedef struct {\n        float4 position [[ position ]];\n        float2 textureCoordinate;\n    } VertexOut;\n\n    typedef struct {\n        float4 position [[ position ]];\n        float2 textureCoordinate;\n        float2 positionInLayer;\n    } MTIMultilayerCompositingLayerVertexOut;\n    \n    // GLSL mod func for metal\n    template <typename T, typename _E = typename enable_if<is_floating_point<typename make_scalar<T>::type>::value>::type>\n    METAL_FUNC T mod(T x, T y) {\n        return x - y * floor(x/y);\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T sRGBToLinear(T c) {\n        return (c <= 0.04045f) ? c / 12.92f : powr((c + 0.055f) / 1.055f, 2.4f);\n    }\n    \n    METAL_FUNC float3 sRGBToLinear(float3 c) {\n        return float3(sRGBToLinear(c.r), sRGBToLinear(c.g), sRGBToLinear(c.b));\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T linearToSRGB(T c) {\n        return (c < 0.0031308f) ? (12.92f * c) : (1.055f * powr(c, 1.f/2.4f) - 0.055f);\n    }\n    \n    METAL_FUNC float3 linearToSRGB(float3 c) {\n        return float3(linearToSRGB(c.r), linearToSRGB(c.g), linearToSRGB(c.b));\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T ITUR709ToLinear(T c) {\n        #if __METAL_IOS__\n        return powr(c, 1.961);\n        #else\n        return c < 0.081 ? 0.222 * c : powr(0.91 * c + 0.09, 2.222);\n        #endif\n    }\n    \n    METAL_FUNC float3 ITUR709ToLinear(float3 c) {\n        return float3(ITUR709ToLinear(c.r), ITUR709ToLinear(c.g), ITUR709ToLinear(c.b));\n    }\n\n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T linearToITUR709(T c) {\n        #if __METAL_IOS__\n        return powr(c, 1.0/1.961);\n        #else\n        return c < 0.018 ? (4.5 * c) : (1.099 * powr(c, 1.0/2.222) - 0.099);\n        #endif\n    }\n    \n    METAL_FUNC float3 linearToITUR709(float3 c) {\n        return float3(linearToITUR709(c.r), linearToITUR709(c.g), linearToITUR709(c.b));\n    }\n    \n    METAL_FUNC float4 unpremultiply(float4 s) {\n        return float4(s.rgb/max(s.a,0.00001), s.a);\n    }\n    \n    METAL_FUNC float4 premultiply(float4 s) {\n        return float4(s.rgb * s.a, s.a);\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    META"
+      },
+      {
+        "address": "0x10145761d",
+        "references": [],
+        "section": "__cstring",
+        "text": "MTICLAHEFilter.m"
+      },
+      {
+        "address": "0x101457b43",
+        "references": [],
+        "section": "__cstring",
+        "text": "MTIColorLookupFilter.m"
+      },
+      {
+        "address": "0x101458edc",
+        "references": [],
+        "section": "__cstring",
+        "text": "MTIMultilayerCompositeKernel.m"
+      },
+      {
+        "address": "0x101459290",
+        "references": [],
+        "section": "__cstring",
+        "text": "MTIRenderPipelineKernel.m"
+      },
+      {
+        "address": "0x1014592aa",
+        "references": [],
+        "section": "__cstring",
+        "text": "count <= MTIRenderPipelineMaximumColorAttachmentCount"
+      },
+      {
+        "address": "0x101459709",
+        "references": [],
+        "section": "__cstring",
+        "text": "\n//\n//  MTIShader.h\n//  Pods\n//\n//  Created by YuAo on 02/07/2017.\n//\n//\n\n#ifndef MTIShaderLib_h\n#define MTIShaderLib_h\n\n#ifdef __METAL_VERSION__\n\n#include <metal_stdlib>\n\nusing namespace metal;\n\n#endif /* __METAL_VERSION__ */\n\n#include <simd/simd.h>\n\nstruct MTIVertex {\n    vector_float4 position;\n    vector_float2 textureCoordinate;\n};\ntypedef struct MTIVertex MTIVertex;\n\nstruct MTIColorMatrix {\n    matrix_float4x4 matrix;\n    vector_float4 bias;\n};\ntypedef struct MTIColorMatrix MTIColorMatrix;\n\nstruct MTICLAHELUTGeneratorInputParameters {\n    uint histogramBins;\n    uint clipLimit;\n    uint totalPixelCountPerTile;\n    uint numberOfLUTs;\n};\ntypedef struct MTICLAHELUTGeneratorInputParameters MTICLAHELUTGeneratorInputParameters;\n\nstruct MTIMultilayerCompositingLayerShadingParameters {\n    vector_float2 canvasSize;\n    \n    float opacity;\n    \n    int maskComponent;\n    bool maskHasPremultipliedAlpha;\n    bool maskUsesOneMinusValue;\n    \n    int compositingMaskComponent;\n    bool compositingMaskHasPremultipliedAlpha;\n    bool compositingMaskUsesOneMinusValue;\n    \n    vector_float4 tintColor;\n    vector_float4 cornerRadius;\n    \n    vector_float2 layerSize;\n};\ntypedef struct MTIMultilayerCompositingLayerShadingParameters MTIMultilayerCompositingLayerShadingParameters;\n\nstruct MTIMultilayerCompositingLayerVertex {\n    vector_float4 position;\n    vector_float2 textureCoordinate;\n    vector_float2 positionInLayer;\n};\ntypedef struct MTIMultilayerCompositingLayerVertex MTIMultilayerCompositingLayerVertex;\n\n\n#ifdef __METAL_VERSION__\n\nnamespace metalpetal {\n    \n    typedef ::MTIVertex VertexIn;\n    \n    typedef struct {\n        float4 position [[ position ]];\n        float2 textureCoordinate;\n    } VertexOut;\n\n    typedef struct {\n        float4 position [[ position ]];\n        float2 textureCoordinate;\n        float2 positionInLayer;\n    } MTIMultilayerCompositingLayerVertexOut;\n    \n    // GLSL mod func for metal\n    template <typename T, typename _E = typename enable_if<is_floating_point<typename make_scalar<T>::type>::value>::type>\n    METAL_FUNC T mod(T x, T y) {\n        return x - y * floor(x/y);\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T sRGBToLinear(T c) {\n        return (c <= 0.04045f) ? c / 12.92f : powr((c + 0.055f) / 1.055f, 2.4f);\n    }\n    \n    METAL_FUNC float3 sRGBToLinear(float3 c) {\n        return float3(sRGBToLinear(c.r), sRGBToLinear(c.g), sRGBToLinear(c.b));\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T linearToSRGB(T c) {\n        return (c < 0.0031308f) ? (12.92f * c) : (1.055f * powr(c, 1.f/2.4f) - 0.055f);\n    }\n    \n    METAL_FUNC float3 linearToSRGB(float3 c) {\n        return float3(linearToSRGB(c.r), linearToSRGB(c.g), linearToSRGB(c.b));\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T ITUR709ToLinear(T c) {\n        #if __METAL_IOS__\n        return powr(c, 1.961);\n        #else\n        return c < 0.081 ? 0.222 * c : powr(0.91 * c + 0.09, 2.222);\n        #endif\n    }\n    \n    METAL_FUNC float3 ITUR709ToLinear(float3 c) {\n        return float3(ITUR709ToLinear(c.r), ITUR709ToLinear(c.g), ITUR709ToLinear(c.b));\n    }\n\n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    METAL_FUNC T linearToITUR709(T c) {\n        #if __METAL_IOS__\n        return powr(c, 1.0/1.961);\n        #else\n        return c < 0.018 ? (4.5 * c) : (1.099 * powr(c, 1.0/2.222) - 0.099);\n        #endif\n    }\n    \n    METAL_FUNC float3 linearToITUR709(float3 c) {\n        return float3(linearToITUR709(c.r), linearToITUR709(c.g), linearToITUR709(c.b));\n    }\n    \n    METAL_FUNC float4 unpremultiply(float4 s) {\n        return float4(s.rgb/max(s.a,0.00001), s.a);\n    }\n    \n    METAL_FUNC float4 premultiply(float4 s) {\n        return float4(s.rgb * s.a, s.a);\n    }\n    \n    template <typename T, typename _E = typename enable_if<is_floating_point<T>::value>::type>\n    META"
+      },
+      {
+        "address": "0x1014d2a80",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC7PeekLUT21LayeredRenderPipeline"
+      },
+      {
+        "address": "0x1014db400",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC12GradingTools27C7HighlightShadowTintFilter"
+      },
+      {
+        "address": "0x1014dbdd0",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC12GradingTools14RenderPipeline"
+      },
+      {
+        "address": "0x1014dc2d3",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTICLAHELUTKernelState"
+      },
+      {
+        "address": "0x1014dc2ea",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTICLAHELUTRecipe"
+      },
+      {
+        "address": "0x1014dc2fc",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTICLAHELUTKernel"
+      },
+      {
+        "address": "0x1014dc318",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTICLAHEFilter"
+      },
+      {
+        "address": "0x1014dc466",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIColorLookupTableInfo"
+      },
+      {
+        "address": "0x1014dc47e",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIColorLookupFilter"
+      },
+      {
+        "address": "0x1014dc493",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIColorMatrixFilter"
+      },
+      {
+        "address": "0x1014dc4a8",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIExposureFilter"
+      },
+      {
+        "address": "0x1014dcb0d",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIMultilayerCompositeKernelConfiguration"
+      },
+      {
+        "address": "0x1014dcb4e",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTILayerRenderPipelineKey"
+      }
+    ],
+    "total": 124
+  },
+  "summary": "124 strings match \"MTIColorLookup|MTICLAHE|MTIVibrance|MTIColorMatrix|MTIMultilayer|MTIExposure|HighlightShadow|WhiteBalance|temperatureAndTint|adjustingExposure|applyFilters|applyLUT|buildFilterChain|filterChain|renderPipeline\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 40,
+    "total": 124,
+    "next_offset": 40
+  },
+  "locations": [],
+  "links": []
+}

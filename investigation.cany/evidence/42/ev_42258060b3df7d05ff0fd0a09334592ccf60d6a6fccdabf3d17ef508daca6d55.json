@@ -1,0 +1,216 @@
+{
+  "id": "ev_42258060b3df7d05ff0fd0a09334592ccf60d6a6fccdabf3d17ef508daca6d55",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_callers_list",
+  "params": {
+    "function": "0x1005a8dac"
+  },
+  "result": {
+    "address_taken": 15,
+    "callers": [
+      {
+        "caller": "0x10000ba64",
+        "name": "sub_10000ba64",
+        "site": "0x10000bd04"
+      },
+      {
+        "caller": "0x1001bb2d0",
+        "name": "sub_1001bb2d0",
+        "site": "0x1001bb3e8"
+      },
+      {
+        "caller": "0x1001e4f54",
+        "name": "sub_1001e4f54",
+        "site": "0x1001e5380"
+      },
+      {
+        "caller": "0x10059a444",
+        "name": "sub_10059a444",
+        "site": "0x10059a500"
+      },
+      {
+        "caller": "0x10059a618",
+        "name": "sub_10059a618",
+        "site": "0x10059a680"
+      },
+      {
+        "caller": "0x10059a848",
+        "name": "sub_10059a848",
+        "site": "0x10059a878"
+      },
+      {
+        "caller": "0x10059ac84",
+        "name": "sub_10059ac84",
+        "site": "0x10059ade8"
+      },
+      {
+        "caller": "0x10059af58",
+        "name": "sub_10059af58",
+        "site": "0x10059af84"
+      },
+      {
+        "caller": "0x10059b184",
+        "name": "sub_10059b184",
+        "site": "0x10059b1c0"
+      },
+      {
+        "caller": "0x10059b8d8",
+        "name": "sub_10059b8d8",
+        "site": "0x10059b948"
+      },
+      {
+        "caller": "0x10059bc60",
+        "name": "sub_10059bc60",
+        "site": "0x10059be38"
+      },
+      {
+        "caller": "0x10059c77c",
+        "name": "sub_10059c77c",
+        "site": "0x10059c858"
+      },
+      {
+        "caller": "0x10059cd9c",
+        "name": "sub_10059cd9c",
+        "site": "0x10059cf00"
+      },
+      {
+        "caller": "0x10059cd9c",
+        "name": "sub_10059cd9c",
+        "site": "0x10059cf64"
+      },
+      {
+        "caller": "0x10059d2d8",
+        "name": "sub_10059d2d8",
+        "site": "0x10059d308"
+      },
+      {
+        "caller": "0x10059d61c",
+        "name": "sub_10059d61c",
+        "site": "0x10059df20"
+      },
+      {
+        "caller": "0x10059e67c",
+        "name": "sub_10059e67c",
+        "site": "0x10059e69c"
+      },
+      {
+        "caller": "0x10059e740",
+        "name": "sub_10059e740",
+        "site": "0x10059e778"
+      },
+      {
+        "caller": "0x10059e8c4",
+        "name": "sub_10059e8c4",
+        "site": "0x10059e920"
+      },
+      {
+        "caller": "0x10059edcc",
+        "name": "sub_10059edcc",
+        "site": "0x10059ee9c"
+      },
+      {
+        "caller": "0x1005a8f18",
+        "name": "sub_1005a8f18",
+        "site": "0x1005a8f5c"
+      },
+      {
+        "caller": "0x1005a9220",
+        "name": "sub_1005a9220",
+        "site": "0x1005a925c"
+      },
+      {
+        "caller": "0x1005a9350",
+        "name": "sub_1005a9350",
+        "site": "0x1005a9378"
+      },
+      {
+        "caller": "0x1005a9624",
+        "name": "sub_1005a9624",
+        "site": "0x1005a9630"
+      },
+      {
+        "caller": "0x1005a9760",
+        "name": "sub_1005a9760",
+        "site": "0x1005a977c"
+      },
+      {
+        "caller": "0x1005a97b8",
+        "name": "sub_1005a97b8",
+        "site": "0x1005a97dc"
+      },
+      {
+        "caller": "0x1005a9844",
+        "name": "sub_1005a9844",
+        "site": "0x1005a9868"
+      },
+      {
+        "caller": "0x1005a9c90",
+        "name": "sub_1005a9c90",
+        "site": "0x1005a9cac"
+      },
+      {
+        "caller": "0x1005a9d0c",
+        "name": "sub_1005a9d0c",
+        "site": "0x1005a9d30"
+      },
+      {
+        "caller": "0x1005aa160",
+        "name": "sub_1005aa160",
+        "site": "0x1005aa174"
+      },
+      {
+        "caller": "0x1005aa8d8",
+        "name": "sub_1005aa8d8",
+        "site": "0x1005aa8fc"
+      },
+      {
+        "caller": "0x1005aad1c",
+        "name": "sub_1005aad1c",
+        "site": "0x1005aad40"
+      },
+      {
+        "caller": "0x1005aadc8",
+        "name": "sub_1005aadc8",
+        "site": "0x1005aae10"
+      },
+      {
+        "caller": "0x1005ab208",
+        "name": "sub_1005ab208",
+        "site": "0x1005ab244"
+      }
+    ],
+    "entry": "0x1005a8dac",
+    "function": "sub_1005a8dac"
+  },
+  "summary": "sub_1005a8dac is called from 34 places and its address is taken 15 times.",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "direct_calls_only",
+      "message": "callers that reach it through function pointers are not listed (see address_taken)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 34,
+    "total": 34
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1005a8dac"
+    }
+  ],
+  "links": []
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev_356872498b3da0178633f4bbf589b5b79864716fc75b6fbdbb255d91a77380ff",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10059f6ec"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x10059f6ec",
+    "function": "FUN_10059f6ec",
+    "pseudo_code": "\r\nvoid FUN_10059f6ec(undefined8 param_1)\r\n\r\n{\r\n  __s7SwiftUI18LocalizedStringKeyV13stringLiteralACSS_tcfC(0x746163696c707544,0xe900000000000065);\r\n  __s7SwiftUI5LabelVA2A4TextVRszAA5ImageVRs_rlE_06systemE0ACyAeGGAA18LocalizedStringKeyV_SStcfC\r\n            (param_1);\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_10059f6ec(undefined8 param_1);"
+  },
+  "summary": "Pseudo-C for FUN_10059f6ec from the Deep engine (10 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10059f6ec"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

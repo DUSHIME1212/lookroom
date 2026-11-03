@@ -1,0 +1,45 @@
+{
+  "id": "ev_997dab5cd475082a9e19907d4f21837ce80ebea4351243f57d7908d6c0c93636",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x1001aad58"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x1001aad58",
+    "function": "FUN_1001aad58",
+    "pseudo_code": "\r\ndouble FUN_1001aad58(double param_1)\r\n\r\n{\r\n  code *pcVar1;\r\n  undefined *puVar2;\r\n  undefined *puVar3;\r\n  undefined8 *puVar4;\r\n  long lVar5;\r\n  long unaff_x20;\r\n  undefined8 uVar6;\r\n  undefined8 uVar7;\r\n  double local_58;\r\n  undefined8 local_50;\r\n  undefined8 local_48;\r\n  \r\n  FUN_1001aaab4();\r\n  lVar5 = *(long *)(unaff_x20 + 0x10);\r\n  if (lVar5 != 0) {\r\n    puVar2 = &DAT_1011b3cc0;\r\n    _swift_getKeyPath(&DAT_1011b3cc0);\r\n    puVar3 = &DAT_1011b3ce8;\r\n    _swift_getKeyPath(&DAT_1011b3ce8);\r\n    _swift_retain(lVar5);\r\n    __s7Combine9PublishedV18_enclosingInstance7wrapped7storagexqd___s24ReferenceWritableKeyPathCyqd__xGAHyqd__ACyxGGtcRld__CluigZ\r\n              (&local_50);\r\n    _swift_release(puVar2);\r\n    _swift_release(puVar3);\r\n    _swift_release(lVar5);\r\n    if (((byte)local_50 & 1) == 0) {\r\n      lVar5 = 0;\r\n      FUN_1001bdda0();\r\n      puVar4 = (undefined8 *)(unaff_x20 + *(int *)(lVar5 + 0x40));\r\n      uVar7 = *puVar4;\r\n      uVar6 = puVar4[1];\r\n      puVar2 = &DAT_1017869e0;\r\n      local_50 = uVar7;\r\n      local_48 = uVar6;\r\n      FUN_100005318(&DAT_1017869e0,&DAT_1011a77d0);\r\n      __s7SwiftUI5StateV12wrappedValuexvg(&local_58);\r\n      if (0.0 < local_58) {\r\n        local_50 = uVar7;\r\n        local_48 = uVar6;\r\n        __s7SwiftUI5StateV12wrappedValuexvg(&local_58,puVar2);\r\n        param_1 = local_58;\r\n      }\r\n    }\r\n    return param_1;\r\n  }\r\n  uVar7 = *(undefined8 *)(unaff_x20 + 0x18);\r\n  uVar6 = 0;\r\n  FUN_1003b5b78(0);\r\n  puVar4 = &DAT_101787300;\r\n  FUN_1000057bc(&DAT_101787300,FUN_1003b5b78,&TargetProtocolConformanceDescriptor_1011c8c30);\r\n  __s7SwiftUI17EnvironmentObjectV5errors5NeverOyF(0,uVar7,uVar6,puVar4);\r\n                    /* WARNING: Does not return */\r\n  pcVar1 = (code *)SoftwareBreakpoint(1,0x1001aaea4);\r\n  (*pcVar1)();\r\n}\r\n\r\n",
+    "signature": "double FUN_1001aad58(double param_1);"
+  },
+  "summary": "Pseudo-C for FUN_1001aad58 from the Deep engine (60 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1001aad58"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

@@ -1,0 +1,337 @@
+{
+  "id": "ev_05daef0f5cb533d81ba6dc57f9d7a27e3d87a3a77dff403bf7602c7dc9912c0a",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 80,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "^(Exposure|Contrast|Vibrance|Saturation|Fade|Grain|Vignette|Bloom|Sharpen|Temperature|Tint|WhiteBalance|Hue|Gamma|Highlight|Shadow|Lut|LUT|Clarity)[A-Za-z0-9]*(Filter|Metal|Core)[A-Za-z0-9]*$"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011acb00",
+        "references": [],
+        "section": "__const",
+        "text": "GrainFilterSlider"
+      },
+      {
+        "address": "0x1011acb40",
+        "references": [],
+        "section": "__const",
+        "text": "BloomFilterSlider"
+      },
+      {
+        "address": "0x1011c0970",
+        "references": [],
+        "section": "__const",
+        "text": "LUTSelectionFilterSlider"
+      },
+      {
+        "address": "0x1011d5540",
+        "references": [],
+        "section": "__const",
+        "text": "LutFiltersView"
+      },
+      {
+        "address": "0x1011d9880",
+        "references": [],
+        "section": "__const",
+        "text": "ClarityFilter"
+      },
+      {
+        "address": "0x1011d9890",
+        "references": [],
+        "section": "__const",
+        "text": "GrainFiltersView"
+      },
+      {
+        "address": "0x101238579",
+        "references": [],
+        "section": "__const",
+        "text": "FadeFilter"
+      },
+      {
+        "address": "0x1012388e5",
+        "references": [],
+        "section": "__const",
+        "text": "BloomFilter"
+      },
+      {
+        "address": "0x101238a40",
+        "references": [],
+        "section": "__const",
+        "text": "ClarityFilterMetal"
+      },
+      {
+        "address": "0x101238c41",
+        "references": [],
+        "section": "__const",
+        "text": "ContrastFilter"
+      },
+      {
+        "address": "0x101238eb9",
+        "references": [],
+        "section": "__const",
+        "text": "ExposureFilter"
+      },
+      {
+        "address": "0x101239063",
+        "references": [],
+        "section": "__const",
+        "text": "ShadowToeFilter"
+      },
+      {
+        "address": "0x101239080",
+        "references": [],
+        "section": "__const",
+        "text": "HighlightShoulderFilter"
+      },
+      {
+        "address": "0x101239179",
+        "references": [],
+        "section": "__const",
+        "text": "GrainFilter"
+      },
+      {
+        "address": "0x1012392f0",
+        "references": [],
+        "section": "__const",
+        "text": "HighlightMaskCIFilter"
+      },
+      {
+        "address": "0x101239310",
+        "references": [],
+        "section": "__const",
+        "text": "HighlightsShadowsCIFilter"
+      },
+      {
+        "address": "0x101239330",
+        "references": [],
+        "section": "__const",
+        "text": "HighlightsShadowsFilter"
+      },
+      {
+        "address": "0x1012414e0",
+        "references": [],
+        "section": "__const",
+        "text": "GrainOverlayFilter"
+      },
+      {
+        "address": "0x10139087b",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "lutsFilters"
+      },
+      {
+        "address": "0x10139089e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vibranceFilter"
+      },
+      {
+        "address": "0x1013908ad",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "clarityFilter"
+      },
+      {
+        "address": "0x1013908c0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "saturationFilter"
+      },
+      {
+        "address": "0x101397af0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "lutFilterResolver"
+      },
+      {
+        "address": "0x10139a6da",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "grainFilters"
+      },
+      {
+        "address": "0x1013bc8da",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "grainFilter"
+      },
+      {
+        "address": "0x1013bc916",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "fadeFilter"
+      },
+      {
+        "address": "0x1013bc92e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "clarityFilter"
+      },
+      {
+        "address": "0x1013bc973",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "shadowToeFilter"
+      },
+      {
+        "address": "0x1013bc990",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "highlightShoulderFilter"
+      },
+      {
+        "address": "0x1013bca3c",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "bloomFilter"
+      },
+      {
+        "address": "0x1013bd0b4",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "lutsFilters"
+      },
+      {
+        "address": "0x1013bd0c0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "lutFilterResolver"
+      },
+      {
+        "address": "0x1014148ce",
+        "references": [],
+        "section": "__cstring",
+        "text": "ClarityFilter"
+      },
+      {
+        "address": "0x10144c550",
+        "references": [],
+        "section": "__cstring",
+        "text": "bloomPrefilterShader"
+      },
+      {
+        "address": "0x10144c890",
+        "references": [],
+        "section": "__cstring",
+        "text": "highlightShoulderFilter"
+      },
+      {
+        "address": "0x1014e5223",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "shadowToeFilter"
+      },
+      {
+        "address": "0x1014fc7ec",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "bloomFilter"
+      },
+      {
+        "address": "0x1014fe25e",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "clarityFilter"
+      },
+      {
+        "address": "0x101507086",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "fadeFilter"
+      },
+      {
+        "address": "0x101508b68",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "gammaAdjustFilter"
+      },
+      {
+        "address": "0x101509aca",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "grainFilter"
+      },
+      {
+        "address": "0x10150af61",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "highlightShadowAdjustFilter"
+      },
+      {
+        "address": "0x10150afa0",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "highlightShoulderFilter"
+      },
+      {
+        "address": "0x10150b236",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "hueSaturationValueGradientFilter"
+      },
+      {
+        "address": "0x101516d80",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "lutFilterResolver"
+      },
+      {
+        "address": "0x101516e04",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "lutsFilters"
+      },
+      {
+        "address": "0x101522ac0",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "saturationFilter"
+      },
+      {
+        "address": "0x10152eca9",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "temperatureAndTintFilter"
+      },
+      {
+        "address": "0x10153229e",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "vibranceFilter"
+      }
+    ],
+    "total": 49
+  },
+  "summary": "49 strings match \"^(Exposure|Contrast|Vibrance|Saturation|Fade|Grain|Vignette|Bloom|Sharpen|Temperature|Tint|WhiteBalance|Hue|Gamma|Highlight|Shadow|Lut|LUT|Clarity)[A-Za-z0-9]*(Filter|Metal|Core)[A-Za-z0-9]*$\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 49,
+    "total": 49
+  },
+  "locations": [],
+  "links": []
+}

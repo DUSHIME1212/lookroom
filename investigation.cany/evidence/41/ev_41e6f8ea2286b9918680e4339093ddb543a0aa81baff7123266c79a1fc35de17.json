@@ -1,0 +1,47 @@
+{
+  "id": "ev_41e6f8ea2286b9918680e4339093ddb543a0aa81baff7123266c79a1fc35de17",
+  "subject": {
+    "kind": "zip",
+    "sha256": "964a6b7fff83920454950b06ca49254c54245359d2ac4668bfc19f1f64717b2f",
+    "name": "com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+  },
+  "operation": "core_target_triage",
+  "params": {
+    "path": "C:\\Users\\don360\\Downloads\\com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+  },
+  "result": {
+    "description": "A ZIP archive",
+    "kind": "zip",
+    "next_steps": [
+      {
+        "tool": "core_archive_show",
+        "why": "list what's inside"
+      }
+    ],
+    "plain_english": "com.george.kye.PeekLUT_2.27.0_und3fined.ipa is a ZIP archive.",
+    "recommended_toolsets": [
+      "core"
+    ],
+    "size": 114209834
+  },
+  "summary": "com.george.kye.PeekLUT_2.27.0_und3fined.ipa is a ZIP archive.",
+  "confidence": "inferred",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "detected_by_content",
+      "message": "the kind is detected from the first bytes and, to break ties, the file name"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [],
+  "links": []
+}

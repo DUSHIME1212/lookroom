@@ -1,0 +1,45 @@
+{
+  "id": "ev_cc2b00a154d54d31bea0b4cc9814b8cb07b5c329f00cd586999a5bc536c04f3d",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x1005a9760"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x1005a9760",
+    "function": "FUN_1005a9760",
+    "pseudo_code": "\r\nvoid FUN_1005a9760(undefined8 param_1,undefined8 param_2)\r\n\r\n{\r\n  long lVar1;\r\n  ulong uVar2;\r\n  long unaff_x20;\r\n  \r\n  lVar1 = 0;\r\n  FUN_1005a8dac();\r\n  uVar2 = (ulong)*(byte *)(*(long *)(lVar1 + -8) + 0x50);\r\n  FUN_10059b184(param_1,param_2,unaff_x20 + (uVar2 + 0x10 & (uVar2 ^ 0xffffffffffffffff)));\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_1005a9760(undefined8 param_1,undefined8 param_2);"
+  },
+  "summary": "Pseudo-C for FUN_1005a9760 from the Deep engine (15 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1005a9760"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

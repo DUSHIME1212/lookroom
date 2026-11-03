@@ -1,0 +1,162 @@
+{
+  "id": "ev_ecc781e23697c085b38e667d4008107f055dca9e2c9403317d9c4e19fbe4da29",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 30,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "EditorPresetsSection|PresetGroup|PresetsView|groupedPresets|presetsContent|LUTThumbnailRenderer|thumbnailSize"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011ac8e0",
+        "references": [],
+        "section": "__const",
+        "text": "Technicolor3StripPresetsView"
+      },
+      {
+        "address": "0x1011b5a60",
+        "references": [],
+        "section": "__const",
+        "text": "EditorPresetsSection"
+      },
+      {
+        "address": "0x1011ba600",
+        "references": [],
+        "section": "__const",
+        "text": "LUTThumbnailRenderer"
+      },
+      {
+        "address": "0x1011cf950",
+        "references": [],
+        "section": "__const",
+        "text": "ToneCurveFilterSliderPresetsView"
+      },
+      {
+        "address": "0x1011db0b0",
+        "references": [],
+        "section": "__const",
+        "text": "PresetsViewModel"
+      },
+      {
+        "address": "0x1011db110",
+        "references": [],
+        "section": "__const",
+        "text": "PresetGroup"
+      },
+      {
+        "address": "0x1011db380",
+        "references": [],
+        "section": "__const",
+        "text": "PresetsView"
+      },
+      {
+        "address": "0x10138fe90",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x101391d70",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x101392420",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x101392af6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "presetsContent"
+      },
+      {
+        "address": "0x101396b53",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailSize"
+      },
+      {
+        "address": "0x10139ac20",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_groupedPresets"
+      },
+      {
+        "address": "0x10139b150",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x10139b4c6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailSize"
+      },
+      {
+        "address": "0x1014146b0",
+        "references": [
+          {
+            "from": "0x10059f39c",
+            "function": "sub_10059f318"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/PresetsView.swift"
+      },
+      {
+        "address": "0x1014d21c0",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC7PeekLUT20LUTThumbnailRenderer"
+      },
+      {
+        "address": "0x1014d3330",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC7PeekLUT16PresetsViewModel"
+      },
+      {
+        "address": "0x1014dfc10",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "_groupedPresets"
+      }
+    ],
+    "total": 19
+  },
+  "summary": "19 strings match \"EditorPresetsSection|PresetGroup|PresetsView|groupedPresets|presetsContent|LUTThumbnailRenderer|thumbnailSize\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 19,
+    "total": 19
+  },
+  "locations": [],
+  "links": []
+}

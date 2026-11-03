@@ -1,0 +1,98 @@
+{
+  "id": "ev_c7d0f43a88dacc5aff7f21ce28b93da95abedbaf6ffb2d46d93469a9979b42c6",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 10,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "Shifts between warm orange|Blends between original and LUT|Adjusts color intensity uniformly|Boosts muted colors|Film-style S-curve"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1013ffc90",
+        "references": [
+          {
+            "from": "0x1000878ec",
+            "function": "sub_100087798"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Shifts between warm orange tones and cool blue tones."
+      },
+      {
+        "address": "0x101401b40",
+        "references": [
+          {
+            "from": "0x10008d6fc",
+            "function": "sub_10008d5a8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Blends between original and LUT-transformed image."
+      },
+      {
+        "address": "0x1014042d0",
+        "references": [
+          {
+            "from": "0x100088320",
+            "function": "sub_100088164"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Film-style S-curve contrast around mid-gray for a richer, photographic tonality."
+      },
+      {
+        "address": "0x1014044d0",
+        "references": [
+          {
+            "from": "0x1000884a0",
+            "function": "sub_100088164"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Adjusts color intensity uniformly across all hues."
+      },
+      {
+        "address": "0x101404510",
+        "references": [
+          {
+            "from": "0x1000884cc",
+            "function": "sub_100088164"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Boosts muted colors while preserving skin tones."
+      }
+    ],
+    "total": 5
+  },
+  "summary": "5 strings match \"Shifts between warm orange|Blends between original and LUT|Adjusts color intensity uniformly|Boosts muted colors|Film-style S-curve\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 5,
+    "total": 5
+  },
+  "locations": [],
+  "links": []
+}

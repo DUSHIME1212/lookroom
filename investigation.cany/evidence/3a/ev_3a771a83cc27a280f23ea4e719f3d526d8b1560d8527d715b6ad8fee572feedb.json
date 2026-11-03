@@ -1,0 +1,284 @@
+{
+  "id": "ev_3a771a83cc27a280f23ea4e719f3d526d8b1560d8527d715b6ad8fee572feedb",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 40,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "^(Exposure|Contrast|Brightness|Highlights?|Shadows?|Saturation|Vibrance|Temperature|Tint|Fade|Whites|Blacks|Clarity|Sharpness|Vignette|Grain|Dehaze|Black Point|Gamma|Hue)$"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x10121ea82",
+        "references": [],
+        "section": "__const",
+        "text": "Shadow"
+      },
+      {
+        "address": "0x10123aecf",
+        "references": [],
+        "section": "__const",
+        "text": "Gamma"
+      },
+      {
+        "address": "0x10123cb4b",
+        "references": [],
+        "section": "__const",
+        "text": "Grain"
+      },
+      {
+        "address": "0x10138e7ef",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "temperature"
+      },
+      {
+        "address": "0x10138e7fb",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "tint"
+      },
+      {
+        "address": "0x10138e800",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "exposure"
+      },
+      {
+        "address": "0x10138e809",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "contrast"
+      },
+      {
+        "address": "0x10138e812",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "highlights"
+      },
+      {
+        "address": "0x10138e81d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "shadows"
+      },
+      {
+        "address": "0x10138e825",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "brightness"
+      },
+      {
+        "address": "0x10138e830",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "blacks"
+      },
+      {
+        "address": "0x10138e837",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "whites"
+      },
+      {
+        "address": "0x10138e83e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "saturation"
+      },
+      {
+        "address": "0x10138e849",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vibrance"
+      },
+      {
+        "address": "0x10138ed01",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "clarity"
+      },
+      {
+        "address": "0x10138ed13",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "sharpness"
+      },
+      {
+        "address": "0x10138ed1d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "dehaze"
+      },
+      {
+        "address": "0x10138ee0d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "fade"
+      },
+      {
+        "address": "0x101390855",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "contrast"
+      },
+      {
+        "address": "0x101390876",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "tint"
+      },
+      {
+        "address": "0x101390f4f",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "gamma"
+      },
+      {
+        "address": "0x10139130c",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "gamma"
+      },
+      {
+        "address": "0x1013913f2",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "tint"
+      },
+      {
+        "address": "0x1013914c0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "tint"
+      },
+      {
+        "address": "0x1013929b8",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "highlights"
+      },
+      {
+        "address": "0x1013929cc",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "shadows"
+      },
+      {
+        "address": "0x1013937e4",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "saturation"
+      },
+      {
+        "address": "0x10139472f",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "saturation"
+      },
+      {
+        "address": "0x101394b16",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "grain"
+      },
+      {
+        "address": "0x101394b2a",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vignette"
+      },
+      {
+        "address": "0x101394b43",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "fade"
+      },
+      {
+        "address": "0x101394b82",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "exposure"
+      },
+      {
+        "address": "0x101394b8b",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "contrast"
+      },
+      {
+        "address": "0x101394b94",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "highlight"
+      },
+      {
+        "address": "0x101394b9e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "saturation"
+      },
+      {
+        "address": "0x101394ba9",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "brightness"
+      },
+      {
+        "address": "0x101394bb4",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "shadow"
+      },
+      {
+        "address": "0x101394bc0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "tint"
+      },
+      {
+        "address": "0x101394bc5",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "dehaze"
+      },
+      {
+        "address": "0x101394bcc",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "vibrance"
+      }
+    ],
+    "total": 194
+  },
+  "summary": "194 strings match \"^(Exposure|Contrast|Brightness|Highlights?|Shadows?|Saturation|Vibrance|Temperature|Tint|Fade|Whites|Blacks|Clarity|Sharpness|Vignette|Grain|Dehaze|Black Point|Gamma|Hue)$\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 40,
+    "total": 194,
+    "next_offset": 40
+  },
+  "locations": [],
+  "links": []
+}

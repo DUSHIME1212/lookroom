@@ -1,0 +1,118 @@
+{
+  "id": "ev_c25837aa0edcf47749fce2117894302c87325f83149e58b6741b2c2cb896c3ec",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "apple_objc_classes_list",
+  "params": {
+    "pattern": "GradingTools"
+  },
+  "result": {
+    "classes": [],
+    "details": []
+  },
+  "summary": "0 Objective-C classes and categories matching \"GradingTools\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "objc_parse",
+      "message": "class at 0x17853f0: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x17636d0: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x17637c0: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1786588: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1786638: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1786fe8: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1787138: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1787420: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1763910: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1763a68: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1763b50: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1763c10: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1787a60: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1787c08: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1787cb0: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1787d80: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1787e70: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1763d30: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1763e08: unreadable name"
+    },
+    {
+      "code": "objc_parse",
+      "message": "class at 0x1763ed8: unreadable name"
+    },
+    {
+      "code": "static_metadata_only",
+      "message": "classes registered at run time (objc_allocateClassPair) are not listed"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [],
+  "links": []
+}

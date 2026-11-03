@@ -1,0 +1,14 @@
+{
+  "id": "unk_1f9d52ba670fe19a",
+  "revision": 2,
+  "question": "What does the running preset screen look like on a real device (no screenshot of it exists in the app's files)?",
+  "severity": "medium",
+  "domain": "ui",
+  "status": "blocked",
+  "probes": [
+    "Screenshot the original's Presets tab on an iPhone and send it to compare"
+  ],
+  "evidence_for": [],
+  "evidence_against": [],
+  "resolution": "Not settled: it needs the original running on an iPhone, and no picture of this screen exists in the app's files. Instead the preset panel is built from the sizes, colours and layout rules in the decompiled code, so its measurements come from the code but it has never been compared with the real screen."
+}

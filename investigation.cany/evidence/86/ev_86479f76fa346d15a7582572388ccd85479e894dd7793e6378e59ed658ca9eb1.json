@@ -1,0 +1,617 @@
+{
+  "id": "ev_86479f76fa346d15a7582572388ccd85479e894dd7793e6378e59ed658ca9eb1",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 70,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "(shot|rectangle|rectangular|curve mask|HSL Qualifier|Linear Mask|Radial Mask|Draw Mask|Combination|Intersect|Subtract)"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011bb920",
+        "references": [],
+        "section": "__const",
+        "text": "MaskCombinationMode"
+      },
+      {
+        "address": "0x1011e73a0",
+        "references": [],
+        "section": "__const",
+        "text": "RectangleNode"
+      },
+      {
+        "address": "0x1011ecee7",
+        "references": [],
+        "section": "__const",
+        "text": "Rectangle"
+      },
+      {
+        "address": "0x101208c60",
+        "references": [],
+        "section": "__const",
+        "text": "DimensionSnapshot"
+      },
+      {
+        "address": "0x101212776",
+        "references": [],
+        "section": "__const",
+        "text": "Snapshot"
+      },
+      {
+        "address": "0x101390180",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "missingDrawMaskSnapshot"
+      },
+      {
+        "address": "0x101390b30",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "setMaskCombination"
+      },
+      {
+        "address": "0x101390d8a",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "shotOnIPhone"
+      },
+      {
+        "address": "0x101391ee0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "isSubtractiveMask"
+      },
+      {
+        "address": "0x101391ef2",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "combinationMode"
+      },
+      {
+        "address": "0x1013935fc",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "subtract"
+      },
+      {
+        "address": "0x101393605",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "intersect"
+      },
+      {
+        "address": "0x10139369e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "combinationMode"
+      },
+      {
+        "address": "0x101398360",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_historySnapshotImage"
+      },
+      {
+        "address": "0x10139b5d5",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "combinationMode"
+      },
+      {
+        "address": "0x1013a00d5",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "subtract"
+      },
+      {
+        "address": "0x1013a00de",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "intersect"
+      },
+      {
+        "address": "0x1013a0384",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "subtract"
+      },
+      {
+        "address": "0x1013a038d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "intersect"
+      },
+      {
+        "address": "0x1013a04bf",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "rectangle"
+      },
+      {
+        "address": "0x1013b11b6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "snapshot"
+      },
+      {
+        "address": "0x1013b2e25",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "rectangle"
+      },
+      {
+        "address": "0x1013fddd0",
+        "references": [],
+        "section": "__cstring",
+        "text": "The cover sits over the original footage, then the reveal starts. The title also captions the graded shot."
+      },
+      {
+        "address": "0x1013fe130",
+        "references": [
+          {
+            "from": "0x10000a58c",
+            "function": "sub_10000a4d0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "One tool. A whole new shot."
+      },
+      {
+        "address": "0x1013feed0",
+        "references": [
+          {
+            "from": "0x100046ae8",
+            "function": "sub_1000469c4"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Draw Masks could not be saved because the render context is unavailable."
+      },
+      {
+        "address": "0x101404550",
+        "references": [
+          {
+            "from": "0x100087c0c",
+            "function": "sub_100087b1c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Tells PeekLUT what your footage was shot in and what it should look like on screen. Most users can leave this on Off. It's only needed when shooting in a flat \"log\" profile such as Apple Log, ARRI LogC, Sony S-Log3, Fuji F-Log, or RED Log3G10. Pick the matching preset to convert log footage back to a normal-looking image, or use the Input and Output tabs to set things manually."
+      },
+      {
+        "address": "0x101404a60",
+        "references": [
+          {
+            "from": "0x100086f18",
+            "function": "sub_100086f04"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.split.2x1"
+      },
+      {
+        "address": "0x101404ae0",
+        "references": [
+          {
+            "from": "0x1000a0098",
+            "function": "sub_1000a0060"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.stack.fill.badge.plus"
+      },
+      {
+        "address": "0x1014051d7",
+        "references": [],
+        "section": "__cstring",
+        "text": "shotOnIPhone"
+      },
+      {
+        "address": "0x101405530",
+        "references": [
+          {
+            "from": "0x100174154",
+            "function": "sub_100173f08"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Draw Mask assets do not match the preset (missing: ["
+      },
+      {
+        "address": "0x1014057d0",
+        "references": [
+          {
+            "from": "0x100182be0",
+            "function": "sub_100182ba0"
+          },
+          {
+            "from": "0x1002264e8",
+            "function": "sub_1002262c4"
+          },
+          {
+            "from": "0x1003eab8c",
+            "function": "sub_1003eab54"
+          },
+          {
+            "from": "0x10059f71c",
+            "function": "sub_10059f6ec"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.stack.badge.plus"
+      },
+      {
+        "address": "0x101405870",
+        "references": [
+          {
+            "from": "0x100185d50",
+            "function": "sub_100185d18"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.expand.vertical"
+      },
+      {
+        "address": "0x1014058b0",
+        "references": [
+          {
+            "from": "0x100185cd4",
+            "function": "sub_100185c90"
+          },
+          {
+            "from": "0x1003bf868",
+            "function": "sub_1003bf7d8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.compress.vertical"
+      },
+      {
+        "address": "0x101405990",
+        "references": [
+          {
+            "from": "0x10019b850",
+            "function": "sub_10019b458"
+          },
+          {
+            "from": "0x10038d308",
+            "function": "sub_10038d2d4"
+          }
+        ],
+        "section": "__cstring",
+        "text": "photo.on.rectangle.angled"
+      },
+      {
+        "address": "0x101407490",
+        "references": [
+          {
+            "from": "0x10024f04c",
+            "function": "sub_10024ef8c"
+          },
+          {
+            "from": "0x10024f260",
+            "function": "sub_10024f1b8"
+          },
+          {
+            "from": "0x10027dc34",
+            "function": "sub_10027dbf0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.grid.1x2"
+      },
+      {
+        "address": "0x1014075f0",
+        "references": [
+          {
+            "from": "0x10027dc50",
+            "function": "sub_10027dbf0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.grid.1x2.fill"
+      },
+      {
+        "address": "0x101407828",
+        "references": [],
+        "section": "__cstring",
+        "text": "subtract"
+      },
+      {
+        "address": "0x101407831",
+        "references": [],
+        "section": "__cstring",
+        "text": "intersect"
+      },
+      {
+        "address": "0x101408370",
+        "references": [
+          {
+            "from": "0x10028aec4",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "• **Improved HSL Qualifier**: Rebuilt hue detection now ignores washed-out pixels, keeping selections clean even on skin tones and muted colors."
+      },
+      {
+        "address": "0x101408690",
+        "references": [
+          {
+            "from": "0x10028b00c",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "• **Masks**: Major improvements across mask editing, including draw masks, mask merging, and multiple blend modes.\n• **Draw Masks**: Paint precise mask areas directly for more control over local adjustments.\n• **Color Shift and Dehaze**: Improved results for cleaner color separation and more natural haze reduction.\n• **Film Contrast**: New film contrast controls with Centre, Shadow Toe, Highlight Shoulder, and contrast shaping."
+      },
+      {
+        "address": "0x10140a200",
+        "references": [
+          {
+            "from": "0x10028bee8",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "• Support for LUT_3D_SIZE 65 and 64. Minor improments underhood to LUT loading\n• Fullscreen support for photos and video\n• Fix a bug that would cause exporting videos shot on iPhone with spatial audio support to fail\n• Moved presets to its own button in the tab"
+      },
+      {
+        "address": "0x10140f730",
+        "references": [
+          {
+            "from": "0x1003ab460",
+            "function": "sub_1003ab438"
+          }
+        ],
+        "section": "__cstring",
+        "text": "custom.cube.rectangle.stack"
+      },
+      {
+        "address": "0x10140fd70",
+        "references": [
+          {
+            "from": "0x1003d34b4",
+            "function": "sub_1003d3488"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Radial Mask Settings"
+      },
+      {
+        "address": "0x1014105c0",
+        "references": [
+          {
+            "from": "0x10044f42c",
+            "function": "sub_10044f41c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "kernel vec4 maskIntersect(__sample base, __sample child) {\n  float value = base.r * child.r;\n  return vec4(value, 0.0, 0.0, 1.0);\n}"
+      },
+      {
+        "address": "0x101410650",
+        "references": [
+          {
+            "from": "0x10044f3c8",
+            "function": "sub_10044f3b8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "kernel vec4 maskSubtract(__sample base, __sample child) {\n  float value = base.r * (1.0 - child.r);\n  return vec4(value, 0.0, 0.0, 1.0);\n}"
+      },
+      {
+        "address": "0x101410cd0",
+        "references": [
+          {
+            "from": "0x100491b18",
+            "function": "sub_100491854"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Unable to create Metal draw mask renderer"
+      },
+      {
+        "address": "0x101410d00",
+        "references": [
+          {
+            "from": "0x10048cdc4",
+            "function": "sub_10048cdac"
+          }
+        ],
+        "section": "__cstring",
+        "text": "#include <metal_stdlib>\nusing namespace metal;\n\nstruct DrawMaskStrokeParams {\n  uint stampCount;\n  float radius;\n  float opacity;\n  float softness;\n  uint erase;\n  uint originX;\n  uint originY;\n  uint width;\n  uint height;\n};\n\nkernel void clearMaskTexture(texture2d<float, access::write> mask [[texture(0)]],\n                             uint2 gid [[thread_position_in_grid]]) {\n  if (gid.x >= mask.get_width() || gid.y >= mask.get_height()) {\n    return;\n  }\n  mask.write(float4(0.0), gid);\n}\n\n// Rewrites the texture into the canonical mask layout (coverage in r and a, g/b zero).\n// Restored snapshots can arrive as opaque red-channel images (the persisted PNGs), whose\n// alpha=1 everywhere would display as a full-canvas tint in the stroke overlay.\nkernel void normalizeMaskTexture(texture2d<float, access::read_write> mask [[texture(0)]],\n                                 uint2 gid [[thread_position_in_grid]]) {\n  if (gid.x >= mask.get_width() || gid.y >= mask.get_height()) {\n    return;\n  }\n  float value = mask.read(gid).r;\n  mask.write(float4(value, 0.0, 0.0, value), gid);\n}\n\n// Distance from point p to the segment a-b.\ninline float distanceToSegment(float2 p, float2 a, float2 b) {\n  float2 ab = b - a;\n  float denom = max(dot(ab, ab), 1e-5);\n  float t = clamp(dot(p - a, ab) / denom, 0.0, 1.0);\n  float2 proj = a + t * ab;\n  return distance(p, proj);\n}\n\n// The stroke is rendered as the signed-distance field of the polyline (a chain of capsules)\n// rather than a row of stamped circles. Taking the distance to the nearest *segment* gives a\n// perfectly even-width stroke with a smooth edge — overlapping circle stamps scallop the border\n// and build up unevenly at the overlaps.\nkernel void drawMaskStroke(texture2d<float, access::read_write> mask [[texture(0)]],\n                           constant float2 *stamps [[buffer(0)]],\n                           constant DrawMaskStrokeParams &params [[buffer(1)]],\n                           uint2 gid [[thread_position_in_grid]]) {\n  if (gid.x >= params.width || gid.y >= params.height) {\n    return;\n  }\n\n  uint2 pixel = uint2(gid.x + params.originX, gid.y + params.originY);\n  if (pixel.x >= mask.get_width() || pixel.y >= mask.get_height()) {\n    return;\n  }\n\n  float2 pixelCenter = float2(float(pixel.x) + 0.5, float(pixel.y) + 0.5);\n  float radius = max(params.radius, 0.5);\n\n  float minDist = radius + 1.0;\n  if (params.stampCount == 1) {\n    minDist = distance(pixelCenter, stamps[0]);\n  } else {\n    for (uint i = 0; i + 1 < params.stampCount; i++) {\n      minDist = min(minDist, distanceToSegment(pixelCenter, stamps[i], stamps[i + 1]));\n    }\n  }\n\n  if (minDist > radius) {\n    return;\n  }\n\n  // Hard core out to `inner`, then a smoothstep feather from `inner` to the edge. `softness` is\n  // the fraction of the radius given over to the feather (0 = hard, 1 = feather the whole brush).\n  // Cap `inner` a pixel inside the edge so a fully hard brush still gets a 1px\n  // antialiasing ramp instead of a stair-stepped border.\n  float inner = min(radius * (1.0 - params.softness), radius - 1.0);\n  float featherRange = max(radius - inner, 0.01);\n  float coverage = 1.0;\n  if (minDist > inner) {\n    float t = clamp((minDist - inner) / featherRange, 0.0, 1.0);\n    coverage = 1.0 - (t * t * (3.0 - 2.0 * t));\n  }\n\n  if (coverage <= 0.0) {\n    return;\n  }\n\n  float existing = mask.read(pixel).r;\n  float amount = clamp(coverage * params.opacity, 0.0, 1.0);\n  float value = params.erase == 1\n    ? max(0.0, existing - amount)\n    : max(existing, amount);\n\n  mask.write(float4(value, 0.0, 0.0, value), pixel);\n}"
+      },
+      {
+        "address": "0x101414f80",
+        "references": [
+          {
+            "from": "0x100631e04",
+            "function": "sub_100631dbc"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Project save: failed to write draw mask "
+      },
+      {
+        "address": "0x101414fb0",
+        "references": [
+          {
+            "from": "0x100631d6c",
+            "function": "sub_100631d2c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Project save: failed to encode draw mask "
+      },
+      {
+        "address": "0x101414fe0",
+        "references": [
+          {
+            "from": "0x1006317a4",
+            "function": "sub_1006317a0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Project save: no render context for draw masks"
+      },
+      {
+        "address": "0x101416720",
+        "references": [
+          {
+            "from": "0x10072997c",
+            "function": "sub_100729700"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Unexpected layer type combination (\""
+      },
+      {
+        "address": "0x1014292bf",
+        "references": [],
+        "section": "__cstring",
+        "text": "GDTCOREventClockSnapshotKey"
+      },
+      {
+        "address": "0x1014457ff",
+        "references": [],
+        "section": "__cstring",
+        "text": "rectangle"
+      },
+      {
+        "address": "0x10145746e",
+        "references": [],
+        "section": "__cstring",
+        "text": "Subtract"
+      },
+      {
+        "address": "0x1014a6425",
+        "references": [],
+        "section": "__cstring",
+        "text": "events_snapshot"
+      },
+      {
+        "address": "0x1014a6efa",
+        "references": [],
+        "section": "__cstring",
+        "text": "Failed to ensure event snapshot table"
+      },
+      {
+        "address": "0x1014a911f",
+        "references": [],
+        "section": "__cstring",
+        "text": "pending_snapshot_table"
+      },
+      {
+        "address": "0x1014a9136",
+        "references": [],
+        "section": "__cstring",
+        "text": "activated_snapshot_table"
+      },
+      {
+        "address": "0x1014a914f",
+        "references": [],
+        "section": "__cstring",
+        "text": "launched_snapshot_table"
+      },
+      {
+        "address": "0x1014a9183",
+        "references": [],
+        "section": "__cstring",
+        "text": "snapshotProto"
+      },
+      {
+        "address": "0x1014a9201",
+        "references": [],
+        "section": "__cstring",
+        "text": "Received nil pending snapshot"
+      },
+      {
+        "address": "0x1014a9252",
+        "references": [],
+        "section": "__cstring",
+        "text": "SELECT rowid,* FROM pending_snapshot_table WHERE NOT manually_activated = ? ORDER BY rowid"
+      },
+      {
+        "address": "0x1014a92ad",
+        "references": [],
+        "section": "__cstring",
+        "text": "Received an invalid snapshot from database"
+      },
+      {
+        "address": "0x1014a9715",
+        "references": [],
+        "section": "__cstring",
+        "text": "Looking for activated flag. SDK name, flag name, activated snapshot"
+      },
+      {
+        "address": "0x1014a9853",
+        "references": [],
+        "section": "__cstring",
+        "text": "Cannot activate a pending snapshot for a nil SDK name"
+      },
+      {
+        "address": "0x1014a98a2",
+        "references": [],
+        "section": "__cstring",
+        "text": "Cannot activate a pending snapshot for an empty SDK name"
+      },
+      {
+        "address": "0x1014a98db",
+        "references": [],
+        "section": "__cstring",
+        "text": "No pending snapshot to activate. SDK name"
+      },
+      {
+        "address": "0x1014a9905",
+        "references": [],
+        "section": "__cstring",
+        "text": "Successfully activated a snapshot of SDK"
+      },
+      {
+        "address": "0x1014a992e",
+        "references": [],
+        "section": "__cstring",
+        "text": "Cannot check activated snapshot for empty SDK Name"
+      },
+      {
+        "address": "0x1014a99eb",
+        "references": [],
+        "section": "__cstring",
+        "text": "No pending snapshots to notify the clients"
+      }
+    ],
+    "total": 153
+  },
+  "summary": "153 strings match \"(shot|rectangle|rectangular|curve mask|HSL Qualifier|Linear Mask|Radial Mask|Draw Mask|Combination|Intersect|Subtract)\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 70,
+    "total": 153,
+    "next_offset": 70
+  },
+  "locations": [],
+  "links": []
+}

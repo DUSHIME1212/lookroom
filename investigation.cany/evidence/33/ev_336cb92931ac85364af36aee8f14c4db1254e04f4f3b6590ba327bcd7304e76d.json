@@ -1,0 +1,719 @@
+{
+  "id": "ev_336cb92931ac85364af36aee8f14c4db1254e04f4f3b6590ba327bcd7304e76d",
+  "subject": {
+    "kind": "unknown",
+    "sha256": "109273713a18859806fe94d322aa4dad00677ac51ac27a06cc8ec2816bf30e96",
+    "name": "Assets.car"
+  },
+  "operation": "core_evidence_browse",
+  "params": {
+    "show": {
+      "kind": "part",
+      "name": "facets"
+    },
+    "source": {
+      "evidence_id": "ev_a64ff272f5806c894f5bd082a7dcef061138d6a97c082cfe8a04004d3258be27",
+      "kind": "saved"
+    }
+  },
+  "result": {
+    "coverage": {
+      "at_end": true,
+      "examined": 1,
+      "next_offset": null,
+      "status": "all-in-view",
+      "total": 1
+    },
+    "from_evidence": "ev_a64ff272f5806c894f5bd082a7dcef061138d6a97c082cfe8a04004d3258be27",
+    "from_tool": "apple_assets_list",
+    "shown": {
+      "part": "facets",
+      "value": [
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 56959,
+            "part": 181
+          },
+          "name": "16mm"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 13217,
+            "part": 181
+          },
+          "name": "35mm"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 6208,
+            "part": 181
+          },
+          "name": "8mm"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 6849,
+            "part": 220
+          },
+          "name": "AppIcon"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 25346,
+            "part": 181
+          },
+          "name": "Bright Light"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 40292,
+            "part": 181
+          },
+          "name": "Canon Cinema 13"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 16825,
+            "part": 181
+          },
+          "name": "Dirty Lights"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 60471,
+            "part": 181
+          },
+          "name": "EX 1"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 9070,
+            "part": 181
+          },
+          "name": "Ilford Delta 3200"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 51817,
+            "part": 181
+          },
+          "name": "Kodak T-Max"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 25199,
+            "part": 181
+          },
+          "name": "LutExport_33"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 14419,
+            "part": 181
+          },
+          "name": "LutExport_64"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 54748,
+            "part": 181
+          },
+          "name": "Prismy"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 39402,
+            "part": 181
+          },
+          "name": "Scratched L"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 1139,
+            "part": 181
+          },
+          "name": "Svema Foto"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 300,
+            "part": 181
+          },
+          "name": "TX Pencil"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 57658,
+            "part": 181
+          },
+          "name": "cine-camera"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 43393,
+            "part": 181
+          },
+          "name": "cube_icon"
+        },
+        {
+          "attributes": {
+            "deployment-target": 5,
+            "element": 85,
+            "identifier": 35707,
+            "part": 59
+          },
+          "name": "custom.cube.rectangle.stack"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 672,
+            "part": 181
+          },
+          "name": "demo"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 8150,
+            "part": 181
+          },
+          "name": "dot"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 55757,
+            "part": 181
+          },
+          "name": "dustAndHoles"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 56502,
+            "part": 181
+          },
+          "name": "empty_state"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 62140,
+            "part": 181
+          },
+          "name": "export_loading"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 45720,
+            "part": 181
+          },
+          "name": "film_density_after"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 2350,
+            "part": 181
+          },
+          "name": "film_density_before"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 19772,
+            "part": 181
+          },
+          "name": "film_sat_after"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 15903,
+            "part": 181
+          },
+          "name": "film_sat_before"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 42599,
+            "part": 181
+          },
+          "name": "identity_8_8_512"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 12349,
+            "part": 181
+          },
+          "name": "newFeatureColorWheels"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 16353,
+            "part": 181
+          },
+          "name": "newFeatureEffectsTab"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 32926,
+            "part": 181
+          },
+          "name": "newFeatureFilmLook"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 41030,
+            "part": 181
+          },
+          "name": "newFeatureSuper8After"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 60225,
+            "part": 181
+          },
+          "name": "newFeatureSuper8Before"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 52386,
+            "part": 181
+          },
+          "name": "onboardingAppleLog"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 47035,
+            "part": 181
+          },
+          "name": "onboardingBloom"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 26011,
+            "part": 181
+          },
+          "name": "onboardingCSTLog"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 46969,
+            "part": 181
+          },
+          "name": "onboardingFilm"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 53424,
+            "part": 181
+          },
+          "name": "onboardingHalation"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 10973,
+            "part": 181
+          },
+          "name": "onboardingLuts"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 62114,
+            "part": 181
+          },
+          "name": "onboardingWallBouquet"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 30312,
+            "part": 181
+          },
+          "name": "onboardingWallCall"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 38609,
+            "part": 181
+          },
+          "name": "onboardingWallCoast"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 38961,
+            "part": 181
+          },
+          "name": "onboardingWallCouple"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 9477,
+            "part": 181
+          },
+          "name": "onboardingWallElder"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 6119,
+            "part": 181
+          },
+          "name": "onboardingWallOffice"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 37432,
+            "part": 181
+          },
+          "name": "onboardingWallOpening"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 64747,
+            "part": 181
+          },
+          "name": "onboardingWallRiver"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 55878,
+            "part": 181
+          },
+          "name": "onboardingWallTree"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 3364,
+            "part": 181
+          },
+          "name": "onboardingWallTwins"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 60196,
+            "part": 181
+          },
+          "name": "onboardingWheels"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 48111,
+            "part": 181
+          },
+          "name": "pro_icon"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 2371,
+            "part": 181
+          },
+          "name": "projects_empty_state"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 6337,
+            "part": 181
+          },
+          "name": "promo_2"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 42014,
+            "part": 181
+          },
+          "name": "promo_autocrop"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 8773,
+            "part": 181
+          },
+          "name": "promo_density_after"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 22958,
+            "part": 181
+          },
+          "name": "promo_density_before"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 33694,
+            "part": 181
+          },
+          "name": "promo_export_batch_after"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 49160,
+            "part": 181
+          },
+          "name": "promo_export_batch_before"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 35828,
+            "part": 181
+          },
+          "name": "promo_export_filter_as_lut"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 57274,
+            "part": 181
+          },
+          "name": "promo_export_lut"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 40828,
+            "part": 181
+          },
+          "name": "promo_export_options"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 58281,
+            "part": 181
+          },
+          "name": "promo_lutsync"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 58699,
+            "part": 181
+          },
+          "name": "promo_masks_linear"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 58469,
+            "part": 181
+          },
+          "name": "promo_masks_radial"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 65068,
+            "part": 181
+          },
+          "name": "ripped"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 17230,
+            "part": 181
+          },
+          "name": "saturate_after"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 37343,
+            "part": 181
+          },
+          "name": "saturate_before"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 31305,
+            "part": 181
+          },
+          "name": "tab_add_lut"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 62439,
+            "part": 181
+          },
+          "name": "tab_effects"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 60460,
+            "part": 181
+          },
+          "name": "tab_film"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 45327,
+            "part": 181
+          },
+          "name": "tab_filters"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 56964,
+            "part": 181
+          },
+          "name": "tab_filters_2"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 23375,
+            "part": 181
+          },
+          "name": "tab_luts"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 35424,
+            "part": 181
+          },
+          "name": "tab_masks"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 24809,
+            "part": 181
+          },
+          "name": "tab_new_edit"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 41775,
+            "part": 181
+          },
+          "name": "technicolor_after"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 60781,
+            "part": 181
+          },
+          "name": "technicolor_before"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 34571,
+            "part": 181
+          },
+          "name": "tut_Kodak LUT"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 43134,
+            "part": 181
+          },
+          "name": "tut_creative_lut"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 27715,
+            "part": 181
+          },
+          "name": "tut_log3_lut"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 61306,
+            "part": 181
+          },
+          "name": "tut_rec709Cineon"
+        },
+        {
+          "attributes": {
+            "element": 85,
+            "identifier": 22414,
+            "part": 181
+          },
+          "name": "tut_sRGB"
+        }
+      ]
+    }
+  },
+  "summary": "Part of apple_assets_list evidence (all-in-view).",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [],
+  "links": [
+    "ev_a64ff272f5806c894f5bd082a7dcef061138d6a97c082cfe8a04004d3258be27"
+  ]
+}

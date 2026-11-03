@@ -1,0 +1,45 @@
+{
+  "id": "ev_ef4c21a184cee2f1cd27f9c8fbc87c6fbee921c2ee3df27104cf7fcc3f55b88c",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x1003cd8e0"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x1003cd8e0",
+    "function": "FUN_1003cd8e0",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_release_x20 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_retainAutoreleasedReturnValue replaced with injection:\r\n   _objc_retain_fixup */\r\n/* WARNING: Function: _objc_release_x19 replaced with injection: _objc_release_fixup */\r\n\r\nundefined8 FUN_1003cd8e0(void)\r\n\r\n{\r\n  code *pcVar1;\r\n  long lVar2;\r\n  long lVar3;\r\n  undefined *puVar4;\r\n  ID IVar5;\r\n  undefined1 *puVar6;\r\n  undefined8 uVar7;\r\n  undefined8 uVar8;\r\n  undefined8 *puVar9;\r\n  long extraout_x8;\r\n  long extraout_x8_00;\r\n  ID unaff_x20;\r\n  undefined8 uVar10;\r\n  undefined8 uVar11;\r\n  undefined1 auStack_a0 [8];\r\n  undefined1 *local_98;\r\n  undefined8 uStack_90;\r\n  undefined8 local_88;\r\n  undefined8 local_80;\r\n  undefined8 local_78;\r\n  char local_69;\r\n  undefined1 auStack_68 [24];\r\n  \r\n  lVar2 = 0;\r\n  FUN_1001bdda0();\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(*(long *)(lVar2 + -8) + 0x40));\r\n  puVar6 = auStack_a0 + -(extraout_x8 + 0xfU & 0xfffffffffffffff0);\r\n  lVar3 = 0;\r\n  FUN_1005d3670();\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(*(long *)(lVar3 + -8) + 0x40));\r\n  puVar4 = PTR__OBJC_CLASS___UIView_1015f7600;\r\n  _objc_allocWithZone();\r\n  IVar5 = objc_stub::init((ID)puVar4);\r\n  objc_stub::setView_(unaff_x20,IVar5);\r\n  if (DAT_1017a46d0 != -1) {\r\n    _swift_once(&DAT_1017a46d0,FUN_100555f10);\r\n  }\r\n  _swift_beginAccess(&DAT_1017a46d8,auStack_68,0,0);\r\n  local_98 = DAT_1017a46d8;\r\n  uStack_90 = DAT_1017a46e0;\r\n  local_88 = CONCAT71(local_88._1_7_,DAT_1017a46e8);\r\n  local_80 = DAT_1017a46f0;\r\n  FUN_100005318(&DAT_10179aa20,&DAT_1011a9f80);\r\n  FUN_100e65cac(&local_69);\r\n  if (local_69 == '\\x01') {\r\n    FUN_1005d30fc(puVar6 + -(extraout_x8_00 + 0xfU & 0xfffffffffffffff0));\r\n    puVar4 = &DAT_10179a790;\r\n    FUN_1000057bc(&DAT_10179a790,FUN_1005d3670,&TargetProtocolConformanceDescriptor_1011dc590);\r\n    puVar6 = puVar6 + -(extraout_x8_00 + 0xfU & 0xfffffffffffffff0);\r\n    lVar2 = lVar3;\r\n  }\r\n  else {\r\n    FUN_1001bd9f4(puVar6);\r\n    puVar4 = &DAT_10179a768;\r\n    FUN_1000057bc(&DAT_10179a768,FUN_1001bdda0,&TargetProtocolConformanceDescriptor_1011b3b18);\r\n  }\r\n  __s7SwiftUI7AnyViewVyACxcAA0D0RzlufC(puVar6,lVar2,puVar4);\r\n  uVar10 = *(undefined8 *)(unaff_x20 + _TtC7PeekLUT25ViewDetailsViewController::viewModel);\r\n  uVar7 = 0;\r\n  FUN_1003ccf00();\r\n  puVar4 = &DAT_10178e4b0;\r\n  FUN_1000057bc(&DAT_10178e4b0,FUN_1003ccf00,&TargetProtocolConformanceDescriptor_1011c83c0);\r\n  _swift_retain(uVar10);\r\n  __s7Combine16ObservableObjectP7SwiftUIE16environmentStores15WritableKeyPathCyAD17EnvironmentValuesVxSgGvgZ\r\n            (uVar7,puVar4);\r\n  uVar11 = *(undefined8 *)(unaff_x20 + _TtC7PeekLUT25ViewDetailsViewController::videoPlayer);\r\n  uVar8 = 0;\r\n  FUN_1003b5b78();\r\n  puVar9 = &DAT_101787300;\r\n  FUN_1000057bc(&DAT_101787300,FUN_1003b5b78,&TargetProtocolConformanceDescriptor_1011c8c30);\r\n  _swift_retain(uVar11);\r\n  __s7Combine16ObservableObjectP7SwiftUIE16environmentStores15WritableKeyPathCyAD17EnvironmentValuesVxSgGvgZ\r\n            (uVar8,puVar9);\r\n  IVar5 = objc_stub::view(unaff_x20);\r\n  if (IVar5 != 0) {\r\n    local_98 = puVar6;\r\n    uStack_90 = uVar7;\r\n    local_88 = uVar10;\r\n    local_80 = uVar8;\r\n    local_78 = uVar11;\r\n    FUN_100005318(&DAT_10179a770,&DAT_1011ca040);\r\n    FUN_1003cfb14();\r\n    FUN_100e6c2e0(&local_98);\r\n    _swift_release(uVar11);\r\n    _swift_release(uVar8);\r\n    _swift_release(uVar10);\r\n    _swift_release(uVar7);\r\n    _swift_release(puVar6);\r\n    return 0;\r\n  }\r\n                    /* WARNING: Does not return */\r\n  pcVar1 = (code *)SoftwareBreakpoint(1,0x1003cdbe0);\r\n  (*pcVar1)();\r\n}\r\n\r\n",
+    "signature": "undefined8 FUN_1003cd8e0(void);"
+  },
+  "summary": "Pseudo-C for FUN_1003cd8e0 from the Deep engine (104 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1003cd8e0"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

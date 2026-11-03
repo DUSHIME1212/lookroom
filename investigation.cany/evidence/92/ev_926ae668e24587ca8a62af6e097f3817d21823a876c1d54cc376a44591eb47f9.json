@@ -1,0 +1,2237 @@
+{
+  "id": "ev_926ae668e24587ca8a62af6e097f3817d21823a876c1d54cc376a44591eb47f9",
+  "subject": {
+    "kind": "ipa",
+    "sha256": "964a6b7fff83920454950b06ca49254c54245359d2ac4668bfc19f1f64717b2f",
+    "name": "com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+  },
+  "operation": "core_archive_show",
+  "params": {
+    "if_tampered": true,
+    "limit": 300,
+    "max_depth": 0,
+    "offset": 0,
+    "path": "C:\\Users\\don360\\Downloads\\com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+  },
+  "result": {
+    "by_kind": {
+      "binary": 80,
+      "binary-plist": 36,
+      "bom": 1,
+      "directory": 136,
+      "json": 5,
+      "macho": 9,
+      "nib": 4,
+      "png": 13,
+      "text": 147,
+      "xml-plist": 7
+    },
+    "containers": [
+      {
+        "declared": 438,
+        "entries": 438,
+        "kind": "ipa",
+        "path": "",
+        "truncated": false,
+        "zip64": false
+      }
+    ],
+    "content_id": "inv_bf08bde39ea4b7bd2574b3f7abb390a616ba1f38cce1dd609df5f87eb37ff666",
+    "contradictions": [],
+    "entries": [
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/decrypt.day",
+        "sha256": "15218e74cef5d8df7e631ab2a31fdb8bde28976252f984231cf410630410696e",
+        "size": 9
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Network.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Network.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "ef59f69a7b7b0cbeea74ce7e5227ca0d8a0ac042bc6f289393a251768b6b6d3d",
+        "size": 791
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Network.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "0ac00a0b7eff0079dce252e29ab41d71cf58c6c94fe4e44ea110cef5c62970e1",
+        "size": 856
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-AppDelegateSwizzler.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-AppDelegateSwizzler.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "0584c9fd204d6602f8fc7a508ce137c72d29ba1c88982da961114159e8e8facb",
+        "size": 815
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-AppDelegateSwizzler.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "1377eccedff8f8320f78040e9c9d3e17ecc0ea569594b56af0ef17be44197c7a",
+        "size": 478
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/ja.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/ja.lproj/Localizable.strings",
+        "sha256": "f92553c5e05e18071449d5bc73e44a54ec5b165371aa74ac2c4d773ca21eb695",
+        "size": 124952
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/AppIcon76x76@2x~ipad.png",
+        "sha256": "e7d8cdd8ca393a28450fcc6b32435c4b300273f639064265dc42bc6f3b2f2737",
+        "size": 23233
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Logger.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Logger.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "e905186bb22a00c9305beedb278ee4c37640770de1d997524f4c1e194aa10118",
+        "size": 789
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Logger.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "1377eccedff8f8320f78040e9c9d3e17ecc0ea569594b56af0ef17be44197c7a",
+        "size": 478
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/en.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/en.lproj/Localizable.strings",
+        "sha256": "d29c30800bc32bde5511597773e3515df6e8771159af2ea651c6b2b3a34d842e",
+        "size": 67083
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseRemoteConfig.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseRemoteConfig.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "defe55ffd299b172e1876fb1ff708708b84fb0fa56e20409f10b69d64d98050b",
+        "size": 779
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseRemoteConfig.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "b9c360b5bb58ddb18eab5282ea4c8145e1f7ad0de14563916ab9a5a420fe4f38",
+        "size": 1482
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseABTesting.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseABTesting.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "a7ea8ce57ddc7df20983168cc15be7dbabfb8713eb67fdbd6b82dd82073bce66",
+        "size": 773
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseABTesting.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "1377eccedff8f8320f78040e9c9d3e17ecc0ea569594b56af0ef17be44197c7a",
+        "size": 478
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/default.metallib",
+        "sha256": "303e9d477830ca80fb4e3990c8346ba062a7315f5b2e8c0322ee6d5aebb4ed7d",
+        "size": 118
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/nanopb_nanopb.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/nanopb_nanopb.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "eef5629c235329b8f71f4e191543ff0ea952eedf023a2249d7783b458a271285",
+        "size": 737
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/nanopb_nanopb.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "729ba3cbd0f458c78cd61edf17350edafe0e34ca86e314ec64c8cb22ccd21b54",
+        "size": 374
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/zh-Hant.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/zh-Hant.lproj/Localizable.strings",
+        "sha256": "a1e3ce1e4e48842efe63214f535ced93ff44ac8f7590151aef2a3464c8f845a5",
+        "size": 255
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Base.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Base.lproj/LaunchScreen.storyboardc",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "nib",
+        "path": "Payload/PeekLUT.app/Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib",
+        "role": "interface",
+        "sha256": "cf6e24ae431d4d9984c2a9ada6f0fb20af4dea5cbf5c9c5622393f5af0a73614",
+        "size": 1225
+      },
+      {
+        "depth": 0,
+        "kind": "nib",
+        "path": "Payload/PeekLUT.app/Base.lproj/LaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib",
+        "role": "interface",
+        "sha256": "54f3637f671feba5f19e82ec4f4a7fb448bb3cfc0fb180f089aa571fc8f053e2",
+        "size": 924
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Base.lproj/LaunchScreen.storyboardc/Info.plist",
+        "role": "bundle-info",
+        "sha256": "1f255d5cc53b531e3f29a9406a8df49a958e2bf9443d3e20bd8374f707f7d5c8",
+        "size": 258
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Base.lproj/Main.storyboardc",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "nib",
+        "path": "Payload/PeekLUT.app/Base.lproj/Main.storyboardc/UIViewController-BYZ-38-t0r.nib",
+        "role": "interface",
+        "sha256": "6224c35d3d06ca667bcc43e3520e2feb8253122f84ebfe96df2c86e39496bcfd",
+        "size": 997
+      },
+      {
+        "depth": 0,
+        "kind": "nib",
+        "path": "Payload/PeekLUT.app/Base.lproj/Main.storyboardc/BYZ-38-t0r-view-8bC-Xf-vdC.nib",
+        "role": "interface",
+        "sha256": "9dcd11bc16f3491d1fac271fd818a8c844ef25cd614474fa83223c2f8f6379f6",
+        "size": 2565
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Base.lproj/Main.storyboardc/Info.plist",
+        "role": "bundle-info",
+        "sha256": "3e9bdaa408d1eb6ae5e989b813a8644e0a4a981202c536905de52a7291e69aa4",
+        "size": 258
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/default.metallib",
+        "sha256": "f860996d3cf0d22d94aa8887bb1dda1a18c9f4fb36d472c3931c12dc437327a2",
+        "size": 13036
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/scratches.png",
+        "sha256": "14a32428c940f7754a80060ac152be615fac025b3e9b9686b0d620ff7df8fee7",
+        "size": 23368
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/lut_ektachrome100D.png",
+        "sha256": "5b45ea89a24f1ab311a5238c0b2cbd56de2fa24cf0de6caeeda49f464cbd35cc",
+        "size": 26303
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/stframe.mp4",
+        "sha256": "7c6c0a15e0c6dcf0037f558c7b868f525027b494152c763e2be0630d00f1deb4",
+        "size": 2170901
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/lut_triX.png",
+        "sha256": "60a656b5619adf04ef65454fcecb8ac2f8d262465c5a2d0114dabdfd6cba5972",
+        "size": 8894
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/lut_vision2Scan.png",
+        "sha256": "453069024f208ef44aeb2b5bb62278a4d26776fe0d4bbed2f8b4e37479936abc",
+        "size": 23178
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/lut_vision3_50D.png",
+        "sha256": "09458722ec2e950e0728886f088d4e8e6faad7f53bf919ec3f156081a84e6ec3",
+        "size": 21742
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/grain.png",
+        "sha256": "ede57ddcc5f5d713f3be80bcb3e10ed25b0e012fbd66987af48ea2961a905180",
+        "size": 1203271
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/lut_kodachrome64.png",
+        "sha256": "7d91f2b46d2c035ea7252137153d3a52ded15f168cbc83b58e5a2f15c7956907",
+        "size": 26876
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/lut_vision3_500T.png",
+        "sha256": "b4264af3abcedc62a892f7e2fd562a619deb4c530d20040dae14c1bb7080e806",
+        "size": 21233
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/stframe.png",
+        "sha256": "aaff9160be92716f733972eb117d7c12b251fe12ef775d88f8cd59e6ef54d2a1",
+        "size": 593722
+      },
+      {
+        "depth": 0,
+        "kind": "png",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Super8/gamma.png",
+        "sha256": "a669b20d540d94e2d9c025d4d65d6feed9dcb07ed53632f6683985e4318cb494",
+        "size": 1149321
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/FilmLookCreator",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "json",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/FilmLookCreator/provenance.json",
+        "sha256": "2b312155203b7278aa677fcaff8cf69dd8e0de5caddef0e2fa8baec26c081da9",
+        "size": 37580
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/FilmLookCreator/FilmLookCreator-250D-stages.dat",
+        "sha256": "081ecd39bd1ce99d064852d9c340754c0e9d7ddd9088102f1dcdde8218285719",
+        "size": 30758000
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/FilmLookCreator/FilmLookCreator-160T-stages.dat",
+        "sha256": "2cc5e32f2dc905bc1804ba296b5adbc298b0c62f55080fb39f88ac5da9a367d1",
+        "size": 30758000
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/FilmLookCreator/FilmLookCreator-500T-stages.dat",
+        "sha256": "0368d3a40af2b08a585bb69811b6beb47cc1fec3d69594dd7d914222326d82a2",
+        "size": 30758000
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/ColorSlice",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/ColorSlice/depth.f16",
+        "sha256": "2bc0d30cdbef11a8f7ba0e6b642d17a544461f386d550039db624b11a5b3da22",
+        "size": 1037850
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/ColorSlice/saturation.f16",
+        "sha256": "628656de150f81fc0e49d477b30842ddf36674cb5f1631228bfe970e635e6d36",
+        "size": 386316
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "e2f1c07ed0c3621681e38c394eab814d50c880d32a85a27a3f08e7feb1b5dc0c",
+        "size": 763
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Shaders",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Shaders/MetalPetalFilters-macosx.metallib",
+        "sha256": "5a34095c31c28ecc4791bb7587b20fecfd9685abe6d1c2090bfbd94c80fe8632",
+        "size": 495512
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Shaders/MetalPetalDefault.metallib",
+        "sha256": "13d85004e669149d3c18e63710555a691dd1c6e6852c5d0715a8d095d97679fa",
+        "size": 1140288
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Shaders/MetalPetalFilters.metallib",
+        "sha256": "5dc70c1cdd561a0a8e53760452a8d01965419078edf5d5b26cd4430e6f8afb3e",
+        "size": 510072
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Shaders/MetalPetalDefault-macosx.metallib",
+        "sha256": "fb4bc6efac51a4d13d9ded65cdae5c5dadd940e8685725b413149e2ff5f4831d",
+        "size": 1141328
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Shaders/MetalPetalFilters-simulator.metallib",
+        "sha256": "029047846bf8cb6b026221ef3f24e427f88826db22051a3bb2a96c0450a7f0e4",
+        "size": 512056
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/Shaders/MetalPetalDefault-simulator.metallib",
+        "sha256": "a2f2e1a252bd4550f0292547500218763d85d4b857c2d6f8ba3e17acbf7fc7b8",
+        "size": 791032
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/ResolveHL",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/GradingTools_GradingTools.bundle/ResolveHL/ResolveHLMasks.dat",
+        "sha256": "43ee8440446c4f30bd2df99192b17e1538d6d6fbbc6fb7ab51e071831d8b15e1",
+        "size": 16384
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/zh-Hans.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/zh-Hans.lproj/Localizable.strings",
+        "sha256": "8704dde524c223a9afc72505ba0e9f2f2ca461909828c15c315d45337fd29a3b",
+        "size": 255
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/SC_Info",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/SC_Info/PeekLUT.v4.supp",
+        "sha256": "5e7849fe2770fff470d3f7cd6b6a4d38880d48c494f5a2ee1c28dae2ae9df513",
+        "size": 180560
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/SC_Info/PeekLUT.sinf",
+        "sha256": "04288f8e69a3b4db015dbf68d3ccfbd0ce9ae6e83451adc008479f8690ba51cf",
+        "size": 1072
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/SC_Info/PeekLUT.supx",
+        "sha256": "0ba92a930e0367d2c6a05f42858495561f99e3d09914f13b04f6378ba1173663",
+        "size": 80
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/SC_Info/PeekLUT.supp",
+        "sha256": "0c4c3efe363289abbac032433dce9e7110b4564b9a7c18c062609e5745519a0b",
+        "size": 180580
+      },
+      {
+        "depth": 0,
+        "kind": "xml-plist",
+        "path": "Payload/PeekLUT.app/SC_Info/Manifest.plist",
+        "role": "property-list",
+        "sha256": "0c27adbe87e0f414489a0ee81577fd8127327cb90ecf612c6fbb48472edda33a",
+        "size": 1101
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/SC_Info/PeekLUT.v5.supf",
+        "sha256": "3d79027a80086c7cf1305a3459117dec1f9c4669f8888a639572679374534c71",
+        "size": 180456
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/SC_Info/PeekLUT.supf",
+        "sha256": "e9c077362cd383420bbcf2aa2ee94d9af56a2f7e81707a2f266e07025dab9043",
+        "size": 180476
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/de.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/de.lproj/MantisLocalizable.strings",
+        "sha256": "3e143a38fe5ac52884ebeae06c729ddc1f9303beb61cf4adecb625d827d8293f",
+        "size": 372
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ko-KR.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ko-KR.lproj/MantisLocalizable.strings",
+        "sha256": "f766ee5c7eeea82a45917aa7f55b1d106f4e2833b466b19599a9ced31dc7bc33",
+        "size": 366
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ar.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ar.lproj/MantisLocalizable.strings",
+        "sha256": "ae3ac6cab8d5b64364ac96348f3708526e8b6a25dd95c2a1b931fccf6d95fa1a",
+        "size": 401
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ja.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ja.lproj/MantisLocalizable.strings",
+        "sha256": "d079a5e77d1e0817be88ac3a6ab45c2f2579014a8f51d5ed5eb88dcf1f360b4f",
+        "size": 392
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/en.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/en.lproj/MantisLocalizable.strings",
+        "sha256": "cadc73b3443396524ca6d2703b36409646154565ee9a3956ca5d5729b78b0b8b",
+        "size": 340
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/zh-Hant.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/zh-Hant.lproj/MantisLocalizable.strings",
+        "sha256": "8d02470611bb6f8a7edb6ada7921bb88d3afdc9b654ca437c780aa9b506d100a",
+        "size": 350
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/es.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/es.lproj/MantisLocalizable.strings",
+        "sha256": "013e010e084f6d545ff9e77f3aa1ba9a963046f8b1d78a0c69cf066d115440a8",
+        "size": 361
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/zh-Hans.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/zh-Hans.lproj/MantisLocalizable.strings",
+        "sha256": "655ddaad591d75600088448cb29fb245a7e69c0c07f761ce0842b98feb035cc7",
+        "size": 353
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/it.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/it.lproj/MantisLocalizable.strings",
+        "sha256": "28dfbd6107ffc73b4ce6b709d8ef7e8a1158eb1536d3a9ccfa5cb4c45fabf125",
+        "size": 357
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ko.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ko.lproj/MantisLocalizable.strings",
+        "sha256": "9c3e7b78f7651ade8a072536689f8b48a5e7f0feee9f42f9ee1a14e19e1a277c",
+        "size": 365
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/tr.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/tr.lproj/MantisLocalizable.strings",
+        "sha256": "14ce74e3d91fb416e97f925f1812d19b5284087466e05c977899ce9f152ececb",
+        "size": 366
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "9670d8b5b7036cf1a0311eaea999b6f01c0904340014afd1fd98eb7bfe645a7b",
+        "size": 737
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ru.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/ru.lproj/MantisLocalizable.strings",
+        "sha256": "e2575b0938267647923dbd2544d281764ebab196b28db9788432d7c7e042fa59",
+        "size": 425
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/pt-PT.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/pt-PT.lproj/MantisLocalizable.strings",
+        "sha256": "b8bf96882ccd5c0b909792aa817a7f91c65a0b5d8ae682a3199de51ee1e1ada4",
+        "size": 366
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/fr.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/fr.lproj/MantisLocalizable.strings",
+        "sha256": "61db1354df223138b64cd14c5a6d5ac9148c50abe03c11fd58027b6a328b6e57",
+        "size": 383
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/nl.lproj",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Mantis_Mantis.bundle/nl.lproj/MantisLocalizable.strings",
+        "sha256": "48c36343d5df219896ef602e5fba3531a3bd77b54e151a18fbc03a9c99dad187",
+        "size": 366
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Environment.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Environment.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "3fd6cab09468b66c32f0eda3f81f453505b78bbcf0d60588407e206ddc8c8889",
+        "size": 799
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/GoogleUtilities_GoogleUtilities-Environment.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "b08273d687379394792f71c94c1083616a04af8afaa396d8058980f444cfb3d4",
+        "size": 855
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/LongRunningTests.xctestplan",
+        "sha256": "b691debf76286da52a79274dda51ca5f04b29944171a74ef1c6e80995afb50ea",
+        "size": 979
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Facebook_FacebookAEM.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Facebook_FacebookAEM.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "daa8dce839b87a45152ecd16722551c60503b2e9fead7356b059c69d9ea6cc43",
+        "size": 761
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Facebook_FacebookAEM.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "6452295a6ad29254c92c668038f2c6a2cfd440c07cda81f814e996ac215b8415",
+        "size": 551
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCrashlyticsSwift.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCrashlyticsSwift.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "5985931c1f041787978b0cfbb1efb5bb2b5fd6145388662d7d0c8e1234a0a239",
+        "size": 787
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCrashlyticsSwift.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "e9bcc6e9c7382bf506cadabe74cfd4ed155686806ba81c195a634b86aa5fcce0",
+        "size": 1383
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/_CodeSignature",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/_CodeSignature/CodeResources",
+        "role": "code-signature",
+        "sha256": "b7b931d45fd30d95d1dc02045e38d5229f5517f20d884eae56c71735f2ee5882",
+        "size": 113883
+      },
+      {
+        "depth": 0,
+        "kind": "macho",
+        "path": "Payload/PeekLUT.app/PeekLUT",
+        "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+        "size": 27359344
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/PromoFonts",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/PromoFonts/OFL-PlayfairDisplay.txt",
+        "sha256": "566be814f8e96e93dfa16101331557eb6b5467e9e03f627c0910fe93ca12300e",
+        "size": 4449
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/PromoFonts/InterTight-Variable.ttf",
+        "sha256": "b81b73dcb64df3c230cabade7df6c5773bf863233f24c9ee51087519f1f88b6f",
+        "size": 581588
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/PromoFonts/OFL-InstrumentSerif.txt",
+        "sha256": "129ed7618959716959f2941fdd5b49e0ad6e6c1d78726761786a00253d865521",
+        "size": 4405
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/PromoFonts/InstrumentSerif-Italic.ttf",
+        "sha256": "08939b8bdf534afec24ae0ef5e03f948940cd9a8fe08e7fecbad040e62327385",
+        "size": 71592
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/PromoFonts/PlayfairDisplay-Italic-Variable.ttf",
+        "sha256": "a5e26dc5e2e77fb2803a0bf02fd4f81ee136ec8dea863ccdb0c59a263b21378b",
+        "size": 278688
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/PromoFonts/OFL-InterTight.txt",
+        "sha256": "50240ab035cf1b6b3307940235481d515c4b6de3ab1fa843dbe59e7892cb9d58",
+        "size": 4383
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/PromoFonts/InstrumentSerif-Regular.ttf",
+        "sha256": "498efd461f6ddfcb7a111bf9a565709d2085d48201d501ead960d93e84ffbb88",
+        "size": 70012
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/PromoFonts/InterTight-Italic-Variable.ttf",
+        "sha256": "15d3edf0c3d2560658529b8c4c7398d06c730a4695484c680b6c9ca9e4385be2",
+        "size": 593844
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/PromoFonts/PlayfairDisplay-Variable.ttf",
+        "sha256": "c40f2293766a503bc70cce9e512ef844a4ccb7cbcde792fe2ea31d191917d8d6",
+        "size": 300724
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/SyncedStoreKit.storekit",
+        "sha256": "80d1ef1b076137f01135a63f6201c0c3d111bc257354c9ae0da9c979f54e1a89",
+        "size": 11152
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Facebook_FacebookCore.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Facebook_FacebookCore.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "5214b94f94abe79bec874756f0fc70cd927d8afda695ee2f69a53ea6df0510b2",
+        "size": 763
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Facebook_FacebookCore.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "420505ca4b284093819fbbec5f6581c3cf6e435b3e3a302d6fa5ea237be143be",
+        "size": 1923
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Promises_Promises.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Promises_Promises.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "ef71981aa3187405fde12ea6db107ea1a7f1cadc74d19556a1bfd60189b9aad1",
+        "size": 747
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Promises_Promises.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "74b0cd72fc23c1ef302f22ee2753f61817cdc5af0ff7a7f2d0632b524fb8acea",
+        "size": 373
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCrashlytics.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCrashlytics.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "f0cb38883c5ac24d05bb9604e21a99e4f5ee94464d1d65c80aa6b58dc61d2b20",
+        "size": 777
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCrashlytics.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "e9bcc6e9c7382bf506cadabe74cfd4ed155686806ba81c195a634b86aa5fcce0",
+        "size": 1383
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCoreExtension.bundle",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCoreExtension.bundle/Info.plist",
+        "role": "bundle-info",
+        "sha256": "47e14ccd405ba1c13bd06d001db79af6459d3ee1b35ab9c23a1ef256ede4dc8c",
+        "size": 781
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Firebase_FirebaseCoreExtension.bundle/PrivacyInfo.xcprivacy",
+        "sha256": "1377eccedff8f8320f78040e9c9d3e17ecc0ea569594b56af0ef17be44197c7a",
+        "size": 478
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/NonSynced.storekit",
+        "sha256": "8d14c68b8b60a66261a48b4c56a13ffa0e1e81107d86b52e56b101d2f6c1e9e7",
+        "size": 8514
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Poppins-Regular.ttf",
+        "sha256": "707fdc5c8bab57a90061c6a8ed7b70d5ffb82fc810e994e79f90bace890c255a",
+        "size": 158240
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/SC_Info",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/SC_Info/GoogleAdsOnDeviceConversion.v4.supp",
+        "role": "framework",
+        "sha256": "f10aa22416d3e1293b1f45f210c01f830188afddad85f10352f704819a09bb0d",
+        "size": 848
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/SC_Info/GoogleAdsOnDeviceConversion.supx",
+        "role": "framework",
+        "sha256": "0ba92a930e0367d2c6a05f42858495561f99e3d09914f13b04f6378ba1173663",
+        "size": 80
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/SC_Info/GoogleAdsOnDeviceConversion.sinf",
+        "role": "framework",
+        "sha256": "04288f8e69a3b4db015dbf68d3ccfbd0ce9ae6e83451adc008479f8690ba51cf",
+        "size": 1072
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/SC_Info/GoogleAdsOnDeviceConversion.v5.supf",
+        "role": "framework",
+        "sha256": "d20d81e8aa385bcbb025de6e02eeacfaf6c09413c09609414dc278170aa01f99",
+        "size": 872
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/SC_Info/GoogleAdsOnDeviceConversion.supf",
+        "role": "framework",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/_CodeSignature",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/_CodeSignature/CodeResources",
+        "role": "code-signature",
+        "sha256": "6ca21294637ccade091efbbe6d45bb75335c0160575fabefb470f138bdee4923",
+        "size": 2836
+      },
+      {
+        "depth": 0,
+        "kind": "macho",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/GoogleAdsOnDeviceConversion",
+        "role": "framework",
+        "sha256": "6290baaeabe132e70c1776853b1957d26eac17b9cf01b04eb73313912fc8fc0e",
+        "size": 35616
+      },
+      {
+        "depth": 0,
+        "kind": "xml-plist",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAdsOnDeviceConversion.framework/Info.plist",
+        "role": "bundle-info",
+        "sha256": "787c7c2cb6c3147e52444e3b681ef3133cea63d527fefb947b83d23d995cdca7",
+        "size": 1521
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/SC_Info",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/SC_Info/GoogleAppMeasurementIdentitySupport.supf",
+        "role": "framework",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/SC_Info/GoogleAppMeasurementIdentitySupport.v4.supp",
+        "role": "framework",
+        "sha256": "f10aa22416d3e1293b1f45f210c01f830188afddad85f10352f704819a09bb0d",
+        "size": 848
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/SC_Info/GoogleAppMeasurementIdentitySupport.v5.supf",
+        "role": "framework",
+        "sha256": "21264d226d9822dab72859764e66e6c06dd719818958698cf9af7da756b68986",
+        "size": 872
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/SC_Info/GoogleAppMeasurementIdentitySupport.sinf",
+        "role": "framework",
+        "sha256": "04288f8e69a3b4db015dbf68d3ccfbd0ce9ae6e83451adc008479f8690ba51cf",
+        "size": 1072
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/SC_Info/GoogleAppMeasurementIdentitySupport.supx",
+        "role": "framework",
+        "sha256": "0ba92a930e0367d2c6a05f42858495561f99e3d09914f13b04f6378ba1173663",
+        "size": 80
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/_CodeSignature",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/_CodeSignature/CodeResources",
+        "role": "code-signature",
+        "sha256": "a0720d0bc925a30fa53d321a407ee4a3b20a7dd2ade3fab821a66ad86d7403d1",
+        "size": 2884
+      },
+      {
+        "depth": 0,
+        "kind": "xml-plist",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/Info.plist",
+        "role": "bundle-info",
+        "sha256": "ef2da0ab36e1e3213d5621a7a578cb6671c92fdb613503c87b79e928d636eb22",
+        "size": 1595
+      },
+      {
+        "depth": 0,
+        "kind": "macho",
+        "path": "Payload/PeekLUT.app/Frameworks/GoogleAppMeasurementIdentitySupport.framework/GoogleAppMeasurementIdentitySupport",
+        "role": "framework",
+        "sha256": "54bde63e25dd3b9f09150ce152f9c32db61509d9e69b744ae3dcd214f41bff3d",
+        "size": 35632
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/SC_Info",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/SC_Info/AppsFlyerLib.sinf",
+        "role": "framework",
+        "sha256": "04288f8e69a3b4db015dbf68d3ccfbd0ce9ae6e83451adc008479f8690ba51cf",
+        "size": 1072
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/SC_Info/AppsFlyerLib.supx",
+        "role": "framework",
+        "sha256": "0ba92a930e0367d2c6a05f42858495561f99e3d09914f13b04f6378ba1173663",
+        "size": 80
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/SC_Info/AppsFlyerLib.v4.supp",
+        "role": "framework",
+        "sha256": "164e6f49bfaff05e132094eedd8a1c8cf3c314baa38d79d41d3eaecb2f05cbd6",
+        "size": 848
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/SC_Info/AppsFlyerLib.supf",
+        "role": "framework",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/SC_Info/AppsFlyerLib.v5.supf",
+        "role": "framework",
+        "sha256": "21264d226d9822dab72859764e66e6c06dd719818958698cf9af7da756b68986",
+        "size": 872
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/_CodeSignature",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/_CodeSignature/CodeResources",
+        "role": "code-signature",
+        "sha256": "01ed4a0c4a134c8fbb0d0b1e13e2ac06cfaad9f73b2ea80698388607f8a03350",
+        "size": 3046
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/Info.plist",
+        "role": "bundle-info",
+        "sha256": "1e36b94909fa717a94a066ffda87fc0a6dfb48f8f88c1ea287ba6bfe2c29ebf3",
+        "size": 796
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/PrivacyInfo.xcprivacy",
+        "role": "framework",
+        "sha256": "9629160cd3f3da7f276e0438107db4ead6e04f8eb50cd2de6a3e41ae9cf63d33",
+        "size": 2495
+      },
+      {
+        "depth": 0,
+        "kind": "macho",
+        "path": "Payload/PeekLUT.app/Frameworks/AppsFlyerLib.framework/AppsFlyerLib",
+        "role": "framework",
+        "sha256": "c358c00b873f57ae134538e70697257af00ce68c3a345368b0063e907710b5c0",
+        "size": 35552
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/SC_Info",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/SC_Info/FBSDKCoreKit_Basics.v4.supp",
+        "role": "framework",
+        "sha256": "2105333d73aac0481d9321cdc6e024642b80ab26b794bae329ecd3ff49a63c2c",
+        "size": 1360
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/SC_Info/FBSDKCoreKit_Basics.supf",
+        "role": "framework",
+        "sha256": "fa22f651a1ef8dbaa8ea0f02f6682937a82f823e48500f653fbb9ecb48243e91",
+        "size": 1276
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/SC_Info/FBSDKCoreKit_Basics.supx",
+        "role": "framework",
+        "sha256": "0ba92a930e0367d2c6a05f42858495561f99e3d09914f13b04f6378ba1173663",
+        "size": 80
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/SC_Info/FBSDKCoreKit_Basics.sinf",
+        "role": "framework",
+        "sha256": "04288f8e69a3b4db015dbf68d3ccfbd0ce9ae6e83451adc008479f8690ba51cf",
+        "size": 1072
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/SC_Info/FBSDKCoreKit_Basics.supp",
+        "role": "framework",
+        "sha256": "47fb232db553ac8ebd27d9d72513885b8a38177015aaeb3410d0780d7b7d00c9",
+        "size": 1380
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/SC_Info/FBSDKCoreKit_Basics.v5.supf",
+        "role": "framework",
+        "sha256": "db8c899e505a4775d86f3438a101a8e6cb7d3c46b9324c623440d90e0db8b859",
+        "size": 1256
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/_CodeSignature",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/_CodeSignature/CodeResources",
+        "role": "code-signature",
+        "sha256": "727b70524fc47305781b8abe38bf43413ef33e7d2eefaa024ea3220f780d7047",
+        "size": 3088
+      },
+      {
+        "depth": 0,
+        "kind": "macho",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics",
+        "role": "framework",
+        "sha256": "bee8e5f645849c78ed769de94e15f8f3a4cf611a62a9e2732d42835be1b956be",
+        "size": 162672
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/Info.plist",
+        "role": "bundle-info",
+        "sha256": "14c1e275e6ea59ff2ff975758700e23384f8cd59a1adca739fcbc8a774c41fe8",
+        "size": 816
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit_Basics.framework/PrivacyInfo.xcprivacy",
+        "role": "framework",
+        "sha256": "5acc85e50fe209fd7998839efd196c62661562397053bf3b134a310f84ce855b",
+        "size": 937
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "macho",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FBSDKCoreKit",
+        "role": "framework",
+        "sha256": "c2d8523fd9d8419b6cc4b6a0cdce9ec3ae892f3cc19e38a6eaeef17c4b88359f",
+        "size": 3958672
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/SC_Info",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/SC_Info/FBSDKCoreKit.v5.supf",
+        "role": "framework",
+        "sha256": "0b6e89db95aabfddb8a17370e7c7b65115e143707710b79a929025d0eacea3f9",
+        "size": 12008
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/SC_Info/FBSDKCoreKit.supf",
+        "role": "framework",
+        "sha256": "7729b76cdd2139d3dedf97ed11fdb1cc36b5d32306cff2980f9fbcb4a960a678",
+        "size": 12028
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/SC_Info/FBSDKCoreKit.supp",
+        "role": "framework",
+        "sha256": "75bcf42ca71651c9c68c30b62feef5370c929d68e8e148aa378cfe85a61ba094",
+        "size": 12132
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/SC_Info/FBSDKCoreKit.sinf",
+        "role": "framework",
+        "sha256": "04288f8e69a3b4db015dbf68d3ccfbd0ce9ae6e83451adc008479f8690ba51cf",
+        "size": 1072
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/SC_Info/FBSDKCoreKit.supx",
+        "role": "framework",
+        "sha256": "0ba92a930e0367d2c6a05f42858495561f99e3d09914f13b04f6378ba1173663",
+        "size": 80
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/SC_Info/FBSDKCoreKit.v4.supp",
+        "role": "framework",
+        "sha256": "8c71d2a78a07b2f035013199f56be13aca61eb30a9812c9affea09aecd4d80ad",
+        "size": 12112
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/_CodeSignature",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/_CodeSignature/CodeResources",
+        "role": "code-signature",
+        "sha256": "32717d0e1f1c2e62258ac3c4907e4c5f214f7f5f130f7b159e2dd00e69dd6721",
+        "size": 24878
+      },
+      {
+        "depth": 0,
+        "kind": "binary-plist",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/Info.plist",
+        "role": "bundle-info",
+        "sha256": "fadfbfa2b1051b0504c61248ee28ed0b1e09286e97e312ca7c5a8c7ea98c49b3",
+        "size": 801
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/PrivacyInfo.xcprivacy",
+        "role": "framework",
+        "sha256": "420505ca4b284093819fbbec5f6581c3cf6e435b3e3a302d6fa5ea237be143be",
+        "size": 1923
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/de.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/de.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "8da45d05a5f94843213091c0e17ec34885ff9a310a51d1f4f6d2a0f9ed6392e5",
+        "size": 4943
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/he.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/he.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "160e3536ae83e9883c0822610b0a9977778c2e3b3f35ea4f14ccb6ac1d80faf8",
+        "size": 5055
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ar.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ar.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "b35689825d432581d9b2051266131820d81e548222d4d0e3859dca92403a4876",
+        "size": 5374
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/el.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/el.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "287fe1dca70e6cc9917d2defa48311b5b0d7fedb94ad4af0b776a09df64a29fe",
+        "size": 5916
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ja.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ja.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "f71937eb17503e5d924605db586301c708e3ce4557531b6262d92275263054d4",
+        "size": 5182
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/mr.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/mr.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "7e7d092a428efdd1f46d5babf557f35a7b65f25b34ca863c62382f62bfd7b0bc",
+        "size": 6504
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/en.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/en.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "78d61b37fcece49859cd1a3dee5b5016294c72f7d5ecc5251b39942bc24238ad",
+        "size": 8672
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/gu.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/gu.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "8c33b1e99395b6f51bc96630a27d42d5c473527018debdc99a215336025ddf43",
+        "size": 6497
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/kn.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/kn.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "f0d1fe7f8b47d2dcdde64e4bc9f649d780cdeb84a4494450e427f21497ff1a67",
+        "size": 5695
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/nb.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/nb.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "412600270eb4d679e7a9a911e37e1b3fac9e32314f599b31f32a52bfaf00d770",
+        "size": 4695
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pt_PT.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pt_PT.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "99e4370bb601130eef2dea5777a0a4ed6f3cebd035c602e0a6d2e5f38b202a19",
+        "size": 4921
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pa.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pa.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "6d15601a8fb704ae12c07e663e08ce8f09ff995dc7e97f8dd9a01c73145dadd6",
+        "size": 6610
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/es.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/es.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "5f508c34bedbe1eb5e4ff9aed94e24186c6defb9bc87a8bd219959fb769704c7",
+        "size": 4887
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/da.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/da.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "ad02d84da1798e406563d5a54a29c7044b4b189c14f152720405db30e4b5141c",
+        "size": 4742
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/it.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/it.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "903a4c553927c818e23e3d84b56ad135d446059b665d154f33995dcd4fb65fd8",
+        "size": 4793
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/sk.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/sk.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "a4d0c53aed8ef7746d00eceec82e2ad9df033fac19b9f7c28877f1108a259e95",
+        "size": 4893
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ms.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ms.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "9cd4d9725607d5fc6fd7e31c87a7896f3827cdbc1846d1fd7fd56dbbe2deddd9",
+        "size": 4772
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ta.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ta.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "97b6962a36640518cc4b39f64fa184db504c022ec33cab1fe3cf8c43f8ad91ba",
+        "size": 6760
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ml.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ml.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "8072014d20877ed534050599386703e6d775c3292aeed400fa62829605246073",
+        "size": 7100
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/sv.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/sv.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "e07a0454fbf0a45f48474eb736db8d8fc8fd544b214fc263bf24d119f6996cac",
+        "size": 4721
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/zh_Hant_TW.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/zh_Hant_TW.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "d971daf6d2d6ddc7f42f76f20d8afffbaaa314c4ab4b78bec701125310bda597",
+        "size": 4675
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/te.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/te.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "ef5a80573923a83ea4994b3f9e66127d3949bf5155546f51e0c29c370dd67b89",
+        "size": 6743
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/cs.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/cs.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "2481c7ca63dd22db42d2a0b7899c7cf4df072c78824f6b051c9ed4d3dcd94338",
+        "size": 4874
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ko.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ko.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "0b6b1bd799f64f801deb87436465413e17c9f9a7b0d21d960a648de925fc2234",
+        "size": 4912
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/fil.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/fil.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "4ab620ad6e711a61207c9bc483604ca9f06c47161ad64a0ff6bd49d65c8c77b0",
+        "size": 4912
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/zh_Hant_HK.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/zh_Hant_HK.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "a676d1edc8eae70da7646d7b3d7687453fb5f66cc5278e2d2049c90a852aaefa",
+        "size": 4631
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/hu.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/hu.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "1ad5848844bcd65662975d1293295fae7f3c9a38f67b735cbe27919b3878dd0c",
+        "size": 5011
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/tr.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/tr.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "31ba466e305dd5d1ee51b13a8c1f16d5afb4c448f9383cd5cfac9a42d0a276a9",
+        "size": 4784
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pl.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pl.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "84439b9d537cc747bb57b48429530b776fb7eaca838c89e9fe5c361819550eff",
+        "size": 4860
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/es_ES.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/es_ES.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "0164a01f2a155db071b3d9f64f2d9733a8060a5a53beb59085e47b512cb7687a",
+        "size": 4905
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/vi.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/vi.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "dca4f1a81aa875a9722778dd8d0c2567e44f41b60d2491d15a35e0cb59494b28",
+        "size": 5169
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ru.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/ru.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "b4b6c6d179008769414fad98d2ad3c57b1d4ab5c81fd05a50ca43aea9bd702d5",
+        "size": 5466
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/af.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/af.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "682b5b9c04e91caf158bda5bf610675c1058ebeceab1f79917e1781fc6ae8f07",
+        "size": 4793
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/en_GB.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/en_GB.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "1219f98e5124f671e4aa5d7fb5e1303973dd966334caa2d032456af795b5954d",
+        "size": 4293
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/fr.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/fr.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "e69b869f0ab2514df8cb80430d69e6aea2fd71b1c0a2ca80dbb73f559beb4251",
+        "size": 4998
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/fi.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/fi.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "9f4afd684fee69b1bec90f824e270ab551f647c357a667c17d6de912779bd867",
+        "size": 4873
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/id.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/id.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "12af5ae27c652eefa5c2924b61711fe3ab23c105ba6e2dcddf2ecdf14c9c58d4",
+        "size": 4714
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/nl.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/nl.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "c8d9c6a82fff3ab6f8f510cbd5ad2739abbec43824ce29c7e0b52a86caaa9044",
+        "size": 4783
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/th.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/th.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "1adf97d0017648976e8f2bed2d3cd1bdc598580e951fc3d9444d04729332d16b",
+        "size": 6509
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pt.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/pt.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "7ebd28a4cc5c6ded2b7c321e59f5847af850dd2e7275506f104e723c5621070f",
+        "size": 4824
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/bn.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/bn.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "45899f76690c08d6c66a1bccf4d61c9988b248583c12f5d9d8650c5e548158df",
+        "size": 6746
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/hr.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "text",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/hr.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "883f0545d894c76f2a24416fb6fc9045b396cec4cf8a4c17c2b384305e69016c",
+        "size": 4730
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/hi.lproj",
+        "role": "framework",
+        "size": 0
+      },
+      {
+        "depth": 0,
+        "kind": "binary",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/hi.lproj/FacebookSDK.strings",
+        "role": "framework",
+        "sha256": "ecc21eb5e08a8cf2aeec6b3317e06b449aa957176ea005e583a76b46940f71e4",
+        "size": 6528
+      },
+      {
+        "depth": 0,
+        "kind": "directory",
+        "path": "Payload/PeekLUT.app/Frameworks/FBSDKCoreKit.framework/FacebookSDKStrings.bundle/Resources/zh.lproj",
+        "role": "framework",
+        "size": 0
+      }
+    ],
+    "entries_total": 438,
+    "files": 302,
+    "hashed_bytes": 230811000,
+    "path": "C:\\Users\\don360\\Downloads\\com.george.kye.PeekLUT_2.27.0_und3fined.ipa",
+    "root": "com.george.kye.PeekLUT_2.27.0_und3fined.ipa",
+    "root_kind": "ipa",
+    "truncated": false
+  },
+  "summary": "com.george.kye.PeekLUT_2.27.0_und3fined.ipa (ipa) holds 302 files in 438 entries; 0 nested container(s).",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "no_disk_images",
+      "message": "Disk images (DMG), installers (PKG/MSI) and compressed tarballs are listed as single files, not opened."
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 300,
+    "total": 438,
+    "next_offset": 300
+  },
+  "locations": [
+    {
+      "kind": "path",
+      "value": "C:\\Users\\don360\\Downloads\\com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+    }
+  ],
+  "links": []
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev_248047989d0b289a0c6dbf851222b1c849209db55a4a5a1927b3c22c6b515b92",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x1005966d4"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x1005966d4",
+    "function": "FUN_1005966d4",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_opt_self replaced with injection: _objc_retain_fixup */\r\n/* WARNING: Function: _objc_retainAutoreleasedReturnValue replaced with injection:\r\n   _objc_retain_fixup */\r\n/* WARNING: Function: _objc_release_x23 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_release_x21 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_release_x19 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_release_x20 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_release_x24 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_release_x25 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_1005966d4(void)\r\n\r\n{\r\n  ID IVar1;\r\n  undefined8 uVar2;\r\n  undefined8 uVar3;\r\n  undefined *puVar4;\r\n  long lVar5;\r\n  long *plVar6;\r\n  undefined *puVar7;\r\n  undefined8 uVar8;\r\n  undefined *puVar9;\r\n  undefined *puVar10;\r\n  long lVar11;\r\n  undefined8 extraout_x1;\r\n  long unaff_x22;\r\n  undefined8 uVar12;\r\n  \r\n  IVar1 = NSBundle::mainBundle((ID)PTR__OBJC_CLASS___NSBundle_1015f95c0);\r\n  uVar2 = 0x4c746c7561666544;\r\n  __sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF(0x4c746c7561666544,0xeb00000000737475);\r\n  uVar3 = 0x656c646e7562;\r\n  __sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF(0x656c646e7562,0xe600000000000000);\r\n  IVar1 = NSBundle::pathForResource_ofType_(IVar1,uVar2,uVar3);\r\n  puVar7 = PTR___sSSN_1015ff0e8;\r\n  if (IVar1 != 0) {\r\n    puVar4 = PTR__OBJC_CLASS___NSBundle_1015f95c0;\r\n    _objc_allocWithZone();\r\n    IVar1 = objc_stub::initWithPath_((ID)puVar4,IVar1);\r\n    uVar2 = 0;\r\n    if (IVar1 != 0) {\r\n      *(undefined8 *)(unaff_x22 + 0x90) = *(undefined8 *)(unaff_x22 + 200);\r\n      *(undefined8 *)(unaff_x22 + 0x98) = *(undefined8 *)(unaff_x22 + 0xd0);\r\n      *(undefined8 *)(unaff_x22 + 0xa0) = 0x6e6f736a2e;\r\n      *(undefined8 *)(unaff_x22 + 0xa8) = 0xe500000000000000;\r\n      *(undefined8 *)(unaff_x22 + 0xb0) = 0;\r\n      *(undefined8 *)(unaff_x22 + 0xb8) = 0xe000000000000000;\r\n      FUN_100034b54();\r\n      lVar5 = unaff_x22 + 0xa0;\r\n      lVar11 = unaff_x22 + 0xb0;\r\n      __sSy10FoundationE20replacingOccurrences2of4with7options5rangeSSqd___qd_0_So22NSStringCompareOptionsVSnySS5IndexVGSgtSyRd__SyRd_0_r0_lF\r\n                (lVar5,lVar11,0,0,0,1,puVar7,puVar7,puVar7,uVar2,uVar2,uVar2);\r\n      __sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF();\r\n      _swift_bridgeObjectRelease(lVar11);\r\n      uVar2 = 0x6e6f736a;\r\n      __sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF(0x6e6f736a,0xe400000000000000);\r\n      IVar1 = objc_stub::pathForResource_ofType_(IVar1,lVar5,uVar2);\r\n      if (IVar1 != 0) {\r\n        uVar2 = *(undefined8 *)(unaff_x22 + 0xd0);\r\n        uVar12 = *(undefined8 *)(unaff_x22 + 200);\r\n        uVar3 = extraout_x1;\r\n        __sSS10FoundationE36_unconditionallyBridgeFromObjectiveCySSSo8NSStringCSgFZ();\r\n        uVar8 = 0;\r\n        *(undefined8 *)(unaff_x22 + 0xf8) = uVar3;\r\n        __sScM6sharedScMvgZ();\r\n        *(undefined8 *)(unaff_x22 + 0x100) = uVar8;\r\n        *(ID *)(unaff_x22 + 0x20) = IVar1;\r\n        *(undefined8 *)(unaff_x22 + 0x28) = uVar3;\r\n        *(undefined8 *)(unaff_x22 + 0x30) = uVar12;\r\n        *(undefined8 *)(unaff_x22 + 0x38) = uVar2;\r\n        plVar6 = (long *)(ulong)*(uint *)(\r\n                                         PTR___ss31withCheckedThrowingContinuation9isolation8function_xScA_pSgYi_SSyScCyxs5Error_pGXEtYaKlFTu_1016011b0\r\n                                         + 4);\r\n        _swift_task_alloc();\r\n        *(long **)(unaff_x22 + 0x108) = plVar6;\r\n        puVar7 = &DAT_1017a6ae0;\r\n        FUN_100005318(&DAT_1017a6ae0,&DAT_1011dab90);\r\n        *plVar6 = unaff_x22;\r\n        plVar6[1] = (long)FUN_100596a88;\r\n        __ss31withCheckedThrowingContinuation9isolation8function_xScA_pSgYi_SSyScCyxs5Error_pGXEtYaKlF\r\n                  (unaff_x22 + 0xc0,uVar8,PTR___sScMScAsWP_101600eb0,0xd000000000000017,\r\n                   0x80000001014145c0,FUN_100597214,unaff_x22 + 0x10,puVar7);\r\n        return;\r\n      }\r\n    }\r\n  }\r\n  _swift_release(*(undefined8 *)(unaff_x22 + 0xe0));\r\n  uVar2 = *(undefined8 *)(unaff_x22 + 200);\r\n  uVar3 = *(undefined8 *)(unaff_x22 + 0xd0);\r\n  puVar4 = &DAT_1017a0600;\r\n  FUN_100005318(&DAT_1017a0600,&DAT_1011aabd0);\r\n  lVar5 = unaff_x22 + 0x40;\r\n  _swift_initStackObject();\r\n  uVar8 = _DAT_1011a6750;\r\n  *(undefined8 *)(puVar4 + 0x18) = _UNK_1011a6758;\r\n  *(undefined8 *)(puVar4 + 0x10) = uVar8;\r\n  uVar8 = *(undefined8 *)PTR__NSLocalizedDescriptionKey_1015f9508;\r\n  __sSS10FoundationE36_unconditionallyBridgeFromObjectiveCySSSo8NSStringCSgFZ();\r\n  *(undefined8 *)(puVar4 + 0x20) = uVar8;\r\n  *(long *)(puVar4 + 0x28) = lVar5;\r\n  __ss11_StringGutsV4growyySiF(0x12);\r\n  _swift_bridgeObjectRelease(0xe000000000000000);\r\n  __sSS6appendyySSF(uVar2,uVar3);\r\n  *(undefined **)(puVar4 + 0x48) = puVar7;\r\n  *(undefined8 *)(puVar4 + 0x30) = 0xd000000000000010;\r\n  *(undefined8 *)(puVar4 + 0x38) = 0x80000001014145a0;\r\n  puVar9 = puVar4;\r\n  FUN_1005cd128(puVar4);\r\n  _swift_setDeallocating(puVar4);\r\n  FUN_1000374ac(puVar4 + 0x20,&DAT_101789398,&DAT_1011b8f20);\r\n  puVar4 = PTR__OBJC_CLASS___NSError_1015f95f0;\r\n  _objc_allocWithZone();\r\n  uVar2 = 0x46746f4e656c6946;\r\n  __sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF(0x46746f4e656c6946,0xec000000646e756f);\r\n  puVar10 = puVar9;\r\n  __sSD10FoundationE19_bridgeToObjectiveCSo12NSDictionaryCyF\r\n            (puVar9,puVar7,PTR___sypN_1016005a0 + 8,PTR___sSSSHsWP_1015ff0f8);\r\n  _swift_bridgeObjectRelease(puVar9);\r\n  objc_stub::initWithDomain_code_userInfo_((ID)puVar4,uVar2,0x194,puVar10);\r\n  _swift_willThrow(0);\r\n                    /* WARNING: Could not recover jumptable at 0x000100596a84. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n  (**(code **)(unaff_x22 + 8))();\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_1005966d4(void);"
+  },
+  "summary": "Pseudo-C for FUN_1005966d4 from the Deep engine (128 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1005966d4"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

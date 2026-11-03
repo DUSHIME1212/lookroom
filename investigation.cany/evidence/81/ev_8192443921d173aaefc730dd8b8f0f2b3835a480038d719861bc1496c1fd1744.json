@@ -1,0 +1,600 @@
+{
+  "id": "ev_8192443921d173aaefc730dd8b8f0f2b3835a480038d719861bc1496c1fd1744",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 60,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "theatermasks|slider.horizontal|square.stack|cube.transparent|checkmark|ellipsis|heart|star.fill|plus"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011d5c30",
+        "references": [],
+        "section": "__const",
+        "text": "PaywallPeekPlusWordmarkView"
+      },
+      {
+        "address": "0x1011f7ac5",
+        "references": [],
+        "section": "__const",
+        "text": "Heartbeat"
+      },
+      {
+        "address": "0x1011f7e10",
+        "references": [],
+        "section": "__const",
+        "text": "HeartbeatController"
+      },
+      {
+        "address": "0x1011f7e60",
+        "references": [],
+        "section": "__const",
+        "text": "HeartbeatStorageProtocol"
+      },
+      {
+        "address": "0x1011f7eb0",
+        "references": [],
+        "section": "__const",
+        "text": "HeartbeatStorage"
+      },
+      {
+        "address": "0x1011f7f30",
+        "references": [],
+        "section": "__const",
+        "text": "HeartbeatsPayloadConvertible"
+      },
+      {
+        "address": "0x1011f7f50",
+        "references": [],
+        "section": "__const",
+        "text": "HeartbeatsBundle"
+      },
+      {
+        "address": "0x1011f8230",
+        "references": [],
+        "section": "__const",
+        "text": "HeartbeatsPayload"
+      },
+      {
+        "address": "0x1011f89a0",
+        "references": [],
+        "section": "__const",
+        "text": "_ObjC_HeartbeatController"
+      },
+      {
+        "address": "0x1011f89e0",
+        "references": [],
+        "section": "__const",
+        "text": "_ObjC_HeartbeatsPayload"
+      },
+      {
+        "address": "0x10124c3d1",
+        "references": [],
+        "section": "__const",
+        "text": "INVALID_SPAKE2PLUSV1_VALUE"
+      },
+      {
+        "address": "0x1013778f0",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s20FirebaseCoreInternal24HeartbeatStorageProtocolP"
+      },
+      {
+        "address": "0x1013779fc",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s20FirebaseCoreInternal28HeartbeatsPayloadConvertibleP"
+      },
+      {
+        "address": "0x1013940d0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onTryPeekPlus"
+      },
+      {
+        "address": "0x1013a3e55",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "heart"
+      },
+      {
+        "address": "0x1013a4870",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "lastAddedHeartbeatDates"
+      },
+      {
+        "address": "0x1013a4930",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "heartbeatController"
+      },
+      {
+        "address": "0x1013a4950",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "heartbeatsPayload"
+      },
+      {
+        "address": "0x1013ffbe0",
+        "references": [
+          {
+            "from": "0x100082d54",
+            "function": "sub_100082d40"
+          },
+          {
+            "from": "0x100178170",
+            "function": "sub_100178140"
+          },
+          {
+            "from": "0x10021f97c",
+            "function": "sub_10021ea74"
+          },
+          {
+            "from": "0x1002864a0",
+            "function": "sub_100286234"
+          },
+          {
+            "from": "0x1003145a0",
+            "function": "sub_100314574"
+          },
+          {
+            "from": "0x1003d1f2c",
+            "function": "sub_1003d1c7c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "slider.horizontal.3"
+      },
+      {
+        "address": "0x101404ae0",
+        "references": [
+          {
+            "from": "0x1000a0098",
+            "function": "sub_1000a0060"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.stack.fill.badge.plus"
+      },
+      {
+        "address": "0x1014057d0",
+        "references": [
+          {
+            "from": "0x100182be0",
+            "function": "sub_100182ba0"
+          },
+          {
+            "from": "0x1002264e8",
+            "function": "sub_1002262c4"
+          },
+          {
+            "from": "0x1003eab8c",
+            "function": "sub_1003eab54"
+          },
+          {
+            "from": "0x10059f71c",
+            "function": "sub_10059f6ec"
+          }
+        ],
+        "section": "__cstring",
+        "text": "rectangle.stack.badge.plus"
+      },
+      {
+        "address": "0x1014057f0",
+        "references": [
+          {
+            "from": "0x100185eb0",
+            "function": "sub_100185e78"
+          },
+          {
+            "from": "0x10020462c",
+            "function": "sub_1002044ec"
+          },
+          {
+            "from": "0x10021f2dc",
+            "function": "sub_10021ea74"
+          },
+          {
+            "from": "0x1002d9560",
+            "function": "sub_1002d947c"
+          },
+          {
+            "from": "0x1002ef4f4",
+            "function": "sub_1002ef474"
+          }
+        ],
+        "section": "__cstring",
+        "text": "square.stack.3d.up"
+      },
+      {
+        "address": "0x1014058d0",
+        "references": [
+          {
+            "from": "0x100190d6c",
+            "function": "sub_100190ce4"
+          },
+          {
+            "from": "0x100233a2c",
+            "function": "sub_1002337d0"
+          },
+          {
+            "from": "0x10031509c",
+            "function": "sub_100315038"
+          }
+        ],
+        "section": "__cstring",
+        "text": "checkmark.circle.fill"
+      },
+      {
+        "address": "0x101406540",
+        "references": [
+          {
+            "from": "0x100201c78",
+            "function": "sub_100201268"
+          },
+          {
+            "from": "0x1004ecaa4",
+            "function": "sub_1004ec4ac"
+          }
+        ],
+        "section": "__cstring",
+        "text": "externaldrive.badge.plus"
+      },
+      {
+        "address": "0x101406600",
+        "references": [
+          {
+            "from": "0x100202a10",
+            "function": "sub_100202228"
+          },
+          {
+            "from": "0x10038dd84",
+            "function": "sub_10038dd50"
+          }
+        ],
+        "section": "__cstring",
+        "text": "cube.transparent.fill"
+      },
+      {
+        "address": "0x101406870",
+        "references": [
+          {
+            "from": "0x10021f968",
+            "function": "sub_10021ea74"
+          },
+          {
+            "from": "0x1003e6648",
+            "function": "sub_1003e5590"
+          }
+        ],
+        "section": "__cstring",
+        "text": "theatermasks.fill"
+      },
+      {
+        "address": "0x101406890",
+        "references": [
+          {
+            "from": "0x10021f2d0",
+            "function": "sub_10021ea74"
+          }
+        ],
+        "section": "__cstring",
+        "text": "square.stack.3d.up.fill"
+      },
+      {
+        "address": "0x101407630",
+        "references": [
+          {
+            "from": "0x100271d58",
+            "function": "sub_100271cec"
+          }
+        ],
+        "section": "__cstring",
+        "text": "square.stack.3d.up.slash"
+      },
+      {
+        "address": "0x10140b4b0",
+        "references": [
+          {
+            "from": "0x1002ef4b0",
+            "function": "sub_1002ef474"
+          },
+          {
+            "from": "0x1003126a0",
+            "function": "sub_100312628"
+          }
+        ],
+        "section": "__cstring",
+        "text": "cube.transparent"
+      },
+      {
+        "address": "0x10140fe30",
+        "references": [
+          {
+            "from": "0x1003e5fa0",
+            "function": "sub_1003e5590"
+          }
+        ],
+        "section": "__cstring",
+        "text": "slider.horizontal.2.square.on.square"
+      },
+      {
+        "address": "0x101412f80",
+        "references": [
+          {
+            "from": "0x10051eeec",
+            "function": "sub_10051eec8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "slider.horizontal.below.square.filled.and.square"
+      },
+      {
+        "address": "0x101413d40",
+        "references": [
+          {
+            "from": "0x100563734",
+            "function": "sub_100563664"
+          }
+        ],
+        "section": "__cstring",
+        "text": "video.badge.plus"
+      },
+      {
+        "address": "0x10141be40",
+        "references": [
+          {
+            "from": "0x1008cc494",
+            "function": "sub_1008cc32c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "com.heartbeat.storage."
+      },
+      {
+        "address": "0x10141bea0",
+        "references": [
+          {
+            "from": "0x1008cfd30",
+            "function": "sub_1008cfd24"
+          },
+          {
+            "from": "0x1008d255c",
+            "function": "sub_1008d24ec"
+          }
+        ],
+        "section": "__cstring",
+        "text": "lastAddedHeartbeatDates"
+      },
+      {
+        "address": "0x10141beb8",
+        "references": [],
+        "section": "__cstring",
+        "text": "heartbeats"
+      },
+      {
+        "address": "0x10141bed0",
+        "references": [
+          {
+            "from": "0x1008d56ec",
+            "function": "sub_1008d55c8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "google-heartbeat-storage"
+      },
+      {
+        "address": "0x10141bef0",
+        "references": [
+          {
+            "from": "0x1008d6084",
+            "function": "sub_1008d6078"
+          }
+        ],
+        "section": "__cstring",
+        "text": "FirebaseCoreInternal._ObjC_HeartbeatController"
+      },
+      {
+        "address": "0x10141bf20",
+        "references": [
+          {
+            "from": "0x1008d62ec",
+            "function": "sub_1008d62e0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "FirebaseCoreInternal._ObjC_HeartbeatsPayload"
+      },
+      {
+        "address": "0x10141ceca",
+        "references": [],
+        "section": "__cstring",
+        "text": "v16@?0@\"FIRHeartbeatsPayload\"8"
+      },
+      {
+        "address": "0x101426a94",
+        "references": [
+          {
+            "from": "0x100920360",
+            "function": "sub_100920308"
+          }
+        ],
+        "section": "__cstring",
+        "text": "WARN  [%s:%d] DW_OP_plus_uconst value %lu\n"
+      },
+      {
+        "address": "0x101426abf",
+        "references": [
+          {
+            "from": "0x100920350",
+            "function": "sub_100920308"
+          }
+        ],
+        "section": "__cstring",
+        "text": "FIRCLSDwarfExpressionMachineExecute_plus_uconst"
+      },
+      {
+        "address": "0x101426aef",
+        "references": [
+          {
+            "from": "0x100920008",
+            "function": "sub_10091ffe0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "WARN  [%s:%d] DW_OP_plus_and\n"
+      },
+      {
+        "address": "0x101426b35",
+        "references": [
+          {
+            "from": "0x1009200fc",
+            "function": "sub_1009200d4"
+          }
+        ],
+        "section": "__cstring",
+        "text": "WARN  [%s:%d] DW_OP_plus\n"
+      },
+      {
+        "address": "0x101426b4f",
+        "references": [
+          {
+            "from": "0x1009200f0",
+            "function": "sub_1009200d4"
+          }
+        ],
+        "section": "__cstring",
+        "text": "FIRCLSDwarfExpressionMachineExecute_plus"
+      },
+      {
+        "address": "0x1014be792",
+        "references": [],
+        "section": "__cstring",
+        "text": "ellipsis"
+      },
+      {
+        "address": "0x1014c01ba",
+        "references": [],
+        "section": "__cstring",
+        "text": "Tradplus"
+      },
+      {
+        "address": "0x1014d6030",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC20FirebaseCoreInternal19HeartbeatController"
+      },
+      {
+        "address": "0x1014d6060",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC20FirebaseCoreInternal16HeartbeatStorage"
+      },
+      {
+        "address": "0x1014d60f0",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "FIRHeartbeatController"
+      },
+      {
+        "address": "0x1014d6110",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "FIRHeartbeatsPayload"
+      },
+      {
+        "address": "0x1014d62f7",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "FIRHeartbeatLogger"
+      },
+      {
+        "address": "0x1014d630a",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "FIRHeartbeatLoggerProtocol"
+      },
+      {
+        "address": "0x1014e1606",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"FIRHeartbeatController\",R,N,V_heartbeatController"
+      },
+      {
+        "address": "0x1014e7865",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"<FIRHeartbeatLoggerProtocol>\",R,V_heartbeatLogger"
+      },
+      {
+        "address": "0x1014e8b19",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"FIRHeartbeatLogger\",R,V_heartbeatLogger"
+      },
+      {
+        "address": "0x1014e984c",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "heartbeatLogger"
+      },
+      {
+        "address": "0x1014f430e",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "_heartbeatController"
+      },
+      {
+        "address": "0x1014f4323",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "_heartbeatLogger"
+      },
+      {
+        "address": "0x1014fd754",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "canonDCIP3PlusColorSpace"
+      },
+      {
+        "address": "0x101508380",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "flushHeartbeatFromToday"
+      }
+    ],
+    "total": 70
+  },
+  "summary": "70 strings match \"theatermasks|slider.horizontal|square.stack|cube.transparent|checkmark|ellipsis|heart|star.fill|plus\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 60,
+    "total": 70,
+    "next_offset": 60
+  },
+  "locations": [],
+  "links": []
+}

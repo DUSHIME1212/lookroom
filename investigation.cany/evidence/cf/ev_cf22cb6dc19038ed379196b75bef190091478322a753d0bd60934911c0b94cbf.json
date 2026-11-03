@@ -1,0 +1,246 @@
+{
+  "id": "ev_cf22cb6dc19038ed379196b75bef190091478322a753d0bd60934911c0b94cbf",
+  "subject": {
+    "kind": "plist",
+    "sha256": "f37a386612e61c9877c444c8f0dbdc2bc5285b1ca7fb19d3a1e83b4e29cd9831",
+    "name": "Info.plist"
+  },
+  "operation": "apple_plist_show",
+  "params": {
+    "path": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33\\Payload\\PeekLUT.app\\Info.plist"
+  },
+  "result": {
+    "format": "xml",
+    "keyed_archive": false,
+    "path": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33\\Payload\\PeekLUT.app\\Info.plist",
+    "plist": {
+      "BGTaskSchedulerPermittedIdentifiers": [
+        "com.george.kye.PeekLUT.videoexport"
+      ],
+      "BuildMachineOSBuild": "25F80",
+      "CFBundleDevelopmentRegion": "en",
+      "CFBundleDisplayName": "PeekLUT",
+      "CFBundleExecutable": "PeekLUT",
+      "CFBundleIcons": {
+        "CFBundlePrimaryIcon": {
+          "CFBundleIconFiles": [
+            "AppIcon60x60"
+          ],
+          "CFBundleIconName": "AppIcon"
+        }
+      },
+      "CFBundleIcons~ipad": {
+        "CFBundlePrimaryIcon": {
+          "CFBundleIconFiles": [
+            "AppIcon60x60",
+            "AppIcon76x76"
+          ],
+          "CFBundleIconName": "AppIcon"
+        }
+      },
+      "CFBundleIdentifier": "com.george.kye.PeekLUT",
+      "CFBundleInfoDictionaryVersion": "6.0",
+      "CFBundleName": "PeekLUT",
+      "CFBundlePackageType": "APPL",
+      "CFBundleShortVersionString": "2.27.0",
+      "CFBundleSupportedPlatforms": [
+        "iPhoneOS"
+      ],
+      "CFBundleURLTypes": [
+        {
+          "CFBundleURLSchemes": [
+            "fb1126796299537950"
+          ]
+        }
+      ],
+      "CFBundleVersion": "1",
+      "DTAppStoreToolsBuild": "27A261",
+      "DTCompiler": "com.apple.compilers.llvm.clang.1_0",
+      "DTPlatformBuild": "23F81a",
+      "DTPlatformName": "iphoneos",
+      "DTPlatformVersion": "26.5",
+      "DTSDKBuild": "23F81a",
+      "DTSDKName": "iphoneos26.5",
+      "DTXcode": "2660",
+      "DTXcodeBuild": "17F113",
+      "FacebookAdvertiserIDCollectionEnabled": true,
+      "FacebookAppID": "1126796299537950",
+      "FacebookClientToken": "627232f196a5b40e4ac839492095a428",
+      "FacebookDisplayName": "PeekLUT",
+      "FirebaseAutomaticScreenReportingEnabled": false,
+      "ITSAppUsesNonExemptEncryption": false,
+      "LSRequiresIPhoneOS": true,
+      "LSSupportsOpeningDocumentsInPlace": true,
+      "MinimumOSVersion": "18.0",
+      "NSAdvertisingAttributionReportEndpoint": "https://appsflyer-skadnetwork.com/",
+      "NSAppTransportSecurity": {
+        "NSAllowsArbitraryLoads": true
+      },
+      "NSCameraUsageDescription": "Add video to edit. Store Exported Videos",
+      "NSPhotoLibraryAddUsageDescription": "Add video to edit. Store Exported Videos",
+      "NSPhotoLibraryUsageDescription": "PeekLUT needs access to your photo library to import media for editing and preserve original dates on export.",
+      "NSPrivacyTrackingDomains": [
+        "att.attr.appsflyer-cn.com",
+        "att.attr.appsflyersdk.com",
+        "att.attr.hevents.appsflyer-cn.com",
+        "att.attr.whappsflyer.com",
+        "att.conversions.appsflyer-cn.com",
+        "att.conversions.appsflyersdk.com",
+        "att.conversions.hevents.appsflyer-cn.com",
+        "att.conversions.whappsflyer.com",
+        "att.dlsdk.appsflyer-cn.com",
+        "att.dlsdk.appsflyersdk.com",
+        "att.dlsdk.hevents.appsflyer-cn.com",
+        "att.dlsdk.whappsflyer.com",
+        "att.launches.appsflyer-cn.com",
+        "att.launches.appsflyersdk.com",
+        "att.launches.hevents.appsflyer-cn.com",
+        "att.launches.whappsflyer.com",
+        "ep1.facebook.com"
+      ],
+      "NSUserTrackingUsageDescription": "PeekLUT uses tracking to measure ad performance and improve install campaigns.",
+      "SKAdNetworkItems": [
+        {
+          "SKAdNetworkIdentifier": "mj797d8u6f.skadnetwork"
+        },
+        {
+          "SKAdNetworkIdentifier": "238da6jt44.skadnetwork"
+        },
+        {
+          "SKAdNetworkIdentifier": "22mmun2rn5.skadnetwork"
+        },
+        {
+          "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+        },
+        {
+          "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+        },
+        {
+          "SKAdNetworkIdentifier": "cstr6suwn9.skadnetwork"
+        }
+      ],
+      "SKIncludeConsumableInAppPurchaseHistory": true,
+      "UIAppFonts": [
+        "Poppins-ExtraBold.ttf",
+        "Poppins-Regular.ttf"
+      ],
+      "UIApplicationSceneManifest": {
+        "UIApplicationSupportsMultipleScenes": false,
+        "UISceneConfigurations": {
+          "UIWindowSceneSessionRoleApplication": [
+            {
+              "UISceneConfigurationName": "Default Configuration",
+              "UISceneDelegateClassName": "PeekLUT.SceneDelegate",
+              "UISceneStoryboardFile": "Main"
+            }
+          ]
+        }
+      },
+      "UIApplicationSupportsIndirectInputEvents": true,
+      "UIBackgroundModes": [
+        "processing"
+      ],
+      "UIDeviceFamily": [
+        1,
+        2
+      ],
+      "UILaunchStoryboardName": "LaunchScreen",
+      "UIMainStoryboardFile": "Main",
+      "UIRequiredDeviceCapabilities": [
+        "arm64"
+      ],
+      "UISupportedInterfaceOrientations~ipad": [
+        "UIInterfaceOrientationPortrait",
+        "UIInterfaceOrientationPortraitUpsideDown",
+        "UIInterfaceOrientationLandscapeLeft",
+        "UIInterfaceOrientationLandscapeRight"
+      ],
+      "UISupportedInterfaceOrientations~iphone": [
+        "UIInterfaceOrientationPortrait",
+        "UIInterfaceOrientationLandscapeLeft",
+        "UIInterfaceOrientationLandscapeRight"
+      ],
+      "UISupportsDocumentBrowser": false,
+      "UIUserInterfaceStyle": "Dark"
+    },
+    "source": "file",
+    "top_level_keys": [
+      "NSAdvertisingAttributionReportEndpoint",
+      "CFBundlePackageType",
+      "UILaunchStoryboardName",
+      "FacebookAdvertiserIDCollectionEnabled",
+      "DTPlatformVersion",
+      "UISupportsDocumentBrowser",
+      "DTSDKBuild",
+      "CFBundleIcons~ipad",
+      "LSRequiresIPhoneOS",
+      "NSCameraUsageDescription",
+      "LSSupportsOpeningDocumentsInPlace",
+      "CFBundleDisplayName",
+      "FacebookClientToken",
+      "UISupportedInterfaceOrientations~iphone",
+      "DTXcodeBuild",
+      "NSPrivacyTrackingDomains",
+      "CFBundleIdentifier",
+      "FirebaseAutomaticScreenReportingEnabled",
+      "UIDeviceFamily",
+      "FacebookDisplayName",
+      "CFBundleInfoDictionaryVersion",
+      "CFBundleIcons",
+      "CFBundleSupportedPlatforms",
+      "NSUserTrackingUsageDescription",
+      "UIMainStoryboardFile",
+      "ITSAppUsesNonExemptEncryption",
+      "MinimumOSVersion",
+      "NSPhotoLibraryAddUsageDescription",
+      "CFBundleName",
+      "SKIncludeConsumableInAppPurchaseHistory",
+      "CFBundleShortVersionString",
+      "SKAdNetworkItems",
+      "UIBackgroundModes",
+      "UIRequiredDeviceCapabilities",
+      "UIAppFonts",
+      "CFBundleExecutable",
+      "UIUserInterfaceStyle",
+      "UISupportedInterfaceOrientations~ipad",
+      "FacebookAppID",
+      "DTAppStoreToolsBuild",
+      "BuildMachineOSBuild",
+      "UIApplicationSupportsIndirectInputEvents",
+      "DTPlatformName",
+      "UIApplicationSceneManifest",
+      "DTCompiler",
+      "CFBundleVersion",
+      "CFBundleDevelopmentRegion",
+      "CFBundleURLTypes",
+      "BGTaskSchedulerPermittedIdentifiers",
+      "DTSDKName",
+      "NSAppTransportSecurity",
+      "DTPlatformBuild",
+      "NSPhotoLibraryUsageDescription",
+      "DTXcode"
+    ]
+  },
+  "summary": "Info.plist (xml plist) with 54 top-level key(s); bundle id com.george.kye.PeekLUT.",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [
+    {
+      "kind": "path",
+      "value": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33\\Payload\\PeekLUT.app\\Info.plist"
+    }
+  ],
+  "links": []
+}

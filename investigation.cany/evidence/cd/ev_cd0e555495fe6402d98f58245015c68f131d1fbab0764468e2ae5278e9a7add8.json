@@ -1,0 +1,45 @@
+{
+  "id": "ev_cd0e555495fe6402d98f58245015c68f131d1fbab0764468e2ae5278e9a7add8",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x1001aaab4"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x1001aaab4",
+    "function": "FUN_1001aaab4",
+    "pseudo_code": "\r\ndouble FUN_1001aaab4(void)\r\n\r\n{\r\n  code *pcVar1;\r\n  undefined *puVar2;\r\n  undefined *puVar3;\r\n  undefined8 uVar4;\r\n  undefined8 *puVar5;\r\n  long lVar6;\r\n  undefined8 uVar7;\r\n  long unaff_x20;\r\n  double dVar8;\r\n  double local_70;\r\n  double local_68;\r\n  undefined8 local_60;\r\n  undefined8 uStack_58;\r\n  undefined8 local_50;\r\n  \r\n  lVar6 = *(long *)(unaff_x20 + 0x10);\r\n  if (lVar6 != 0) {\r\n    puVar2 = &DAT_1011b3d08;\r\n    _swift_getKeyPath(&DAT_1011b3d08);\r\n    puVar3 = &DAT_1011b3d30;\r\n    _swift_getKeyPath(&DAT_1011b3d30);\r\n    _swift_retain(lVar6);\r\n    __s7Combine9PublishedV18_enclosingInstance7wrapped7storagexqd___s24ReferenceWritableKeyPathCyqd__xGAHyqd__ACyxGGtcRld__CluigZ\r\n              (&local_60);\r\n    _swift_release(puVar2);\r\n    _swift_release(puVar3);\r\n    _swift_release(lVar6);\r\n    if ((byte)local_60 < 2) {\r\n      lVar6 = 0;\r\n      if ((byte)local_60 == 0) {\r\n        FUN_1001bdda0();\r\n        puVar5 = (undefined8 *)(unaff_x20 + *(int *)(lVar6 + 0x34));\r\n        local_50 = puVar5[2];\r\n        uStack_58 = puVar5[1];\r\n        local_60 = *puVar5;\r\n        FUN_100005318(&DAT_10178bbb8,&DAT_1011b33a0);\r\n        __s7SwiftUI5StateV12wrappedValuexvg(&local_70);\r\n        dVar8 = local_68 * DAT_1011a6910;\r\n        puVar5 = (undefined8 *)(unaff_x20 + *(int *)(lVar6 + 0x38));\r\n        local_60 = *puVar5;\r\n        uStack_58 = puVar5[1];\r\n        FUN_100005318(&DAT_1017869e0,&DAT_1011a77d0);\r\n        __s7SwiftUI5StateV12wrappedValuexvg(&local_70);\r\n        dVar8 = dVar8 - local_70;\r\n      }\r\n      else {\r\n        FUN_1001bdda0();\r\n        puVar5 = (undefined8 *)(unaff_x20 + *(int *)(lVar6 + 0x34));\r\n        local_50 = puVar5[2];\r\n        uStack_58 = puVar5[1];\r\n        local_60 = *puVar5;\r\n        FUN_100005318(&DAT_10178bbb8,&DAT_1011b33a0);\r\n        __s7SwiftUI5StateV12wrappedValuexvg(&local_70);\r\n        dVar8 = 150.0;\r\n        if (150.0 < local_68 * DAT_1011a7bf8) {\r\n          dVar8 = local_68 * DAT_1011a7bf8;\r\n        }\r\n        if (250.0 < dVar8) {\r\n          dVar8 = 250.0;\r\n        }\r\n      }\r\n    }\r\n    else {\r\n      dVar8 = 0.0;\r\n      if ((byte)local_60 != 2) {\r\n        lVar6 = 0;\r\n        FUN_1001bdda0(0);\r\n        puVar5 = (undefined8 *)(unaff_x20 + *(int *)(lVar6 + 0x34));\r\n        local_50 = puVar5[2];\r\n        uStack_58 = puVar5[1];\r\n        local_60 = *puVar5;\r\n        FUN_100005318(&DAT_10178bbb8,&DAT_1011b33a0);\r\n        __s7SwiftUI5StateV12wrappedValuexvg(&local_70);\r\n        dVar8 = local_68 * DAT_1011a6910;\r\n        puVar5 = (undefined8 *)(unaff_x20 + *(int *)(lVar6 + 0x38));\r\n        local_60 = *puVar5;\r\n        uStack_58 = puVar5[1];\r\n        FUN_100005318(&DAT_1017869e0,&DAT_1011a77d0);\r\n        __s7SwiftUI5StateV12wrappedValuexvg(&local_70);\r\n        dVar8 = dVar8 - local_70;\r\n        if (dVar8 < 0.0) {\r\n          dVar8 = 0.0;\r\n        }\r\n      }\r\n    }\r\n    return dVar8;\r\n  }\r\n  uVar7 = *(undefined8 *)(unaff_x20 + 0x18);\r\n  uVar4 = 0;\r\n  FUN_1003b5b78(0);\r\n  puVar5 = &DAT_101787300;\r\n  FUN_1000057bc(&DAT_101787300,FUN_1003b5b78,&TargetProtocolConformanceDescriptor_1011c8c30);\r\n  __s7SwiftUI17EnvironmentObjectV5errors5NeverOyF(0,uVar7,uVar4,puVar5);\r\n                    /* WARNING: Does not return */\r\n  pcVar1 = (code *)SoftwareBreakpoint(1,0x1001aad58);\r\n  (*pcVar1)();\r\n}\r\n\r\n",
+    "signature": "double FUN_1001aaab4(void);"
+  },
+  "summary": "Pseudo-C for FUN_1001aaab4 from the Deep engine (102 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1001aaab4"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

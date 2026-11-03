@@ -1,0 +1,69 @@
+{
+  "id": "ev_2e2dfbeb0fac36e72a20c63fb602a0863297032ac39bd6257e7a4122cb363cae",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "core_evidence_browse",
+  "params": {
+    "show": {
+      "kind": "summary"
+    },
+    "source": {
+      "evidence_id": "ev_422c9d6194e02c9f748be14441d4fdfaf3a20e5ae72057d6d9f9f22eed56fe2f",
+      "kind": "saved"
+    }
+  },
+  "result": {
+    "coverage": {
+      "at_end": true,
+      "examined": 1,
+      "next_offset": null,
+      "status": "all-in-view",
+      "total": 1
+    },
+    "from_evidence": "ev_422c9d6194e02c9f748be14441d4fdfaf3a20e5ae72057d6d9f9f22eed56fe2f",
+    "from_tool": "native_function_pseudocode",
+    "shown": {
+      "carries_target_content": true,
+      "confidence": "derived",
+      "coverage": {
+        "status": "unknown"
+      },
+      "evidence_id": "ev_422c9d6194e02c9f748be14441d4fdfaf3a20e5ae72057d6d9f9f22eed56fe2f",
+      "limitations": [
+        {
+          "code": "deep_engine",
+          "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+        }
+      ],
+      "operation": "native_function_pseudocode",
+      "subject": {
+        "kind": "mach-o",
+        "name": "PeekLUT",
+        "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20"
+      },
+      "summary": "Pseudo-C for FUN_100f45c74 from the Deep engine (4309 lines)."
+    }
+  },
+  "summary": "Part of native_function_pseudocode evidence (all-in-view).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [],
+  "links": [
+    "ev_422c9d6194e02c9f748be14441d4fdfaf3a20e5ae72057d6d9f9f22eed56fe2f"
+  ]
+}

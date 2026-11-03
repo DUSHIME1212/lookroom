@@ -1,0 +1,45 @@
+{
+  "id": "ev_c091ff845a37f9aebfd3314e5ea4b32e6c796eb02ce58b0010cecc76726c8610",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x100594000"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100593ec4",
+    "function": "FUN_100593ec4",
+    "pseudo_code": "\r\nvoid FUN_100593ec4(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,\r\n                  undefined8 param_5)\r\n\r\n{\r\n  undefined *puVar1;\r\n  undefined *puVar2;\r\n  long lVar3;\r\n  long extraout_x8;\r\n  long extraout_x8_00;\r\n  ulong uVar4;\r\n  long lVar5;\r\n  long lVar6;\r\n  long lVar7;\r\n  undefined1 *puVar8;\r\n  ulong uVar9;\r\n  \r\n  puVar1 = &DAT_101787d20;\r\n  FUN_100005318(&DAT_101787d20,&DAT_1011a8e18);\r\n  lVar6 = *(long *)(puVar1 + -8);\r\n  lVar5 = *(long *)(lVar6 + 0x40);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(lVar5 + 0xfU & 0xfffffffffffffff0);\r\n  puVar8 = &stack0xffffffffffffffa0 + -extraout_x8;\r\n  puVar2 = &DAT_101787920;\r\n  FUN_100005318(&DAT_101787920,&DAT_1011aac30);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)\r\n            (*(long *)(*(long *)(puVar2 + -8) + 0x40) + 0xfU & 0xfffffffffffffff0);\r\n  lVar7 = (long)puVar8 - extraout_x8_00;\r\n  lVar3 = 0;\r\n  __sScPMa();\r\n  (**(code **)(*(long *)(lVar3 + -8) + 0x38))(lVar7,1,1,lVar3);\r\n  (**(code **)(lVar6 + 0x10))(puVar8,param_1,puVar1);\r\n  uVar4 = (ulong)*(byte *)(lVar6 + 0x50);\r\n  uVar9 = uVar4 + 0x40 & (uVar4 ^ 0xffffffffffffffff);\r\n  puVar2 = &DAT_101635558;\r\n  _swift_allocObject(&DAT_101635558,uVar9 + lVar5,uVar4 | 7);\r\n  *(undefined8 *)(puVar2 + 0x10) = 0;\r\n  *(undefined8 *)(puVar2 + 0x18) = 0;\r\n  *(undefined8 *)(puVar2 + 0x20) = param_2;\r\n  *(undefined8 *)(puVar2 + 0x28) = param_3;\r\n  *(undefined8 *)(puVar2 + 0x30) = param_4;\r\n  *(undefined8 *)(puVar2 + 0x38) = param_5;\r\n  (**(code **)(lVar6 + 0x20))(puVar2 + uVar9,puVar8,puVar1);\r\n  _swift_bridgeObjectRetain(param_3);\r\n  _swift_bridgeObjectRetain(param_5);\r\n  FUN_100079a08(0,0,lVar7,&DAT_1011daf98,puVar2);\r\n  _swift_release();\r\n  FUN_1000374ac(lVar7,&DAT_101787920,&DAT_1011aac30);\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_100593ec4(undefined8 param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,undefined8 param_5);"
+  },
+  "summary": "Pseudo-C for FUN_100593ec4 from the Deep engine (51 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100593ec4"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

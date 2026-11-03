@@ -1,0 +1,74 @@
+{
+  "id": "ev_bea13e7581d1957a398b6e34515387f9d3399eefb5b4b8fc1b8e138fc541fba2",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_bytes_find",
+  "params": {
+    "encoding": "both",
+    "limit": 100,
+    "offset": 0,
+    "path": null,
+    "pattern": "636f6c6f7247726164655368616465",
+    "text": null
+  },
+  "result": {
+    "file_size": 27359344,
+    "limit": 100,
+    "match_cap_reached": false,
+    "matches": [
+      {
+        "address": "0x10144c630",
+        "bytes": "636f6c6f7247726164655368616465",
+        "file_offset": 21284400,
+        "file_offset_hex": "0x144c630",
+        "length": 15,
+        "matched": "pattern",
+        "section": "__cstring"
+      }
+    ],
+    "native_container": "mach-o",
+    "offset": 0,
+    "path": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-2de30c11ed4759fa\\Payload\\PeekLUT.app\\PeekLUT",
+    "searched_for": [
+      {
+        "kind": "pattern",
+        "length": 15
+      }
+    ],
+    "total_matches": 1
+  },
+  "summary": "1 match(es) for pattern in PeekLUT; showing 1 from #0.",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "file_bytes_only",
+      "message": "The file's bytes are searched as stored: compressed, encrypted or packed regions and data built at run time are not seen, so no match is not proof of absence."
+    },
+    {
+      "code": "unmapped_regions",
+      "message": "Matches in headers, overlays or debug data that are not loaded into memory have no virtual address."
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [
+    {
+      "kind": "file_offset",
+      "value": "0x144c630"
+    }
+  ],
+  "links": []
+}

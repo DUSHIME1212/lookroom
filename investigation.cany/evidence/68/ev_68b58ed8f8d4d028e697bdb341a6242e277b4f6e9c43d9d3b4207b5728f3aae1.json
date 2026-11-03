@@ -1,0 +1,51 @@
+{
+  "id": "ev_68b58ed8f8d4d028e697bdb341a6242e277b4f6e9c43d9d3b4207b5728f3aae1",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_callers_list",
+  "params": {
+    "function": "0x1001b7608"
+  },
+  "result": {
+    "address_taken": 0,
+    "callers": [
+      {
+        "caller": "0x1001ae958",
+        "name": "sub_1001ae958",
+        "site": "0x1001af140"
+      }
+    ],
+    "entry": "0x1001b7608",
+    "function": "sub_1001b7608"
+  },
+  "summary": "sub_1001b7608 is called from 1 places.",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "direct_calls_only",
+      "message": "callers that reach it through function pointers are not listed (see address_taken)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x1001b7608"
+    }
+  ],
+  "links": []
+}

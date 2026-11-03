@@ -1,0 +1,14 @@
+{
+  "id": "unk_d3b0e40981c1e90f",
+  "revision": 1,
+  "question": "What formula does the original's contrast step use, given presets save values from 0 to 1.17?",
+  "severity": "medium",
+  "domain": "color",
+  "status": "open",
+  "probes": [
+    "Decode the contrast shader in MetalPetalFilters.metallib",
+    "Compare a preset on the original on a real iPhone"
+  ],
+  "evidence_for": [],
+  "evidence_against": []
+}

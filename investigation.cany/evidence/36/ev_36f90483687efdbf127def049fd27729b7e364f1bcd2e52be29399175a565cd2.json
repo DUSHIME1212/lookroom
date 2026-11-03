@@ -1,0 +1,48 @@
+{
+  "id": "ev_36f90483687efdbf127def049fd27729b7e364f1bcd2e52be29399175a565cd2",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_xrefs_list",
+  "params": {
+    "address": "0x10144daf0",
+    "limit": 200,
+    "offset": 0
+  },
+  "result": {
+    "address": "0x10144daf0",
+    "name": null,
+    "references_from": [],
+    "references_to": [],
+    "total_to": 0
+  },
+  "summary": "0x10144daf0 is referenced from 0 places and refers to 0.",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "static_references",
+      "message": "references made through computed pointers at run time are not seen"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 0,
+    "total": 0
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10144daf0"
+    }
+  ],
+  "links": []
+}

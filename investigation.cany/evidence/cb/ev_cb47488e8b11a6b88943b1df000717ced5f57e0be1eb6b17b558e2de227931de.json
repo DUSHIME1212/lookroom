@@ -1,0 +1,1373 @@
+{
+  "id": "ev_cb47488e8b11a6b88943b1df000717ced5f57e0be1eb6b17b558e2de227931de",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 220,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "(shot ?match|mask|qualifier|edit layer|image layer|layer)"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011a2da7",
+        "references": [],
+        "section": "__const",
+        "text": "NAVPlayerItemStatus"
+      },
+      {
+        "address": "0x1011a80b0",
+        "references": [],
+        "section": "__const",
+        "text": "MediaPlayerWrapper"
+      },
+      {
+        "address": "0x1011a80d0",
+        "references": [],
+        "section": "__const",
+        "text": "PlayerControlsViewModel"
+      },
+      {
+        "address": "0x1011a928e",
+        "references": [],
+        "section": "__const",
+        "text": "PlayerView"
+      },
+      {
+        "address": "0x1011a9e80",
+        "references": [],
+        "section": "__const",
+        "text": "SelectMaskMenuView"
+      },
+      {
+        "address": "0x1011aa6c0",
+        "references": [],
+        "section": "__const",
+        "text": "MaskTreeConnector"
+      },
+      {
+        "address": "0x1011af200",
+        "references": [],
+        "section": "__const",
+        "text": "ColorSeparationMaskControls"
+      },
+      {
+        "address": "0x1011b15b0",
+        "references": [],
+        "section": "__const",
+        "text": "PresetDrawMaskAssetError"
+      },
+      {
+        "address": "0x1011b363f",
+        "references": [],
+        "section": "__const",
+        "text": "?MaskData"
+      },
+      {
+        "address": "0x1011b365c",
+        "references": [],
+        "section": "__const",
+        "text": "MaskVisibility"
+      },
+      {
+        "address": "0x1011b366b",
+        "references": [],
+        "section": "__const",
+        "text": "ImageMaskItem"
+      },
+      {
+        "address": "0x1011b37a0",
+        "references": [],
+        "section": "__const",
+        "text": "LuminanceRangeMaskData"
+      },
+      {
+        "address": "0x1011b37b7",
+        "references": [],
+        "section": "__const",
+        "text": "MaskType"
+      },
+      {
+        "address": "0x1011b37c0",
+        "references": [],
+        "section": "__const",
+        "text": "MaskSettings"
+      },
+      {
+        "address": "0x1011b4b10",
+        "references": [],
+        "section": "__const",
+        "text": "MaskValueAccessor"
+      },
+      {
+        "address": "0x1011b4b50",
+        "references": [],
+        "section": "__const",
+        "text": "BaseMaskControlView"
+      },
+      {
+        "address": "0x1011b4b70",
+        "references": [],
+        "section": "__const",
+        "text": "MaskBlendBadgeView"
+      },
+      {
+        "address": "0x1011b4b90",
+        "references": [],
+        "section": "__const",
+        "text": "LinearMaskControlView"
+      },
+      {
+        "address": "0x1011b4bb0",
+        "references": [],
+        "section": "__const",
+        "text": "RadialMaskControlView"
+      },
+      {
+        "address": "0x1011b4bd0",
+        "references": [],
+        "section": "__const",
+        "text": "RadialMaskPreviewView"
+      },
+      {
+        "address": "0x1011b4bf0",
+        "references": [],
+        "section": "__const",
+        "text": "DrawMaskControlUIView"
+      },
+      {
+        "address": "0x1011b4c40",
+        "references": [],
+        "section": "__const",
+        "text": "LuminanceRangeMaskPreviewView"
+      },
+      {
+        "address": "0x1011b4c60",
+        "references": [],
+        "section": "__const",
+        "text": "CompositeMaskPreviewView"
+      },
+      {
+        "address": "0x1011b4c80",
+        "references": [],
+        "section": "__const",
+        "text": "MaskOverlayUIView"
+      },
+      {
+        "address": "0x1011b4ca0",
+        "references": [],
+        "section": "__const",
+        "text": "MaskPreviewContentView"
+      },
+      {
+        "address": "0x1011bb90d",
+        "references": [],
+        "section": "__const",
+        "text": "ImageLayers"
+      },
+      {
+        "address": "0x1011bb920",
+        "references": [],
+        "section": "__const",
+        "text": "MaskCombinationMode"
+      },
+      {
+        "address": "0x1011bba7a",
+        "references": [],
+        "section": "__const",
+        "text": "DrawMaskData"
+      },
+      {
+        "address": "0x1011bc0f0",
+        "references": [],
+        "section": "__const",
+        "text": "CurrentMaskLayerView"
+      },
+      {
+        "address": "0x1011bc268",
+        "references": [],
+        "section": "__const",
+        "text": "MaskLayerView"
+      },
+      {
+        "address": "0x1011bc280",
+        "references": [],
+        "section": "__const",
+        "text": "LuminanceRangeMaskPreview"
+      },
+      {
+        "address": "0x1011bc510",
+        "references": [],
+        "section": "__const",
+        "text": "HSLQualifierControlView"
+      },
+      {
+        "address": "0x1011bcbd0",
+        "references": [],
+        "section": "__const",
+        "text": "QualifierRangeSlider"
+      },
+      {
+        "address": "0x1011c25c0",
+        "references": [],
+        "section": "__const",
+        "text": "MaskLayersRender"
+      },
+      {
+        "address": "0x1011ca110",
+        "references": [],
+        "section": "__const",
+        "text": "SelectedMaskSecondaryMenuView"
+      },
+      {
+        "address": "0x1011ca740",
+        "references": [],
+        "section": "__const",
+        "text": "VideoPlayerControlsViewModel"
+      },
+      {
+        "address": "0x1011caae0",
+        "references": [],
+        "section": "__const",
+        "text": "InlineVideoPlayerControlsView"
+      },
+      {
+        "address": "0x1011cb710",
+        "references": [],
+        "section": "__const",
+        "text": "RadialGradientMaskControlView"
+      },
+      {
+        "address": "0x1011cbaf0",
+        "references": [],
+        "section": "__const",
+        "text": "RadialGradientMaskPointsControl"
+      },
+      {
+        "address": "0x1011cbc30",
+        "references": [],
+        "section": "__const",
+        "text": "ToneCurveEditorCurveLayer"
+      },
+      {
+        "address": "0x1011ce830",
+        "references": [],
+        "section": "__const",
+        "text": "LayeredRenderPipeline"
+      },
+      {
+        "address": "0x1011cfda0",
+        "references": [],
+        "section": "__const",
+        "text": "DrawMaskControlView"
+      },
+      {
+        "address": "0x1011d0240",
+        "references": [],
+        "section": "__const",
+        "text": "MetalDrawMaskPipeline"
+      },
+      {
+        "address": "0x1011d05c0",
+        "references": [],
+        "section": "__const",
+        "text": "MetalDrawMaskPipelineError"
+      },
+      {
+        "address": "0x1011d0830",
+        "references": [],
+        "section": "__const",
+        "text": "MaskRendererRegistry"
+      },
+      {
+        "address": "0x1011d2770",
+        "references": [],
+        "section": "__const",
+        "text": "MaskFilterHistory"
+      },
+      {
+        "address": "0x1011d2f50",
+        "references": [],
+        "section": "__const",
+        "text": "DrawMaskBrushPanel"
+      },
+      {
+        "address": "0x1011d5340",
+        "references": [],
+        "section": "__const",
+        "text": "UnsharpMaskFilter"
+      },
+      {
+        "address": "0x1011d6e60",
+        "references": [],
+        "section": "__const",
+        "text": "LinearGradientMaskPointsControl"
+      },
+      {
+        "address": "0x1011d6f7f",
+        "references": [],
+        "section": "__const",
+        "text": "@__Key_isMaskOverlayTempHidden"
+      },
+      {
+        "address": "0x1011d6fe0",
+        "references": [],
+        "section": "__const",
+        "text": "LinearGradientMaskControlView"
+      },
+      {
+        "address": "0x1011d99f0",
+        "references": [],
+        "section": "__const",
+        "text": "SplitMaskOrientationTip"
+      },
+      {
+        "address": "0x1011dd100",
+        "references": [
+          {
+            "from": "0x1005f5724",
+            "function": "sub_1005f561c"
+          },
+          {
+            "from": "0x1005f5968",
+            "function": "sub_1005f5830"
+          }
+        ],
+        "section": "__const",
+        "text": "masks"
+      },
+      {
+        "address": "0x1011de0c0",
+        "references": [],
+        "section": "__const",
+        "text": "Mask"
+      },
+      {
+        "address": "0x1011de0c5",
+        "references": [],
+        "section": "__const",
+        "text": "Layer"
+      },
+      {
+        "address": "0x1011de0d0",
+        "references": [],
+        "section": "__const",
+        "text": "SavedMaskLayersModel"
+      },
+      {
+        "address": "0x1011de22b",
+        "references": [],
+        "section": "__const",
+        "text": "FailableLayer"
+      },
+      {
+        "address": "0x1011de239",
+        "references": [],
+        "section": "__const",
+        "text": "MaskTypeValue"
+      },
+      {
+        "address": "0x1011dfaf0",
+        "references": [],
+        "section": "__const",
+        "text": "SearchPathDomainMask"
+      },
+      {
+        "address": "0x1011dfb05",
+        "references": [],
+        "section": "__const",
+        "text": "NNSSearchPathDomainMask"
+      },
+      {
+        "address": "0x1011e38c0",
+        "references": [],
+        "section": "__const",
+        "text": "CALayerContentsGravity"
+      },
+      {
+        "address": "0x1011e47c0",
+        "references": [],
+        "section": "__const",
+        "text": "CoreAnimationLayer"
+      },
+      {
+        "address": "0x1011e48f0",
+        "references": [],
+        "section": "__const",
+        "text": "CustomLayoutLayer"
+      },
+      {
+        "address": "0x1011e4967",
+        "references": [],
+        "section": "__const",
+        "text": "AnimationLayer"
+      },
+      {
+        "address": "0x1011e4990",
+        "references": [],
+        "section": "__const",
+        "text": "LayerAnimationContext"
+      },
+      {
+        "address": "0x1011e49b0",
+        "references": [],
+        "section": "__const",
+        "text": "BaseAnimationLayer"
+      },
+      {
+        "address": "0x1011e49e0",
+        "references": [],
+        "section": "__const",
+        "text": "BaseCompositionLayer"
+      },
+      {
+        "address": "0x1011e4a40",
+        "references": [],
+        "section": "__const",
+        "text": "GradientRenderLayer"
+      },
+      {
+        "address": "0x1011e4a6b",
+        "references": [],
+        "section": "__const",
+        "text": "ImageLayer"
+      },
+      {
+        "address": "0x1011e4a90",
+        "references": [],
+        "section": "__const",
+        "text": "InfiniteOpaqueAnimationLayer"
+      },
+      {
+        "address": "0x1011e4ab5",
+        "references": [],
+        "section": "__const",
+        "text": "LayerContext"
+      },
+      {
+        "address": "0x1011e4ad0",
+        "references": [],
+        "section": "__const",
+        "text": "MaskCompositionLayer"
+      },
+      {
+        "address": "0x1011e4ae5",
+        "references": [],
+        "section": "__const",
+        "text": "MaskLayer"
+      },
+      {
+        "address": "0x1011e4b17",
+        "references": [],
+        "section": "__const",
+        "text": "PreCompLayer"
+      },
+      {
+        "address": "0x1011e4b47",
+        "references": [],
+        "section": "__const",
+        "text": "RepeaterLayer"
+      },
+      {
+        "address": "0x1011e4b97",
+        "references": [],
+        "section": "__const",
+        "text": "ShapeItemLayer"
+      },
+      {
+        "address": "0x1011e4ba6",
+        "references": [],
+        "section": "__const",
+        "text": "GradientLayers"
+      },
+      {
+        "address": "0x1011e4bc0",
+        "references": [],
+        "section": "__const",
+        "text": "FillLayerConfiguration"
+      },
+      {
+        "address": "0x1011e4c07",
+        "references": [],
+        "section": "__const",
+        "text": "ShapeLayer"
+      },
+      {
+        "address": "0x1011e4c12",
+        "references": [],
+        "section": "__const",
+        "text": "GroupLayer"
+      },
+      {
+        "address": "0x1011e4c7f",
+        "references": [],
+        "section": "__const",
+        "text": "SolidLayer"
+      },
+      {
+        "address": "0x1011e4cc7",
+        "references": [],
+        "section": "__const",
+        "text": "TextLayer"
+      },
+      {
+        "address": "0x1011e4cf7",
+        "references": [],
+        "section": "__const",
+        "text": "TransformLayer"
+      },
+      {
+        "address": "0x1011e63c0",
+        "references": [],
+        "section": "__const",
+        "text": "CompositionLayer"
+      },
+      {
+        "address": "0x1011e63e0",
+        "references": [],
+        "section": "__const",
+        "text": "CompositionLayerDelegate"
+      },
+      {
+        "address": "0x1011e6430",
+        "references": [],
+        "section": "__const",
+        "text": "ImageCompositionLayer"
+      },
+      {
+        "address": "0x1011e6450",
+        "references": [],
+        "section": "__const",
+        "text": "MaskContainerLayer"
+      },
+      {
+        "address": "0x1011e6463",
+        "references": [],
+        "section": "__const",
+        "text": "MaskLayer"
+      },
+      {
+        "address": "0x1011e64b0",
+        "references": [],
+        "section": "__const",
+        "text": "MaskNodeProperties"
+      },
+      {
+        "address": "0x1011e6540",
+        "references": [],
+        "section": "__const",
+        "text": "NullCompositionLayer"
+      },
+      {
+        "address": "0x1011e6560",
+        "references": [],
+        "section": "__const",
+        "text": "PreCompositionLayer"
+      },
+      {
+        "address": "0x1011e6580",
+        "references": [],
+        "section": "__const",
+        "text": "ShapeCompositionLayer"
+      },
+      {
+        "address": "0x1011e65a0",
+        "references": [],
+        "section": "__const",
+        "text": "SolidCompositionLayer"
+      },
+      {
+        "address": "0x1011e65e0",
+        "references": [],
+        "section": "__const",
+        "text": "TextCompositionLayer"
+      },
+      {
+        "address": "0x1011e6620",
+        "references": [],
+        "section": "__const",
+        "text": "MainThreadAnimationLayer"
+      },
+      {
+        "address": "0x1011e66e0",
+        "references": [],
+        "section": "__const",
+        "text": "CoreTextRenderLayer"
+      },
+      {
+        "address": "0x1011e6710",
+        "references": [],
+        "section": "__const",
+        "text": "InvertedMatteLayer"
+      },
+      {
+        "address": "0x1011e6750",
+        "references": [],
+        "section": "__const",
+        "text": "LayerFontProvider"
+      },
+      {
+        "address": "0x1011e6790",
+        "references": [],
+        "section": "__const",
+        "text": "LayerImageProvider"
+      },
+      {
+        "address": "0x1011e67c0",
+        "references": [],
+        "section": "__const",
+        "text": "LayerTextProvider"
+      },
+      {
+        "address": "0x1011e6840",
+        "references": [],
+        "section": "__const",
+        "text": "LayerTransformProperties"
+      },
+      {
+        "address": "0x1011e68b0",
+        "references": [],
+        "section": "__const",
+        "text": "LayerTransformNode"
+      },
+      {
+        "address": "0x1011e6f30",
+        "references": [],
+        "section": "__const",
+        "text": "GradientFillLayer"
+      },
+      {
+        "address": "0x1011e7e30",
+        "references": [],
+        "section": "__const",
+        "text": "ShapeContainerLayer"
+      },
+      {
+        "address": "0x1011e7e50",
+        "references": [],
+        "section": "__const",
+        "text": "ShapeRenderLayer"
+      },
+      {
+        "address": "0x1011e98b7",
+        "references": [],
+        "section": "__const",
+        "text": "LayerEffect"
+      },
+      {
+        "address": "0x1011e98c3",
+        "references": [],
+        "section": "__const",
+        "text": "LayerEffectType"
+      },
+      {
+        "address": "0x1011e9d9f",
+        "references": [],
+        "section": "__const",
+        "text": "LayerStyle"
+      },
+      {
+        "address": "0x1011e9daa",
+        "references": [],
+        "section": "__const",
+        "text": "LayerStyleType"
+      },
+      {
+        "address": "0x1011ea097",
+        "references": [],
+        "section": "__const",
+        "text": "ImageLayerModel"
+      },
+      {
+        "address": "0x1011ea50f",
+        "references": [],
+        "section": "__const",
+        "text": "LayerType"
+      },
+      {
+        "address": "0x1011ea5b0",
+        "references": [],
+        "section": "__const",
+        "text": "LayerModel"
+      },
+      {
+        "address": "0x1011ea7c0",
+        "references": [],
+        "section": "__const",
+        "text": "PreCompLayerModel"
+      },
+      {
+        "address": "0x1011ea957",
+        "references": [],
+        "section": "__const",
+        "text": "ShapeLayerModel"
+      },
+      {
+        "address": "0x1011eaaef",
+        "references": [],
+        "section": "__const",
+        "text": "SolidLayerModel"
+      },
+      {
+        "address": "0x1011eac8f",
+        "references": [],
+        "section": "__const",
+        "text": "TextLayerModel"
+      },
+      {
+        "address": "0x1011eb49f",
+        "references": [],
+        "section": "__const",
+        "text": "Mask"
+      },
+      {
+        "address": "0x1011eb4a4",
+        "references": [],
+        "section": "__const",
+        "text": "MaskMode"
+      },
+      {
+        "address": "0x1011ef160",
+        "references": [],
+        "section": "__const",
+        "text": "RootAnimationLayer"
+      },
+      {
+        "address": "0x1011ef187",
+        "references": [],
+        "section": "__const",
+        "text": "LayerDebugging"
+      },
+      {
+        "address": "0x1011ef1a0",
+        "references": [],
+        "section": "__const",
+        "text": "CustomLayerDebugging"
+      },
+      {
+        "address": "0x1011ef1b5",
+        "references": [],
+        "section": "__const",
+        "text": "DebugLayer"
+      },
+      {
+        "address": "0x1011f0070",
+        "references": [],
+        "section": "__const",
+        "text": "LottieAnimationLayer"
+      },
+      {
+        "address": "0x1011f4217",
+        "references": [],
+        "section": "__const",
+        "text": "NAVPlayerItemStatus"
+      },
+      {
+        "address": "0x1011f5340",
+        "references": [],
+        "section": "__const",
+        "text": "PlayerVideoOutput"
+      },
+      {
+        "address": "0x1011f6290",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskViewManager"
+      },
+      {
+        "address": "0x1011f6a70",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskVisualEffectType"
+      },
+      {
+        "address": "0x1011f6d90",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskProtocol"
+      },
+      {
+        "address": "0x1011f6db0",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskVisualEffectView"
+      },
+      {
+        "address": "0x1011f6e90",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskViewManagerProtocol"
+      },
+      {
+        "address": "0x10121e9b4",
+        "references": [],
+        "section": "__const",
+        "text": "MaskShape"
+      },
+      {
+        "address": "0x10121fce9",
+        "references": [],
+        "section": "__const",
+        "text": "MaskShapeType"
+      },
+      {
+        "address": "0x1012385a0",
+        "references": [],
+        "section": "__const",
+        "text": "MaskingAlphaFilter"
+      },
+      {
+        "address": "0x1012392f0",
+        "references": [],
+        "section": "__const",
+        "text": "HighlightMaskCIFilter"
+      },
+      {
+        "address": "0x1012393c0",
+        "references": [],
+        "section": "__const",
+        "text": "LuminanceRangeMaskFilter"
+      },
+      {
+        "address": "0x101241b60",
+        "references": [],
+        "section": "__const",
+        "text": "SplitMaskConfiguration"
+      },
+      {
+        "address": "0x10124322c",
+        "references": [],
+        "section": "__const",
+        "text": "NMTILayerFlipOptions"
+      },
+      {
+        "address": "0x1012432db",
+        "references": [],
+        "section": "__const",
+        "text": "NMTILayerLayoutUnit"
+      },
+      {
+        "address": "0x101244bf0",
+        "references": [],
+        "section": "__const",
+        "text": "MultilayerCompositingFilter"
+      },
+      {
+        "address": "0x101244c0c",
+        "references": [],
+        "section": "__const",
+        "text": "Layer"
+      },
+      {
+        "address": "0x10129afe8",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So8AVPlayerCSg"
+      },
+      {
+        "address": "0x10129affd",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo8AVPlayerCSgG"
+      },
+      {
+        "address": "0x10129e22c",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So8AVPlayerCSgXw"
+      },
+      {
+        "address": "0x10129f87b",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo8AVPlayerCSg_G"
+      },
+      {
+        "address": "0x10129f89a",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo8AVPlayerCSg_GSo9NSRunLoopCG"
+      },
+      {
+        "address": "0x1012c7370",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So22AVPlayerViewControllerC"
+      },
+      {
+        "address": "0x1012e0c52",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So15CAGradientLayerC"
+      },
+      {
+        "address": "0x1012e0cf0",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So7CALayerC"
+      },
+      {
+        "address": "0x1012e9c7e",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So8AVPlayerC"
+      },
+      {
+        "address": "0x10131f7c2",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So12AVPlayerItemC"
+      },
+      {
+        "address": "0x101325268",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo8AVPlayerCSg_GADG"
+      },
+      {
+        "address": "0x101325291",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo8AVPlayerCSg_GAEGSo17OS_dispatch_queueCG"
+      },
+      {
+        "address": "0x101326681",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySb_GAByACySo8AVPlayerCSg_GAAyAAyAAy"
+      },
+      {
+        "address": "0x101326bb3",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo8AVPlayerCSg_G"
+      },
+      {
+        "address": "0x101326c7d",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySb_GAAyABySo8AVPlayerCSg_G"
+      },
+      {
+        "address": "0x1013715a6",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Lottie17CustomLayoutLayerP"
+      },
+      {
+        "address": "0x1013715c4",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So7CALayerC"
+      },
+      {
+        "address": "0x1013716ee",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Lottie14AnimationLayerP"
+      },
+      {
+        "address": "0x101371720",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So7CALayerCSg"
+      },
+      {
+        "address": "0x101371766",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So15CAGradientLayerC"
+      },
+      {
+        "address": "0x1013717b2",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So12CAShapeLayerC"
+      },
+      {
+        "address": "0x101371872",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So12CAShapeLayerCSg"
+      },
+      {
+        "address": "0x1013724b8",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Lottie24CompositionLayerDelegateP"
+      },
+      {
+        "address": "0x101373bea",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Lottie18RootAnimationLayerP"
+      },
+      {
+        "address": "0x101373c0a",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Lottie14LayerDebuggingP"
+      },
+      {
+        "address": "0x101373c26",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Lottie20CustomLayerDebuggingP"
+      },
+      {
+        "address": "0x101373f69",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo7CALayerC"
+      },
+      {
+        "address": "0x101374421",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo7CALayerCG"
+      },
+      {
+        "address": "0x10137461f",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "5layer_AB5model_"
+      },
+      {
+        "address": "0x101374634",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "9matteTypetSg4masktG"
+      },
+      {
+        "address": "0x10137464f",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "5layer_AA5model_"
+      },
+      {
+        "address": "0x101374664",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "9matteTypetSg4maskt"
+      },
+      {
+        "address": "0x101376356",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So8AVPlayerC"
+      },
+      {
+        "address": "0x101376364",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So12AVPlayerItemCSg"
+      },
+      {
+        "address": "0x10137638e",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So8AVPlayerCSg"
+      },
+      {
+        "address": "0x1013763bc",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So23AVPlayerItemVideoOutputCSg"
+      },
+      {
+        "address": "0x101376406",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So12AVPlayerItemC"
+      },
+      {
+        "address": "0x101376f26",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "Sb8maskOnly_t"
+      },
+      {
+        "address": "0x101376f39",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "17radiusToShortSide_Sb8maskOnlyt"
+      },
+      {
+        "address": "0x101376f68",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "6offsetSb8maskOnlyt"
+      },
+      {
+        "address": "0x101376f84",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "G6points_Sb8maskOnlyt"
+      },
+      {
+        "address": "0x1013770ac",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So7CALayerCSg"
+      },
+      {
+        "address": "0x1013770ba",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis16CropMaskProtocolP"
+      },
+      {
+        "address": "0x101377144",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis27CropMaskViewManagerProtocolP"
+      },
+      {
+        "address": "0x101377412",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So12CAShapeLayerC"
+      },
+      {
+        "address": "0x101377466",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So17CAReplicatorLayerC"
+      },
+      {
+        "address": "0x1013774ec",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So7CALayerC"
+      },
+      {
+        "address": "0x101377500",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So17CAReplicatorLayerCSg"
+      },
+      {
+        "address": "0x10138bc29",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "ySo8MTILayerCG"
+      },
+      {
+        "address": "0x10138c204",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So7MTIMaskCSg"
+      },
+      {
+        "address": "0x10138c256",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So30MTIMultilayerCompositingFilterC"
+      },
+      {
+        "address": "0x10138f020",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorSeparationHighSaturationMask"
+      },
+      {
+        "address": "0x10138f050",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorSeparationLuminanceMask"
+      },
+      {
+        "address": "0x10138f6c0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "walkthroughMasks"
+      },
+      {
+        "address": "0x101390158",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "maskLayers"
+      },
+      {
+        "address": "0x101390163",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "drawMaskImages"
+      },
+      {
+        "address": "0x101390180",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "missingDrawMaskSnapshot"
+      },
+      {
+        "address": "0x1013901a0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "drawMaskEncodingFailed"
+      },
+      {
+        "address": "0x101390350",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "player"
+      },
+      {
+        "address": "0x1013903a0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "playerPeriodicObserver"
+      },
+      {
+        "address": "0x1013903f7",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "mediaPlayer"
+      },
+      {
+        "address": "0x101390445",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_player"
+      },
+      {
+        "address": "0x10139045d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_maskController"
+      },
+      {
+        "address": "0x101390965",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "playerView"
+      },
+      {
+        "address": "0x101390998",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "masks"
+      },
+      {
+        "address": "0x1013909e0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "player"
+      },
+      {
+        "address": "0x1013909f9",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_player"
+      },
+      {
+        "address": "0x101390ab0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "addMaskToLayer"
+      },
+      {
+        "address": "0x101390adb",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "duplicateLayer"
+      },
+      {
+        "address": "0x101390aea",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "hideMask"
+      },
+      {
+        "address": "0x101390af3",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "showMask"
+      },
+      {
+        "address": "0x101390afc",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "invertMask"
+      },
+      {
+        "address": "0x101390b10",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "toggleLayerEdits"
+      },
+      {
+        "address": "0x101390b30",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "setMaskCombination"
+      },
+      {
+        "address": "0x101390b48",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "selectLayer"
+      },
+      {
+        "address": "0x101390b60",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "addNewLinearMask"
+      },
+      {
+        "address": "0x101390b80",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "addNewRadialMask"
+      },
+      {
+        "address": "0x101390b91",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "addNewDrawMask"
+      },
+      {
+        "address": "0x101390ba0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "addNewImageMask"
+      },
+      {
+        "address": "0x101390bb0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "addNewLuminanceRangeMask"
+      }
+    ],
+    "total": 812
+  },
+  "summary": "812 strings match \"(shot ?match|mask|qualifier|edit layer|image layer|layer)\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 220,
+    "total": 812,
+    "next_offset": 220
+  },
+  "locations": [],
+  "links": []
+}

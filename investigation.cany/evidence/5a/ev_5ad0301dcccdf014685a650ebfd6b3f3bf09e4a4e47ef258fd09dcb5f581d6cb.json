@@ -1,0 +1,1009 @@
+{
+  "id": "ev_5ad0301dcccdf014685a650ebfd6b3f3bf09e4a4e47ef258fd09dcb5f581d6cb",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 160,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "(crop|straighten|rotate|flip|skew|aspect|mirror|perspective|fixed ratio|reset)"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011a4986",
+        "references": [],
+        "section": "__const",
+        "text": "AutoEditPreset"
+      },
+      {
+        "address": "0x1011a7540",
+        "references": [],
+        "section": "__const",
+        "text": "PresetSaveError"
+      },
+      {
+        "address": "0x1011a7550",
+        "references": [],
+        "section": "__const",
+        "text": "PresetCapture"
+      },
+      {
+        "address": "0x1011ab4f3",
+        "references": [],
+        "section": "__const",
+        "text": "CarouselAspect"
+      },
+      {
+        "address": "0x1011ac8c0",
+        "references": [],
+        "section": "__const",
+        "text": "WorkingSpacePreset"
+      },
+      {
+        "address": "0x1011ac8e0",
+        "references": [],
+        "section": "__const",
+        "text": "Technicolor3StripPresetsView"
+      },
+      {
+        "address": "0x1011ae980",
+        "references": [],
+        "section": "__const",
+        "text": "Technicolor3StripPreset"
+      },
+      {
+        "address": "0x1011b15b0",
+        "references": [],
+        "section": "__const",
+        "text": "PresetDrawMaskAssetError"
+      },
+      {
+        "address": "0x1011b5a60",
+        "references": [],
+        "section": "__const",
+        "text": "EditorPresetsSection"
+      },
+      {
+        "address": "0x1011b7a40",
+        "references": [
+          {
+            "from": "0x10021f620",
+            "function": "sub_10021ea74"
+          }
+        ],
+        "section": "__const",
+        "text": "crop"
+      },
+      {
+        "address": "0x1011c2de0",
+        "references": [],
+        "section": "__const",
+        "text": "Crop"
+      },
+      {
+        "address": "0x1011c3cc0",
+        "references": [],
+        "section": "__const",
+        "text": "CropInfo"
+      },
+      {
+        "address": "0x1011c3cc9",
+        "references": [],
+        "section": "__const",
+        "text": "CropTransform"
+      },
+      {
+        "address": "0x1011c5b90",
+        "references": [],
+        "section": "__const",
+        "text": "CropRegion"
+      },
+      {
+        "address": "0x1011c9588",
+        "references": [],
+        "section": "__const",
+        "text": "CropPayload"
+      },
+      {
+        "address": "0x1011caee0",
+        "references": [],
+        "section": "__const",
+        "text": "PixelAspectRatio"
+      },
+      {
+        "address": "0x1011cb97f",
+        "references": [],
+        "section": "__const",
+        "text": "?SmartCropEngine"
+      },
+      {
+        "address": "0x1011cb990",
+        "references": [],
+        "section": "__const",
+        "text": "CropCandidate"
+      },
+      {
+        "address": "0x1011cc0e0",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewControllerContainer"
+      },
+      {
+        "address": "0x1011cc1e0",
+        "references": [],
+        "section": "__const",
+        "text": "CropEditorAction"
+      },
+      {
+        "address": "0x1011cc25c",
+        "references": [],
+        "section": "__const",
+        "text": "CropEditorView"
+      },
+      {
+        "address": "0x1011cc340",
+        "references": [],
+        "section": "__const",
+        "text": "CropEditorResult"
+      },
+      {
+        "address": "0x1011cf950",
+        "references": [],
+        "section": "__const",
+        "text": "ToneCurveFilterSliderPresetsView"
+      },
+      {
+        "address": "0x1011cfc88",
+        "references": [],
+        "section": "__const",
+        "text": "CurvePreset"
+      },
+      {
+        "address": "0x1011d8158",
+        "references": [],
+        "section": "__const",
+        "text": "SavedPresets"
+      },
+      {
+        "address": "0x1011d8170",
+        "references": [],
+        "section": "__const",
+        "text": "SavedPresetsValue"
+      },
+      {
+        "address": "0x1011dab60",
+        "references": [],
+        "section": "__const",
+        "text": "DefaultPresetsEditorViewModel"
+      },
+      {
+        "address": "0x1011db0b0",
+        "references": [],
+        "section": "__const",
+        "text": "PresetsViewModel"
+      },
+      {
+        "address": "0x1011db110",
+        "references": [],
+        "section": "__const",
+        "text": "PresetGroup"
+      },
+      {
+        "address": "0x1011db308",
+        "references": [],
+        "section": "__const",
+        "text": "PresetImage"
+      },
+      {
+        "address": "0x1011db380",
+        "references": [],
+        "section": "__const",
+        "text": "PresetsView"
+      },
+      {
+        "address": "0x1011e26d0",
+        "references": [],
+        "section": "__const",
+        "text": "CroppingImageProcessor"
+      },
+      {
+        "address": "0x1011e2bc0",
+        "references": [],
+        "section": "__const",
+        "text": "FlipsForRightToLeftLayoutDirectionImageModifier"
+      },
+      {
+        "address": "0x1011f60c7",
+        "references": [],
+        "section": "__const",
+        "text": "CropMode"
+      },
+      {
+        "address": "0x1011f6110",
+        "references": [],
+        "section": "__const",
+        "text": "CropAuxiliaryIndicatorConfig"
+      },
+      {
+        "address": "0x1011f619a",
+        "references": [],
+        "section": "__const",
+        "text": "CropRegion"
+      },
+      {
+        "address": "0x1011f61a5",
+        "references": [],
+        "section": "__const",
+        "text": "CropState"
+      },
+      {
+        "address": "0x1011f61f0",
+        "references": [],
+        "section": "__const",
+        "text": "CropToolbarConfig"
+      },
+      {
+        "address": "0x1011f6210",
+        "references": [],
+        "section": "__const",
+        "text": "CropAuxiliaryIndicatorView"
+      },
+      {
+        "address": "0x1011f6290",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskViewManager"
+      },
+      {
+        "address": "0x1011f62f0",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewDelegate"
+      },
+      {
+        "address": "0x1011f6301",
+        "references": [],
+        "section": "__const",
+        "text": "CropView"
+      },
+      {
+        "address": "0x1011f63e7",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewModel"
+      },
+      {
+        "address": "0x1011f64ef",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewStatus"
+      },
+      {
+        "address": "0x1011f6530",
+        "references": [],
+        "section": "__const",
+        "text": "CropWorkbenchView"
+      },
+      {
+        "address": "0x1011f6597",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewConfig"
+      },
+      {
+        "address": "0x1011f6653",
+        "references": [],
+        "section": "__const",
+        "text": "CropToolbarMode"
+      },
+      {
+        "address": "0x1011f6663",
+        "references": [],
+        "section": "__const",
+        "text": "CropToolbar"
+      },
+      {
+        "address": "0x1011f66e0",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewController"
+      },
+      {
+        "address": "0x1011f6a30",
+        "references": [],
+        "section": "__const",
+        "text": "PresetTransformationType"
+      },
+      {
+        "address": "0x1011f6a50",
+        "references": [],
+        "section": "__const",
+        "text": "PresetFixedRatioType"
+      },
+      {
+        "address": "0x1011f6a70",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskVisualEffectType"
+      },
+      {
+        "address": "0x1011f6a89",
+        "references": [],
+        "section": "__const",
+        "text": "CropShapeType"
+      },
+      {
+        "address": "0x1011f6ae0",
+        "references": [],
+        "section": "__const",
+        "text": "CropAuxiliaryIndicatorStyleType"
+      },
+      {
+        "address": "0x1011f6b00",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewAuxiliaryIndicatorHandleType"
+      },
+      {
+        "address": "0x1011f6bd0",
+        "references": [],
+        "section": "__const",
+        "text": "RotateBy90DegreeType"
+      },
+      {
+        "address": "0x1011f6d67",
+        "references": [],
+        "section": "__const",
+        "text": "CropDimmingView"
+      },
+      {
+        "address": "0x1011f6d90",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskProtocol"
+      },
+      {
+        "address": "0x1011f6db0",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskVisualEffectView"
+      },
+      {
+        "address": "0x1011f6de0",
+        "references": [],
+        "section": "__const",
+        "text": "CropAuxiliaryIndicatorViewProtocol"
+      },
+      {
+        "address": "0x1011f6e90",
+        "references": [],
+        "section": "__const",
+        "text": "CropMaskViewManagerProtocol"
+      },
+      {
+        "address": "0x1011f6eb0",
+        "references": [],
+        "section": "__const",
+        "text": "CropWorkbenchViewProtocol"
+      },
+      {
+        "address": "0x1011f6ed0",
+        "references": [],
+        "section": "__const",
+        "text": "CropToolbarDelegate"
+      },
+      {
+        "address": "0x1011f6ef0",
+        "references": [],
+        "section": "__const",
+        "text": "CropToolbarIconProvider"
+      },
+      {
+        "address": "0x1011f6f10",
+        "references": [],
+        "section": "__const",
+        "text": "CropToolbarProtocol"
+      },
+      {
+        "address": "0x1011f6f30",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewControllerDelegate"
+      },
+      {
+        "address": "0x1011f6f50",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewModelProtocol"
+      },
+      {
+        "address": "0x1011f6f90",
+        "references": [],
+        "section": "__const",
+        "text": "CropViewProtocol"
+      },
+      {
+        "address": "0x1011f778b",
+        "references": [],
+        "section": "__const",
+        "text": "CropAction"
+      },
+      {
+        "address": "0x1011f7796",
+        "references": [],
+        "section": "__const",
+        "text": "CropStatus"
+      },
+      {
+        "address": "0x1011f77b0",
+        "references": [],
+        "section": "__const",
+        "text": "ImageCropperView"
+      },
+      {
+        "address": "0x10123a624",
+        "references": [],
+        "section": "__const",
+        "text": "Crop"
+      },
+      {
+        "address": "0x10123cbf1",
+        "references": [],
+        "section": "__const",
+        "text": "Preset"
+      },
+      {
+        "address": "0x10123cc40",
+        "references": [],
+        "section": "__const",
+        "text": "AspectRatioPreset"
+      },
+      {
+        "address": "0x1012417b0",
+        "references": [],
+        "section": "__const",
+        "text": "CropTransformResult"
+      },
+      {
+        "address": "0x1012417d0",
+        "references": [],
+        "section": "__const",
+        "text": "CropTransformSolver"
+      },
+      {
+        "address": "0x101243220",
+        "references": [],
+        "section": "__const",
+        "text": "FlipOptions"
+      },
+      {
+        "address": "0x10124322c",
+        "references": [],
+        "section": "__const",
+        "text": "NMTILayerFlipOptions"
+      },
+      {
+        "address": "0x10132cbe4",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "8cropSizeAG09imageViewE0"
+      },
+      {
+        "address": "0x10133516e",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So13MTICropFilterC"
+      },
+      {
+        "address": "0x10135bd66",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s7PeekLUT12SavedPresetsP"
+      },
+      {
+        "address": "0x1013769b4",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis16CropViewDelegateP"
+      },
+      {
+        "address": "0x101376a9e",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "8cropSizeAK09imageViewF0"
+      },
+      {
+        "address": "0x101376b0c",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So7UIImageCSg12croppedImage_"
+      },
+      {
+        "address": "0x101376b72",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "8cropSizeAM09imageViewI0"
+      },
+      {
+        "address": "0x101376d51",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "8cropSizeAG09imageViewE0"
+      },
+      {
+        "address": "0x1013770ba",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis16CropMaskProtocolP"
+      },
+      {
+        "address": "0x10137710c",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis34CropAuxiliaryIndicatorViewProtocolP"
+      },
+      {
+        "address": "0x101377144",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis27CropMaskViewManagerProtocolP"
+      },
+      {
+        "address": "0x10137716c",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis25CropWorkbenchViewProtocolP"
+      },
+      {
+        "address": "0x101377192",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis19CropToolbarDelegateP"
+      },
+      {
+        "address": "0x1013771b2",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis23CropToolbarIconProviderP"
+      },
+      {
+        "address": "0x1013771d6",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis19CropToolbarProtocolP"
+      },
+      {
+        "address": "0x1013771f6",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis26CropViewControllerDelegateP"
+      },
+      {
+        "address": "0x10137721e",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis21CropViewModelProtocolP"
+      },
+      {
+        "address": "0x101377266",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "$s6Mantis16CropViewProtocolP"
+      },
+      {
+        "address": "0x101377653",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "8cropSizeAH09imageViewE0"
+      },
+      {
+        "address": "0x10138b1ba",
+        "references": [],
+        "section": "__swift5_typeref",
+        "text": "So13MTICropFilterC"
+      },
+      {
+        "address": "0x10138f574",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "super8Rotate"
+      },
+      {
+        "address": "0x10138f5b0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "blankingAspectRatio"
+      },
+      {
+        "address": "0x10138f633",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "presetIDs"
+      },
+      {
+        "address": "0x10138f63d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "presetNames"
+      },
+      {
+        "address": "0x10138f6db",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "presetInterval"
+      },
+      {
+        "address": "0x10138fac0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "carouselAspect"
+      },
+      {
+        "address": "0x10138fde0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_selectedPresets"
+      },
+      {
+        "address": "0x10138fe00",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_selectedPresetIDs"
+      },
+      {
+        "address": "0x10138fe90",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x10138ff61",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "presetSequence"
+      },
+      {
+        "address": "0x101390ac6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "resetEdits"
+      },
+      {
+        "address": "0x101390d01",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cropToFit"
+      },
+      {
+        "address": "0x101390f72",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_tappedPreset"
+      },
+      {
+        "address": "0x1013916eb",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onSavePreset"
+      },
+      {
+        "address": "0x101391740",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "canReset"
+      },
+      {
+        "address": "0x101391772",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onReset"
+      },
+      {
+        "address": "0x1013917b9",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "savePreset"
+      },
+      {
+        "address": "0x101391d38",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_cropPayload"
+      },
+      {
+        "address": "0x101391d70",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x101392420",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      },
+      {
+        "address": "0x101392aa1",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onCrop"
+      },
+      {
+        "address": "0x101392aa8",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onSmartCrop"
+      },
+      {
+        "address": "0x101392af6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "presetsContent"
+      },
+      {
+        "address": "0x101392b50",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_showCropModeDialog"
+      },
+      {
+        "address": "0x1013934cd",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "aspect"
+      },
+      {
+        "address": "0x1013938e0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onReset"
+      },
+      {
+        "address": "0x101393c90",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "aspect"
+      },
+      {
+        "address": "0x10139443c",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_lutMenuResetID"
+      },
+      {
+        "address": "0x101394b66",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "rotate"
+      },
+      {
+        "address": "0x101394e24",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "crop"
+      },
+      {
+        "address": "0x1013952a9",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "preset"
+      },
+      {
+        "address": "0x101395448",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cropInfo"
+      },
+      {
+        "address": "0x1013954b0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "horizontallyFlipped"
+      },
+      {
+        "address": "0x1013954d0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "verticallyFlipped"
+      },
+      {
+        "address": "0x10139550a",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cropWidth"
+      },
+      {
+        "address": "0x101395514",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cropHeight"
+      },
+      {
+        "address": "0x10139553e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cropRegion"
+      },
+      {
+        "address": "0x1013967df",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_needReset"
+      },
+      {
+        "address": "0x101396980",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "canResetDisabled"
+      },
+      {
+        "address": "0x1013969b5",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "isCropActive"
+      },
+      {
+        "address": "0x101396a1e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "reset"
+      },
+      {
+        "address": "0x101396a4e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "crop"
+      },
+      {
+        "address": "0x101396a53",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "smartCrop"
+      },
+      {
+        "address": "0x101396a97",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "saveAsPreset"
+      },
+      {
+        "address": "0x1013972c0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cropViewController"
+      },
+      {
+        "address": "0x1013972e8",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onCrop"
+      },
+      {
+        "address": "0x101397328",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "crop"
+      },
+      {
+        "address": "0x1013973ae",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cropInfo"
+      },
+      {
+        "address": "0x101397bf5",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "maskCropFilter"
+      },
+      {
+        "address": "0x101397c10",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "maskCropTransformFilter"
+      },
+      {
+        "address": "0x101397cef",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "onReset"
+      },
+      {
+        "address": "0x101398b10",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "lastSelectedPresetID"
+      },
+      {
+        "address": "0x101399ab6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "autoCrop"
+      },
+      {
+        "address": "0x10139a8bc",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "presets"
+      },
+      {
+        "address": "0x10139aade",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presets"
+      },
+      {
+        "address": "0x10139aaf0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_selectedPresetIndex"
+      },
+      {
+        "address": "0x10139ac20",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_groupedPresets"
+      },
+      {
+        "address": "0x10139aced",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "preset"
+      },
+      {
+        "address": "0x10139ad32",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_selectedPreset"
+      },
+      {
+        "address": "0x10139ad51",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetName"
+      },
+      {
+        "address": "0x10139aea6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_loadedPresets"
+      },
+      {
+        "address": "0x10139b150",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_presetsViewModel"
+      }
+    ],
+    "total": 571
+  },
+  "summary": "571 strings match \"(crop|straighten|rotate|flip|skew|aspect|mirror|perspective|fixed ratio|reset)\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 160,
+    "total": 571,
+    "next_offset": 160
+  },
+  "locations": [],
+  "links": []
+}

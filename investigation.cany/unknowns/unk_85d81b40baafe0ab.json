@@ -1,0 +1,21 @@
+{
+  "id": "unk_85d81b40baafe0ab",
+  "revision": 2,
+  "question": "In what exact order does the original run its colour steps (LUTs, exposure, white balance, contrast, colour grade, grain)?",
+  "severity": "medium",
+  "domain": "color",
+  "status": "resolved",
+  "probes": [
+    "Decompile GradingTools.RenderPipeline render and list the filters it chains",
+    "Decode colorGradeShader/contrastShader in MetalPetalFilters.metallib"
+  ],
+  "evidence_for": [
+    "ev_422c9d6194e02c9f748be14441d4fdfaf3a20e5ae72057d6d9f9f22eed56fe2f",
+    "ev_7b799ac2d889da687ddda078b064419b7a41e6619b33b194eb640efd38712472",
+    "ev_2527ca6d8654e3a43c024d4c7c1de5c9b2a818449bb38a5bf08d901a93f1ad9e",
+    "ev_f8ea35ac824819df9108963386562beb0074703025c7ac27d98ff5fe07258b6d",
+    "ev_84a1887f0c869fbb7b474c2ef020600e65bf52a9ff930a17a544d4e8cdcc9ced"
+  ],
+  "evidence_against": [],
+  "resolution": "The render function 0x100f45c74 runs: white balance and hue, exposure, whites and blacks, highlights and shadows, dehaze, contrast, brightness, clarity, structure, centre, film contrast, shadow toe, highlight shoulder, tone curves, curves, HSV, colour grade, vibrance, saturation, colour mixers, film density, film saturation, film stock steps, lens effects, then the colour tables, then colour separation, diffusion, bloom, Super 8, sharpness, fade, gate weave, grain, grain overlay, halation, print simulation, blanking. Steps were named from each class's stored name and field offsets. Still estimated: the order of the bands inside colour grade, and where gamma and vignette sit, because the render class has no field for them."
+}

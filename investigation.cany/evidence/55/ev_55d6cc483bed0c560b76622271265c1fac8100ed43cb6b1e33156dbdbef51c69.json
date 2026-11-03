@@ -1,0 +1,45 @@
+{
+  "id": "ev_55d6cc483bed0c560b76622271265c1fac8100ed43cb6b1e33156dbdbef51c69",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x100087798"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100087798",
+    "function": "FUN_100087798",
+    "pseudo_code": "\r\nvoid FUN_100087798(void)\r\n\r\n{\r\n  undefined *puVar1;\r\n  byte bVar2;\r\n  int iVar3;\r\n  undefined *puVar4;\r\n  long lVar5;\r\n  undefined *puVar6;\r\n  byte *pbVar7;\r\n  long extraout_x8;\r\n  long extraout_x8_00;\r\n  ulong uVar8;\r\n  long extraout_x12;\r\n  long lVar9;\r\n  long lVar10;\r\n  ulong uVar11;\r\n  code *pcVar12;\r\n  long lVar13;\r\n  byte *pbVar14;\r\n  long lVar15;\r\n  long lVar16;\r\n  long local_90;\r\n  long local_88;\r\n  long local_80;\r\n  long local_78;\r\n  undefined *local_70;\r\n  long local_68;\r\n  \r\n  puVar4 = &DAT_101788418;\r\n  FUN_100005318(&DAT_101788418,&DAT_1011a9a60);\r\n  lVar10 = *(long *)(puVar4 + -8);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(long *)(lVar10 + 0x40) + 0xfU & 0xfffffffffffffff0);\r\n  pbVar14 = (byte *)((long)&local_90 - extraout_x8);\r\n  lVar5 = 0;\r\n  __s10Foundation23LocalizedStringResourceVMa();\r\n  lVar13 = *(long *)(lVar5 + -8);\r\n  local_68 = lVar5;\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(lVar13 + 0x40));\r\n  lVar15 = (long)pbVar14 - (extraout_x8_00 + 0xfU & 0xfffffffffffffff0);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)();\r\n  lVar9 = lVar15 - extraout_x12;\r\n  lVar5 = 0;\r\n  FUN_100093c24();\r\n  FUN_100093c38();\r\n  local_80 = lVar5;\r\n  FUN_10005c24c(lVar5,&DAT_101788400);\r\n  local_88 = lVar5;\r\n  local_78 = lVar9;\r\n  __s10Foundation23LocalizedStringResourceV13stringLiteralACSS_tcfC\r\n            (lVar9,0xd000000000000067,0x80000001013ffc00);\r\n  puVar6 = &DAT_101788420;\r\n  FUN_100005318(&DAT_101788420,&DAT_1011a9a68);\r\n  lVar5 = *(long *)(lVar10 + 0x48);\r\n  bVar2 = *(byte *)(lVar10 + 0x50);\r\n  _swift_allocObject();\r\n  puVar1 = puVar6 + ((ulong)bVar2 + 0x20 & ((ulong)bVar2 ^ 0xffffffffffffffff));\r\n  iVar3 = *(int *)(puVar4 + 0x30);\r\n  *puVar1 = 6;\r\n  local_70 = puVar6;\r\n  __s10Foundation23LocalizedStringResourceV13stringLiteralACSS_tcfC\r\n            (puVar1 + iVar3,0xd000000000000035,0x80000001013ffc70);\r\n  puVar6 = puVar1 + lVar5;\r\n  iVar3 = *(int *)(puVar4 + 0x30);\r\n  *puVar6 = 7;\r\n  __s10Foundation23LocalizedStringResourceV13stringLiteralACSS_tcfC\r\n            (puVar6 + iVar3,0xd000000000000032,0x80000001013ffcb0);\r\n  FUN_100005318(&DAT_101788428,&DAT_1011a9a70);\r\n  lVar9 = 2;\r\n  __ss18_DictionaryStorageC8allocate8capacityAByxq_GSi_tFZ();\r\n  iVar3 = *(int *)(puVar4 + 0x30);\r\n  pbVar7 = pbVar14;\r\n  FUN_100035c44(puVar1,pbVar14,&DAT_101788418,&DAT_1011a9a60);\r\n  bVar2 = *pbVar14;\r\n  uVar11 = (ulong)bVar2;\r\n  _swift_retain(lVar9);\r\n  FUN_10061b36c();\r\n  lVar5 = local_68;\r\n  if (((ulong)pbVar7 & 1) != 0) {\r\n                    /* WARNING: Does not return */\r\n    pcVar12 = (code *)SoftwareBreakpoint(1,0x100087b10);\r\n    (*pcVar12)();\r\n  }\r\n  lVar10 = lVar9 + 0x40;\r\n  uVar8 = uVar11 >> 3 & 0x1ffffffffffffff8;\r\n  *(ulong *)(lVar10 + uVar8) = *(ulong *)(lVar10 + uVar8) | 1L << (uVar11 & 0x3f);\r\n  *(byte *)(*(long *)(lVar9 + 0x30) + uVar11) = bVar2;\r\n  lVar16 = *(long *)(lVar13 + 0x48);\r\n  pcVar12 = *(code **)(lVar13 + 0x20);\r\n  local_90 = lVar15;\r\n  (*pcVar12)(*(long *)(lVar9 + 0x38) + lVar16 * uVar11,pbVar14 + iVar3,local_68);\r\n  if (SCARRY8(*(long *)(lVar9 + 0x10),1)) {\r\n                    /* WARNING: Does not return */\r\n    pcVar12 = (code *)SoftwareBreakpoint(1,0x100087b14);\r\n    (*pcVar12)();\r\n  }\r\n  *(long *)(lVar9 + 0x10) = *(long *)(lVar9 + 0x10) + 1;\r\n  pbVar7 = pbVar14;\r\n  FUN_100035c44(puVar6,pbVar14,&DAT_101788418,&DAT_1011a9a60);\r\n  bVar2 = *pbVar14;\r\n  uVar11 = (ulong)bVar2;\r\n  FUN_10061b36c();\r\n  if (((ulong)pbVar7 & 1) != 0) {\r\n                    /* WARNING: Does not return */\r\n    pcVar12 = (code *)SoftwareBreakpoint(1,0x100087b18);\r\n    (*pcVar12)();\r\n  }\r\n  uVar8 = uVar11 >> 3 & 0x1ffffffffffffff8;\r\n  *(ulong *)(lVar10 + uVar8) = *(ulong *)(lVar10 + uVar8) | 1L << (uVar11 & 0x3f);\r\n  *(byte *)(*(long *)(lVar9 + 0x30) + uVar11) = bVar2;\r\n  (*pcVar12)(*(long *)(lVar9 + 0x38) + uVar11 * lVar16,pbVar14 + iVar3,lVar5);\r\n  _swift_release(lVar9);\r\n  puVar6 = local_70;\r\n  _swift_setDeallocating(local_70);\r\n  _swift_arrayDestroy(puVar1,2,puVar4);\r\n  _swift_deallocClassInstance(puVar6,0x20,7);\r\n  lVar10 = local_90;\r\n  if (!SCARRY8(*(long *)(lVar9 + 0x10),1)) {\r\n    *(long *)(lVar9 + 0x10) = *(long *)(lVar9 + 0x10) + 1;\r\n    __s10Foundation23LocalizedStringResourceV13stringLiteralACSS_tcfC\r\n              (local_90,0xd000000000000014,0x80000001013ffcf0);\r\n    lVar13 = local_88;\r\n    (*pcVar12)(local_88,local_78,lVar5);\r\n    *(long *)(lVar13 + *(int *)(local_80 + 0x14)) = lVar9;\r\n    (*pcVar12)(lVar13 + *(int *)(local_80 + 0x18),lVar10,lVar5);\r\n    return;\r\n  }\r\n                    /* WARNING: Does not return */\r\n  pcVar12 = (code *)SoftwareBreakpoint(1,0x100087b1c);\r\n  (*pcVar12)();\r\n}\r\n\r\n",
+    "signature": "void FUN_100087798(void);"
+  },
+  "summary": "Pseudo-C for FUN_100087798 from the Deep engine (133 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100087798"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

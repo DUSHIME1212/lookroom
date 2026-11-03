@@ -1,0 +1,404 @@
+{
+  "id": "ev_4a4a31d9b1bd5a69420ebe155771be8adcb87baef7e27ce772a5f318f2878a0a",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 60,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "(colorGrade|contrastShader|halation|grainShader|bloomShader|fadeShader|vignetteShader|clarity)"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011a7c10",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeUsesCompactStyleKey"
+      },
+      {
+        "address": "0x1011a7c30",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeAllowsMultipleOpenKey"
+      },
+      {
+        "address": "0x1011a7c50",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeRadiusKey"
+      },
+      {
+        "address": "0x1011a7d10",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeFilterSlider"
+      },
+      {
+        "address": "0x1011a7f50",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeSliderTypeSlider"
+      },
+      {
+        "address": "0x1011acac0",
+        "references": [],
+        "section": "__const",
+        "text": "HalationFilterSlider"
+      },
+      {
+        "address": "0x1011b6a30",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeFilterSliderSmall"
+      },
+      {
+        "address": "0x1011b7270",
+        "references": [],
+        "section": "__const",
+        "text": "Halation"
+      },
+      {
+        "address": "0x1011b7630",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeFilters"
+      },
+      {
+        "address": "0x1011b77b0",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGrade"
+      },
+      {
+        "address": "0x1011c2f55",
+        "references": [],
+        "section": "__const",
+        "text": "HalationV2"
+      },
+      {
+        "address": "0x1011d0b50",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeColorPicker"
+      },
+      {
+        "address": "0x1011d12b0",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeSlider"
+      },
+      {
+        "address": "0x1011d1470",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeSliderFilterTypeView"
+      },
+      {
+        "address": "0x1011d9880",
+        "references": [],
+        "section": "__const",
+        "text": "ClarityFilter"
+      },
+      {
+        "address": "0x1011d99c0",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeSliderTip"
+      },
+      {
+        "address": "0x1012384b0",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeFilterCore"
+      },
+      {
+        "address": "0x101238800",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeFilter"
+      },
+      {
+        "address": "0x101238a40",
+        "references": [],
+        "section": "__const",
+        "text": "ClarityFilterMetal"
+      },
+      {
+        "address": "0x101238a60",
+        "references": [],
+        "section": "__const",
+        "text": "ColorGradeMetalFilter"
+      },
+      {
+        "address": "0x1012392cd",
+        "references": [],
+        "section": "__const",
+        "text": "HalationFilter"
+      },
+      {
+        "address": "0x10123ccc8",
+        "references": [],
+        "section": "__const",
+        "text": "Halation"
+      },
+      {
+        "address": "0x10138eb50",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "filmLookCreatorHalation"
+      },
+      {
+        "address": "0x10138ec90",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeShadow"
+      },
+      {
+        "address": "0x10138ecb0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeMidtone"
+      },
+      {
+        "address": "0x10138ecd0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeHighlight"
+      },
+      {
+        "address": "0x10138ecf0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeGlobal"
+      },
+      {
+        "address": "0x10138ed01",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "clarity"
+      },
+      {
+        "address": "0x10138ee40",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationIntensity"
+      },
+      {
+        "address": "0x10138ee52",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationSize"
+      },
+      {
+        "address": "0x10138ee60",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationDiffusion"
+      },
+      {
+        "address": "0x10138ee80",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationSourceLimit"
+      },
+      {
+        "address": "0x10138eea0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationBackgroundGain"
+      },
+      {
+        "address": "0x10138eeb7",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationColor"
+      },
+      {
+        "address": "0x10138eed0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationHighlights"
+      },
+      {
+        "address": "0x10138f517",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "super8Halation"
+      },
+      {
+        "address": "0x10138f680",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "showColorGradeSliders"
+      },
+      {
+        "address": "0x1013902f0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_colorGradeRadius"
+      },
+      {
+        "address": "0x101390302",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeTip"
+      },
+      {
+        "address": "0x1013908ad",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "clarityFilter"
+      },
+      {
+        "address": "0x101390910",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeFilters"
+      },
+      {
+        "address": "0x1013926d0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_colorGradeRadius"
+      },
+      {
+        "address": "0x101393c2d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halation"
+      },
+      {
+        "address": "0x101394b33",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halation"
+      },
+      {
+        "address": "0x101394bd5",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "clarity"
+      },
+      {
+        "address": "0x101394bdd",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGrade"
+      },
+      {
+        "address": "0x101394c1a",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationSaved"
+      },
+      {
+        "address": "0x101394c28",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationV2"
+      },
+      {
+        "address": "0x101395167",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halationAmount"
+      },
+      {
+        "address": "0x101397f00",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_selectedColorGradeIds"
+      },
+      {
+        "address": "0x101397f50",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_colorGradeUsesCompactStyle"
+      },
+      {
+        "address": "0x1013984d0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "selectedColorGradeIds"
+      },
+      {
+        "address": "0x101398610",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_debouncedColorGrade"
+      },
+      {
+        "address": "0x101398630",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeRadius"
+      },
+      {
+        "address": "0x1013988b3",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGrade"
+      },
+      {
+        "address": "0x1013988be",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halation"
+      },
+      {
+        "address": "0x101399d54",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "clarity"
+      },
+      {
+        "address": "0x101399d95",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "halation"
+      },
+      {
+        "address": "0x101399d9e",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGrade"
+      },
+      {
+        "address": "0x101399df9",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "colorGradeBlend"
+      }
+    ],
+    "total": 179
+  },
+  "summary": "179 strings match \"(colorGrade|contrastShader|halation|grainShader|bloomShader|fadeShader|vignetteShader|clarity)\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 60,
+    "total": 179,
+    "next_offset": 60
+  },
+  "locations": [],
+  "links": []
+}

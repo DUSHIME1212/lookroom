@@ -1,0 +1,45 @@
+{
+  "id": "ev_73def6017f5efe15f582b6173a1675a0e7cc5a08c7f312053db179b1044e77af",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10059a000"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100599fd0",
+    "function": "FUN_100599fd0",
+    "pseudo_code": "\r\nvoid FUN_100599fd0(void)\r\n\r\n{\r\n  long unaff_x22;\r\n  \r\n  FUN_100037b38(unaff_x22 + 0x10);\r\n                    /* WARNING: Could not recover jumptable at 0x00010059a000. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n  (**(code **)(unaff_x22 + 8))();\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_100599fd0(void);"
+  },
+  "summary": "Pseudo-C for FUN_100599fd0 from the Deep engine (13 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100599fd0"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

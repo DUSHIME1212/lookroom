@@ -1,0 +1,135 @@
+{
+  "id": "ev_c307970b71193114d251b8ffc7226e4880789cd64fcf33bad9abf37c5c01c027",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_functions_search",
+  "params": {
+    "case_sensitive": false,
+    "limit": 30,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "GridItem|LazyVGrid|LazyHGrid|LazyHStack"
+  },
+  "result": {
+    "functions": 0,
+    "imports": 15,
+    "matches": [
+      {
+        "address": "0x1015fbb40",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI10LazyHStackV9alignment7spacing11pinnedViews7contentACyxGAA17VerticalAlignmentV_12CoreGraphics7CGFloatVSgAA016PinnedScrollableH0VxyXEtcfC"
+      },
+      {
+        "address": "0x1015fbb48",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI10LazyHStackVMn"
+      },
+      {
+        "address": "0x1015fbb50",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI10LazyHStackVyxGAA4ViewAAMc"
+      },
+      {
+        "address": "0x1015fe658",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI8GridItemV4SizeO5fixedyAE12CoreGraphics7CGFloatVcAEmFWC"
+      },
+      {
+        "address": "0x1015fe660",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI8GridItemV4SizeO8flexibleyAE12CoreGraphics7CGFloatV_AItcAEmFWC"
+      },
+      {
+        "address": "0x1015fe668",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI8GridItemV4SizeOMa"
+      },
+      {
+        "address": "0x1015fe670",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI8GridItemVMa"
+      },
+      {
+        "address": "0x1015fe678",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI8GridItemVMn"
+      },
+      {
+        "address": "0x1015fe680",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI8GridItemV_7spacing9alignmentA2C4SizeO_12CoreGraphics7CGFloatVSgAA9AlignmentVSgtcfC"
+      },
+      {
+        "address": "0x1015fe7a0",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI9LazyHGridV4rows9alignment7spacing11pinnedViews7contentACyxGSayAA8GridItemVG_AA17VerticalAlignmentV12CoreGraphics7CGFloatVSgAA016PinnedScrollableI0VxyXEtcfC"
+      },
+      {
+        "address": "0x1015fe7a8",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI9LazyHGridVMn"
+      },
+      {
+        "address": "0x1015fe7b0",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI9LazyHGridVyxGAA4ViewAAMc"
+      },
+      {
+        "address": "0x1015fe7b8",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI9LazyVGridV7columns9alignment7spacing11pinnedViews7contentACyxGSayAA8GridItemVG_AA19HorizontalAlignmentV12CoreGraphics7CGFloatVSgAA016PinnedScrollableI0VxyXEtcfC"
+      },
+      {
+        "address": "0x1015fe7c0",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI9LazyVGridVMn"
+      },
+      {
+        "address": "0x1015fe7c8",
+        "kind": "import",
+        "library": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI",
+        "name": "_$s7SwiftUI9LazyVGridVyxGAA4ViewAAMc"
+      }
+    ],
+    "total": 15
+  },
+  "summary": "0 functions and 15 imports match \"GridItem|LazyVGrid|LazyHGrid|LazyHStack\".",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "function_limit",
+      "message": "function discovery stopped after 50000 functions; the function list is incomplete and some code is not analysed"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 15,
+    "total": 15
+  },
+  "locations": [],
+  "links": []
+}

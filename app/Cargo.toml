@@ -1,0 +1,22 @@
+[package]
+name = "lookroom"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cpal = "0.15"
+eframe = "0.37.0"
+image = { version = "0.25.10", default-features = false, features = ["png", "jpeg", "tiff", "webp"] }
+rayon = "1.12.0"
+resvg = { version = "0.45.1", default-features = false, features = ["text", "system-fonts", "memmap-fonts"] }
+rfd = "0.17.2"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+
+# Colour work runs on the processor for every pixel, so even a plain build has to be fast.
+[profile.dev]
+opt-level = 2
+debug = 0
+
+[profile.dev.package."*"]
+opt-level = 3

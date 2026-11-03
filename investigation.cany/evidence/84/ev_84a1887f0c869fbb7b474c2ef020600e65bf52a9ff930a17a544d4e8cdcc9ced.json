@@ -1,0 +1,45 @@
+{
+  "id": "ev_84a1887f0c869fbb7b474c2ef020600e65bf52a9ff930a17a544d4e8cdcc9ced",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x100f4f918"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100f4f918",
+    "function": "FUN_100f4f918",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_opt_self replaced with injection: _objc_retain_fixup */\r\n\r\nundefined1  [16] FUN_100f4f918(void)\r\n\r\n{\r\n  return ZEXT816(0x10177bf00);\r\n}\r\n\r\n",
+    "signature": "undefined1  [16] FUN_100f4f918(void);"
+  },
+  "summary": "Pseudo-C for FUN_100f4f918 from the Deep engine (9 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100f4f918"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

@@ -1,0 +1,45 @@
+{
+  "id": "ev_95448dca68410b1563c4415f7b27c9be5eefdf52564dc46627a7b2ebb9a0d30d",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10050b764"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x10050b764",
+    "function": "FUN_10050b764",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_opt_self replaced with injection: _objc_retain_fixup */\r\n/* WARNING: Function: _objc_retainAutoreleasedReturnValue replaced with injection:\r\n   _objc_retain_fixup */\r\n/* WARNING: Function: _objc_release_x21 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Function: _objc_release_x19 replaced with injection: _objc_release_fixup */\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_10050b764(void)\r\n\r\n{\r\n  ID self;\r\n  ID IVar1;\r\n  long *plVar2;\r\n  undefined8 *puVar3;\r\n  undefined *puVar4;\r\n  undefined8 extraout_x1;\r\n  undefined8 uVar5;\r\n  long unaff_x22;\r\n  \r\n  self = NSFileManager::defaultManager((ID)PTR__OBJC_CLASS___NSFileManager_1015f9600);\r\n  IVar1 = self;\r\n  uVar5 = extraout_x1;\r\n  __s10Foundation3URLV4pathSSvg();\r\n  __sSS10FoundationE19_bridgeToObjectiveCSo8NSStringCyF();\r\n  _swift_bridgeObjectRelease(uVar5);\r\n  IVar1 = NSFileManager::fileExistsAtPath_(self,IVar1);\r\n  if ((int)IVar1 == 0) {\r\n    *(undefined8 *)(unaff_x22 + 0x40) = *(undefined8 *)(unaff_x22 + 0x50);\r\n    if (DAT_10179fcc0 != -1) {\r\n      _swift_once(&DAT_10179fcc0,FUN_1004c21a0);\r\n    }\r\n    plVar2 = DAT_10179fc88;\r\n    puVar3 = (undefined8 *)PTR___swiftEmptyArrayStorage_1016005c0;\r\n    FUN_1005cd128();\r\n    (**(code **)(*plVar2 + 0x1a0))\r\n              (5,\"colorCubeFilterFromLUT(lutPath:type:colorSpace:)\",0x30,2,\r\n               \"/Users/georgekye/Developer/PeekLUT/PeekLUT/Utils/Filters/CubeLoader.swift\",0x49,2,\r\n               0x20,puVar3,FUN_10050c54c,unaff_x22 + 0x30);\r\n    _swift_bridgeObjectRelease();\r\n    FUN_1000e4ac0();\r\n    _swift_allocError(&DAT_101616d30,puVar3,0,0);\r\n    uVar5 = _DAT_1011d28f0;\r\n    puVar3[1] = _UNK_1011d28f8;\r\n    *puVar3 = uVar5;\r\n    *(undefined1 *)(puVar3 + 2) = 0xa0;\r\n    _swift_willThrow();\r\n                    /* WARNING: Could not recover jumptable at 0x00010050b8f0. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n    (**(code **)(unaff_x22 + 8))();\r\n    return;\r\n  }\r\n  if (*(byte *)(unaff_x22 + 0x90) - 1 < 2) {\r\n    plVar2 = (long *)(ulong)DAT_1011d509c;\r\n    _swift_task_alloc();\r\n    *(long **)(unaff_x22 + 0x60) = plVar2;\r\n    *plVar2 = unaff_x22;\r\n    plVar2[1] = (long)FUN_10050b998;\r\n    FUN_10050c140(*(undefined8 *)(unaff_x22 + 0x50),*(undefined1 *)(unaff_x22 + 0x90),\r\n                  *(undefined8 *)(unaff_x22 + 0x58));\r\n    return;\r\n  }\r\n  *(undefined8 *)(unaff_x22 + 0x28) = *(undefined8 *)(unaff_x22 + 0x58);\r\n  *(undefined8 *)(unaff_x22 + 0x20) = *(undefined8 *)(unaff_x22 + 0x50);\r\n  plVar2 = (long *)(ulong)*(uint *)(\r\n                                   PTR___ss31withCheckedThrowingContinuation9isolation8function_xScA_pSgYi_SSyScCyxs5Error_pGXEtYaKlFTu_1016011b0\r\n                                   + 4);\r\n  _swift_task_alloc();\r\n  *(long **)(unaff_x22 + 0x80) = plVar2;\r\n  puVar4 = &DAT_1017a1ef0;\r\n  FUN_100005318(&DAT_1017a1ef0,&DAT_1011d5090);\r\n  *plVar2 = unaff_x22;\r\n  plVar2[1] = (long)FUN_10050bb40;\r\n  __ss31withCheckedThrowingContinuation9isolation8function_xScA_pSgYi_SSyScCyxs5Error_pGXEtYaKlF\r\n            (unaff_x22 + 0x48,0,0,0xd000000000000030,0x8000000101412a20,FUN_10050cd2c,\r\n             unaff_x22 + 0x10,puVar4);\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_10050b764(void);"
+  },
+  "summary": "Pseudo-C for FUN_10050b764 from the Deep engine (79 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10050b764"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

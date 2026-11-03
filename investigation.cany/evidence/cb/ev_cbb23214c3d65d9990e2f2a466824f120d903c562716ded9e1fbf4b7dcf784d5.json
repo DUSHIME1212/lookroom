@@ -1,0 +1,82 @@
+{
+  "id": "ev_cbb23214c3d65d9990e2f2a466824f120d903c562716ded9e1fbf4b7dcf784d5",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 40,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "Filmic|Velvet|Tokyo Print|Amber Print|Cinema Stock"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x101393cbb",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "filmicSplit"
+      },
+      {
+        "address": "0x101401340",
+        "references": [
+          {
+            "from": "0x10008e61c",
+            "function": "sub_10008e52c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Applies Filmic Split presets, including stylized negative, print, monochrome, slide, instant, chrome, and city-inspired looks."
+      },
+      {
+        "address": "0x101404390",
+        "references": [
+          {
+            "from": "0x100088384",
+            "function": "sub_100088164"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Shapes the highlight shoulder of the film curve: raise for a soft filmic roll-off, lower to harden highlights."
+      },
+      {
+        "address": "0x101408980",
+        "references": [
+          {
+            "from": "0x10028b154",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "• **Filmic Split**: Fourteen hand-tuned split-tone presets including Velvet Negative, Cinema Stock, Amber Print, and Tokyo Print, with film saturation and push and pull controls.\n• **Color Luminance**: Brighten or darken red, green, blue, cyan, magenta, and yellow independently to lift skies, deepen reds, or recover skin tones."
+      }
+    ],
+    "total": 4
+  },
+  "summary": "4 strings match \"Filmic|Velvet|Tokyo Print|Amber Print|Cinema Stock\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 4,
+    "total": 4
+  },
+  "locations": [],
+  "links": []
+}

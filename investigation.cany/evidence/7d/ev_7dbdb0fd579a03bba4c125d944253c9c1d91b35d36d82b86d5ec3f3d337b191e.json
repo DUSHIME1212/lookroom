@@ -1,0 +1,45 @@
+{
+  "id": "ev_7dbdb0fd579a03bba4c125d944253c9c1d91b35d36d82b86d5ec3f3d337b191e",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x100553e94"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100553e94",
+    "function": "FUN_100553e94",
+    "pseudo_code": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_100553e94(undefined8 *param_1,undefined8 *param_2,undefined8 param_3,undefined8 param_4,\r\n                  undefined8 param_5)\r\n\r\n{\r\n  undefined *puVar1;\r\n  undefined8 uVar2;\r\n  undefined8 *puVar3;\r\n  long lVar4;\r\n  undefined8 uVar5;\r\n  undefined8 uVar6;\r\n  undefined8 *puVar7;\r\n  undefined8 uVar8;\r\n  undefined8 *puVar9;\r\n  undefined *puVar10;\r\n  long extraout_x8;\r\n  undefined1 *puVar11;\r\n  undefined1 auStack_90 [8];\r\n  double local_88;\r\n  undefined8 local_80;\r\n  undefined8 uStack_78;\r\n  undefined8 local_70;\r\n  \r\n  puVar1 = &DAT_101785fa0;\r\n  FUN_100005318(&DAT_101785fa0,&DAT_1011a5b20);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)\r\n            (*(long *)(*(long *)(puVar1 + -8) + 0x40) + 0xfU & 0xfffffffffffffff0);\r\n  puVar11 = auStack_90 + -extraout_x8;\r\n  puVar1 = &DAT_10178ff00;\r\n  FUN_100005318(&DAT_10178ff00,&DAT_1011ab440);\r\n  _swift_allocObject();\r\n  uVar2 = _DAT_1011a6750;\r\n  *(undefined8 *)(puVar1 + 0x18) = _UNK_1011a6758;\r\n  *(undefined8 *)(puVar1 + 0x10) = uVar2;\r\n  uStack_78 = param_2[1];\r\n  local_80 = *param_2;\r\n  local_70 = param_2[2];\r\n  FUN_100005318(&DAT_101792f08,&DAT_1011bcb10);\r\n  __s7SwiftUI7BindingV12wrappedValuexvg(&local_88);\r\n  puVar10 = PTR___sSds7CVarArgsWP_1015ff3a8;\r\n  *(undefined **)(puVar1 + 0x38) = PTR___sSdN_1015ff368;\r\n  *(undefined **)(puVar1 + 0x40) = puVar10;\r\n  *(double *)(puVar1 + 0x20) = local_88 + 6500.0;\r\n  uVar2 = 0x66302e25;\r\n  uVar8 = 0xe400000000000000;\r\n  __sSS10FoundationE6format_S2Sh_s7CVarArg_pdtcfC(0x66302e25,0xe400000000000000,puVar1);\r\n  local_80 = uVar2;\r\n  uStack_78 = uVar8;\r\n  _swift_bridgeObjectRetain(uVar8);\r\n  __sSS6appendyySSF(0x4b,0xe100000000000000);\r\n  _swift_bridgeObjectRelease();\r\n  FUN_100034b54();\r\n  puVar3 = &local_80;\r\n  puVar1 = PTR___sSSN_1015ff0e8;\r\n  __s7SwiftUI4TextVyACxcSyRzlufC();\r\n  lVar4 = 0;\r\n  __s7SwiftUI4FontV6DesignOMa();\r\n  (**(code **)(*(long *)(lVar4 + -8) + 0x38))(puVar11,1,1,lVar4);\r\n  uVar5 = 0;\r\n  __s7SwiftUI4FontV6system4size6weight6designAC12CoreGraphics7CGFloatV_AC6WeightVSgAC6DesignOSgtFZ\r\n            (0x4024000000000000,0,1,puVar11);\r\n  FUN_1000374ac(puVar11,&DAT_101785fa0,&DAT_1011a5b20);\r\n  __s7SwiftUI4FontV6WeightV5heavyAEvgZ();\r\n  uVar2 = uVar5;\r\n  __s7SwiftUI4FontV6weightyA2C6WeightVF();\r\n  _swift_release(uVar5);\r\n  uVar5 = uVar2;\r\n  puVar9 = puVar3;\r\n  puVar10 = puVar1;\r\n  uVar6 = uVar8;\r\n  __s7SwiftUI4TextV4fontyAcA4FontVSgF();\r\n  _swift_release(uVar2);\r\n  FUN_100034d34(puVar3,puVar1,uVar8);\r\n  _swift_bridgeObjectRelease(param_5);\r\n  uVar2 = uVar5;\r\n  puVar3 = puVar9;\r\n  puVar1 = puVar10;\r\n  uVar8 = uVar6;\r\n  __s7SwiftUI4TextV15monospacedDigitACyF();\r\n  FUN_100034d34(uVar5,puVar9,puVar10);\r\n  _swift_bridgeObjectRelease();\r\n  __s7SwiftUI5ColorV5whiteACvgZ();\r\n  puVar7 = &local_80;\r\n  uVar5 = uVar2;\r\n  puVar9 = puVar3;\r\n  puVar10 = puVar1;\r\n  local_80 = uVar6;\r\n  __s7SwiftUI4TextV15foregroundStyleyACxAA05ShapeE0RzlF();\r\n  FUN_100034d34(uVar2,puVar3,puVar1);\r\n  _swift_release(uVar6);\r\n  _swift_bridgeObjectRelease(uVar8);\r\n  *param_1 = puVar7;\r\n  param_1[1] = uVar5;\r\n  *(char *)(param_1 + 2) = (char)puVar9;\r\n  param_1[3] = puVar10;\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_100553e94(undefined8 *param_1,undefined8 *param_2,undefined8 param_3,undefined8 param_4,undefined8 param_5);"
+  },
+  "summary": "Pseudo-C for FUN_100553e94 from the Deep engine (100 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100553e94"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

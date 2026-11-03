@@ -1,0 +1,22 @@
+{
+  "id": "unk_49604a414166da6e",
+  "revision": 2,
+  "question": "How tall is the preset strip in the editor panel, in points?",
+  "severity": "low",
+  "domain": "ui",
+  "status": "resolved",
+  "probes": [
+    "Run the original on a device and measure the Presets panel",
+    "Find the frame height where the panel hosts PresetsView"
+  ],
+  "evidence_for": [
+    "ev_cd0e555495fe6402d98f58245015c68f131d1fbab0764468e2ae5278e9a7add8",
+    "ev_997dab5cd475082a9e19907d4f21837ce80ebea4351243f57d7908d6c0c93636",
+    "ev_df204c7406a5ff4fd53d3da1d09b63cc2857a29890e852a9ea8bae4867796b82",
+    "ev_1f484264847dc47f24dd67e679ad3725ba8f92a6293ddfec6ebffb9d7db4af5c",
+    "ev_40b10fa7b86fdafb4b3db73667e9c7b5c0ae93a6f6c842b76dccf18ee136c45d",
+    "ev_b328eb3d3d0fd42f7c142b5723125e41c7255d105e52b49d73e425048126e3ed"
+  ],
+  "evidence_against": [],
+  "resolution": "In preset mode the panel's height is 0.2 of the measured editor height, kept between 150 and 250 (0x1001aaab4, constant 0x1011a7bf8), unless a cached height above zero replaces it (0x1001aad58). The panel has 16 of padding on top and at the sides: pad is 8 (0x1001bd9f4), doubled at 0x1001b7608. The tile is square, so its side is what remains after the padding, title and the 20 under the strip."
+}

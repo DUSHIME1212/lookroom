@@ -1,0 +1,2369 @@
+{
+  "id": "ev_342fe73e90fd132b19491c5880a6813582459fe326ecea4119be5bb6f7a6081c",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "apple_macho_show",
+  "params": {
+    "architecture": "arm64",
+    "limit": 20,
+    "offset": 0,
+    "path": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33\\Payload\\PeekLUT.app\\PeekLUT"
+  },
+  "result": {
+    "build_versions": [
+      {
+        "minos": "18.0.0",
+        "platform": "ios",
+        "sdk": "26.5.0",
+        "tools": [
+          "ld 1267.0.0"
+        ]
+      }
+    ],
+    "code_signature": {
+      "offset": 26662816,
+      "size": 696528
+    },
+    "dyld_environment": [],
+    "encryption": {
+      "cryptid": 0,
+      "cryptoff": 16384,
+      "cryptsize": 22986752
+    },
+    "entry_offset": 4025516,
+    "exports": [
+      {
+        "addr": "0x100000000",
+        "name": "__mh_execute_header"
+      }
+    ],
+    "exports_total": 1,
+    "header": {
+      "arch": "arm64",
+      "big_endian": false,
+      "cpusubtype": 0,
+      "cputype": 16777228,
+      "filetype": 2,
+      "filetype_name": "execute",
+      "flag_names": [
+        "NOUNDEFS",
+        "DYLDLINK",
+        "TWOLEVEL",
+        "BINDS_TO_WEAK",
+        "PIE",
+        "HAS_TLV_DESCRIPTORS"
+      ],
+      "flags": 10551429,
+      "is64": true,
+      "ncmds": 122,
+      "sizeofcmds": 13312
+    },
+    "imports": [
+      {
+        "library": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI",
+        "name": "_$s015_PhotosUI_SwiftB00A10PickerItemV16loadTransferable4type17completionHandlerSo10NSProgressCxm_ys6ResultOyxSgs5Error_pGct04CoreG00G0RzlF",
+        "slot": "0x1015feb00"
+      },
+      {
+        "library": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI",
+        "name": "_$s015_PhotosUI_SwiftB00A10PickerItemV28EncodingDisambiguationPolicyV9automaticAEvgZ",
+        "slot": "0x1015feb08"
+      },
+      {
+        "library": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI",
+        "name": "_$s015_PhotosUI_SwiftB00A10PickerItemV28EncodingDisambiguationPolicyVMa",
+        "slot": "0x1015feb10"
+      },
+      {
+        "library": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI",
+        "name": "_$s015_PhotosUI_SwiftB00A10PickerItemVMa",
+        "slot": "0x1015feb18"
+      },
+      {
+        "library": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI",
+        "name": "_$s015_PhotosUI_SwiftB00A10PickerItemVMn",
+        "slot": "0x1015feb20"
+      },
+      {
+        "library": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI",
+        "name": "_$s015_PhotosUI_SwiftB00A10PickerItemVSQAAMc",
+        "slot": "0x1015feb28"
+      },
+      {
+        "library": "/usr/lib/swift/libswiftAccelerate.dylib",
+        "name": "_$s10Accelerate6vImageO7OptionsV7noFlagsAEvgZ",
+        "slot": "0x1015fed08"
+      },
+      {
+        "library": "/usr/lib/swift/libswiftAccelerate.dylib",
+        "name": "_$s10Accelerate6vImageO7OptionsVMa",
+        "slot": "0x1015fed10"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV03_nsC0So7NSErrorCvg",
+        "slot": "0x1015f83e8"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV19fileWriteFileExistsAC4CodeVvgZ",
+        "slot": "0x1015f83f0"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV4CodeV14fileNoSuchFileAEvgZ",
+        "slot": "0x1015f83f8"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV4CodeV16fileWriteUnknownAEvgZ",
+        "slot": "0x1015f8400"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV4CodeV18fileReadNoSuchFileAEvgZ",
+        "slot": "0x1015f8408"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV4CodeV19fileWriteFileExistsAEvgZ",
+        "slot": "0x1015f8410"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV4CodeV23fileReadInvalidFileNameAEvgZ",
+        "slot": "0x1015f8418"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV4CodeVAA01_cD8ProtocolAAMc",
+        "slot": "0x1015f8420"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorV4CodeVMa",
+        "slot": "0x1015f8428"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorVAA21_BridgedStoredNSErrorAAMc",
+        "slot": "0x1015f8430"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10CocoaErrorVMa",
+        "slot": "0x1015f8438"
+      },
+      {
+        "library": "/System/Library/Frameworks/Foundation.framework/Foundation",
+        "name": "_$s10Foundation10NSNotFoundSivg",
+        "slot": "0x1015f8440"
+      }
+    ],
+    "imports_total": 5876,
+    "install_name": null,
+    "libraries": [
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "2100.43.0",
+        "kind": "load",
+        "name": "/usr/lib/libc++.1.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "4.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Accelerate.framework/Accelerate"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.2.12",
+        "kind": "load",
+        "name": "/usr/lib/libz.1.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "9126.5.5",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/UIKit.framework/UIKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "61901.120.67",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Security.framework/Security"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1405.120.5",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "0.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony"
+      },
+      {
+        "compatibility_version": "9.0.0",
+        "current_version": "382.0.0",
+        "kind": "load",
+        "name": "/usr/lib/libsqlite3.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/StoreKit.framework/StoreKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.5.2",
+        "kind": "weak",
+        "name": "/System/Library/Frameworks/FoundationModels.framework/FoundationModels"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "@rpath/FBSDKCoreKit.framework/FBSDKCoreKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "@rpath/FBAEMKit.framework/FBAEMKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "@rpath/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/AdSupport.framework/AdSupport"
+      },
+      {
+        "compatibility_version": "300.0.0",
+        "current_version": "5026.5.4",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Foundation.framework/Foundation"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "228.0.0",
+        "kind": "load",
+        "name": "/usr/lib/libobjc.A.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1356.0.0",
+        "kind": "load",
+        "name": "/usr/lib/libSystem.B.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/AVFAudio.framework/AVFAudio"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "2.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/AVFoundation.framework/AVFoundation"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/AVKit.framework/AVKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "weak",
+        "name": "/System/Library/Frameworks/AdServices.framework/AdServices"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/AppTrackingTransparency.framework/AppTrackingTransparency"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1000.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3860.255.12",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CFNetwork.framework/CFNetwork"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CarPlay.framework/CarPlay"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3023.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Combine.framework/Combine"
+      },
+      {
+        "compatibility_version": "150.0.0",
+        "current_version": "5026.5.4",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
+      },
+      {
+        "compatibility_version": "64.0.0",
+        "current_version": "1965.5.1",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "7.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreImage.framework/CoreImage"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3075.0.8",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreLocation.framework/CoreLocation"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3320.8.1",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreMedia.framework/CoreMedia"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3075.0.8",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreMotion.framework/CoreMotion"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1226.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreServices.framework/CoreServices"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "877.4.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreText.framework/CoreText"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreTransferable.framework/CoreTransferable"
+      },
+      {
+        "compatibility_version": "1.2.0",
+        "current_version": "734.4.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CoreVideo.framework/CoreVideo"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/CryptoKit.framework/CryptoKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "23.40.26",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/DeveloperToolsSupport.framework/DeveloperToolsSupport"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "129.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/GLKit.framework/GLKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/ImageIO.framework/ImageIO"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "148.5.1",
+        "kind": "weak",
+        "name": "/System/Library/Frameworks/ImagePlayground.framework/ImagePlayground"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "296.11.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/LinkPresentation.framework/LinkPresentation"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3864.255.51",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/MessageUI.framework/MessageUI"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "373.2.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Metal.framework/Metal"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "173.7.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/MetalKit.framework/MetalKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "129.5.1",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/MetalPerformanceShaders.framework/MetalPerformanceShaders"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/MetricKit.framework/MetricKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "852.0.102",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Photos.framework/Photos"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "852.0.102",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/PhotosUI.framework/PhotosUI"
+      },
+      {
+        "compatibility_version": "1.2.0",
+        "current_version": "1195.14.4",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/QuartzCore.framework/QuartzCore"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/ReplayKit.framework/ReplayKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "608.255.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/SceneKit.framework/SceneKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "52.4.1",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/SpriteKit.framework/SpriteKit"
+      },
+      {
+        "compatibility_version": "0.0.0",
+        "current_version": "0.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/SwiftData.framework/SwiftData"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "7.5.3",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "190.4.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Symbols.framework/Symbols"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "120.5.1",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/TipKit.framework/TipKit"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3320.8.1",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/VideoToolbox.framework/VideoToolbox"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "9.5.4",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/Vision.framework/Vision"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/_AVKit_SwiftUI.framework/_AVKit_SwiftUI"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "852.0.102",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/System/Library/Frameworks/_StoreKit_SwiftUI.framework/_StoreKit_SwiftUI"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "load",
+        "name": "/usr/lib/libcompression.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "2420.7.1",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftAVFoundation.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "77.100.2",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftAccelerate.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "515.29.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftCarPlay.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "11.0.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftCompression.dylib"
+      },
+      {
+        "compatibility_version": "0.0.0",
+        "current_version": "0.0.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftCore.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "411.255.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftCoreAudio.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "120.100.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftCoreFoundation.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "2.2.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftCoreImage.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "53.0.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftCoreLocation.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "6.0.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftCoreMIDI.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3320.8.1",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftCoreMedia.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftDarwin.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "821.7.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftDataDetection.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1542.100.32",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftDispatch.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.2.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftGLKit.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "14.35.2",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftMapKit.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "373.2.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftMetal.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.3.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftMetalKit.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "2.0.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftModelIO.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "10.0.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftOSLog.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "951.7.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftObjectiveC.dylib"
+      },
+      {
+        "compatibility_version": "0.0.0",
+        "current_version": "0.0.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftObservation.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "5.0.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftQuartzCore.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1.0.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftSpatial.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "879.5.1",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "3320.8.1",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftVideoToolbox.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "128.120.2",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftXPC.dylib"
+      },
+      {
+        "compatibility_version": "0.0.0",
+        "current_version": "0.0.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswift_Builtin_float.dylib"
+      },
+      {
+        "compatibility_version": "0.0.0",
+        "current_version": "0.0.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswift_Concurrency.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswift_errno.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswift_math.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswift_signal.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswift_stdio.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswift_time.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "1082.0.0",
+        "kind": "load",
+        "name": "/usr/lib/swift/libswiftos.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "23.0.0",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftsimd.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftsys_time.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "377.120.8",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftunistd.dylib"
+      },
+      {
+        "compatibility_version": "1.0.0",
+        "current_version": "4018.120.24",
+        "kind": "weak",
+        "name": "/usr/lib/swift/libswiftFileProvider.dylib"
+      }
+    ],
+    "load_commands": [
+      {
+        "cmd": "LC_SEGMENT_64",
+        "detail": {
+          "fileoff": 0,
+          "filesize": 0,
+          "initprot": "---",
+          "sections": [],
+          "segname": "__PAGEZERO",
+          "vmaddr": "0x0",
+          "vmsize": 4294967296
+        },
+        "index": 0,
+        "offset": 32,
+        "size": 72
+      },
+      {
+        "cmd": "LC_SEGMENT_64",
+        "detail": {
+          "fileoff": 0,
+          "filesize": 23019520,
+          "initprot": "r-x",
+          "sections": [
+            "__text",
+            "__stubs",
+            "__objc_stubs",
+            "__init_offsets",
+            "__objc_methlist",
+            "__const",
+            "__constg_swiftt",
+            "__swift5_typeref",
+            "__swift5_builtin",
+            "__swift5_reflstr",
+            "__swift5_fieldmd",
+            "__swift5_assocty",
+            "__cstring",
+            "__swift5_proto",
+            "__swift5_types",
+            "__objc_classname",
+            "__objc_methname",
+            "__objc_methtype",
+            "__swift5_capture",
+            "__swift_as_entry",
+            "__swift_as_ret",
+            "__swift5_protos",
+            "__swift5_mpenum",
+            "__swift5_entry",
+            "__gcc_except_tab",
+            "__ustring",
+            "__unwind_info",
+            "__eh_frame",
+            "__oslogstring"
+          ],
+          "segname": "__TEXT",
+          "vmaddr": "0x100000000",
+          "vmsize": 23019520
+        },
+        "index": 1,
+        "offset": 104,
+        "size": 2392
+      },
+      {
+        "cmd": "LC_SEGMENT_64",
+        "detail": {
+          "fileoff": 23019520,
+          "filesize": 950272,
+          "initprot": "rw-",
+          "sections": [
+            "__got",
+            "__const",
+            "__cfstring",
+            "__objc_classlist",
+            "__objc_nlclslist",
+            "__objc_catlist",
+            "__objc_nlcatlist",
+            "__objc_protolist",
+            "__objc_imageinfo",
+            "__objc_protorefs",
+            "__objc_classrefs",
+            "__objc_superrefs",
+            "__objc_arraydata",
+            "__objc_arrayobj",
+            "__objc_dictobj",
+            "__objc_intobj"
+          ],
+          "segname": "__DATA_CONST",
+          "vmaddr": "0x1015f4000",
+          "vmsize": 950272
+        },
+        "index": 2,
+        "offset": 2496,
+        "size": 1352
+      },
+      {
+        "cmd": "LC_SEGMENT_64",
+        "detail": {
+          "fileoff": 23969792,
+          "filesize": 1146880,
+          "initprot": "rw-",
+          "sections": [
+            "__objc_const",
+            "__objc_selrefs",
+            "__objc_ivar",
+            "__objc_data",
+            "__data",
+            "__swift_hooks",
+            "__swift51_hooks",
+            "__s_async_hook",
+            "__swift56_hooks",
+            "__thread_vars",
+            "__thread_bss",
+            "__bss",
+            "__common"
+          ],
+          "segname": "__DATA",
+          "vmaddr": "0x1016dc000",
+          "vmsize": 2015232
+        },
+        "index": 3,
+        "offset": 3848,
+        "size": 1112
+      },
+      {
+        "cmd": "LC_SEGMENT_64",
+        "detail": {
+          "fileoff": 25116672,
+          "filesize": 2242672,
+          "initprot": "r--",
+          "sections": [],
+          "segname": "__LINKEDIT",
+          "vmaddr": "0x1018c8000",
+          "vmsize": 2244608
+        },
+        "index": 4,
+        "offset": 4960,
+        "size": 72
+      },
+      {
+        "cmd": "LC_DYLD_CHAINED_FIXUPS",
+        "detail": {
+          "dataoff": 25116672,
+          "datasize": 293728
+        },
+        "index": 5,
+        "offset": 5032,
+        "size": 16
+      },
+      {
+        "cmd": "LC_DYLD_EXPORTS_TRIE",
+        "detail": {
+          "dataoff": 25410400,
+          "datasize": 731608
+        },
+        "index": 6,
+        "offset": 5048,
+        "size": 16
+      },
+      {
+        "cmd": "LC_SYMTAB",
+        "detail": {
+          "nsyms": 5878,
+          "stroff": 26391408,
+          "strsize": 271400,
+          "symoff": 26256776
+        },
+        "index": 7,
+        "offset": 5064,
+        "size": 24
+      },
+      {
+        "cmd": "LC_DYSYMTAB",
+        "detail": null,
+        "index": 8,
+        "offset": 5088,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLINKER",
+        "detail": {
+          "name": "/usr/lib/dyld"
+        },
+        "index": 9,
+        "offset": 5168,
+        "size": 32
+      },
+      {
+        "cmd": "LC_UUID",
+        "detail": {
+          "uuid": "64595A6A-B7F3-3DA4-9145-576CF1D80FB9"
+        },
+        "index": 10,
+        "offset": 5200,
+        "size": 24
+      },
+      {
+        "cmd": "LC_BUILD_VERSION",
+        "detail": {
+          "minos": "18.0.0",
+          "platform": "ios",
+          "sdk": "26.5.0",
+          "tools": [
+            "ld 1267.0.0"
+          ]
+        },
+        "index": 11,
+        "offset": 5224,
+        "size": 32
+      },
+      {
+        "cmd": "LC_SOURCE_VERSION",
+        "detail": {
+          "version": "0.0.0.0.0"
+        },
+        "index": 12,
+        "offset": 5256,
+        "size": 16
+      },
+      {
+        "cmd": "LC_MAIN",
+        "detail": {
+          "entryoff": 4025516,
+          "stacksize": 0
+        },
+        "index": 13,
+        "offset": 5272,
+        "size": 24
+      },
+      {
+        "cmd": "LC_ENCRYPTION_INFO_64",
+        "detail": {
+          "cryptid": 0,
+          "cryptoff": 16384,
+          "cryptsize": 22986752,
+          "encrypted": false
+        },
+        "index": 14,
+        "offset": 5296,
+        "size": 24
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "2100.43.0",
+          "name": "/usr/lib/libc++.1.dylib"
+        },
+        "index": 15,
+        "offset": 5320,
+        "size": 48
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "4.0.0",
+          "name": "/System/Library/Frameworks/Accelerate.framework/Accelerate"
+        },
+        "index": 16,
+        "offset": 5368,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.2.12",
+          "name": "/usr/lib/libz.1.dylib"
+        },
+        "index": 17,
+        "offset": 5456,
+        "size": 48
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "9126.5.5",
+          "name": "/System/Library/Frameworks/UIKit.framework/UIKit"
+        },
+        "index": 18,
+        "offset": 5504,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "61901.120.67",
+          "name": "/System/Library/Frameworks/Security.framework/Security"
+        },
+        "index": 19,
+        "offset": 5584,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1405.120.5",
+          "name": "/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration"
+        },
+        "index": 20,
+        "offset": 5664,
+        "size": 104
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "0.0.0",
+          "name": "/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony"
+        },
+        "index": 21,
+        "offset": 5768,
+        "size": 96
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "9.0.0",
+          "current_version": "382.0.0",
+          "name": "/usr/lib/libsqlite3.dylib"
+        },
+        "index": 22,
+        "offset": 5864,
+        "size": 56
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/StoreKit.framework/StoreKit"
+        },
+        "index": 23,
+        "offset": 5920,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.5.2",
+          "name": "/System/Library/Frameworks/FoundationModels.framework/FoundationModels"
+        },
+        "index": 24,
+        "offset": 6000,
+        "size": 96
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "@rpath/FBSDKCoreKit.framework/FBSDKCoreKit"
+        },
+        "index": 25,
+        "offset": 6096,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "@rpath/FBAEMKit.framework/FBAEMKit"
+        },
+        "index": 26,
+        "offset": 6168,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "@rpath/FBSDKCoreKit_Basics.framework/FBSDKCoreKit_Basics"
+        },
+        "index": 27,
+        "offset": 6232,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/AdSupport.framework/AdSupport"
+        },
+        "index": 28,
+        "offset": 6320,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "300.0.0",
+          "current_version": "5026.5.4",
+          "name": "/System/Library/Frameworks/Foundation.framework/Foundation"
+        },
+        "index": 29,
+        "offset": 6408,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "228.0.0",
+          "name": "/usr/lib/libobjc.A.dylib"
+        },
+        "index": 30,
+        "offset": 6496,
+        "size": 56
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1356.0.0",
+          "name": "/usr/lib/libSystem.B.dylib"
+        },
+        "index": 31,
+        "offset": 6552,
+        "size": 56
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/AVFAudio.framework/AVFAudio"
+        },
+        "index": 32,
+        "offset": 6608,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "2.0.0",
+          "name": "/System/Library/Frameworks/AVFoundation.framework/AVFoundation"
+        },
+        "index": 33,
+        "offset": 6688,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/AVKit.framework/AVKit"
+        },
+        "index": 34,
+        "offset": 6776,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/AdServices.framework/AdServices"
+        },
+        "index": 35,
+        "offset": 6856,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/AppTrackingTransparency.framework/AppTrackingTransparency"
+        },
+        "index": 36,
+        "offset": 6944,
+        "size": 112
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1000.0.0",
+          "name": "/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox"
+        },
+        "index": 37,
+        "offset": 7056,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3860.255.12",
+          "name": "/System/Library/Frameworks/CFNetwork.framework/CFNetwork"
+        },
+        "index": 38,
+        "offset": 7144,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/CarPlay.framework/CarPlay"
+        },
+        "index": 39,
+        "offset": 7232,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3023.0.0",
+          "name": "/System/Library/Frameworks/Combine.framework/Combine"
+        },
+        "index": 40,
+        "offset": 7312,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "150.0.0",
+          "current_version": "5026.5.4",
+          "name": "/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation"
+        },
+        "index": 41,
+        "offset": 7392,
+        "size": 96
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "64.0.0",
+          "current_version": "1965.5.1",
+          "name": "/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics"
+        },
+        "index": 42,
+        "offset": 7488,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "7.0.0",
+          "name": "/System/Library/Frameworks/CoreImage.framework/CoreImage"
+        },
+        "index": 43,
+        "offset": 7576,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3075.0.8",
+          "name": "/System/Library/Frameworks/CoreLocation.framework/CoreLocation"
+        },
+        "index": 44,
+        "offset": 7664,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3320.8.1",
+          "name": "/System/Library/Frameworks/CoreMedia.framework/CoreMedia"
+        },
+        "index": 45,
+        "offset": 7752,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3075.0.8",
+          "name": "/System/Library/Frameworks/CoreMotion.framework/CoreMotion"
+        },
+        "index": 46,
+        "offset": 7840,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1226.0.0",
+          "name": "/System/Library/Frameworks/CoreServices.framework/CoreServices"
+        },
+        "index": 47,
+        "offset": 7928,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "877.4.0",
+          "name": "/System/Library/Frameworks/CoreText.framework/CoreText"
+        },
+        "index": 48,
+        "offset": 8016,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/CoreTransferable.framework/CoreTransferable"
+        },
+        "index": 49,
+        "offset": 8096,
+        "size": 96
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.2.0",
+          "current_version": "734.4.0",
+          "name": "/System/Library/Frameworks/CoreVideo.framework/CoreVideo"
+        },
+        "index": 50,
+        "offset": 8192,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/CryptoKit.framework/CryptoKit"
+        },
+        "index": 51,
+        "offset": 8280,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "23.40.26",
+          "name": "/System/Library/Frameworks/DeveloperToolsSupport.framework/DeveloperToolsSupport"
+        },
+        "index": 52,
+        "offset": 8368,
+        "size": 112
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "129.0.0",
+          "name": "/System/Library/Frameworks/GLKit.framework/GLKit"
+        },
+        "index": 53,
+        "offset": 8480,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/ImageIO.framework/ImageIO"
+        },
+        "index": 54,
+        "offset": 8560,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "148.5.1",
+          "name": "/System/Library/Frameworks/ImagePlayground.framework/ImagePlayground"
+        },
+        "index": 55,
+        "offset": 8640,
+        "size": 96
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "296.11.0",
+          "name": "/System/Library/Frameworks/LinkPresentation.framework/LinkPresentation"
+        },
+        "index": 56,
+        "offset": 8736,
+        "size": 96
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3864.255.51",
+          "name": "/System/Library/Frameworks/MessageUI.framework/MessageUI"
+        },
+        "index": 57,
+        "offset": 8832,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "373.2.0",
+          "name": "/System/Library/Frameworks/Metal.framework/Metal"
+        },
+        "index": 58,
+        "offset": 8920,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "173.7.0",
+          "name": "/System/Library/Frameworks/MetalKit.framework/MetalKit"
+        },
+        "index": 59,
+        "offset": 9000,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "129.5.1",
+          "name": "/System/Library/Frameworks/MetalPerformanceShaders.framework/MetalPerformanceShaders"
+        },
+        "index": 60,
+        "offset": 9080,
+        "size": 112
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/MetricKit.framework/MetricKit"
+        },
+        "index": 61,
+        "offset": 9192,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "852.0.102",
+          "name": "/System/Library/Frameworks/Photos.framework/Photos"
+        },
+        "index": 62,
+        "offset": 9280,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "852.0.102",
+          "name": "/System/Library/Frameworks/PhotosUI.framework/PhotosUI"
+        },
+        "index": 63,
+        "offset": 9360,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.2.0",
+          "current_version": "1195.14.4",
+          "name": "/System/Library/Frameworks/QuartzCore.framework/QuartzCore"
+        },
+        "index": 64,
+        "offset": 9440,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/ReplayKit.framework/ReplayKit"
+        },
+        "index": 65,
+        "offset": 9528,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "608.255.0",
+          "name": "/System/Library/Frameworks/SceneKit.framework/SceneKit"
+        },
+        "index": 66,
+        "offset": 9616,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "52.4.1",
+          "name": "/System/Library/Frameworks/SpriteKit.framework/SpriteKit"
+        },
+        "index": 67,
+        "offset": 9696,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "0.0.0",
+          "current_version": "0.0.0",
+          "name": "/System/Library/Frameworks/SwiftData.framework/SwiftData"
+        },
+        "index": 68,
+        "offset": 9784,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "7.5.3",
+          "name": "/System/Library/Frameworks/SwiftUI.framework/SwiftUI"
+        },
+        "index": 69,
+        "offset": 9872,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "190.4.0",
+          "name": "/System/Library/Frameworks/Symbols.framework/Symbols"
+        },
+        "index": 70,
+        "offset": 9952,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "120.5.1",
+          "name": "/System/Library/Frameworks/TipKit.framework/TipKit"
+        },
+        "index": 71,
+        "offset": 10032,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3320.8.1",
+          "name": "/System/Library/Frameworks/VideoToolbox.framework/VideoToolbox"
+        },
+        "index": 72,
+        "offset": 10112,
+        "size": 88
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "9.5.4",
+          "name": "/System/Library/Frameworks/Vision.framework/Vision"
+        },
+        "index": 73,
+        "offset": 10200,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/_AVKit_SwiftUI.framework/_AVKit_SwiftUI"
+        },
+        "index": 74,
+        "offset": 10280,
+        "size": 96
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "852.0.102",
+          "name": "/System/Library/Frameworks/_PhotosUI_SwiftUI.framework/_PhotosUI_SwiftUI"
+        },
+        "index": 75,
+        "offset": 10376,
+        "size": 104
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/System/Library/Frameworks/_StoreKit_SwiftUI.framework/_StoreKit_SwiftUI"
+        },
+        "index": 76,
+        "offset": 10480,
+        "size": 104
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/usr/lib/libcompression.dylib"
+        },
+        "index": 77,
+        "offset": 10584,
+        "size": 56
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "2420.7.1",
+          "name": "/usr/lib/swift/libswiftAVFoundation.dylib"
+        },
+        "index": 78,
+        "offset": 10640,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "77.100.2",
+          "name": "/usr/lib/swift/libswiftAccelerate.dylib"
+        },
+        "index": 79,
+        "offset": 10712,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "515.29.0",
+          "name": "/usr/lib/swift/libswiftCarPlay.dylib"
+        },
+        "index": 80,
+        "offset": 10776,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "11.0.0",
+          "name": "/usr/lib/swift/libswiftCompression.dylib"
+        },
+        "index": 81,
+        "offset": 10840,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "0.0.0",
+          "current_version": "0.0.0",
+          "name": "/usr/lib/swift/libswiftCore.dylib"
+        },
+        "index": 82,
+        "offset": 10912,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "411.255.0",
+          "name": "/usr/lib/swift/libswiftCoreAudio.dylib"
+        },
+        "index": 83,
+        "offset": 10976,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "120.100.0",
+          "name": "/usr/lib/swift/libswiftCoreFoundation.dylib"
+        },
+        "index": 84,
+        "offset": 11040,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "2.2.0",
+          "name": "/usr/lib/swift/libswiftCoreImage.dylib"
+        },
+        "index": 85,
+        "offset": 11112,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "53.0.0",
+          "name": "/usr/lib/swift/libswiftCoreLocation.dylib"
+        },
+        "index": 86,
+        "offset": 11176,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "6.0.0",
+          "name": "/usr/lib/swift/libswiftCoreMIDI.dylib"
+        },
+        "index": 87,
+        "offset": 11248,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3320.8.1",
+          "name": "/usr/lib/swift/libswiftCoreMedia.dylib"
+        },
+        "index": 88,
+        "offset": 11312,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswiftDarwin.dylib"
+        },
+        "index": 89,
+        "offset": 11376,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "821.7.0",
+          "name": "/usr/lib/swift/libswiftDataDetection.dylib"
+        },
+        "index": 90,
+        "offset": 11440,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1542.100.32",
+          "name": "/usr/lib/swift/libswiftDispatch.dylib"
+        },
+        "index": 91,
+        "offset": 11512,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.2.0",
+          "name": "/usr/lib/swift/libswiftGLKit.dylib"
+        },
+        "index": 92,
+        "offset": 11576,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "14.35.2",
+          "name": "/usr/lib/swift/libswiftMapKit.dylib"
+        },
+        "index": 93,
+        "offset": 11640,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "373.2.0",
+          "name": "/usr/lib/swift/libswiftMetal.dylib"
+        },
+        "index": 94,
+        "offset": 11704,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.3.0",
+          "name": "/usr/lib/swift/libswiftMetalKit.dylib"
+        },
+        "index": 95,
+        "offset": 11768,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "2.0.0",
+          "name": "/usr/lib/swift/libswiftModelIO.dylib"
+        },
+        "index": 96,
+        "offset": 11832,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "10.0.0",
+          "name": "/usr/lib/swift/libswiftOSLog.dylib"
+        },
+        "index": 97,
+        "offset": 11896,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "951.7.0",
+          "name": "/usr/lib/swift/libswiftObjectiveC.dylib"
+        },
+        "index": 98,
+        "offset": 11960,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "0.0.0",
+          "current_version": "0.0.0",
+          "name": "/usr/lib/swift/libswiftObservation.dylib"
+        },
+        "index": 99,
+        "offset": 12024,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "5.0.0",
+          "name": "/usr/lib/swift/libswiftQuartzCore.dylib"
+        },
+        "index": 100,
+        "offset": 12096,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1.0.0",
+          "name": "/usr/lib/swift/libswiftSpatial.dylib"
+        },
+        "index": 101,
+        "offset": 12160,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "879.5.1",
+          "name": "/usr/lib/swift/libswiftUniformTypeIdentifiers.dylib"
+        },
+        "index": 102,
+        "offset": 12224,
+        "size": 80
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "3320.8.1",
+          "name": "/usr/lib/swift/libswiftVideoToolbox.dylib"
+        },
+        "index": 103,
+        "offset": 12304,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "128.120.2",
+          "name": "/usr/lib/swift/libswiftXPC.dylib"
+        },
+        "index": 104,
+        "offset": 12376,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "0.0.0",
+          "current_version": "0.0.0",
+          "name": "/usr/lib/swift/libswift_Builtin_float.dylib"
+        },
+        "index": 105,
+        "offset": 12440,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "0.0.0",
+          "current_version": "0.0.0",
+          "name": "/usr/lib/swift/libswift_Concurrency.dylib"
+        },
+        "index": 106,
+        "offset": 12512,
+        "size": 72
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswift_errno.dylib"
+        },
+        "index": 107,
+        "offset": 12584,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswift_math.dylib"
+        },
+        "index": 108,
+        "offset": 12648,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswift_signal.dylib"
+        },
+        "index": 109,
+        "offset": 12712,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswift_stdio.dylib"
+        },
+        "index": 110,
+        "offset": 12776,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswift_time.dylib"
+        },
+        "index": 111,
+        "offset": 12840,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "1082.0.0",
+          "name": "/usr/lib/swift/libswiftos.dylib"
+        },
+        "index": 112,
+        "offset": 12904,
+        "size": 56
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "23.0.0",
+          "name": "/usr/lib/swift/libswiftsimd.dylib"
+        },
+        "index": 113,
+        "offset": 12960,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswiftsys_time.dylib"
+        },
+        "index": 114,
+        "offset": 13024,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "377.120.8",
+          "name": "/usr/lib/swift/libswiftunistd.dylib"
+        },
+        "index": 115,
+        "offset": 13088,
+        "size": 64
+      },
+      {
+        "cmd": "LC_LOAD_WEAK_DYLIB",
+        "detail": {
+          "compatibility_version": "1.0.0",
+          "current_version": "4018.120.24",
+          "name": "/usr/lib/swift/libswiftFileProvider.dylib"
+        },
+        "index": 116,
+        "offset": 13152,
+        "size": 72
+      },
+      {
+        "cmd": "LC_RPATH",
+        "detail": {
+          "path": "/usr/lib/swift"
+        },
+        "index": 117,
+        "offset": 13224,
+        "size": 32
+      },
+      {
+        "cmd": "LC_RPATH",
+        "detail": {
+          "path": "@executable_path/Frameworks"
+        },
+        "index": 118,
+        "offset": 13256,
+        "size": 40
+      },
+      {
+        "cmd": "LC_FUNCTION_STARTS",
+        "detail": {
+          "dataoff": 26142008,
+          "datasize": 114768
+        },
+        "index": 119,
+        "offset": 13296,
+        "size": 16
+      },
+      {
+        "cmd": "LC_DATA_IN_CODE",
+        "detail": {
+          "dataoff": 26256776,
+          "datasize": 0
+        },
+        "index": 120,
+        "offset": 13312,
+        "size": 16
+      },
+      {
+        "cmd": "LC_CODE_SIGNATURE",
+        "detail": {
+          "dataoff": 26662816,
+          "datasize": 696528
+        },
+        "index": 121,
+        "offset": 13328,
+        "size": 16
+      }
+    ],
+    "mitigations": {
+      "canary": true,
+      "code_signature": true,
+      "control_flow_guard": null,
+      "encrypted": false,
+      "fortify": null,
+      "high_entropy_va": null,
+      "no_seh": null,
+      "nx": true,
+      "pie": true,
+      "relro": null,
+      "stripped": false
+    },
+    "path": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33\\Payload\\PeekLUT.app\\PeekLUT",
+    "rpaths": [
+      "/usr/lib/swift",
+      "@executable_path/Frameworks"
+    ],
+    "segments": [
+      {
+        "fileoff": 0,
+        "filesize": 0,
+        "initprot": "---",
+        "sections": [],
+        "segname": "__PAGEZERO",
+        "vmaddr": "0x0",
+        "vmsize": 4294967296
+      },
+      {
+        "fileoff": 0,
+        "filesize": 23019520,
+        "initprot": "r-x",
+        "sections": [
+          "__text",
+          "__stubs",
+          "__objc_stubs",
+          "__init_offsets",
+          "__objc_methlist",
+          "__const",
+          "__constg_swiftt",
+          "__swift5_typeref",
+          "__swift5_builtin",
+          "__swift5_reflstr",
+          "__swift5_fieldmd",
+          "__swift5_assocty",
+          "__cstring",
+          "__swift5_proto",
+          "__swift5_types",
+          "__objc_classname",
+          "__objc_methname",
+          "__objc_methtype",
+          "__swift5_capture",
+          "__swift_as_entry",
+          "__swift_as_ret",
+          "__swift5_protos",
+          "__swift5_mpenum",
+          "__swift5_entry",
+          "__gcc_except_tab",
+          "__ustring",
+          "__unwind_info",
+          "__eh_frame",
+          "__oslogstring"
+        ],
+        "segname": "__TEXT",
+        "vmaddr": "0x100000000",
+        "vmsize": 23019520
+      },
+      {
+        "fileoff": 23019520,
+        "filesize": 950272,
+        "initprot": "rw-",
+        "sections": [
+          "__got",
+          "__const",
+          "__cfstring",
+          "__objc_classlist",
+          "__objc_nlclslist",
+          "__objc_catlist",
+          "__objc_nlcatlist",
+          "__objc_protolist",
+          "__objc_imageinfo",
+          "__objc_protorefs",
+          "__objc_classrefs",
+          "__objc_superrefs",
+          "__objc_arraydata",
+          "__objc_arrayobj",
+          "__objc_dictobj",
+          "__objc_intobj"
+        ],
+        "segname": "__DATA_CONST",
+        "vmaddr": "0x1015f4000",
+        "vmsize": 950272
+      },
+      {
+        "fileoff": 23969792,
+        "filesize": 1146880,
+        "initprot": "rw-",
+        "sections": [
+          "__objc_const",
+          "__objc_selrefs",
+          "__objc_ivar",
+          "__objc_data",
+          "__data",
+          "__swift_hooks",
+          "__swift51_hooks",
+          "__s_async_hook",
+          "__swift56_hooks",
+          "__thread_vars",
+          "__thread_bss",
+          "__bss",
+          "__common"
+        ],
+        "segname": "__DATA",
+        "vmaddr": "0x1016dc000",
+        "vmsize": 2015232
+      },
+      {
+        "fileoff": 25116672,
+        "filesize": 2242672,
+        "initprot": "r--",
+        "sections": [],
+        "segname": "__LINKEDIT",
+        "vmaddr": "0x1018c8000",
+        "vmsize": 2244608
+      }
+    ],
+    "selected": {
+      "align": null,
+      "arch": "arm64",
+      "cpusubtype": 0,
+      "cputype": 16777228,
+      "offset": 0,
+      "size": 27359344,
+      "universal": false
+    },
+    "slices": [
+      {
+        "align": null,
+        "arch": "arm64",
+        "cpusubtype": 0,
+        "cputype": 16777228,
+        "offset": 0,
+        "size": 27359344,
+        "universal": false
+      }
+    ],
+    "source_version": "0.0.0.0.0",
+    "uuid": "64595A6A-B7F3-3DA4-9145-576CF1D80FB9"
+  },
+  "summary": "execute PeekLUT (arm64), 122 load commands, 102 libraries, 2 run paths, 5876 imports, 1 exports, code-signed.",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "static_only",
+      "message": "Read from the file only; nothing was loaded or run."
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 20,
+    "total": 5876,
+    "next_offset": 20
+  },
+  "locations": [
+    {
+      "kind": "path",
+      "value": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33\\Payload\\PeekLUT.app\\PeekLUT"
+    }
+  ],
+  "links": []
+}

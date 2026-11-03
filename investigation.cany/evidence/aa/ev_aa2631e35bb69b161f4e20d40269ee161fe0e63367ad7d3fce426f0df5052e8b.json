@@ -1,0 +1,49 @@
+{
+  "id": "ev_aa2631e35bb69b161f4e20d40269ee161fe0e63367ad7d3fce426f0df5052e8b",
+  "subject": {
+    "kind": "ipa",
+    "sha256": "964a6b7fff83920454950b06ca49254c54245359d2ac4668bfc19f1f64717b2f",
+    "name": "com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+  },
+  "operation": "core_archive_extract",
+  "params": {
+    "max_bytes": 4294967296,
+    "max_files": 100000,
+    "path": "C:\\Users\\don360\\Downloads\\com.george.kye.PeekLUT_2.27.0_und3fined.ipa"
+  },
+  "result": {
+    "bytes_written": 230811000,
+    "contradictions": [],
+    "files_written": 302,
+    "output_directory": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33",
+    "skipped": []
+  },
+  "summary": "Extracted 302 files (230811000 bytes) from com.george.kye.PeekLUT_2.27.0_und3fined.ipa into C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33.",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "nested_not_extracted",
+      "message": "Archives inside the archive are written as files, not unpacked; run core_archive_extract on them."
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 302,
+    "total": 302
+  },
+  "locations": [
+    {
+      "kind": "path",
+      "value": "C:\\Users\\don360\\AppData\\Local\\Temp\\craft-anything-extract-424e8981bdf22e33",
+      "label": "output folder"
+    }
+  ],
+  "links": []
+}

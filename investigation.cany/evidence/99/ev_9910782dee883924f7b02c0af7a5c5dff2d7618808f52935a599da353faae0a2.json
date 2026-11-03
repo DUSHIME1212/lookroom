@@ -1,0 +1,42 @@
+{
+  "id": "ev_9910782dee883924f7b02c0af7a5c5dff2d7618808f52935a599da353faae0a2",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_find",
+  "params": {
+    "address": "0x100f4fbe8"
+  },
+  "result": {
+    "address": "0x100f4fbe8",
+    "function": null,
+    "reason": "not inside any discovered function"
+  },
+  "summary": "0x100f4fbe8 isn't inside a known function.",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "not_found",
+      "message": "the address may be in code the engine didn't discover (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100f4fbe8"
+    }
+  ],
+  "links": []
+}

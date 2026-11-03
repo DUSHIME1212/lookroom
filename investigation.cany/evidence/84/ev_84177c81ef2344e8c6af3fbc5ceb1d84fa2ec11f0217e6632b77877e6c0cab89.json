@@ -1,0 +1,540 @@
+{
+  "id": "ev_84177c81ef2344e8c6af3fbc5ceb1d84fa2ec11f0217e6632b77877e6c0cab89",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 120,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "/Views/|/Features/|/Editor/|/Presets/|/Filters/"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1013fecd0",
+        "references": [
+          {
+            "from": "0x10003d2c0",
+            "function": "sub_10003d160"
+          },
+          {
+            "from": "0x10003d544",
+            "function": "sub_10003d160"
+          },
+          {
+            "from": "0x10003d754",
+            "function": "sub_10003d160"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/Video/VideoControllerViewModel+Image.swift"
+      },
+      {
+        "address": "0x1013ff340",
+        "references": [
+          {
+            "from": "0x100065e54",
+            "function": "sub_100065d70"
+          },
+          {
+            "from": "0x10006761c",
+            "function": "sub_100067260"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/Dashboard/ViewController.swift"
+      },
+      {
+        "address": "0x101404de0",
+        "references": [
+          {
+            "from": "0x1000b45f0",
+            "function": "sub_1000b457c"
+          },
+          {
+            "from": "0x1000b4cf8",
+            "function": "sub_1000b4c84"
+          },
+          {
+            "from": "0x1000b5704",
+            "function": "sub_1000b4eac"
+          },
+          {
+            "from": "0x1000e2290",
+            "function": "sub_1000e2034"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/DebugViews/ViewController+AutoEditMaker.swift"
+      },
+      {
+        "address": "0x101405b30",
+        "references": [
+          {
+            "from": "0x10019e028",
+            "function": "sub_10019dfa0"
+          },
+          {
+            "from": "0x10019e900",
+            "function": "sub_10019e878"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/VideoDetails/Shared/ExportImageActionsFooter.swift"
+      },
+      {
+        "address": "0x1014062a0",
+        "references": [
+          {
+            "from": "0x1001f9c68",
+            "function": "sub_1001f9b7c"
+          },
+          {
+            "from": "0x1001fbd88",
+            "function": "sub_1001fbd10"
+          },
+          {
+            "from": "0x1001fd2e4",
+            "function": "sub_1001fd25c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/Dashboard/Add Media/PhotoPickerDownloader.swift"
+      },
+      {
+        "address": "0x101406ea0",
+        "references": [
+          {
+            "from": "0x10023c600",
+            "function": "sub_10023b638"
+          },
+          {
+            "from": "0x10023d564",
+            "function": "sub_10023c6fc"
+          },
+          {
+            "from": "0x10023fa94",
+            "function": "sub_10023ea00"
+          },
+          {
+            "from": "0x1002403cc",
+            "function": "sub_10023fbec"
+          },
+          {
+            "from": "0x1002414b0",
+            "function": "sub_10024059c"
+          },
+          {
+            "from": "0x1002423ec",
+            "function": "sub_10024155c"
+          },
+          {
+            "from": "0x100242c18",
+            "function": "sub_1002424a0"
+          },
+          {
+            "from": "0x100246428",
+            "function": "sub_1002461b0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/VideoDetails/Video/ExportAVideoViewModel.swift"
+      },
+      {
+        "address": "0x1014074f0",
+        "references": [
+          {
+            "from": "0x100262888",
+            "function": "sub_100262774"
+          },
+          {
+            "from": "0x100262c0c",
+            "function": "sub_1002629e0"
+          },
+          {
+            "from": "0x100263924",
+            "function": "sub_1002638a4"
+          },
+          {
+            "from": "0x100264120",
+            "function": "sub_100263d28"
+          },
+          {
+            "from": "0x100264ae8",
+            "function": "sub_10026494c"
+          },
+          {
+            "from": "0x100265120",
+            "function": "sub_100264f84"
+          },
+          {
+            "from": "0x100265d88",
+            "function": "sub_100265be0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/LUTGalleryView/LUTGalleryV2.swift"
+      },
+      {
+        "address": "0x10140ec20",
+        "references": [
+          {
+            "from": "0x100378ac4",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100378b98",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100378c78",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100378d50",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100378e44",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100378fa4",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x1003790e0",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379204",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x1003792e4",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x1003793b4",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379484",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379554",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379624",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x1003796f4",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x1003797c4",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379894",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379964",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379a34",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379b04",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379be0",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379cc8",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379dac",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379e9c",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x100379f7c",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a054",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a138",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a21c",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a38c",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a510",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a5f0",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a6d8",
+            "function": "sub_1003776e8"
+          },
+          {
+            "from": "0x10037a7c4",
+            "function": "sub_1003776e8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Presets/SavableFiltersProtocol.swift"
+      },
+      {
+        "address": "0x10140f1d0",
+        "references": [
+          {
+            "from": "0x100386bdc",
+            "function": "sub_100386b1c"
+          },
+          {
+            "from": "0x100387a00",
+            "function": "sub_100387940"
+          },
+          {
+            "from": "0x10038c278",
+            "function": "sub_10038c1b8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/Dashboard/DashboardGalleryView.swift"
+      },
+      {
+        "address": "0x10140f640",
+        "references": [
+          {
+            "from": "0x1003a6aac",
+            "function": "sub_1003a6598"
+          },
+          {
+            "from": "0x1003a6fdc",
+            "function": "sub_1003a6f40"
+          },
+          {
+            "from": "0x1003a7e68",
+            "function": "sub_1003a7dd4"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/LUTGalleryView/LutGalleryView.swift"
+      },
+      {
+        "address": "0x10140f780",
+        "references": [
+          {
+            "from": "0x1003b2e70",
+            "function": "sub_1003b2834"
+          },
+          {
+            "from": "0x1003b36a8",
+            "function": "sub_1003b345c"
+          },
+          {
+            "from": "0x1003b3af8",
+            "function": "sub_1003b39f4"
+          },
+          {
+            "from": "0x1003b6c28",
+            "function": "sub_1003b6a98"
+          },
+          {
+            "from": "0x1003b8284",
+            "function": "sub_1003b7f90"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/Video/VideoControllerViewModel.swift"
+      },
+      {
+        "address": "0x10140fe70",
+        "references": [
+          {
+            "from": "0x1003f016c",
+            "function": "sub_1003eff04"
+          },
+          {
+            "from": "0x1003f0c78",
+            "function": "sub_1003f0a6c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/ThumbnailPickerView.swift"
+      },
+      {
+        "address": "0x101410230",
+        "references": [
+          {
+            "from": "0x100405684",
+            "function": "sub_100405594"
+          },
+          {
+            "from": "0x1004057dc",
+            "function": "sub_1004056ec"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/VideoDetails/CommonEditorUtils.swift"
+      },
+      {
+        "address": "0x101411d70",
+        "references": [
+          {
+            "from": "0x1004bdcb0",
+            "function": "sub_1004bdbf0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/VideoDetails/FiltersView.swift"
+      },
+      {
+        "address": "0x101411fb0",
+        "references": [
+          {
+            "from": "0x1004d6944",
+            "function": "sub_1004d671c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/Dashboard/LUTPickerControllerView.swift"
+      },
+      {
+        "address": "0x101412370",
+        "references": [
+          {
+            "from": "0x1004f71c0",
+            "function": "sub_1004f7150"
+          },
+          {
+            "from": "0x100503188",
+            "function": "sub_100502e98"
+          },
+          {
+            "from": "0x1005033a4",
+            "function": "sub_100502e98"
+          },
+          {
+            "from": "0x100503420",
+            "function": "sub_100502e98"
+          },
+          {
+            "from": "0x1005037b0",
+            "function": "sub_100502e98"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/VideoDetails/Image/ExportAnImage.swift"
+      },
+      {
+        "address": "0x101412a80",
+        "references": [
+          {
+            "from": "0x10050b878",
+            "function": "sub_10050b764"
+          },
+          {
+            "from": "0x10050bd10",
+            "function": "sub_10050bc68"
+          },
+          {
+            "from": "0x10050bec4",
+            "function": "sub_10050bdc8"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Utils/Filters/CubeLoader.swift"
+      },
+      {
+        "address": "0x1014146b0",
+        "references": [
+          {
+            "from": "0x10059f39c",
+            "function": "sub_10059f318"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/PresetsView.swift"
+      },
+      {
+        "address": "0x101414eb0",
+        "references": [
+          {
+            "from": "0x10062e948",
+            "function": "sub_10062e8c8"
+          },
+          {
+            "from": "0x1006314b4",
+            "function": "sub_100630d24"
+          },
+          {
+            "from": "0x1006319d8",
+            "function": "sub_100631870"
+          },
+          {
+            "from": "0x100631c20",
+            "function": "sub_100631870"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/Video/VideoControllerViewModel+Projects.swift"
+      }
+    ],
+    "total": 19
+  },
+  "summary": "19 strings match \"/Views/|/Features/|/Editor/|/Presets/|/Filters/\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 19,
+    "total": 19
+  },
+  "locations": [],
+  "links": []
+}

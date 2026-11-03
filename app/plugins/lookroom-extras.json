@@ -1,0 +1,22 @@
+{
+  "name": "Lookroom Extras",
+  "author": "Lookroom",
+  "version": "1.0",
+  "description": "Comes with the app, and shows the plugin format. Copy it, change it, and drop it in the plugins folder.",
+  "text_animations": [
+    { "name": "Rise and Turn", "unit": "Letter", "seconds": 0.7, "delay": 0.035, "ease": "Back", "from": { "dy": 0.9, "rotate": -40 } },
+    { "name": "Zoom Down", "unit": "Whole", "seconds": 0.6, "ease": "Expo", "from": { "scale": 2.2 } },
+    { "name": "Slam", "unit": "Word", "seconds": 0.45, "delay": 0.12, "ease": "Expo", "from": { "scale": 3.0 } },
+    { "name": "Drift In", "unit": "Letter", "seconds": 0.8, "delay": 0.03, "ease": "Out", "from": { "dx": -1.2, "blur": 0.4 } },
+    { "name": "Spin In", "unit": "Letter", "seconds": 0.6, "delay": 0.04, "ease": "Back", "from": { "scale": 0.0, "rotate": 180 } },
+    { "name": "Soft Focus Rise", "unit": "Word", "seconds": 0.9, "delay": 0.1, "ease": "Expo", "from": { "dy": 0.4, "blur": 0.6 } },
+    { "name": "Tiny Pop", "unit": "Letter", "seconds": 0.8, "delay": 0.03, "ease": "Elastic", "from": { "scale": 0.2 } },
+    { "name": "Shuffle In", "unit": "Letter", "order": "Random", "seconds": 0.5, "delay": 0.03, "ease": "Out", "from": { "dy": -0.5 } },
+    { "name": "Lean In", "unit": "Line", "seconds": 0.8, "delay": 0.12, "ease": "Spring", "from": { "dx": 0.8, "rotate": 12 } }
+  ],
+  "looks": [
+    { "name": "Night Teal", "grade": { "luts": [{ "id": "look:Cool Print 60", "name": "Cool Print 60", "intensity": 0.8 }], "temp": -900, "exposure": -0.2, "contrast": 1.15, "saturation": 0.9, "highlight": -0.2 } },
+    { "name": "Sun Haze", "grade": { "temp": 700, "tint": 6, "fade": 0.18, "contrast": 0.9, "saturation": 1.08, "highlight": -0.25 } },
+    { "name": "Clean Mono", "grade": { "saturation": 0.0, "contrast": 1.25, "shadow": 0.1, "vignette": 0.25 } }
+  ]
+}

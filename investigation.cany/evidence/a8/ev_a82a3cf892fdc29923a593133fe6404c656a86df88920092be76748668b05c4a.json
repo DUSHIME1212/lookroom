@@ -1,0 +1,702 @@
+{
+  "id": "ev_a82a3cf892fdc29923a593133fe6404c656a86df88920092be76748668b05c4a",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 120,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "(Shader|Kernel|Fragment)$"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1012440a0",
+        "references": [],
+        "section": "__const",
+        "text": "MTICoreImageKernel"
+      },
+      {
+        "address": "0x101393f63",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "kernel"
+      },
+      {
+        "address": "0x101393f90",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "multiBandHSVKernel"
+      },
+      {
+        "address": "0x10139972d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "kernel"
+      },
+      {
+        "address": "0x101399bbf",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "kernel"
+      },
+      {
+        "address": "0x10139aa9d",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "kernel"
+      },
+      {
+        "address": "0x1013b8690",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "$__lazy_storage_$_smoothThresholdKernel"
+      },
+      {
+        "address": "0x1013b88e0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "multiBandHSVKernel"
+      },
+      {
+        "address": "0x1013b8a90",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "$__lazy_storage_$_smoothThresholdKernel"
+      },
+      {
+        "address": "0x101412e80",
+        "references": [
+          {
+            "from": "0x100510f70",
+            "function": "sub_100510ea0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Could not create CIColorKernel"
+      },
+      {
+        "address": "0x10144c490",
+        "references": [],
+        "section": "__cstring",
+        "text": "bleachBypassShader"
+      },
+      {
+        "address": "0x10144c4f0",
+        "references": [],
+        "section": "__cstring",
+        "text": "bloomCompositeShader"
+      },
+      {
+        "address": "0x10144c510",
+        "references": [],
+        "section": "__cstring",
+        "text": "bloomUpsampleShader"
+      },
+      {
+        "address": "0x10144c530",
+        "references": [],
+        "section": "__cstring",
+        "text": "bloomDownsampleShader"
+      },
+      {
+        "address": "0x10144c550",
+        "references": [],
+        "section": "__cstring",
+        "text": "bloomPrefilterShader"
+      },
+      {
+        "address": "0x10144c5f0",
+        "references": [],
+        "section": "__cstring",
+        "text": "crtEmulationShader"
+      },
+      {
+        "address": "0x10144c630",
+        "references": [],
+        "section": "__cstring",
+        "text": "colorGradeShader"
+      },
+      {
+        "address": "0x10144c670",
+        "references": [],
+        "section": "__cstring",
+        "text": "colorSeparationShader"
+      },
+      {
+        "address": "0x10144c6b0",
+        "references": [],
+        "section": "__cstring",
+        "text": "colorSliceShader"
+      },
+      {
+        "address": "0x10144c6f0",
+        "references": [],
+        "section": "__cstring",
+        "text": "colorSpaceTransformShader"
+      },
+      {
+        "address": "0x10144c710",
+        "references": [],
+        "section": "__cstring",
+        "text": "diffusionCompositeShader"
+      },
+      {
+        "address": "0x10144c730",
+        "references": [],
+        "section": "__cstring",
+        "text": "diffusionUpsampleShader"
+      },
+      {
+        "address": "0x10144c750",
+        "references": [],
+        "section": "__cstring",
+        "text": "filmDensityShader"
+      },
+      {
+        "address": "0x10144c770",
+        "references": [],
+        "section": "__cstring",
+        "text": "filmLookCreatorBlendShader"
+      },
+      {
+        "address": "0x10144c790",
+        "references": [],
+        "section": "__cstring",
+        "text": "filmLookCreatorColorCShader"
+      },
+      {
+        "address": "0x10144c7b0",
+        "references": [],
+        "section": "__cstring",
+        "text": "filmLookCreatorColorBShader"
+      },
+      {
+        "address": "0x10144c7d0",
+        "references": [],
+        "section": "__cstring",
+        "text": "filmLookCreatorColorAShader"
+      },
+      {
+        "address": "0x10144c850",
+        "references": [],
+        "section": "__cstring",
+        "text": "filmSaturationShader"
+      },
+      {
+        "address": "0x10144c870",
+        "references": [],
+        "section": "__cstring",
+        "text": "filmStockDustShader"
+      },
+      {
+        "address": "0x10144c8d0",
+        "references": [],
+        "section": "__cstring",
+        "text": "foliageAdjustShader"
+      },
+      {
+        "address": "0x10144c8f0",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationFilmDownsampleShader"
+      },
+      {
+        "address": "0x10144c910",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationFilmNormalizeShader"
+      },
+      {
+        "address": "0x10144c930",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationFilmCompositeShader"
+      },
+      {
+        "address": "0x10144c950",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationFilmBlurShader"
+      },
+      {
+        "address": "0x10144c970",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationFilmEmissionShader"
+      },
+      {
+        "address": "0x10144c990",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationEmissionShader"
+      },
+      {
+        "address": "0x10144c9b0",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationCompositeShader"
+      },
+      {
+        "address": "0x10144c9d0",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationBlurShader"
+      },
+      {
+        "address": "0x10144c9f0",
+        "references": [],
+        "section": "__cstring",
+        "text": "halationDownsampleShader"
+      },
+      {
+        "address": "0x10144ca10",
+        "references": [],
+        "section": "__cstring",
+        "text": "highlightsShadowsShader"
+      },
+      {
+        "address": "0x10144ca30",
+        "references": [],
+        "section": "__cstring",
+        "text": "imageDetailsShader"
+      },
+      {
+        "address": "0x10144ca50",
+        "references": [],
+        "section": "__cstring",
+        "text": "lensDistortionShader"
+      },
+      {
+        "address": "0x10144ca70",
+        "references": [],
+        "section": "__cstring",
+        "text": "matteOverlayShader"
+      },
+      {
+        "address": "0x10144ca90",
+        "references": [],
+        "section": "__cstring",
+        "text": "matteRefineShader"
+      },
+      {
+        "address": "0x10144cab0",
+        "references": [],
+        "section": "__cstring",
+        "text": "luminanceRangeMaskShader"
+      },
+      {
+        "address": "0x10144cad0",
+        "references": [],
+        "section": "__cstring",
+        "text": "multiBandHSVShader"
+      },
+      {
+        "address": "0x10144caf0",
+        "references": [],
+        "section": "__cstring",
+        "text": "primariesWheelsShader"
+      },
+      {
+        "address": "0x10144cb10",
+        "references": [],
+        "section": "__cstring",
+        "text": "printSimulationShader"
+      },
+      {
+        "address": "0x10144cb50",
+        "references": [],
+        "section": "__cstring",
+        "text": "resolveCustomCurvesShader"
+      },
+      {
+        "address": "0x10144cb70",
+        "references": [],
+        "section": "__cstring",
+        "text": "resolveCurvesShader"
+      },
+      {
+        "address": "0x10144cb90",
+        "references": [],
+        "section": "__cstring",
+        "text": "resolveHighlightsShadowsShader"
+      },
+      {
+        "address": "0x10144cbb0",
+        "references": [],
+        "section": "__cstring",
+        "text": "sixColorValueShader"
+      },
+      {
+        "address": "0x10144cbd0",
+        "references": [],
+        "section": "__cstring",
+        "text": "splitTone2499LogShader"
+      },
+      {
+        "address": "0x10144cc40",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8BlurVShader"
+      },
+      {
+        "address": "0x10144cc60",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8BlurHShader"
+      },
+      {
+        "address": "0x10144cc80",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8UpsampleAddShader"
+      },
+      {
+        "address": "0x10144cca0",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8FrameShader"
+      },
+      {
+        "address": "0x10144ccc0",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8CompositeShader"
+      },
+      {
+        "address": "0x10144cce0",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8BloomMixShader"
+      },
+      {
+        "address": "0x10144cd00",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8DownsampleShader"
+      },
+      {
+        "address": "0x10144cd20",
+        "references": [],
+        "section": "__cstring",
+        "text": "super8IngestShader"
+      },
+      {
+        "address": "0x10144cd40",
+        "references": [],
+        "section": "__cstring",
+        "text": "technicolor3StripShader"
+      },
+      {
+        "address": "0x10144cd60",
+        "references": [],
+        "section": "__cstring",
+        "text": "whitesAndBlacksShader"
+      },
+      {
+        "address": "0x10144cd80",
+        "references": [],
+        "section": "__cstring",
+        "text": "splitScreenFragment"
+      },
+      {
+        "address": "0x10145762e",
+        "references": [],
+        "section": "__cstring",
+        "text": "histogramKernel"
+      },
+      {
+        "address": "0x1014578d1",
+        "references": [],
+        "section": "__cstring",
+        "text": "colorConversionFragment"
+      },
+      {
+        "address": "0x101458e89",
+        "references": [],
+        "section": "__cstring",
+        "text": "multilayerCompositeVertexShader"
+      },
+      {
+        "address": "0x101459015",
+        "references": [],
+        "section": "__cstring",
+        "text": "kernel"
+      },
+      {
+        "address": "0x10145946f",
+        "references": [],
+        "section": "__cstring",
+        "text": "fragment"
+      },
+      {
+        "address": "0x1014dc2fc",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTICLAHELUTKernel"
+      },
+      {
+        "address": "0x1014dc30e",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIKernel"
+      },
+      {
+        "address": "0x1014dc565",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIComputePipelineKernel"
+      },
+      {
+        "address": "0x1014dcab5",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIMPSKernel"
+      },
+      {
+        "address": "0x1014dcbae",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIMultilayerCompositeKernel"
+      },
+      {
+        "address": "0x1014dcd61",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "MTIRenderPipelineKernel"
+      },
+      {
+        "address": "0x1014dcdbb",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "PassthroughKernel"
+      },
+      {
+        "address": "0x1014df996",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "LUTGeneratorKernel"
+      },
+      {
+        "address": "0x1014dfd3c",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "RGB2LightnessKernel"
+      },
+      {
+        "address": "0x1014dfdac",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "_kernel"
+      },
+      {
+        "address": "0x1014e0626",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "alphaPassKernel"
+      },
+      {
+        "address": "0x1014e1cfb",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIComputePipelineKernel\",R,N,V_kernel"
+      },
+      {
+        "address": "0x1014e2163",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIMPSKernel\",&,N,V_kernel"
+      },
+      {
+        "address": "0x1014e2357",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIRenderPipelineKernel\",R,N,V_kernel"
+      },
+      {
+        "address": "0x1014e62f0",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "$__lazy_storage_$_smoothThresholdKernel"
+      },
+      {
+        "address": "0x1014e6608",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "CLAHELookupKernel"
+      },
+      {
+        "address": "0x1014e6721",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "GBChannelOverlayBlendKernel"
+      },
+      {
+        "address": "0x1014e8fcc",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MPSImageHistogram\",R,N,V_histogramKernel"
+      },
+      {
+        "address": "0x1014e90e4",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTICLAHELUTKernel\",R,N,V_kernel"
+      },
+      {
+        "address": "0x1014e9678",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIMPSKernel\",R,N,V_kernel"
+      },
+      {
+        "address": "0x1014e96f0",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "T@\"MTIMultilayerCompositeKernel\",R,N,V_kernel"
+      },
+      {
+        "address": "0x1014e98ba",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "histogramKernel"
+      },
+      {
+        "address": "0x1014eac0c",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "passthroughRenderPipelineKernel"
+      },
+      {
+        "address": "0x1014f439b",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "_histogramKernel"
+      },
+      {
+        "address": "0x1014fcad8",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "bravoCharliePassKernel"
+      },
+      {
+        "address": "0x1014fe1e3",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "circularCornerKernel"
+      },
+      {
+        "address": "0x101500e28",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "continuousCornerKernel"
+      },
+      {
+        "address": "0x10150b065",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "histogramMaxKernel"
+      },
+      {
+        "address": "0x10150b128",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "horizontalStripLookupKernel"
+      },
+      {
+        "address": "0x101514580",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "kernel"
+      },
+      {
+        "address": "0x101516bec",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "lookup3DKernel"
+      },
+      {
+        "address": "0x10151724b",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "maskProcessAndCompositeKernel"
+      },
+      {
+        "address": "0x1015183b0",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "multiBandHSVKernel"
+      },
+      {
+        "address": "0x10151bb6e",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "passthroughKernel"
+      },
+      {
+        "address": "0x10151d2c9",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "premultiplyAlphaKernel"
+      },
+      {
+        "address": "0x10151d39c",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "prepassKernel"
+      },
+      {
+        "address": "0x10151e966",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "rToMonochromeKernel"
+      },
+      {
+        "address": "0x10152c90a",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "squareLookupKernel"
+      },
+      {
+        "address": "0x10153032f",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "unpremultiplyAlphaKernel"
+      },
+      {
+        "address": "0x1015321fa",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "verticalStripLookupKernel"
+      }
+    ],
+    "total": 109
+  },
+  "summary": "109 strings match \"(Shader|Kernel|Fragment)$\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 109,
+    "total": 109
+  },
+  "locations": [],
+  "links": []
+}

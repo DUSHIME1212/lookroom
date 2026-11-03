@@ -1,0 +1,529 @@
+{
+  "id": "ev_e4aa4f9ffed79fc185780b12da925eb4ed76ada83bcecec39b4269a621dd665c",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_find",
+  "params": {
+    "case_sensitive": false,
+    "limit": 80,
+    "mode": "regex",
+    "offset": 0,
+    "pattern": "demo|PresetImage|presetImage|thumbnail|DefaultLuts|Cinema|DeepLooks"
+  },
+  "result": {
+    "matches": [
+      {
+        "address": "0x1011ba600",
+        "references": [],
+        "section": "__const",
+        "text": "LUTThumbnailRenderer"
+      },
+      {
+        "address": "0x1011cb4d0",
+        "references": [],
+        "section": "__const",
+        "text": "ThumbnailPickerView"
+      },
+      {
+        "address": "0x1011d0f30",
+        "references": [],
+        "section": "__const",
+        "text": "CinematicBatchView"
+      },
+      {
+        "address": "0x1011db308",
+        "references": [],
+        "section": "__const",
+        "text": "PresetImage"
+      },
+      {
+        "address": "0x1011df2a8",
+        "references": [
+          {
+            "from": "0x100628ae4",
+            "function": "sub_100628918"
+          },
+          {
+            "from": "0x100628c20",
+            "function": "sub_100628918"
+          },
+          {
+            "from": "0x10062bd90",
+            "function": "sub_10062bc30"
+          }
+        ],
+        "section": "__const",
+        "text": "thumbnail.jpg"
+      },
+      {
+        "address": "0x1011df320",
+        "references": [],
+        "section": "__const",
+        "text": "ProjectThumbnailCache"
+      },
+      {
+        "address": "0x10138ffb2",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cinematicReveal"
+      },
+      {
+        "address": "0x101390e22",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cinema"
+      },
+      {
+        "address": "0x101392c77",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailToken"
+      },
+      {
+        "address": "0x101393063",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "noThumbnail"
+      },
+      {
+        "address": "0x1013931d0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_showThumbnailPicker"
+      },
+      {
+        "address": "0x1013944c0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailRenderer"
+      },
+      {
+        "address": "0x1013945bb",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnails"
+      },
+      {
+        "address": "0x101396b53",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailSize"
+      },
+      {
+        "address": "0x101397234",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailFailed"
+      },
+      {
+        "address": "0x101397247",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnail"
+      },
+      {
+        "address": "0x101397ea9",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnail"
+      },
+      {
+        "address": "0x10139a36c",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "defaultDemo"
+      },
+      {
+        "address": "0x10139ae99",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "_defaultLUTs"
+      },
+      {
+        "address": "0x10139b4b0",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailRelativePath"
+      },
+      {
+        "address": "0x10139b4c6",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "thumbnailSize"
+      },
+      {
+        "address": "0x1013bb884",
+        "references": [],
+        "section": "__swift5_reflstr",
+        "text": "cinemaNegative"
+      },
+      {
+        "address": "0x1013fe1d0",
+        "references": [],
+        "section": "__cstring",
+        "text": "A Cinematic Look"
+      },
+      {
+        "address": "0x1013fea80",
+        "references": [],
+        "section": "__cstring",
+        "text": "Cinematic reveal"
+      },
+      {
+        "address": "0x1013fec20",
+        "references": [],
+        "section": "__cstring",
+        "text": "cinematicReveal"
+      },
+      {
+        "address": "0x1013ffa40",
+        "references": [
+          {
+            "from": "0x10007ada8",
+            "function": "sub_10007ad3c"
+          },
+          {
+            "from": "0x10007af44",
+            "function": "sub_10007aed4"
+          }
+        ],
+        "section": "__cstring",
+        "text": "DeepLooksV2.json"
+      },
+      {
+        "address": "0x101403420",
+        "references": [
+          {
+            "from": "0x10008ad08",
+            "function": "sub_10008ac18"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Create a soft glow around bright areas for a dreamy, cinematic highlight rolloff."
+      },
+      {
+        "address": "0x101405283",
+        "references": [],
+        "section": "__cstring",
+        "text": "cinema"
+      },
+      {
+        "address": "0x101406270",
+        "references": [
+          {
+            "from": "0x1001f9de4",
+            "function": "sub_1001f9b7c"
+          },
+          {
+            "from": "0x1001fbc14",
+            "function": "sub_1001fbbc0"
+          },
+          {
+            "from": "0x1001fca80",
+            "function": "sub_1001fca58"
+          },
+          {
+            "from": "0x1001fd2d8",
+            "function": "sub_1001fd25c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "loadThumbnailOrImage(path:isVideo:)"
+      },
+      {
+        "address": "0x101406310",
+        "references": [
+          {
+            "from": "0x1001fd3d4",
+            "function": "sub_1001fd394"
+          }
+        ],
+        "section": "__cstring",
+        "text": "No thumbnail for "
+      },
+      {
+        "address": "0x101406820",
+        "references": [
+          {
+            "from": "0x100206ae4",
+            "function": "sub_100206968"
+          },
+          {
+            "from": "0x100206bc8",
+            "function": "sub_100206b58"
+          }
+        ],
+        "section": "__cstring",
+        "text": "generateThumbnail(at:completion:)"
+      },
+      {
+        "address": "0x101406850",
+        "references": [
+          {
+            "from": "0x100206c74",
+            "function": "sub_100206c38"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Thumbnail generation failed: "
+      },
+      {
+        "address": "0x1014073b0",
+        "references": [
+          {
+            "from": "0x10024c2f0",
+            "function": "sub_10024bf24"
+          }
+        ],
+        "section": "__cstring",
+        "text": "No thumbnail available"
+      },
+      {
+        "address": "0x101408980",
+        "references": [
+          {
+            "from": "0x10028b154",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "• **Filmic Split**: Fourteen hand-tuned split-tone presets including Velvet Negative, Cinema Stock, Amber Print, and Tokyo Print, with film saturation and push and pull controls.\n• **Color Luminance**: Brighten or darken red, green, blue, cyan, magenta, and yellow independently to lift skies, deepen reds, or recover skin tones."
+      },
+      {
+        "address": "0x101408d90",
+        "references": [
+          {
+            "from": "0x10028b340",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "• **Film Filters Tab**: A new dedicated tab brings all film-inspired filters together in one place for faster editing.\n• **Chromatic Aberration**: Add customizable color fringing to create vintage lens character or stylized looks.\n• **Lens Distortion**: Apply barrel or pincushion distortion to mimic real-world lens behavior.\n• **Technicolor 3-Strip**: Recreate the iconic classic-cinema color separation for rich, bold results.\n• **Film Saturation**: Fine-tune saturation with a film-like response for natural, pleasing color shifts."
+      },
+      {
+        "address": "0x101409a10",
+        "references": [
+          {
+            "from": "0x10028b910",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "  • **Batch Editing**: The new batch editing feature allows you to select and edit multiple photos and videos at once.\n  • **Enhanced Grain Filter**: Achieve a more cinematic finish with enhanced grain effects."
+      },
+      {
+        "address": "0x10140a7a0",
+        "references": [
+          {
+            "from": "0x10028c368",
+            "function": "sub_10028aaa0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "• Added **presets**: Save your and reuse your current editing settings\n• Built in **presets** for easier cinematic looks\n• **HDR** support for videos"
+      },
+      {
+        "address": "0x10140b2a0",
+        "references": [
+          {
+            "from": "0x1002d00b8",
+            "function": "sub_1002d0080"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Cinema-grade color.\nIn your pocket."
+      },
+      {
+        "address": "0x10140fe70",
+        "references": [
+          {
+            "from": "0x1003f016c",
+            "function": "sub_1003eff04"
+          },
+          {
+            "from": "0x1003f0c78",
+            "function": "sub_1003f0a6c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "/Users/georgekye/Developer/PeekLUT/PeekLUT/Features/ThumbnailPickerView.swift"
+      },
+      {
+        "address": "0x10140fec0",
+        "references": [
+          {
+            "from": "0x1003f0ed0",
+            "function": "sub_1003f0e94"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Failed to save thumbnail: "
+      },
+      {
+        "address": "0x10140ff40",
+        "references": [
+          {
+            "from": "0x1003f0f88",
+            "function": "sub_1003f0f4c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Failed to remove thumbnail: "
+      },
+      {
+        "address": "0x101410130",
+        "references": [
+          {
+            "from": "0x1004023f8",
+            "function": "sub_100402390"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Failed to generate a thumbnail."
+      },
+      {
+        "address": "0x101411d00",
+        "references": [
+          {
+            "from": "0x1004b2598",
+            "function": "sub_1004b20a8"
+          },
+          {
+            "from": "0x1004e9db4",
+            "function": "sub_1004e9b4c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "lut_gallery_full_show_thumbnail_picker"
+      },
+      {
+        "address": "0x101413220",
+        "references": [
+          {
+            "from": "0x100534100",
+            "function": "sub_100533de0"
+          }
+        ],
+        "section": "__cstring",
+        "text": "Unlock advanced controls like Curves, Cinematic Frame, Saturate, Foliage, Film Density+Saturation, Chromatic Aberration, and Tetra Color Mix to fine-tune your look."
+      },
+      {
+        "address": "0x1014139d0",
+        "references": [],
+        "section": "__cstring",
+        "text": "defaultDemo"
+      },
+      {
+        "address": "0x101414600",
+        "references": [
+          {
+            "from": "0x10059354c",
+            "function": "sub_100593304"
+          }
+        ],
+        "section": "__cstring",
+        "text": "DefaultLuts bundle not found"
+      },
+      {
+        "address": "0x101414e10",
+        "references": [
+          {
+            "from": "0x100605788",
+            "function": "sub_100605418"
+          },
+          {
+            "from": "0x100605b5c",
+            "function": "sub_10060588c"
+          }
+        ],
+        "section": "__cstring",
+        "text": "thumbnailRelativePath"
+      },
+      {
+        "address": "0x101419837",
+        "references": [],
+        "section": "__cstring",
+        "text": "Canon Cinema Gamut"
+      },
+      {
+        "address": "0x101430db0",
+        "references": [
+          {
+            "from": "0x1009c8ac0",
+            "function": "sub_1009c8950"
+          }
+        ],
+        "section": "__cstring",
+        "text": "decodeMoreRewards(from:)"
+      },
+      {
+        "address": "0x1014d21c0",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC7PeekLUT20LUTThumbnailRenderer"
+      },
+      {
+        "address": "0x1014d3420",
+        "references": [],
+        "section": "__objc_classname",
+        "text": "_TtC7PeekLUT21ProjectThumbnailCache"
+      },
+      {
+        "address": "0x1014f32e9",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "_defaultLUTs"
+      },
+      {
+        "address": "0x1014f8948",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "activityViewController:thumbnailImageForActivityType:suggestedSize:"
+      },
+      {
+        "address": "0x1014fd739",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "canonCinemaGamutColorSpace"
+      },
+      {
+        "address": "0x10152f0f0",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "thumbnailRenderer"
+      },
+      {
+        "address": "0x10152f105",
+        "references": [],
+        "section": "__objc_methname",
+        "text": "thumbnailToken"
+      }
+    ],
+    "total": 56
+  },
+  "summary": "56 strings match \"demo|PresetImage|presetImage|thumbnail|DefaultLuts|Cinema|DeepLooks\".",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "only strings stored in the file are searched (absence is not proof)"
+    }
+  ],
+  "coverage": {
+    "status": "complete",
+    "examined": 56,
+    "total": 56
+  },
+  "locations": [],
+  "links": []
+}

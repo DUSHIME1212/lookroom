@@ -1,0 +1,71 @@
+{
+  "id": "ev_3f4c92df4082151563787d3bde267b6310842a36842ac3182c09d8dc994e2a6b",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "core_evidence_browse",
+  "params": {
+    "show": {
+      "kind": "summary"
+    },
+    "source": {
+      "evidence_id": "ev_2fb6c798084200b61e4aa2296664bd817090ed1df54c5eafabb9d22e912e492d",
+      "kind": "saved"
+    }
+  },
+  "result": {
+    "coverage": {
+      "at_end": true,
+      "examined": 1,
+      "next_offset": null,
+      "status": "all-in-view",
+      "total": 1
+    },
+    "from_evidence": "ev_2fb6c798084200b61e4aa2296664bd817090ed1df54c5eafabb9d22e912e492d",
+    "from_tool": "native_functions_decompile",
+    "shown": {
+      "carries_target_content": false,
+      "confidence": "inferred",
+      "coverage": {
+        "examined": 2,
+        "status": "complete",
+        "total": 2
+      },
+      "evidence_id": "ev_2fb6c798084200b61e4aa2296664bd817090ed1df54c5eafabb9d22e912e492d",
+      "limitations": [
+        {
+          "code": "pseudo_code_inferred",
+          "message": "pseudo-C from the clean-room lifter is register-level and approximate"
+        }
+      ],
+      "operation": "native_functions_decompile",
+      "subject": {
+        "kind": "mach-o",
+        "name": "PeekLUT",
+        "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20"
+      },
+      "summary": "Decompiled 2 of 2 functions."
+    }
+  },
+  "summary": "Part of native_functions_decompile evidence (all-in-view).",
+  "confidence": "inferred",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [],
+  "coverage": {
+    "status": "complete",
+    "examined": 1,
+    "total": 1
+  },
+  "locations": [],
+  "links": [
+    "ev_2fb6c798084200b61e4aa2296664bd817090ed1df54c5eafabb9d22e912e492d"
+  ]
+}

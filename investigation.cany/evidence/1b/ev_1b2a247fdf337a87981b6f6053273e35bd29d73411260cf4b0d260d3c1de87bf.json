@@ -1,0 +1,44 @@
+{
+  "id": "ev_1b2a247fdf337a87981b6f6053273e35bd29d73411260cf4b0d260d3c1de87bf",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_functions_search",
+  "params": {
+    "case_sensitive": false,
+    "limit": 40,
+    "mode": "literal",
+    "offset": 0,
+    "pattern": "GradingTools"
+  },
+  "result": {
+    "functions": 0,
+    "imports": 0,
+    "matches": [],
+    "total": 0
+  },
+  "summary": "0 functions and 0 imports match \"GradingTools\".",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "function_limit",
+      "message": "function discovery stopped after 50000 functions; the function list is incomplete and some code is not analysed"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 0,
+    "total": 0
+  },
+  "locations": [],
+  "links": []
+}

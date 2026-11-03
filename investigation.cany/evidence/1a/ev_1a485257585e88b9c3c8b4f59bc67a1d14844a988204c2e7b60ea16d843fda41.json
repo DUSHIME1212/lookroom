@@ -1,0 +1,45 @@
+{
+  "id": "ev_1a485257585e88b9c3c8b4f59bc67a1d14844a988204c2e7b60ea16d843fda41",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10059f400"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x10059f400",
+    "function": "FUN_10059f400",
+    "pseudo_code": "\r\nvoid FUN_10059f400(undefined8 *param_1,long param_2,undefined8 param_3)\r\n\r\n{\r\n  undefined8 *puVar1;\r\n  long lVar2;\r\n  undefined *puVar3;\r\n  undefined8 local_48;\r\n  undefined8 local_40;\r\n  undefined8 uStack_38;\r\n  \r\n  local_40 = 0;\r\n  uStack_38 = 0xe000000000000000;\r\n  __ss11_StringGutsV4growyySiF(0x1e);\r\n  __sSS6appendyySSF(0xd000000000000018,0x80000001014146e0);\r\n  lVar2 = 0;\r\n  FUN_10059a430();\r\n  puVar1 = (undefined8 *)(param_2 + *(int *)(lVar2 + 0x14));\r\n  __sSS6appendyySSF(*puVar1,puVar1[1]);\r\n  __sSS6appendyySSF(0x203a,0xe200000000000000);\r\n  puVar3 = &DAT_10179ba60;\r\n  local_48 = param_3;\r\n  FUN_100005318(&DAT_10179ba60,&DAT_1011a87e0);\r\n  __ss15_print_unlockedyyx_q_zts16TextOutputStreamR_r0_lF\r\n            (&local_48,&local_40,puVar3,PTR___ss26DefaultStringInterpolationVN_1015ffff0,\r\n             PTR___ss26DefaultStringInterpolationVs16TextOutputStreamsWP_101600000);\r\n  param_1[3] = PTR___sSSN_1015ff0e8;\r\n  *param_1 = local_40;\r\n  param_1[1] = uStack_38;\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_10059f400(undefined8 *param_1,long param_2,undefined8 param_3);"
+  },
+  "summary": "Pseudo-C for FUN_10059f400 from the Deep engine (32 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10059f400"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

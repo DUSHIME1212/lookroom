@@ -1,0 +1,45 @@
+{
+  "id": "ev_7b799ac2d889da687ddda078b064419b7a41e6619b33b194eb640efd38712472",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x100f45280"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x100f45280",
+    "function": "FUN_100f45280",
+    "pseudo_code": "\r\n/* WARNING: Function: _objc_retain_x27 replaced with injection: _objc_retain_fixup */\r\n/* WARNING: Function: _objc_retain_x26 replaced with injection: _objc_retain_fixup */\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_100f45280(undefined8 *param_1)\r\n\r\n{\r\n  ulong uVar1;\r\n  undefined *puVar2;\r\n  undefined *puVar3;\r\n  undefined *puVar4;\r\n  undefined *puVar5;\r\n  undefined *puVar6;\r\n  undefined *puVar7;\r\n  long unaff_x20;\r\n  undefined8 uVar8;\r\n  undefined *local_a8;\r\n  undefined *puStack_a0;\r\n  undefined *local_98;\r\n  undefined *local_90;\r\n  undefined *puStack_88;\r\n  undefined *local_80;\r\n  undefined8 uStack_78;\r\n  undefined8 uStack_70;\r\n  undefined8 uStack_68;\r\n  \r\n  uVar1 = 0;\r\n  FUN_100f44424(0x2a,0xb9);\r\n  if ((uVar1 & 1) == 0) {\r\n    puVar2 = &DAT_1017ef478;\r\n    FUN_100005318(&DAT_1017ef478,&DAT_101241f68);\r\n    puVar3 = puVar2;\r\n    FUN_100f523f4();\r\n    puVar4 = &DAT_1017eeb30;\r\n    local_a8 = puVar3;\r\n    FUN_100005318(&DAT_1017eeb30,&DAT_101241620);\r\n    puVar3 = &DAT_1017ef488;\r\n    FUN_100005eb0(&DAT_1017ef488,&DAT_1017ef478,&DAT_101241f68,\r\n                  &TargetProtocolConformanceDescriptor_101242e14);\r\n    puVar5 = &DAT_1017ef490;\r\n    FUN_100005eb0(&DAT_1017ef490,&DAT_1017ef478,&DAT_101241f68,\r\n                  &TargetProtocolConformanceDescriptor_101242e30);\r\n  }\r\n  else {\r\n    uVar1 = 0x23;\r\n    FUN_100f44424(0x23,0xb9);\r\n    puVar4 = &DAT_1017e7160;\r\n    FUN_100005318(&DAT_1017e7160,&DAT_101238930);\r\n    if ((uVar1 & 1) == 0) {\r\n      _swift_allocObject();\r\n      uVar8 = _DAT_1011a89c0;\r\n      *(undefined8 *)(puVar4 + 0x18) = _UNK_1011a89c8;\r\n      *(undefined8 *)(puVar4 + 0x10) = uVar8;\r\n      uVar8 = *(undefined8 *)(unaff_x20 + 0x298);\r\n      *(undefined8 *)(puVar4 + 0x20) = uVar8;\r\n      puVar2 = &DAT_1017ef500;\r\n      FUN_100005318(&DAT_1017ef500,&DAT_101241a38);\r\n      _swift_allocObject();\r\n      *(undefined **)(puVar2 + 0x10) = puVar4;\r\n      *(undefined8 *)(puVar2 + 0x18) = 0;\r\n      puVar4 = &DAT_1017eeb30;\r\n      FUN_100005318(&DAT_1017eeb30,&DAT_101241620);\r\n      puVar3 = &DAT_1017eee70;\r\n      local_90 = puVar4;\r\n      FUN_100005318(&DAT_1017eee70,&DAT_101241fc0);\r\n      puVar5 = &DAT_1017ef510;\r\n      puStack_88 = puVar3;\r\n      FUN_100005eb0(&DAT_1017ef510,&DAT_1017eee70,&DAT_101241fc0,PTR___sSayxGSTsMc_1015ff2e0);\r\n      puVar6 = &DAT_101241f90;\r\n      local_80 = puVar5;\r\n      _swift_getKeyPath(&DAT_101241f90,&local_90);\r\n      puVar7 = &DAT_101241fc8;\r\n      local_90 = puVar4;\r\n      puStack_88 = puVar3;\r\n      local_80 = puVar5;\r\n      _swift_getKeyPath(&DAT_101241fc8,&local_90);\r\n      local_a8 = puVar2;\r\n      puStack_a0 = puVar6;\r\n      local_98 = puVar7;\r\n      _swift_retain(uVar8);\r\n    }\r\n    else {\r\n      _swift_allocObject();\r\n      uVar8 = _DAT_1011a89a0;\r\n      *(undefined8 *)(puVar4 + 0x18) = _UNK_1011a89a8;\r\n      *(undefined8 *)(puVar4 + 0x10) = uVar8;\r\n      uVar8 = *(undefined8 *)(unaff_x20 + 0x298);\r\n      *(undefined8 *)(puVar4 + 0x20) = *(undefined8 *)(unaff_x20 + 0x288);\r\n      *(undefined8 *)(puVar4 + 0x28) = uVar8;\r\n      *(undefined8 *)(puVar4 + 0x30) = *(undefined8 *)(unaff_x20 + 0x290);\r\n      puVar2 = &DAT_1017ef500;\r\n      FUN_100005318(&DAT_1017ef500,&DAT_101241a38);\r\n      _swift_allocObject();\r\n      *(undefined **)(puVar2 + 0x10) = puVar4;\r\n      *(undefined8 *)(puVar2 + 0x18) = 0;\r\n      puVar4 = &DAT_1017eeb30;\r\n      FUN_100005318(&DAT_1017eeb30,&DAT_101241620);\r\n      puVar3 = &DAT_1017eee70;\r\n      local_90 = puVar4;\r\n      FUN_100005318(&DAT_1017eee70,&DAT_101241fc0);\r\n      puVar5 = &DAT_1017ef510;\r\n      puStack_88 = puVar3;\r\n      FUN_100005eb0(&DAT_1017ef510,&DAT_1017eee70,&DAT_101241fc0,PTR___sSayxGSTsMc_1015ff2e0);\r\n      puVar6 = &DAT_101241f90;\r\n      local_80 = puVar5;\r\n      _swift_getKeyPath(&DAT_101241f90,&local_90);\r\n      puVar7 = &DAT_101241fc8;\r\n      local_90 = puVar4;\r\n      puStack_88 = puVar3;\r\n      local_80 = puVar5;\r\n      _swift_getKeyPath(&DAT_101241fc8,&local_90);\r\n      local_a8 = puVar2;\r\n      puStack_a0 = puVar6;\r\n      local_98 = puVar7;\r\n      _swift_retain(uVar8);\r\n    }\r\n    puVar2 = &DAT_1017eee78;\r\n    FUN_100005318(&DAT_1017eee78,&DAT_101242000);\r\n    puVar3 = &DAT_1017ef520;\r\n    FUN_100005eb0(&DAT_1017ef520,&DAT_1017eee78,&DAT_101242000,\r\n                  &TargetProtocolConformanceDescriptor_10124171c);\r\n    puVar5 = &DAT_1017eee80;\r\n    FUN_100005eb0(&DAT_1017eee80,&DAT_1017eee78,&DAT_101242000,\r\n                  &TargetProtocolConformanceDescriptor_101241700);\r\n  }\r\n  FUN_100f52700(&local_90,&local_a8,puVar4,puVar2,puVar3,puVar5);\r\n  param_1[1] = puStack_88;\r\n  *param_1 = local_90;\r\n  param_1[3] = uStack_78;\r\n  param_1[2] = local_80;\r\n  param_1[5] = uStack_68;\r\n  param_1[4] = uStack_70;\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_100f45280(undefined8 *param_1);"
+  },
+  "summary": "Pseudo-C for FUN_100f45280 from the Deep engine (136 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x100f45280"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

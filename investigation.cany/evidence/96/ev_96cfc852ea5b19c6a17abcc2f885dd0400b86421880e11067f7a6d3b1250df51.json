@@ -1,0 +1,45 @@
+{
+  "id": "ev_96cfc852ea5b19c6a17abcc2f885dd0400b86421880e11067f7a6d3b1250df51",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10059a7dc"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x10059a618",
+    "function": "FUN_10059a618",
+    "pseudo_code": "\r\nvoid FUN_10059a618(long param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,\r\n                  undefined8 param_5)\r\n\r\n{\r\n  undefined1 *puVar1;\r\n  undefined1 uVar2;\r\n  uint uVar3;\r\n  long lVar4;\r\n  long lVar5;\r\n  undefined *puVar6;\r\n  undefined *puVar7;\r\n  undefined *puVar8;\r\n  long extraout_x8;\r\n  ulong uVar9;\r\n  ulong uVar10;\r\n  long lVar11;\r\n  long lVar12;\r\n  long lVar13;\r\n  long lVar14;\r\n  undefined8 uVar15;\r\n  code *local_90;\r\n  undefined *puStack_88;\r\n  \r\n  lVar4 = 0;\r\n  __s7SwiftUI25ScrollIndicatorVisibilityVMa();\r\n  lVar14 = *(long *)(lVar4 + -8);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)(*(undefined8 *)(lVar14 + 0x40));\r\n  lVar11 = (long)&local_90 - (extraout_x8 + 0xfU & 0xfffffffffffffff0);\r\n  lVar5 = 0;\r\n  FUN_1005a8dac();\r\n  lVar13 = *(long *)(lVar5 + -8);\r\n  lVar5 = *(long *)(lVar13 + 0x40);\r\n  (*(code *)PTR____chkstk_darwin_1015f9b20)();\r\n  lVar12 = lVar11 - (lVar5 + 0xfU & 0xfffffffffffffff0);\r\n  FUN_1000352f8();\r\n  uVar9 = (ulong)*(byte *)(lVar13 + 0x50);\r\n  uVar10 = uVar9 + 0x10 & (uVar9 ^ 0xffffffffffffffff);\r\n  puVar6 = &DAT_1016356f0;\r\n  _swift_allocObject(&DAT_1016356f0,uVar10 + lVar5,uVar9 | 7);\r\n  FUN_10003533c(lVar12,puVar6 + uVar10,FUN_1005a8dac);\r\n  local_90 = FUN_1005a8f04;\r\n  puStack_88 = puVar6;\r\n  __s7SwiftUI25ScrollIndicatorVisibilityV6hiddenACvgZ(lVar11);\r\n  __s7SwiftUI4AxisO3SetV8verticalAEvgZ();\r\n  lVar5 = lVar12;\r\n  __s7SwiftUI4AxisO3SetV10horizontalAEvgZ();\r\n  uVar3 = 0;\r\n  __s7SwiftUI4AxisO3SetV8rawValueAEs4Int8V_tcfC(0);\r\n  lVar13 = lVar12;\r\n  __s7SwiftUI4AxisO3SetV8rawValueAEs4Int8V_tcfC(lVar12);\r\n  __s7SwiftUI4AxisO3SetV8rawValueAEs4Int8V_tcfC((uint)lVar13 & uVar3);\r\n  uVar3 = uVar3 | (uint)lVar12;\r\n  __s7SwiftUI4AxisO3SetV8rawValueAEs4Int8V_tcfC(uVar3);\r\n  lVar13 = lVar5;\r\n  __s7SwiftUI4AxisO3SetV8rawValueAEs4Int8V_tcfC(lVar5);\r\n  __s7SwiftUI4AxisO3SetV8rawValueAEs4Int8V_tcfC((uint)lVar13 & uVar3);\r\n  uVar9 = (ulong)(uVar3 | (uint)lVar5);\r\n  __s7SwiftUI4AxisO3SetV8rawValueAEs4Int8V_tcfC(uVar9);\r\n  puVar7 = &DAT_1017a66c8;\r\n  FUN_100005318(&DAT_1017a66c8,&DAT_1011db458);\r\n  puVar8 = &DAT_1017a66d0;\r\n  FUN_100005eb0(&DAT_1017a66d0,&DAT_1017a66c8,&DAT_1011db458,\r\n                PTR___s7SwiftUI16ScrollViewReaderVyxGAA0D0AAMc_1015fc5d8);\r\n  __s7SwiftUI4ViewPAAE16scrollIndicators_4axesQrAA25ScrollIndicatorVisibilityV_AA4AxisO3SetVtF\r\n            (param_1,lVar11,uVar9,puVar7,puVar8);\r\n  (**(code **)(lVar14 + 8))(lVar11,lVar4);\r\n  _swift_release();\r\n  uVar2 = SUB81(puVar6,0);\r\n  __s7SwiftUI4EdgeO3SetV6bottomAEvgZ();\r\n  uVar15 = 0x4034000000000000;\r\n  __s7SwiftUI10EdgeInsetsV4_allAC12CoreGraphics7CGFloatV_tcfC();\r\n  puVar6 = &DAT_1017a66d8;\r\n  FUN_100005318(&DAT_1017a66d8,&DAT_1011db460);\r\n  puVar1 = (undefined1 *)(param_1 + *(int *)(puVar6 + 0x24));\r\n  *puVar1 = uVar2;\r\n  *(undefined8 *)(puVar1 + 8) = uVar15;\r\n  *(undefined8 *)(puVar1 + 0x10) = param_3;\r\n  *(undefined8 *)(puVar1 + 0x18) = param_4;\r\n  *(undefined8 *)(puVar1 + 0x20) = param_5;\r\n  puVar1[0x28] = 0;\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_10059a618(long param_1,undefined8 param_2,undefined8 param_3,undefined8 param_4,undefined8 param_5);"
+  },
+  "summary": "Pseudo-C for FUN_10059a618 from the Deep engine (84 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10059a618"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

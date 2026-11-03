@@ -1,0 +1,45 @@
+{
+  "id": "ev_b8009f0536f4e1401ba51e96f939c5f3fbf8cfe54218e52337995ae8fa452719",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_function_pseudocode",
+  "params": {
+    "function": "0x10059f318"
+  },
+  "result": {
+    "engine": "ghidra",
+    "entry": "0x10059f318",
+    "function": "FUN_10059f318",
+    "pseudo_code": "\r\nvoid FUN_10059f318(void)\r\n\r\n{\r\n  long *plVar1;\r\n  undefined *puVar2;\r\n  undefined8 uVar3;\r\n  undefined8 uVar4;\r\n  long unaff_x22;\r\n  \r\n  uVar4 = *(undefined8 *)(unaff_x22 + 0x50);\r\n  uVar3 = *(undefined8 *)(unaff_x22 + 0x30);\r\n  _swift_release(*(undefined8 *)(unaff_x22 + 0x40));\r\n  *(undefined8 *)(unaff_x22 + 0x20) = uVar3;\r\n  *(undefined8 *)(unaff_x22 + 0x28) = uVar4;\r\n  if (DAT_10179fcc0 != -1) {\r\n    _swift_once(&DAT_10179fcc0,FUN_1004c21a0);\r\n  }\r\n  plVar1 = DAT_10179fc88;\r\n  uVar3 = *(undefined8 *)(unaff_x22 + 0x50);\r\n  puVar2 = PTR___swiftEmptyArrayStorage_1016005c0;\r\n  FUN_1005cd128();\r\n  (**(code **)(*plVar1 + 0x1a0))\r\n            (5,\"contextMenu(item:)\",0x12,2,\r\n             \"/Users/georgekye/Developer/PeekLUT/PeekLUT/Views/PresetsView.swift\",0x42,2,399,puVar2,\r\n             FUN_1005aa430,unaff_x22 + 0x10);\r\n  _swift_bridgeObjectRelease(puVar2);\r\n  _swift_errorRelease(uVar3);\r\n                    /* WARNING: Could not recover jumptable at 0x00010059f3e4. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n  (**(code **)(unaff_x22 + 8))();\r\n  return;\r\n}\r\n\r\n",
+    "signature": "void FUN_10059f318(void);"
+  },
+  "summary": "Pseudo-C for FUN_10059f318 from the Deep engine (34 lines).",
+  "confidence": "derived",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "ghidra",
+    "engine_version": "12.1.4",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "deep_engine",
+      "message": "the pseudo-C comes from the external Deep engine (Ghidra), not the original source"
+    }
+  ],
+  "coverage": {
+    "status": "unknown"
+  },
+  "locations": [
+    {
+      "kind": "address",
+      "value": "0x10059f318"
+    }
+  ],
+  "links": [],
+  "carries_target_content": true
+}

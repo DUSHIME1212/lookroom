@@ -1,0 +1,123 @@
+{
+  "id": "ev_e891d322142edf4f806ded52bb6d7db90ac5f3d0a2652ed3c8666bc5fcc090e6",
+  "subject": {
+    "kind": "mach-o",
+    "sha256": "866040fbeedc946ed18179f2243e379f6f399513f4638142419bff28c621de20",
+    "name": "PeekLUT"
+  },
+  "operation": "native_strings_browse",
+  "params": {
+    "address": null,
+    "limit": 10,
+    "offset": 4200,
+    "section": "__swift5_reflstr"
+  },
+  "result": {
+    "strings": [
+      {
+        "address": "0x10139dc80",
+        "encoding": "ascii",
+        "file_offset": 20569216,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "uiViewConstraints"
+      },
+      {
+        "address": "0x10139dca0",
+        "encoding": "ascii",
+        "file_offset": 20569248,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "_resolvedStrategy"
+      },
+      {
+        "address": "0x10139dcc0",
+        "encoding": "ascii",
+        "file_offset": 20569280,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "_measuredFittingSize"
+      },
+      {
+        "address": "0x10139dcd5",
+        "encoding": "ascii",
+        "file_offset": 20569301,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "automatic"
+      },
+      {
+        "address": "0x10139dcdf",
+        "encoding": "ascii",
+        "file_offset": 20569311,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "proposed"
+      },
+      {
+        "address": "0x10139dcf0",
+        "encoding": "ascii",
+        "file_offset": 20569328,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "intrinsicHeightProposedWidth"
+      },
+      {
+        "address": "0x10139dd10",
+        "encoding": "ascii",
+        "file_offset": 20569360,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "intrinsicWidthProposedHeight"
+      },
+      {
+        "address": "0x10139dd2d",
+        "encoding": "ascii",
+        "file_offset": 20569389,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "intrinsic"
+      },
+      {
+        "address": "0x10139dd40",
+        "encoding": "ascii",
+        "file_offset": 20569408,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "storage"
+      },
+      {
+        "address": "0x10139dd48",
+        "encoding": "ascii",
+        "file_offset": 20569416,
+        "references": 0,
+        "section": "__swift5_reflstr",
+        "text": "configurations"
+      }
+    ],
+    "total": 11702
+  },
+  "summary": "11702 strings (showing 10).",
+  "confidence": "observed",
+  "authority": "original-files",
+  "environment": {
+    "clean_room": false,
+    "engine": "builtin",
+    "engine_version": "0.2.0",
+    "host": "windows-x86_64"
+  },
+  "limitations": [
+    {
+      "code": "data_sections_only",
+      "message": "strings are read from data sections; text built at run time or stored compressed isn't listed"
+    }
+  ],
+  "coverage": {
+    "status": "partial",
+    "examined": 10,
+    "total": 11702,
+    "next_offset": 4210
+  },
+  "locations": [],
+  "links": []
+}
