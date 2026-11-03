@@ -581,8 +581,11 @@ Packages:
   Apple Silicon and Intel, with its icon set. It signs it for the building Mac only and zips
   it. Anyone else opens it the first time with right-click, Open, until it is signed with a
   Developer ID and notarised.
-- **Icon:** `lookroom --icon OUT SIZE` writes the icon as a PNG, which is how both scripts
-  get it. The window uses the same icon on every system.
+- **Icon:** the tiger logo. `assets/icon.png` (1024 pixels) is the source, its black corners
+  made transparent along the artwork's own rounded edge. `lookroom --icon OUT SIZE` writes it at
+  any size as a PNG, which is how both scripts get it, and the window uses it on every system.
+  On Windows, `build.rs` also puts `assets/icon.ico` into the program itself, for Explorer and
+  the taskbar.
 
 `.github/workflows/build.yml` runs the tests and builds all three on GitHub's machines:
 Ubuntu 22.04, macOS 14 with both Mac targets, and Windows. It uploads the packages, and a

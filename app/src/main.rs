@@ -105,18 +105,11 @@ fn contact_sheet(out: &str) -> Result<(), String> {
     image::save_buffer(out, &sheet, sw as u32, sh as u32, image::ExtendedColorType::Rgb8).map_err(|e| e.to_string())
 }
 
-/// The app's mark drawn `side` pixels square, unpremultiplied, for windows and packages.
+/// The app's logo at `side` pixels square, unpremultiplied, for windows and packages.
 fn app_icon(side: u32) -> Option<(Vec<u8>, u32, u32)> {
-    let svg = include_str!("../assets/icon.svg");
-    let tree = resvg::usvg::Tree::from_str(svg, &resvg::usvg::Options::default()).ok()?;
-    let mut map = resvg::tiny_skia::Pixmap::new(side, side)?;
-    let k = side as f32 / tree.size().width();
-    resvg::render(&tree, resvg::tiny_skia::Transform::from_scale(k, k), &mut map.as_mut());
-    let px = map.pixels().iter().flat_map(|p| {
-        let c = p.demultiply();
-        [c.red(), c.green(), c.blue(), c.alpha()]
-    });
-    Some((px.collect(), side, side))
+    let logo = image::load_from_memory(include_bytes!("../assets/icon.png")).ok()?.to_rgba8();
+    let sized = image::imageops::resize(&logo, side, side, image::imageops::FilterType::Lanczos3);
+    Some((sized.into_raw(), side, side))
 }
 
 /// Every text animation as a filmstrip, one per row, drawn the way playback and export
