@@ -721,27 +721,126 @@ pub fn render_framed(src: &Picture, g: &Grade, bank: &LutBank, full: bool, use_r
 
 /// As `render_framed`, at one frame of a clip; effects that change over time use it.
 pub fn render_at(src: &Picture, g: &Grade, bank: &LutBank, full: bool, use_rect: bool, frame: u32) -> Picture {
-    render_with(src, g, bank, full, use_rect, frame, None)
+    render_with(src, g, bank, full, use_rect, frame, Colour::Exact)
 }
 
 /// As `render_at`, with the colour steps already baked to a table. Playback uses this:
 /// a table lookup costs a fraction of working every step out for every pixel.
 pub fn render_play(src: &Picture, g: &Grade, table: &Lut3D, bank: &LutBank, frame: u32) -> Picture {
-    render_with(src, g, bank, true, true, frame, Some(table))
+    render_with(src, g, bank, true, true, frame, Colour::Table(table))
 }
 
-fn render_with(src: &Picture, g: &Grade, bank: &LutBank, full: bool, use_rect: bool, frame: u32, table: Option<&Lut3D>) -> Picture {
+/// As `render_at`, with the colour steps on each side of clarity baked to their own fine
+/// tables. Export uses this: the steps keep their order, so the picture matches the full
+/// render to within a 10-bit step, in a fraction of the time.
+pub fn render_staged(src: &Picture, g: &Grade, staged: &Staged, bank: &LutBank, frame: u32) -> Picture {
+    render_with(src, g, bank, true, true, frame, Colour::Staged(staged))
+}
+
+/// How the pixel-at-a-time colour steps are worked out.
+#[derive(Clone, Copy)]
+enum Colour<'a> {
+    Exact,
+    /// All in one table, which moves them around the neighbour effects. Playback's way.
+    Table(&'a Lut3D),
+    Staged(&'a Staged),
+}
+
+/// Table size for staged colour. 65 points a side keeps the error under a 10-bit step.
+pub const STAGED_TABLE: usize = 65;
+
+/// How far a table may stray from the exact steps before a cell is worked out exactly:
+/// half a 10-bit step. Tighter is several times slower for no difference anyone can see.
+const STAGED_TOLERANCE: f32 = 0.5 / 1023.0;
+
+/// The steps before clarity and the steps after it, each a table, for one grade and
+/// for each of its layers.
+pub struct Staged {
+    early: StageTable,
+    late: StageTable,
+    layers: Vec<Staged>,
+}
+
+/// One group of steps as a table, with the cells it can't follow closely marked. Some
+/// steps bend sharply in places, such as the shadow lift on dark, saturated colours.
+struct StageTable {
+    lut: Lut3D,
+    exact: Vec<bool>,
+}
+
+impl StageTable {
+    fn bake(f: &(dyn Fn([f32; 3]) -> [f32; 3] + Sync)) -> Self {
+        let mut lut = Lut3D::from_fn(STAGED_TABLE, |c| c);
+        lut.data.par_iter_mut().for_each(|p| *p = f(*p));
+        // Each cell is tried at its centre, where a table strays most; a cell that misses
+        // marks its neighbours too, since a sharp bend rarely stops at one cell.
+        let n = STAGED_TABLE - 1;
+        let at = |i: usize| (i % n, i / n % n, i / (n * n));
+        let off: Vec<bool> = (0..n * n * n)
+            .into_par_iter()
+            .map(|i| {
+                let (x, y, z) = at(i);
+                let c = [x, y, z].map(|v| (v as f32 + 0.5) / n as f32);
+                let (want, got) = (f(c), lut.sample(c));
+                (0..3).any(|k| (want[k] - got[k]).abs() > STAGED_TOLERANCE)
+            })
+            .collect();
+        let exact = (0..n * n * n)
+            .into_par_iter()
+            .map(|i| {
+                let (x, y, z) = at(i);
+                let near = |v: usize| v.saturating_sub(1)..=(v + 1).min(n - 1);
+                near(z).any(|z| near(y).any(|y| near(x).any(|x| off[x + y * n + z * n * n])))
+            })
+            .collect();
+        Self { lut, exact }
+    }
+
+    /// The table's answer where it can be trusted; otherwise the exact one. A pixel going
+    /// in or coming out beyond 0 to 1, such as a highlight pushed past white, is worked out
+    /// exactly too, as later steps can magnify a small error many times over out there.
+    #[inline]
+    fn get(&self, c: [f32; 3], exact: impl Fn([f32; 3]) -> [f32; 3]) -> [f32; 3] {
+        let inside = |c: [f32; 3]| c.iter().all(|v| (0.0..=1.0).contains(v));
+        if inside(c) {
+            let n = STAGED_TABLE - 1;
+            let [x, y, z] = c.map(|v| ((v * n as f32) as usize).min(n - 1));
+            if !self.exact[x + y * n + z * n * n] {
+                let out = self.lut.sample(c);
+                if inside(out) {
+                    return out;
+                }
+            }
+        }
+        exact(c)
+    }
+}
+
+pub fn bake_staged(g: &Grade, bank: &LutBank) -> Staged {
+    let s = ColorStep::new(g, bank);
+    Staged {
+        early: StageTable::bake(&|c| s.early(c)),
+        late: StageTable::bake(&|c| s.late(c)),
+        layers: g.layers.iter().map(|l| bake_staged(&l.grade, bank)).collect(),
+    }
+}
+
+fn render_with(src: &Picture, g: &Grade, bank: &LutBank, full: bool, use_rect: bool, frame: u32, colour: Colour) -> Picture {
     let framed = if g.crop.is_identity(use_rect) {
         None
     } else {
         Some(g.crop.geometry(src.w, src.h, use_rect).apply(src))
     };
-    let mut out = grade_picture(framed.as_ref().unwrap_or(src), g, bank, full, frame, table);
+    let mut out = grade_picture(framed.as_ref().unwrap_or(src), g, bank, full, frame, colour);
     let geo = g.crop.geometry(src.w, src.h, use_rect);
     let aspect = src.w as f32 / src.h as f32;
-    for layer in g.layers.iter().filter(|l| l.visible) {
+    for (i, layer) in g.layers.iter().enumerate().filter(|(_, l)| l.visible) {
         let weights = masks::layer_weights(layer, &out.px, out.w, &geo, aspect, frame);
-        let edited = grade_picture(&out, &layer.grade, bank, full, frame, None);
+        let own = match colour {
+            Colour::Staged(s) => s.layers.get(i).map_or(Colour::Exact, Colour::Staged),
+            _ => Colour::Exact,
+        };
+        let edited = grade_picture(&out, &layer.grade, bank, full, frame, own);
         out.px
             .par_iter_mut()
             .zip(edited.px.par_iter().zip(weights.par_iter()))
@@ -766,14 +865,23 @@ const MASK_TINT_STRENGTH: f32 = 0.55;
 
 /// Runs every step in the original's order (see MECHANICS.md).
 /// True for the full pipeline; tile previews skip the pixel-neighbour effects.
-fn grade_picture(src: &Picture, g: &Grade, bank: &LutBank, full: bool, frame: u32, table: Option<&Lut3D>) -> Picture {
-    // With a table, every step that looks at one pixel at a time is already in it.
+fn grade_picture(src: &Picture, g: &Grade, bank: &LutBank, full: bool, frame: u32, colour: Colour) -> Picture {
+    // With one table, every step that looks at one pixel at a time is already in it.
+    let table = match colour {
+        Colour::Table(t) => Some(t),
+        _ => None,
+    };
+    let staged = match colour {
+        Colour::Staged(s) => Some(s),
+        _ => None,
+    };
     let step = table.is_none().then(|| ColorStep::new(g, bank));
     let (w, h) = (src.w, src.h);
-    let mut px: Vec<[f32; 3]> = match (&step, table) {
-        (Some(s), _) => src.px.par_iter().map(|p| s.early(*p)).collect(),
-        (None, Some(t)) => src.px.par_iter().map(|p| t.sample(*p)).collect(),
-        (None, None) => src.px.clone(),
+    let mut px: Vec<[f32; 3]> = match (&step, table, staged) {
+        (Some(s), _, Some(t)) => src.px.par_iter().map(|p| t.early.get(*p, |c| s.early(c))).collect(),
+        (Some(s), _, None) => src.px.par_iter().map(|p| s.early(*p)).collect(),
+        (None, Some(t), _) => src.px.par_iter().map(|p| t.sample(*p)).collect(),
+        (None, None, _) => src.px.clone(),
     };
     let unit = w.max(h) as f32 / 1200.0;
     let (gauge_grain, gauge_soft, gauge_glow) = film::GAUGE_SCALE[g.film.gauge.min(film::GAUGE_SCALE.len() - 1)];
@@ -801,8 +909,10 @@ fn grade_picture(src: &Picture, g: &Grade, bank: &LutBank, full: bool, frame: u3
             }
         });
     }
-    if let Some(s) = &step {
-        px.par_iter_mut().for_each(|c| *c = s.late(*c));
+    match (&step, staged) {
+        (Some(s), Some(t)) => px.par_iter_mut().for_each(|c| *c = t.late.get(*c, |c| s.late(c))),
+        (Some(s), None) => px.par_iter_mut().for_each(|c| *c = s.late(*c)),
+        _ => {}
     }
 
     if full && g.diffusion.strength > 0.0 {
@@ -1072,6 +1182,38 @@ mod tests {
         let want = step(&g).apply([0.4, 0.5, 0.3]);
         let got = lut.sample([0.4, 0.5, 0.3]);
         assert!((want[1] - got[1]).abs() < 0.02);
+    }
+
+    #[test]
+    fn staged_export_matches_the_full_render_for_every_look() {
+        // Every hue, saturation and brightness, plus a highlight pushed past white.
+        let (w, h) = (96, 64);
+        let px = (0..w * h)
+            .map(|i| {
+                let (x, y) = ((i % w) as f32 / (w - 1) as f32, (i / w) as f32 / (h - 1) as f32);
+                let c = color::from_hsv([x * 360.0, (y * 2.0).min(1.0), (2.0 - y * 2.0).min(1.0) * 0.98 + 0.02]);
+                if i == w * h - 1 { [1.0; 3] } else { c }
+            })
+            .collect();
+        let pic = Picture { w, h, px };
+        let bank = crate::looks::build_bank();
+        let ten_bit = 1.0 / 1023.0;
+        let mut worst = (0.0f32, String::new());
+        for look in crate::looks::presets() {
+            let g = Grade { exposure: look.grade.exposure + 0.3, ..look.grade.clone() };
+            let exact = render_at(&pic, &g, &bank, true, true, 3);
+            let fast = render_staged(&pic, &g, &bake_staged(&g, &bank), &bank, 3);
+            let diff: Vec<f32> = exact.px.iter().zip(&fast.px).map(|(a, b)| (0..3).map(|i| (a[i].clamp(0.0, 1.0) - b[i].clamp(0.0, 1.0)).abs()).fold(0.0, f32::max)).collect();
+            let mean = diff.iter().sum::<f32>() / diff.len() as f32;
+            let most = diff.iter().copied().fold(0.0, f32::max);
+            assert!(mean < ten_bit * 0.5, "{}: mean {:.2} steps", look.name, mean / ten_bit);
+            if most > worst.0 {
+                let at = diff.iter().position(|d| *d == most).unwrap_or(0);
+                worst = (most, format!("{} at {:?}: {:?} vs {:?}", look.name, pic.px[at], exact.px[at], fast.px[at]));
+            }
+        }
+        // Nowhere as much as one 8-bit step, the smallest change most screens can show.
+        assert!(worst.0 < 1.0 / 255.0, "{}: {:.1} ten-bit steps", worst.1, worst.0 / ten_bit);
     }
 
     #[test]

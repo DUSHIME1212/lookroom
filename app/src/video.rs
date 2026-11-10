@@ -25,6 +25,8 @@ const BACK_WINDOW: u32 = 16;
 const READ_ON_LIMIT: u32 = 48;
 /// Seconds of clip below which its film strip reads every frame.
 const STRIP_FULL_READ: f64 = 60.0;
+/// Clips longer than this get their film strip from key frames only.
+const STRIP_KEYS_AFTER: f64 = 4.0;
 pub const EXTENSIONS: [&str; 7] = ["mp4", "mov", "m4v", "mkv", "avi", "webm", "mts"];
 
 pub const SOUND_EXTENSIONS: [&str; 7] = ["mp3", "wav", "m4a", "aac", "flac", "ogg", "opus"];
@@ -211,13 +213,30 @@ pub fn sound_seconds(path: &Path) -> Result<f64, String> {
     String::from_utf8_lossy(&out.stdout).trim().parse().map_err(|_| "That sound file could not be read.".to_string())
 }
 
-/// A few small pictures spread through a clip, for the timeline's film strip. A long
-/// clip reads key frames only, so it takes moments; a short one may hold just one key
-/// frame, so it is read in full.
+/// A few small pictures spread through a clip, for the timeline's film strip. A clip
+/// longer than a few seconds has only its key frames decoded, in one pass, and the
+/// pictures picked evenly from them: for a 16-second 4K camera clip that is 5 seconds
+/// instead of 38. A short one may hold just one key frame, so it is read in full.
 pub fn strip(info: &Info, count: usize, w: usize, h: usize) -> Result<Vec<Vec<u8>>, String> {
     let seconds = info.seconds(info.frames).max(0.1);
+    if seconds > STRIP_KEYS_AFTER {
+        let out = tool("ffmpeg")
+            .args(["-v", "error", "-nostdin", "-threads", "2", "-skip_frame", "nokey", "-i"])
+            .arg(&info.path)
+            .args(["-map", "0:v:0", "-vf", &format!("scale={w}:{h}:flags=fast_bilinear"), "-fps_mode", "passthrough", "-f", "rawvideo", "-pix_fmt", "rgb24", "pipe:1"])
+            .stdin(Stdio::null())
+            .stderr(Stdio::null())
+            .output()
+            .map_err(|e| cannot_start(&e))?;
+        let keys: Vec<&[u8]> = out.stdout.chunks_exact(w * h * 3).collect();
+        // Too few key frames to spread out: read it in full below instead.
+        if keys.len() >= count.min(3) {
+            return Ok(spread_evenly(&keys, count));
+        }
+    }
     let mut c = tool("ffmpeg");
-    c.args(["-v", "error", "-nostdin"]);
+    // Two threads are plenty for a strip and keep each decoder's memory small.
+    c.args(["-v", "error", "-nostdin", "-threads", "2"]);
     if seconds > STRIP_FULL_READ {
         c.args(["-skip_frame", "nokey"]);
     }
@@ -234,6 +253,11 @@ pub fn strip(info: &Info, count: usize, w: usize, h: usize) -> Result<Vec<Vec<u8
         .output()
         .map_err(|e| cannot_start(&e))?;
     Ok(out.stdout.chunks_exact(w * h * 3).map(<[u8]>::to_vec).collect())
+}
+
+/// `count` pictures picked evenly from `all`, repeating some when there are fewer.
+fn spread_evenly(all: &[&[u8]], count: usize) -> Vec<Vec<u8>> {
+    (0..count).map(|i| all[((i as f64 + 0.5) * all.len() as f64 / count as f64) as usize % all.len()].to_vec()).collect()
 }
 
 /// A running decode of a clip, one frame at a time.
@@ -437,21 +461,47 @@ impl Feed {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, Debug, Default)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug, Default, Hash)]
 pub enum Codec {
     #[default]
     H264,
     Hevc,
     ProRes,
+    /// A silent, looping picture for chats and pages.
+    Gif,
 }
 
+/// Frames a second in a GIF: smooth enough to read as motion, small enough to share.
+pub const GIF_FPS: f64 = 15.0;
+/// GIFs grow quickly with size, so none is made larger than this on its long side.
+pub const GIF_MAX_SIDE: usize = 1080;
+
 impl Codec {
-    pub const ALL: [Codec; 3] = [Codec::Hevc, Codec::H264, Codec::ProRes];
+    pub const ALL: [Codec; 4] = [Codec::Hevc, Codec::H264, Codec::ProRes, Codec::Gif];
+    /// Whether the file keeps more than 8 bits a channel, so frames go in at 16.
+    pub fn deep(self, ten_bit: bool) -> bool {
+        match self {
+            Codec::ProRes => true,
+            Codec::Gif => false,
+            _ => ten_bit,
+        }
+    }
+
+    pub fn extension(self, mov: bool) -> &'static str {
+        match self {
+            Codec::Gif => "gif",
+            Codec::ProRes => "mov",
+            _ if mov => "mov",
+            _ => "mp4",
+        }
+    }
+
     pub fn name(self) -> &'static str {
         match self {
             Codec::H264 => "H.264",
             Codec::Hevc => "HEVC",
             Codec::ProRes => "ProRes",
+            Codec::Gif => "GIF",
         }
     }
 }
@@ -464,50 +514,211 @@ pub struct Export {
     /// Longest side of the picture going in; never above 4K.
     pub side: usize,
     pub ten_bit: bool,
+    /// Speed over file size: the graphics chip's encoder when there is one.
+    pub fast: bool,
     pub first: u32,
     pub last: u32,
 }
 
 /// Arguments for the writer. Separate so the choices can be tested without encoding.
 pub fn encoder_args(e: &Export, w: usize, h: usize) -> Vec<String> {
-    let mut a: Vec<String> = ["-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb48le"].map(String::from).to_vec();
+    let deep = e.codec.deep(e.ten_bit);
+    let mut a: Vec<String> = ["-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", raw_format(deep)].map(String::from).to_vec();
     a.extend(["-s".into(), format!("{w}x{h}"), "-r".into(), format!("{:.6}", e.source.fps), "-i".into(), "pipe:0".into()]);
-    a.extend(["-ss".into(), format!("{:.6}", e.source.seconds(e.first))]);
-    a.extend(["-i".into(), e.source.path.to_string_lossy().to_string()]);
-    a.extend(["-map", "0:v:0", "-map", "1:a?", "-c:a", "copy", "-map_metadata", "1", "-shortest"].map(String::from));
-    a.extend(picture_args(e.codec, e.ten_bit));
+    // A GIF has no sound to keep.
+    if e.codec != Codec::Gif {
+        a.extend(["-ss".into(), format!("{:.6}", e.source.seconds(e.first))]);
+        a.extend(["-i".into(), e.source.path.to_string_lossy().to_string()]);
+        a.extend(["-map", "0:v:0", "-map", "1:a?", "-c:a", "copy", "-map_metadata", "1", "-shortest"].map(String::from));
+    }
+    a.extend(picture_args(e.codec, e.ten_bit, e.fast));
     a.push(e.out.to_string_lossy().to_string());
     a
 }
 
-/// The filter, colour tags and encoder settings for the picture.
-pub fn picture_args(codec: Codec, ten_bit: bool) -> Vec<String> {
+/// What frames go to the writer as: 16 bits a channel when the file keeps more than 8.
+pub fn raw_format(deep: bool) -> &'static str {
+    if deep { "rgb48le" } else { "rgb24" }
+}
+
+/// A graphics chip with a video encoder ffmpeg can drive.
+#[derive(Clone, Copy, PartialEq, Eq, Debug, Hash)]
+pub enum Chip {
+    Nvidia,
+    Intel,
+    Amd,
+    Apple,
+}
+
+impl Chip {
+    const ALL: [Chip; 4] = [Chip::Nvidia, Chip::Intel, Chip::Amd, Chip::Apple];
+
+    pub fn name(self) -> &'static str {
+        match self {
+            Chip::Nvidia => "NVIDIA NVENC",
+            Chip::Intel => "Intel Quick Sync",
+            Chip::Amd => "AMD AMF",
+            Chip::Apple => "Apple VideoToolbox",
+        }
+    }
+
+    /// Encoder settings at about the software encoders' quality, or None where the chip
+    /// can't write that codec at that depth (10-bit H.264 is rare in hardware).
+    fn args(self, codec: Codec, ten_bit: bool) -> Option<Vec<&'static str>> {
+        if matches!(codec, Codec::ProRes | Codec::Gif) || (ten_bit && codec == Codec::H264) {
+            return None;
+        }
+        let pix = if ten_bit { "p010le" } else { "nv12" };
+        let mut a = match (self, codec) {
+            (_, Codec::ProRes | Codec::Gif) => return None,
+            (Chip::Nvidia, Codec::H264) => vec!["-c:v", "h264_nvenc", "-preset", "p4", "-rc", "vbr", "-cq", "19", "-b:v", "0"],
+            (Chip::Nvidia, Codec::Hevc) => vec!["-c:v", "hevc_nvenc", "-preset", "p4", "-rc", "vbr", "-cq", "20", "-b:v", "0"],
+            (Chip::Intel, Codec::H264) => vec!["-c:v", "h264_qsv", "-preset", "veryfast", "-global_quality", "20"],
+            (Chip::Intel, Codec::Hevc) => vec!["-c:v", "hevc_qsv", "-preset", "veryfast", "-global_quality", "21"],
+            (Chip::Amd, Codec::H264) => vec!["-c:v", "h264_amf", "-quality", "speed", "-rc", "cqp", "-qp_i", "18", "-qp_p", "20"],
+            (Chip::Amd, Codec::Hevc) => vec!["-c:v", "hevc_amf", "-quality", "speed", "-rc", "cqp", "-qp_i", "19", "-qp_p", "21"],
+            (Chip::Apple, Codec::H264) => vec!["-c:v", "h264_videotoolbox", "-q:v", "65"],
+            (Chip::Apple, Codec::Hevc) => vec!["-c:v", "hevc_videotoolbox", "-q:v", "65"],
+        };
+        a.extend(["-pix_fmt", pix]);
+        Some(a)
+    }
+
+    /// Whether this chip really encodes here: a few frames of a small picture, to nowhere.
+    /// Listing the encoders isn't enough, since ffmpeg builds include them all.
+    fn works(self, codec: Codec, ten_bit: bool) -> bool {
+        let Some(args) = self.args(codec, ten_bit) else { return false };
+        let input = ["-v", "error", "-f", "lavfi", "-i", "color=c=gray:s=320x180:r=30", "-frames:v", "5"];
+        tool("ffmpeg").args(input).args(args).args(["-f", "null", "-"]).stdout(Stdio::null()).stderr(Stdio::null()).status().is_ok_and(|s| s.success())
+    }
+}
+
+/// Which chip, if any, encodes each codec at each depth here.
+static CHIPS: OnceLock<std::sync::Mutex<std::collections::HashMap<(Codec, bool), Option<Chip>>>> = OnceLock::new();
+
+/// The first chip that encodes `codec` at this depth, found once and remembered.
+pub fn chip_for(codec: Codec, ten_bit: bool) -> Option<Chip> {
+    let found = CHIPS.get_or_init(Default::default);
+    if let Some(c) = found.lock().ok().and_then(|m| m.get(&(codec, ten_bit)).copied()) {
+        return c;
+    }
+    // Apple's is only on Macs, and the rest never are.
+    let chip = Chip::ALL.into_iter().filter(|c| (*c == Chip::Apple) == cfg!(target_os = "macos")).find(|c| c.works(codec, ten_bit));
+    if let Ok(mut m) = found.lock() {
+        m.insert((codec, ten_bit), chip);
+    }
+    chip
+}
+
+/// The chip already found for this codec and depth, without waiting: None until it has
+/// been looked for, which this starts on another thread.
+pub fn chip_soon(codec: Codec, ten_bit: bool) -> Option<Option<Chip>> {
+    static ASKED: OnceLock<std::sync::Mutex<std::collections::HashSet<(Codec, bool)>>> = OnceLock::new();
+    let known = CHIPS.get().and_then(|m| m.lock().ok()?.get(&(codec, ten_bit)).copied());
+    if known.is_none() && ASKED.get_or_init(Default::default).lock().is_ok_and(|mut a| a.insert((codec, ten_bit))) {
+        std::thread::spawn(move || chip_for(codec, ten_bit));
+    }
+    known
+}
+
+/// Stops offering a chip that failed partway through a file.
+pub fn forget_chip(codec: Codec, ten_bit: bool) {
+    if let Some(Ok(mut m)) = CHIPS.get().map(|m| m.lock()) {
+        m.insert((codec, ten_bit), None);
+    }
+}
+
+/// The filter, colour tags and encoder settings for the picture. `fast` takes a graphics
+/// chip when one works, and quicker software settings when none does.
+pub fn picture_args(codec: Codec, ten_bit: bool, fast: bool) -> Vec<String> {
+    let chip = if fast { chip_for(codec, ten_bit) } else { None };
+    picture_args_with(codec, ten_bit, fast, chip)
+}
+
+fn picture_args_with(codec: Codec, ten_bit: bool, fast: bool, chip: Option<Chip>) -> Vec<String> {
+    if codec == Codec::Gif {
+        // One palette made for this video, then dithered to it, loops forever.
+        let graph = format!("fps={GIF_FPS},split[a][b];[a]palettegen=stats_mode=diff[p];[b][p]paletteuse=dither=sierra2_4a");
+        return ["-vf".to_string(), graph, "-loop".into(), "0".into()].to_vec();
+    }
     let mut a: Vec<String> = Vec::new();
     // Output options alone only reach the matrix; primaries and transfer must be set on the frames.
     let tags = "setparams=colorspace=bt709:color_primaries=bt709:color_trc=bt709";
-    a.extend(["-vf".into(), format!("{tags},scale=out_color_matrix=bt709:out_range=tv:flags=accurate_rnd+full_chroma_int")]);
+    // Full chroma resampling is several times slower for a difference too small to see.
+    let flags = if fast { "accurate_rnd" } else { "accurate_rnd+full_chroma_int" };
+    a.extend(["-vf".into(), format!("{tags},scale=out_color_matrix=bt709:out_range=tv:flags={flags}")]);
     a.extend(["-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"].map(String::from));
-    let tail: &[&str] = match codec {
-        Codec::H264 if ten_bit => &["-c:v", "libx264", "-crf", "17", "-preset", "medium", "-pix_fmt", "yuv420p10le"],
-        Codec::H264 => &["-c:v", "libx264", "-crf", "17", "-preset", "medium", "-pix_fmt", "yuv420p"],
-        Codec::Hevc if ten_bit => &["-c:v", "libx265", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p10le", "-tag:v", "hvc1", "-x265-params", "log-level=error"],
-        Codec::Hevc => &["-c:v", "libx265", "-crf", "18", "-preset", "medium", "-pix_fmt", "yuv420p", "-tag:v", "hvc1", "-x265-params", "log-level=error"],
-        Codec::ProRes => &["-c:v", "prores_ks", "-profile:v", "3", "-vendor", "apl0", "-pix_fmt", "yuv422p10le"],
+    let (h264, hevc) = if fast { ("veryfast", "veryfast") } else { ("medium", "medium") };
+    let tail: Vec<&str> = match (chip.and_then(|c| c.args(codec, ten_bit)), codec) {
+        (Some(hardware), _) => hardware,
+        (None, Codec::H264) => vec!["-c:v", "libx264", "-crf", "17", "-preset", h264, "-pix_fmt", if ten_bit { "yuv420p10le" } else { "yuv420p" }],
+        (None, Codec::Hevc) => vec!["-c:v", "libx265", "-crf", "18", "-preset", hevc, "-pix_fmt", if ten_bit { "yuv420p10le" } else { "yuv420p" }, "-x265-params", "log-level=error"],
+        (None, Codec::Gif) => Vec::new(),
+        (None, Codec::ProRes) => vec!["-c:v", "prores_ks", "-profile:v", "3", "-vendor", "apl0", "-pix_fmt", "yuv422p10le"],
     };
     a.extend(tail.iter().map(|s| s.to_string()));
+    if codec == Codec::Hevc {
+        a.extend(["-tag:v".into(), "hvc1".into()]);
+    }
     a
 }
 
-fn write_frame(to: &mut impl Write, p: &Picture, w: usize, h: usize, buf: &mut Vec<u8>) -> std::io::Result<()> {
-    buf.clear();
-    for y in 0..h {
-        for c in &p.px[y * p.w..y * p.w + w] {
-            for v in c {
-                buf.extend_from_slice(&((v.clamp(0.0, 1.0) * 65535.0 + 0.5) as u16).to_le_bytes());
+/// The picture as the writer reads it, `w` by `h` from its top left, in parallel.
+pub fn frame_bytes(p: &Picture, w: usize, h: usize, deep: bool, buf: &mut Vec<u8>) {
+    let size = if deep { 6 } else { 3 };
+    buf.resize(w * h * size, 0);
+    buf.par_chunks_mut(w * size).enumerate().for_each(|(y, row)| {
+        let px = &p.px[y * p.w..y * p.w + w];
+        if deep {
+            for (o, c) in row.chunks_exact_mut(6).zip(px) {
+                for i in 0..3 {
+                    o[i * 2..i * 2 + 2].copy_from_slice(&((c[i].clamp(0.0, 1.0) * 65535.0 + 0.5) as u16).to_le_bytes());
+                }
+            }
+        } else {
+            for (o, c) in row.chunks_exact_mut(3).zip(px) {
+                for i in 0..3 {
+                    o[i] = (c[i].clamp(0.0, 1.0) * 255.0 + 0.5) as u8;
+                }
             }
         }
+    });
+}
+
+/// Feeds the writer from its own thread, so the next frame is graded while this one is
+/// encoded. Frames go in through the sender; dropping it ends the file.
+pub struct Feeder {
+    pub frames: mpsc::SyncSender<Picture>,
+    thread: std::thread::JoinHandle<Result<(), String>>,
+}
+
+/// Frames waiting for the writer. A few smooth out uneven frames without much memory.
+const FEED_AHEAD: usize = 3;
+
+impl Feeder {
+    pub fn start(mut to: impl Write + Send + 'static, w: usize, h: usize, deep: bool) -> Self {
+        let (frames, rx) = mpsc::sync_channel::<Picture>(FEED_AHEAD);
+        let thread = std::thread::spawn(move || {
+            let mut buf = Vec::new();
+            for p in rx {
+                frame_bytes(&p, w, h, deep, &mut buf);
+                to.write_all(&buf).map_err(|e| format!("The video writer stopped: {e}"))?;
+            }
+            Ok(())
+        });
+        Self { frames, thread }
     }
-    to.write_all(buf)
+
+    /// Sends one frame; an error means the writer has stopped.
+    pub fn send(&self, p: Picture) -> bool {
+        self.frames.send(p).is_ok()
+    }
+
+    /// Closes the input and waits for the last frame to go in.
+    pub fn finish(self) -> Result<(), String> {
+        drop(self.frames);
+        self.thread.join().unwrap_or_else(|_| Err("The video writer stopped.".into()))
+    }
 }
 
 /// Grades every frame between `first` and `last` and writes the clip, keeping its sound.
@@ -515,9 +726,9 @@ pub fn export(e: &Export, g: &Grade, bank: &LutBank, done: &AtomicU32, cancel: &
     let (w, h) = e.source.size_within(e.side.min(MAX_SIDE));
     let total = e.last.saturating_sub(e.first) + 1;
     let mut reader = Reader::open(&e.source, e.first, w, h, Some(total))?;
-    let mut encoder: Option<Child> = None;
-    let mut size = (0, 0);
-    let mut buf = Vec::new();
+    let mut encoder: Option<(Child, Feeder)> = None;
+    let deep = e.codec.deep(e.ten_bit);
+    let staged = pipeline::bake_staged(g, bank);
     let mut result = Ok(());
     let mut n = 0;
     while n < total {
@@ -526,44 +737,52 @@ pub fn export(e: &Export, g: &Grade, bank: &LutBank, done: &AtomicU32, cancel: &
             break;
         }
         let Some(frame) = reader.next() else { break };
-        let mut out = pipeline::render_at(&frame, g, bank, true, true, e.first + n);
+        let mut out = pipeline::render_staged(&frame, g, &staged, bank, e.first + n);
         pipeline::apply_frame(&mut out, g.frame_ratio);
         if encoder.is_none() {
             // Crops can change the size, so the writer starts once the first frame is known.
-            size = (out.w & !1, out.h & !1);
+            let size = (out.w & !1, out.h & !1);
             let args = encoder_args(e, size.0, size.1);
-            let child = tool("ffmpeg")
+            let mut child = tool("ffmpeg")
                 .args(args)
                 .stdin(Stdio::piped())
                 .stdout(Stdio::null())
                 .stderr(Stdio::piped())
                 .spawn()
                 .map_err(|x| cannot_start(&x))?;
-            encoder = Some(child);
+            let Some(pipe) = child.stdin.take() else { break };
+            encoder = Some((child, Feeder::start(pipe, size.0, size.1, deep)));
         }
-        let Some(pipe) = encoder.as_mut().and_then(|c| c.stdin.as_mut()) else { break };
-        if let Err(x) = write_frame(pipe, &out, size.0, size.1, &mut buf) {
-            result = Err(format!("The video writer stopped: {x}"));
+        let Some((_, feeder)) = encoder.as_ref() else { break };
+        if !feeder.send(out) {
             break;
         }
         n += 1;
         done.store(n, Ordering::Relaxed);
     }
-    let Some(mut child) = encoder else { return result.and(Err("No frames could be read.".to_string())) };
-    drop(child.stdin.take());
+    let Some((mut child, feeder)) = encoder else { return result.and(Err("No frames could be read.".to_string())) };
+    let fed = feeder.finish();
+    if result.is_ok() {
+        result = fed;
+    }
     let mut err = String::new();
     if let Some(mut s) = child.stderr.take() {
         let _ = s.read_to_string(&mut err);
     }
     let status = child.wait().map_err(|x| x.to_string())?;
-    if result.is_err() {
-        let _ = std::fs::remove_file(&e.out);
-        return result;
+    finished(&e.out, result, status.success(), &err, cancel)
+}
+
+/// The result once the writer has exited. When it failed, its own last words say more than
+/// the broken pipe the feeder saw, unless the export was cancelled.
+pub fn finished(out: &Path, result: Result<(), String>, wrote: bool, err: &str, cancel: &AtomicBool) -> Result<(), String> {
+    if result.is_err() || !wrote {
+        let _ = std::fs::remove_file(out);
     }
-    if !status.success() {
+    if !wrote && !cancel.load(Ordering::Relaxed) {
         return Err(err.trim().lines().last().unwrap_or("The video writer failed.").to_string());
     }
-    Ok(())
+    result
 }
 
 /// An export running on its own thread. `done` counts frames; `finished` holds the result.
@@ -572,6 +791,18 @@ pub struct Job {
     pub cancel: Arc<AtomicBool>,
     pub total: u32,
     pub finished: Receiver<Result<(), String>>,
+    /// When it began, for the time left.
+    pub started: std::time::Instant,
+}
+
+/// A duration the way people say it: "about 4 min", "1 h 20 min", "under a minute".
+pub fn spoken(seconds: f64) -> String {
+    let s = seconds.max(0.0).round() as u64;
+    match s {
+        0..=44 => "under a minute".to_string(),
+        45..=3599 => format!("{} min", s.div_ceil(60)),
+        _ => format!("{} h {} min", s / 3600, (s % 3600) / 60),
+    }
 }
 
 #[cfg(test)]
@@ -583,7 +814,64 @@ mod tests {
     }
 
     fn job(codec: Codec, ten_bit: bool) -> Export {
-        Export { source: info(), out: "out.mp4".into(), codec, side: 3840, ten_bit, first: 0, last: 47 }
+        Export { source: info(), out: "out.mp4".into(), codec, side: 3840, ten_bit, fast: false, first: 0, last: 47 }
+    }
+
+    #[test]
+    fn fast_takes_a_working_chip_and_keeps_the_colour_tags() {
+        let a = picture_args_with(Codec::Hevc, true, true, Some(Chip::Intel));
+        assert!(a.iter().any(|s| s == "hevc_qsv") && a.iter().any(|s| s == "p010le"), "{a:?}");
+        assert!(a.windows(2).any(|w| w[0] == "-tag:v" && w[1] == "hvc1"));
+        assert!(a.iter().any(|s| s.starts_with("setparams") && s.contains("color_trc=bt709")));
+        assert!(a.windows(2).any(|w| w[0] == "-color_range" && w[1] == "tv"));
+    }
+
+    #[test]
+    fn without_a_chip_fast_is_quicker_software_and_chips_skip_what_they_cant_write() {
+        let a = picture_args_with(Codec::H264, false, true, None);
+        assert!(a.iter().any(|s| s == "libx264") && a.windows(2).any(|w| w[0] == "-preset" && w[1] == "veryfast"));
+        assert!(Chip::Intel.args(Codec::H264, true).is_none() && Chip::Nvidia.args(Codec::ProRes, false).is_none());
+        let p = picture_args_with(Codec::ProRes, true, true, Some(Chip::Apple));
+        assert!(p.iter().any(|s| s == "prores_ks"));
+    }
+
+    #[test]
+    fn a_strip_spreads_its_pictures_evenly() {
+        let frames: Vec<Vec<u8>> = (0..18u8).map(|n| vec![n]).collect();
+        let refs: Vec<&[u8]> = frames.iter().map(|f| f.as_slice()).collect();
+        let picked: Vec<u8> = spread_evenly(&refs, 12).iter().map(|f| f[0]).collect();
+        assert_eq!(picked.len(), 12);
+        assert!(picked.windows(2).all(|w| w[0] <= w[1]) && picked[0] < 3 && picked[11] > 14, "{picked:?}");
+        let few: Vec<u8> = spread_evenly(&refs[..2], 4).iter().map(|f| f[0]).collect();
+        assert_eq!(few, [0, 0, 1, 1]);
+    }
+
+    #[test]
+    fn durations_read_as_people_say_them() {
+        assert_eq!(spoken(20.0), "under a minute");
+        assert_eq!(spoken(61.0), "2 min");
+        assert_eq!(spoken(21032.0), "5 h 50 min");
+    }
+
+    #[test]
+    fn a_gif_is_silent_looping_and_paletted() {
+        let a = picture_args(Codec::Gif, true, true);
+        assert!(a[1].contains("palettegen") && a[1].contains("paletteuse") && a[1].starts_with("fps=15"), "{a:?}");
+        assert!(a.windows(2).any(|w| w[0] == "-loop" && w[1] == "0"));
+        assert!(!Codec::Gif.deep(true) && Codec::Gif.extension(true) == "gif");
+        let e = encoder_args(&job(Codec::Gif, true), 640, 360);
+        assert!(!e.iter().any(|s| s == "-c:a"), "{e:?}");
+    }
+
+    #[test]
+    fn frame_bytes_match_the_raw_formats() {
+        let p = Picture { w: 3, h: 2, px: vec![[1.0, 0.5, 0.0]; 6] };
+        let mut buf = Vec::new();
+        frame_bytes(&p, 2, 2, true, &mut buf);
+        assert_eq!(buf.len(), 2 * 2 * 6);
+        assert_eq!(&buf[..6], &[255, 255, 0, 128, 0, 0]);
+        frame_bytes(&p, 2, 2, false, &mut buf);
+        assert_eq!(buf, [255, 128, 0].repeat(4));
     }
 
     #[test]

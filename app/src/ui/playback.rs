@@ -17,8 +17,10 @@ use std::time::{Duration, Instant};
 const KEPT_FEEDS: usize = 2;
 /// Finished frames to have in hand before the clock starts.
 const PREROLL: u32 = 4;
-/// How long to wait for sound before playing without it.
-const SOUND_WAIT: Duration = Duration::from_millis(1500);
+/// How long to wait for sound before playing without it. A project with many sound items
+/// (each a separate ffmpeg input) takes several seconds for the mix to start, and missing
+/// this wait leaves the whole run silent, so it is generous.
+const SOUND_WAIT: Duration = Duration::from_millis(10_000);
 
 /// A run of the timeline in progress.
 pub(super) struct Run {
@@ -32,6 +34,10 @@ pub(super) struct Run {
     pub by_sound: bool,
     pub held: Option<player::Shown>,
     pub grade_at_start: crate::pipeline::Grade,
+    /// The sound it plays, so a change to it (a mute, a volume) is heard straight away.
+    pub sound_at_start: Vec<crate::timeline::Part>,
+    /// What asked for playback, for the console line.
+    pub why: &'static str,
 }
 
 impl App {
@@ -79,7 +85,7 @@ impl App {
             let at = self.project.items.iter().filter(|t| t.row == ROW_MUSIC).map(Item::end).max().unwrap_or(0);
             let len = self.project.frames(m.seconds).max(2);
             let new = self.project.new_id();
-            let body = Body::Audio { media: id, start: 0.0, volume: 1.0, name: m.name.clone(), speed: 1.0 };
+            let body = Body::Audio { media: id, start: 0.0, volume: 1.0, name: m.name.clone(), speed: 1.0, denoise: 0.0 };
             self.project.items.push(Item { id: new, row: ROW_MUSIC, at, len, body });
             return;
         }
@@ -200,7 +206,7 @@ impl App {
         let Some(i) = self.project.clips.iter().position(|c| c.id == id) else { return };
         let Some(c) = &self.clip else { return };
         let clip = &self.project.clips[i];
-        let offset = (source as f64 / c.info.fps.max(1.0) - clip.start) / clip.speed * self.project.fps;
+        let offset = clip.offset_of(source as f64 / c.info.fps.max(1.0), self.project.fps);
         let frame = self.project.starts()[i] + (offset.round().max(0.0) as u32).min(clip.len.saturating_sub(1));
         self.seek_head(frame);
     }
@@ -219,7 +225,7 @@ impl App {
         let Some(clip) = self.project.clips.iter().find(|c| c.id == id) else { return };
         let fps = self.project.fps;
         let at = source as f64 / c.info.fps.max(1.0);
-        let into = (at - clip.start) / clip.speed * fps;
+        let into = clip.offset_of(at, fps);
         if start {
             self.project.trim_clip_start(id, into.round() as i64);
         } else {
@@ -229,15 +235,16 @@ impl App {
         self.needs_activate = true;
     }
 
-    pub(super) fn play_or_pause(&mut self) {
+    /// `why` names what asked, for the console line when playback begins.
+    pub(super) fn play_or_pause(&mut self, why: &'static str) {
         if self.run.is_some() {
             self.stop_play();
         } else {
-            self.start_play();
+            self.start_play(why);
         }
     }
 
-    pub(super) fn start_play(&mut self) {
+    pub(super) fn start_play(&mut self, why: &'static str) {
         let total = self.project.total();
         if total == 0 {
             return;
@@ -248,9 +255,10 @@ impl App {
         let player = Player::start(scene.clone(), from, self.scope);
         let parts = scene.project.parts();
         let (start, left) = (scene.project.seconds(from), scene.project.seconds(total - from));
+        let sound_at_start = parts.clone();
         let feed = self.audio_out.as_ref().map(|o| audio::Feed::start(o, parts, start, left));
         let by_sound = feed.is_some();
-        self.run = Some(Box::new(Run { player, _feed: feed, from, total, began: None, asked: Instant::now(), by_sound, held: None, grade_at_start: self.grade.clone() }));
+        self.run = Some(Box::new(Run { player, _feed: feed, from, total, began: None, asked: Instant::now(), by_sound, held: None, grade_at_start: self.grade.clone(), sound_at_start, why }));
     }
 
     pub(super) fn stop_play(&mut self) {
@@ -268,11 +276,12 @@ impl App {
         if self.run.is_none() {
             return;
         }
-        // Changing a slider during play takes effect once the pointer lifts.
-        let changed = self.run.as_ref().is_some_and(|r| r.grade_at_start != self.grade);
+        // Changing a slider during play takes effect once the pointer lifts; so does a
+        // change to the sound, such as muting a clip or setting its volume.
+        let changed = self.run.as_ref().is_some_and(|r| r.grade_at_start != self.grade || r.sound_at_start != self.project.parts());
         if changed && !ctx.input(|i| i.pointer.any_down()) {
             self.stop_play();
-            self.start_play();
+            self.start_play("a change while playing");
             return;
         }
         let out = self.audio_out.as_ref();
@@ -287,6 +296,8 @@ impl App {
                     o.start_together();
                 }
                 r.began = Some(Instant::now());
+                // For --play-test and anyone running from a console: did the sound make it?
+                eprintln!("playback started after {} ms, {} (asked by {})", r.asked.elapsed().as_millis(), if r.by_sound { "with sound" } else { "WITHOUT sound" }, r.why);
             }
             ctx.request_repaint();
             return;
@@ -337,10 +348,17 @@ impl App {
 
     pub(super) fn open_project(&mut self) {
         let Some(path) = rfd::FileDialog::new().add_filter("Lookroom project", &["lookroom"]).pick_file() else { return };
-        let parsed = std::fs::read_to_string(&path).map_err(|e| e.to_string()).and_then(|t| serde_json::from_str::<crate::timeline::Project>(&t).map_err(|e| e.to_string()));
+        self.load_project(&path);
+    }
+
+    /// Opens a saved project: from the Open dialog, or a .lookroom file given on the
+    /// command line (which is how Windows opens a double-clicked project).
+    pub(super) fn load_project(&mut self, path: &Path) {
+        let parsed = std::fs::read_to_string(path).map_err(|e| e.to_string()).and_then(|t| serde_json::from_str::<crate::timeline::Project>(&t).map_err(|e| e.to_string()));
         let project = match parsed {
             Ok(p) => p,
             Err(e) => {
+                eprintln!("{}: {e}", path.display());
                 self.say(format!("That project could not be opened: {e}"));
                 return;
             }

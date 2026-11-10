@@ -8,7 +8,7 @@ cpal = "0.15"
 eframe = "0.37.0"
 image = { version = "0.25.10", default-features = false, features = ["png", "jpeg", "tiff", "webp"] }
 rayon = "1.12.0"
-resvg = { version = "0.45.1", default-features = false, features = ["text", "system-fonts", "memmap-fonts"] }
+resvg = { version = "0.45.1", default-features = false, features = ["text", "system-fonts", "memmap-fonts", "raster-images"] }
 rfd = "0.17.2"
 serde = { version = "1.0.229", features = ["derive"] }
 serde_json = "1.0.154"

@@ -164,11 +164,13 @@ pub struct VideoOptions {
     pub mov: bool,
     pub side: usize,
     pub ten_bit: bool,
+    /// Quicker encoding, on the graphics chip when there is one, for a somewhat larger file.
+    pub fast: bool,
 }
 
 impl Default for VideoOptions {
     fn default() -> Self {
-        Self { codec: video::Codec::Hevc, mov: false, side: video::MAX_SIDE, ten_bit: true }
+        Self { codec: video::Codec::Hevc, mov: false, side: video::MAX_SIDE, ten_bit: true, fast: true }
     }
 }
 
@@ -224,9 +226,9 @@ pub fn start_batch(files: Vec<PathBuf>, dir: PathBuf, g: Grade, bank: LutBank, p
 fn batch_clip(f: &Path, dir: &Path, g: &Grade, bank: &LutBank, o: &VideoOptions, stop: &AtomicBool) -> Result<(), String> {
     let source = video::probe(f)?;
     let last = source.frames.saturating_sub(1);
-    let extension = if o.mov || o.codec == video::Codec::ProRes { "mov" } else { "mp4" };
+    let extension = o.codec.extension(o.mov);
     let g = source.suited(g);
-    let job = video::Export { out: named(dir, f, extension), source, codec: o.codec, side: o.side, ten_bit: o.ten_bit, first: 0, last };
+    let job = video::Export { out: named(dir, f, extension), source, codec: o.codec, side: o.side, ten_bit: o.ten_bit, fast: o.fast, first: 0, last };
     video::export(&job, &g, bank, &AtomicU32::new(0), stop)
 }
 

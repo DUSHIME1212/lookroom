@@ -14,7 +14,7 @@ use std::sync::mpsc::{self, Receiver};
 
 /// What every caption from this tab carries, so they can be found again as a set.
 pub const GROUP: &str = "captions";
-const STYLES: [&str; 5] = ["Clean", "Bold", "Pop", "Rise", "Typewriter"];
+pub(super) const STYLES: [&str; 5] = ["Clean", "Bold", "Pop", "Rise", "Typewriter"];
 const DEFAULT_LINE: f32 = 42.0;
 /// Captions sit low and centred, where viewers look for them.
 const CAPTION_Y: f32 = 0.86;
@@ -53,7 +53,7 @@ impl Default for CaptionsState {
 
 /// A caption's look in one of the styles. Each style animates by words at most, never so
 /// much that reading falls behind.
-fn caption_motion(style: usize) -> Motion {
+pub(super) fn caption_motion(style: usize) -> Motion {
     let quick = |kind: Anim, unit: Unit, seconds: f32, delay: f32| Phase { unit, seconds, delay, ..Phase::preset(kind) };
     let (weight, outline, enter) = match style {
         1 => (800, 0.08, Phase::default()),
@@ -69,7 +69,7 @@ fn caption_size(style: usize) -> f32 {
     if style == 1 { 78.0 } else { 64.0 }
 }
 
-fn is_caption(t: &Item) -> bool {
+pub(super) fn is_caption(t: &Item) -> bool {
     matches!(&t.body, Body::Text { motion, .. } if motion.group == GROUP)
 }
 
@@ -83,7 +83,7 @@ fn bar(ui: &mut Ui, share: f32, label: &str) {
     p.text(pos2(r.left(), r.top() + 6.0), Align2::LEFT_CENTER, label, semi(12.0), TEXT_2);
 }
 
-fn clock(seconds: f64) -> String {
+pub(super) fn clock(seconds: f64) -> String {
     let s = seconds.max(0.0);
     format!("{}:{:04.1}", (s / 60.0) as u32, s % 60.0)
 }
@@ -149,6 +149,25 @@ impl App {
         self.edit.captions.work = Some(Work { task: Task::Listen, progress, stop, done });
     }
 
+    /// Auto Captions started for the assistant, with the first model already downloaded.
+    pub(super) fn listen_for(&mut self, whole: bool) -> Result<String, String> {
+        if !captions::engine_ready() {
+            return Err("this copy of ffmpeg can't make captions".into());
+        }
+        if self.edit.captions.work.is_some() {
+            return Err("Auto Captions is already working".into());
+        }
+        if !captions::have(&MODELS[self.edit.captions.model]) {
+            self.edit.captions.model = MODELS.iter().position(captions::have).ok_or("no speech model is downloaded yet; the person can download one on Text, Captions")?;
+        }
+        self.edit.captions.whole = whole;
+        self.start_listening();
+        match self.edit.captions.problem.clone() {
+            Some(p) => Err(p),
+            None => Ok("Listening for captions; they appear when it finishes".into()),
+        }
+    }
+
     fn start_download(&mut self) {
         let m = self.edit.captions.model;
         let (progress, stop) = (Arc::new(AtomicU32::new(0)), Arc::new(AtomicBool::new(false)));
@@ -173,6 +192,7 @@ impl App {
             self.project.items.retain(|t| !(is_caption(t) && t.at < to && t.end() > from));
         }
         let style = self.edit.captions.style;
+        let mut made = Vec::new();
         for (n, c) in cues.iter().enumerate() {
             let at = self.project.frames(c.start);
             let mut end = self.project.frames(c.end).max(at + 2);
@@ -182,8 +202,26 @@ impl App {
             let id = self.project.new_id();
             let body = Body::Text { text: c.text.clone(), size: caption_size(style), colour: [1.0; 3], x: 0.5, y: CAPTION_Y, motion: caption_motion(style) };
             self.project.items.push(Item { id, row: ROW_FX2, at, len: end - at, body });
+            made.push(id);
         }
+        // A project with a brand kit gets captions in the kit's look.
+        self.brand_new_captions(&made);
+        // Selected together, so the Text tab changes them all straight away.
+        self.select_captions();
         self.say(format!("Added {} captions", cues.len()));
+    }
+
+    /// Every caption selected together, in time order, the one at the playhead shown.
+    pub(super) fn select_captions(&mut self) {
+        let mut all: Vec<(u32, u32, u32)> = self.project.items.iter().filter(|t| is_caption(t)).map(|t| (t.at, t.end(), t.id)).collect();
+        all.sort_unstable();
+        let head = self.head;
+        let shown = all.iter().position(|(a, b, _)| head >= *a && head < *b).unwrap_or(0);
+        if !all.is_empty() {
+            // The one shown goes first, so the panel opens on it.
+            all.swap(0, shown);
+        }
+        self.select_these(all.into_iter().map(|c| c.2).collect());
     }
 
     fn restyle_captions(&mut self) {
@@ -286,6 +324,11 @@ impl App {
         ui.label(egui::RichText::new(format!("Transcript ({})", list.len())).font(bold(14.0)).color(Color32::WHITE));
         note(ui, "Fix a word here and the caption changes. A time moves the playhead there.");
         let w = ui.available_width();
+        let (r, _) = ui.allocate_exact_size(vec2(w, 36.0), Sense::hover());
+        if action(ui, r, "Edit All Captions", true, 13.0).on_hover_text("Select every caption and open Text: font, size, colour, place and animation change on all of them").clicked() {
+            self.select_captions();
+            self.edit.captions.tab = 0;
+        }
         let (r, _) = ui.allocate_exact_size(vec2(w, 32.0), Sense::hover());
         let half = Rect::from_min_size(r.min, vec2(w / 2.0 - 3.0, r.height()));
         if action(ui, half, "Restyle All", false, 12.5).on_hover_text("Give every caption the style chosen above").clicked() {

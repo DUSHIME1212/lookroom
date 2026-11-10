@@ -497,15 +497,33 @@ every credit and licence text.
 
 ## Effects, transitions and previews
 
-There are 23 effects and 23 transitions, all drawn on the processor in `src/overlay.rs`. A test
+There are 23 effects and 124 transitions, drawn on the processor in `src/overlay.rs` and
+`src/transitions.rs`. The transition catalogue includes Classic, Masks, Wipes, Motion,
+Distortion, Texture and Light categories, searchable by name or category. A test
 checks every transition on every pixel: exactly the outgoing picture at its start, and exactly
 the incoming one at its end. Writing that test turned up a one-pixel line of the old picture
 left at the end of Wipe Left and Wipe Up, now fixed.
+
+The procedural transitions are original presets inspired by common compositing techniques,
+not imported After Effects plugins. Shape masks include circles, ellipses, diamonds, boxes,
+stars, hearts, hexagons, slits and crosses. Luma/chroma masks follow the outgoing image's
+brightness/saturation; ink, cloud, brush, grain and paper mattes use deterministic textures.
+They are preset mattes, not subject tracking or hand-drawn rotoscoping. Directional moves,
+whip blur, zoom/spin, ripple, swirl, RGB split, glitches, light leaks and bloom share the same
+renderer in preview and export. Mask edges are antialiased, with feathered presets; shape
+geometry accounts for the frame's aspect ratio. Existing saved transition identifiers stay
+compatible. Tests cover all presets, serialization, distinct output, portrait/landscape,
+determinism, matte progression and playback/export agreement.
+
+Interface type is capped at the medium size, 14 logical points, in the shared font helpers
+and egui text styles. Video text and template/animation artwork retain their content sizing.
 
 Previews:
 - Each tile shows its effect or transition at 192 × 108, on the frame being edited (and, for
   transitions, the sample scene as the second picture). At rest a tile shows the middle; while
   the pointer is over it, it plays from start to end on a loop.
+- The transition grid scrolls within a bounded panel and renders visible tiles only. Search,
+  category chips, the active transition and duration controls remain outside that grid.
 - **Preview on the Picture**, or **P**, plays the picked effect's stretch, or the transition
   nearest the playhead with half a second either side, then stops there.
 
@@ -621,6 +639,563 @@ What changed:
 Not changed, because a restyle keeps the layout:
 - the panel arrangement and the timeline's item colours;
 - the multicoloured icons in the Adjustment tool row.
+
+## Auto Captions
+
+The plugin that comes with the app. It is on the Text page, under Captions, and has a row in
+Settings with the other plugins. `src/captions.rs` does the listening and
+`src/ui/captions.rs` the page.
+
+How it works:
+- The timeline's sound is mixed the way playback mixes it, by `mix_graph`, then turned down
+  to 16 kHz mono and sent through ffmpeg's `whisper` filter. That filter runs whisper.cpp
+  with OpenAI's Whisper models. It writes SubRip, and `parse_srt` reads it back, leaving out
+  lines Whisper marks as not speech, such as `[Music]`.
+- It hears the whole timeline or only the clip under the playhead. Each caption is a text
+  item on the second effects track. It lasts until the next caption starts, so there are no
+  blank moments between them. With Replace on, captions from an earlier pass in the same span
+  are removed first.
+- Captions are marked as one group (`Motion.group = "captions"`). That lets Restyle All
+  change their look in one step without losing a font or keyframes set by hand, and lets
+  Remove All take them away.
+- Five styles: Clean, Bold, Pop, Rise and Typewriter. Each is a size, a weight, an outline
+  and an entrance, set 86% of the way down the picture.
+- The transcript below the settings lists every caption. Its text can be edited there, and
+  clicking a time moves the playhead to it.
+
+Models are downloaded once, with the system's curl, from whisper.cpp's page on Hugging Face.
+They go to `Models` in the app's data folder (`%APPDATA%\Lookroom\Models` on Windows):
+- Tiny, 75 MB;
+- Base, 142 MB, the default;
+- Small, 466 MB.
+
+Both the models and whisper.cpp are MIT licensed. Nothing but the model download leaves the
+computer.
+
+The ffmpeg in use must include the whisper filter; ffmpeg 8 and later builds with it. If it
+is missing, the page says so and does not offer Generate.
+
+Measured here on Base: a 13.7-second spoken clip took 13.3 seconds and gave four correct
+lines. `lookroom --captions FILE` prints a file's captions as SubRip, using the first model
+already downloaded.
+
+## Timeline editing
+
+- **Snapping:** a moved or trimmed clip or item snaps to the playhead, the start, and the
+  edges of every other clip and item. It snaps within 9 screen points, so the reach in frames
+  follows the zoom. A violet line marks the edge it snapped to.
+  - N or the magnet button turns snapping off and on.
+  - Holding Alt turns it off for one drag.
+- **Readouts while dragging:** a bubble shows the new start and length, or the trim. Moving a
+  clip shows a marker where it will land.
+- **Zoom:** the corner above the track names has zoom out, a zoom bar that works in steps of
+  ratio, zoom in, and Fit. The - and = keys, and Ctrl with the scroll wheel, zoom as before.
+- **The ruler** picks its step from the zoom, down to single frames, with minor ticks between
+  labels.
+- **Clicking an empty lane** moves the playhead there and clears the selection. Dragging on
+  it scrubs.
+- **Empty tracks** show their names faintly, and an empty project says how to start.
+- **Following the playhead:** while playing, or while the arrow keys move the playhead, the
+  view scrolls to keep it on screen.
+
+Checked in the running app by dragging a caption toward the next one:
+- with snapping on, it ended exactly where the next one starts (frames 96 to 121);
+- with N pressed first, the same drag ended a frame short (95 to 120).
+
+## Editing several at once
+
+How to select:
+- Ctrl or Shift and a click on the timeline adds an item to the selection, or takes it away.
+  The same works in the Layers list. A plain click selects one again.
+- Ctrl A, or Select All at the right of the bar below the timeline, selects every item. The
+  panel keeps the item it showed; with none, it opens Text on the text at the playhead.
+- Auto Captions selects the captions it writes. Clicking a caption opens the Text tab; while
+  it is the only one selected, Edit All Captions there selects every caption. The same
+  button is on the Captions tab.
+- Text and Captions keep their own scroll positions, so Text always opens at its top.
+- Importing a design selects all of its layers.
+
+The panel shows one item of the selection, under a banner saying how many are being edited.
+Just This drops the rest. `ui/many.rs` holds the selection; the group only lasts while the
+item shown is part of it, so picking anything else ends it.
+
+After the panel draws each frame, `timeline::spread` copies what changed on the shown item
+to the others, one setting at a time:
+- copied as they are: font, weight, italic, spacing, outline, colour, opacity, In, Out,
+  Loop, an effect's kind and amount, and volume;
+- moved by the same amount: position and rotation;
+- multiplied by the same ratio: size and scale. So 64-point captions set to 96 come out
+  96, and a design's layers keep their layout as they grow;
+- never copied: what each one says, its keyframes and its name.
+
+Different kinds share what they have in common: a sticker in a group of captions takes the
+new animation but has no colour to take. Dragging one selected item moves them all by the
+same number of frames, and Delete removes them all.
+
+Checked in the running app on four generated captions, all selected:
+- the yellow swatch and the size slider changed all four (64 to 113 points), each keeping
+  its own words;
+- choosing Georgia gave all four Georgia, keeping their weight and Pop animation;
+- dragging one moved all four 22 frames, keeping the gaps;
+- Ctrl A then Delete removed them.
+
+## Brand kits
+
+Each company keeps a kit on the Brand page. `brand.rs` stores the kits; `ui/brand.rs` is the
+page.
+
+A kit holds:
+- a name;
+- a logo;
+- up to 8 colours, and a title colour;
+- fonts for titles and body text;
+- a caption look: font, size, colour, weight, outline and one of the Auto Captions styles;
+- a watermark: on or off, corner, size and opacity;
+- a brand voice, which the assistant writes in.
+
+**Storage.** Each kit is one JSON file in `%APPDATA%\Lookroom\Brands`, with the logo inside
+it. Share Kit saves that file as `.lookbrand`. Import Kit reads one and gives it a new id,
+so it never replaces a kit already there.
+
+**Logos.** A PNG, JPEG, WebP or SVG logo is wrapped in an SVG of its own size, as an
+embedded picture. So every logo, however many shapes it has, draws as one design layer.
+This needed resvg's `raster-images` feature, which also lets Figma designs with pictures
+in them draw.
+
+**Use on This Project.** It records the kit on the project (`Project.brand`), then:
+- puts the logo in its corner as a design layer the length of the timeline, sized by
+  height so wide and tall logos weigh the same;
+- gives every caption the kit's caption look;
+- gives every other text the kit's title font.
+
+Applying it again replaces the logo instead of adding a second. From then on, new text
+starts in the kit's font and title colour, new captions take its caption look, and the
+Text page shows the kit's colours under the usual ones. Stop Using clears the kit from the
+project and changes nothing already made.
+
+Checked in the app with a test kit, an orange round logo and Georgia: the logo appeared in
+the top right, and a new title came out in Georgia in the kit's orange.
+
+## Assistant
+
+The Assistant page is a chat with Claude (`claude-opus-5-5`) that changes the open
+project. `assistant.rs` sends the requests; `ui/assistant.rs` holds the page and the tools.
+
+**Key.** It uses the person's own Anthropic API key, typed on the page and kept in
+`settings.json`, or the `ANTHROPIC_API_KEY` variable. The key reaches curl on its standard
+input, never on a command line.
+
+**Requests.** Rust has no official Anthropic library, so requests go over HTTP through the
+system's curl, as the caption models' downloads do. Each request:
+- uses API version `2026-10-21` and effort `medium`;
+- turns on the server's fallback model for declined requests (`fallbacks: "default"`, beta
+  `server-side-fallback-2026-07-01`);
+- turns on automatic prompt caching.
+
+The system prompt and the tools never change during a chat, so the cached part stays valid.
+
+**Conversation.** The history is only ever added to, and each reply goes back exactly as it
+came, thinking blocks included. After a stopped run, the person's next words join the last
+turn, so turns still alternate. A message may take at most 24 rounds of tools. A declined
+request or an answer cut short is said plainly.
+
+**Tools:**
+- reading: `get_project` (clips, items, selection, playhead and brand kit, as JSON) and
+  `find_fonts`;
+- text and items: `add_text`, `edit_items`, `delete_items`, `select_items`;
+- picture: `add_effect`, `set_look`, `adjust_colour`, `add_transition`, `set_aspect_ratio`;
+- the rest: `apply_brand`, `generate_captions`, `seek`.
+
+Names of looks, effects, transitions and animations come from the app's own lists, so the
+model can't invent one. A wrong font or colour comes back to it as an error, never a guess.
+Its changes are ordinary project edits, so the undo history records them and Ctrl+Z undoes
+each one.
+
+**Checked.** With a deliberately invalid key, a request went out and Anthropic's
+authentication error came back as "The API key wasn't accepted". That shows the key, curl
+and reply handling work. A full conversation with a real key has not been run here, and
+unit tests cover the tools' changes and the request's shape.
+
+## KLIPY video memes
+
+Sticker → Clips opens on KLIPY. My Clips, beside it, is the person's own library as before.
+`klipy.rs` talks to KLIPY's API; `ui/klipy.rs` is the panel.
+
+**The panel:**
+- trending clips first, then whatever is typed in "Search KLIPY" (Enter or Search);
+- 24 a page, with Load More;
+- each tile shows the first frame of the clip's 320-pixel preview, and its title;
+- "Powered by KLIPY" sits under the search, as is usual for this kind of API.
+
+KLIPY's attribution page only renders in a browser, so check its exact rules at
+docs.klipy.com/attribution before release.
+
+**Adding a clip.** A click fetches the clip's MP4 in the background and lays it over the
+picture at the playhead, like a clip from My Clips. Its first frame is checked for a green
+screen, which is then keyed out; other clips go in a corner, picture in picture. The size,
+key and volume settings show under the results.
+
+**Requests and files:**
+- `GET https://api.klipy.com/api/v1/{key}/clips/trending` and `/clips/search?q=`, with
+  `page`, `per_page` and a `customer_id`;
+- the customer id is anonymous, made once per computer and kept in settings;
+- anything that isn't a clip (ads) is left out;
+- files are only ever fetched from `static.klipy.com`;
+- previews and clips are kept in `%APPDATA%\Lookroom\KLIPY`, so a clip used once works
+  offline.
+
+**The key.** It is kept in `settings.json` (`klipy_key`) or the `KLIPY_API_KEY` variable,
+never in the code, since the repository is public. On this computer it is in both: the
+user environment variable holds it, so it survives settings being reset. It sits in the request's address, so
+the address reaches curl on standard input, not the command line. Settings shows whether a
+key is saved and can remove it.
+
+**Checked in the app.** Trending loaded with previews. A search for "surprised" found
+matching clips, and clicking one fetched it (173 KB, 3.3 seconds) and put it over the
+video at the playhead.
+
+## Cuts
+
+Transitions has a second tab, Cuts (`ui/cuts.rs`).
+
+**On the cut nearest the playhead:**
+- Hard Cut: no transition, and the sound cuts with the picture.
+- Smash Cut: a 4-frame White Flash and 9 frames of Camera Shake on the cut.
+- J Cut: the next clip's sound starts up to 2 seconds early (`Clip.lead`).
+- L Cut: this clip's sound runs on up to 2 seconds (`Clip.tail`).
+
+J and L cuts are real split edits. `Project::sound_windows` starts or ends each clip's
+sound early or late, moves the neighbouring clip's sound out of the way, and never reaches
+past either source's ends. So a clip that already uses its whole source has nothing to
+lead or trail with. Splitting a clip keeps the J cut on the first piece and the L cut on
+the second.
+
+**At the playhead:**
+- Jump Cut: splits the shot and drops the next 0.1 to 3 seconds of it. With Punch In on, the
+  new piece is enlarged to 1.15 times; a run of jump cuts goes in and out by turns rather
+  than ever closer.
+- Punch In: enlarges the clip under the playhead from its centre (`Clip.zoom`).
+- Cutaway (B-roll): lays another video over the main shot, full frame (enlarged to cover the
+  width when its shape differs) and silent, so the main shot's sound carries on.
+
+Cutting on action, match cuts and cross-cutting depend on what is in the shots, so they are
+left to the person, or to the assistant with the tools below.
+
+**Checked in the app:**
+- Smash Cut put the flash and shake on the cut.
+- Jump Cut at 0:03 dropped half a second; the next frame's burned-in timecode reads 3.533.
+  The punch-in shows in the paused picture too.
+- A 2-second cutaway at 0:02 showed the other video full frame, silent.
+
+## Speed ramps
+
+The Speed panel has ramps:
+- **Presets:** Montage, Hero, Bullet, Speed Up, Slow Down and Flash In.
+- **The curve:** speed on a scale where each doubling is the same height, from 0.1 to 8
+  times. Drag a point to change it, double-click to add one, right-click to remove one.
+
+How it works:
+- A ramp is points of (how far through the clip, speed), with straight lines between them.
+- `Clip::source_at` adds up the speed exactly (`ramp_area`) to find the source time for
+  each frame; `offset_of` turns that back the other way.
+- Choosing a ramp keeps the same footage, so the clip's length becomes the footage divided
+  by the ramp's average speed. Dragging keeps the length, within the footage there is.
+- The source is read at its own speed and the composer picks the frame the curve calls
+  for, repeating frames in slow parts and skipping ahead in fast ones.
+- A ramped clip plays without its own sound, which would warble; music under a ramp is
+  the usual way.
+- Splitting a ramped clip gives each piece a steady speed, its part's average.
+
+Checked: Montage made a 240-frame clip 92 frames, its 2.6 times average. One second in, the
+picture showed the source at 3.0 seconds, as 3 times says. Dragging the middle point from
+0.35 to 1.45 times reshaped the curve.
+
+## Text styles and templates
+
+**Style section.** The Text page has a Style section (`ui/templates.rs`):
+- **Gradient:** the letters blend down each line into a second colour.
+- **Highlighted words:** words between `*stars*` take the highlight colour and are drawn at
+  least extra bold (800). The stars never show.
+- **Behind the text:** Box, Pill, Marker (a rough brush stroke with bristle streaks),
+  Underline (hand-drawn) or Frame (an outlined box), in a colour of its own.
+
+**How it's drawn.** The gradient and highlights go into each piece's SVG, so letter-by-letter
+animation still works. The shape is drawn once at the text's size, kept until the text
+changes, and moves with the text's animation. Its wobble comes from the item's id, so it
+never shimmers. All of this lives on `Motion`, so selected items share it when edited
+together.
+
+**Templates.** The Text page also has a Templates tab, with title layouts made of ordinary
+text items:
+- Marker Title;
+- Callout;
+- Two-Tone Headline;
+- Big Word;
+- Pill Tags;
+- Lower Third;
+- Stacked Statement;
+- Underlined Note.
+
+Each lands at the playhead with its parts timed after one another and selected together,
+in the brand kit's title font when there is one. All eight were placed in the app and
+drawn as designed.
+
+**Backgrounds.** The same tab adds colour fields as clips at the playhead, in six palettes:
+- a still diagonal blend, saved as PNG;
+- or a 10-second moving glow from ffmpeg's `gradients` source, softened with `gblur`.
+
+They are kept in `%APPDATA%\Lookroom\Backgrounds`.
+
+**Bug found while testing.** egui's colour buttons write their colour back every frame
+after a round trip through another colour space. With items selected together, that
+counted as an edit and copied one item's colours onto the rest. `kit::colour_button` now
+writes back only when a colour is picked; the Brand page uses it too.
+
+## Flicker effects
+
+Three effects join Effects:
+- **Light Flicker:** uneven brightness, with now and then a deep dip.
+- **Shutter Flicker:** black frames at uneven gaps.
+- **White Flash:** white at once, fading out; the smash cut uses it.
+
+Each takes its pattern from the frame number, so it plays the same every time.
+
+## Assistant models and editing tools
+
+The Assistant page has a model choice, kept in settings:
+- Opus 5.5, the default;
+- Sonnet 5.5;
+- Haiku 5.5;
+- Fable 5.1.
+
+Haiku has no fallback model for declined requests, so its requests go without
+`fallbacks` and without that beta header.
+
+**What it reads.** `get_project` now lists the media bin and, for each clip, its source
+start, ramp, punch-in and J and L cuts.
+
+**New tools:**
+- building the A-roll: `add_clip` (a stretch of a bin file, placed at the end, the start,
+  the playhead or after a clip), `split` and `remove_range` (cut a stretch and close the
+  gap);
+- cuts: `set_cut` (hard, J, L, smash) and `jump_cut`;
+- B-roll: `add_cutaway`;
+- speed and framing: `set_speed` (a steady speed or a named ramp) and `set_punch_in`;
+- titles: `add_template` (with the words to use).
+
+`add_text` and `edit_items` take gradient, highlight and the shape behind the text. The
+system prompt explains A-roll and B-roll, and asks the assistant to say when a shot choice
+is a guess, since it can't see the footage.
+
+## Crashes on big projects
+
+**The main cause: too many decoders at once.** Opening a project started a film strip
+for every source file at once, each its own ffmpeg process decoding the whole file.
+The NBDF projects have 159 source files, mostly 4K camera MOVs, so about 159 ffmpegs ran
+together at 100 MB or more each and used up all 16 GB. Lookroom itself held only 427 MB
+when it failed to get 11 MB more ("memory allocation of 11059200 bytes failed"), and the
+watching script ran out of memory at the same moment. That is why it crashed when looking
+at a saved project.
+
+Film strips now go through a queue served by two workers (`STRIP_WORKERS`), each ffmpeg
+limited to two threads. They arrive one after another instead of all at once.
+
+**Also: caches that grew without limit.** The NBDF video project (4K, 242 clips, 678 items)
+also printed "memory allocation of 2764800 bytes failed", and Windows had flagged the app
+for runaway memory. Three things inside Lookroom grew without limit:
+- **Drawn text, sticker, shape and design pictures,** kept for every item ever shown. At 4K
+  a caption takes about 10 MB as stored (four floats a pixel), so 523 texts reach 5 GB in an
+  export, and the preview kept its own set for the whole session.
+- **Export's staged colour tables,** 6.6 MB a clip, kept for every clip passed: 1.6 GB over
+  242 clips. Playback's tables too.
+- **Each clip's queue of decoded frames:** four frames of about 100 MB each at 4K.
+
+**The fix:**
+- Drawn items are now let go once they are more than 2 seconds from the frame being made
+  (`Laid::forget_far`); coming back draws them again, which takes milliseconds.
+- Colour tables are kept only for the clips on screen and the next one.
+- Decode queues are sized to 160 MB, which is one frame at 4K and four at 1080p.
+
+**Checked.** Exporting the 4K project now holds at 500 to 600 MB, flat; it used to climb
+until it failed. The Reel project sits at about 385 MB open. A test checks the text cache
+stays small over a long timeline.
+
+**Safety nets** (`ui/safety.rs`):
+- Any panic writes a report, with a backtrace, to `%APPDATA%\Lookroom\Crashes`.
+- While the project changes, it is saved in the background every minute to
+  `%APPDATA%\Lookroom\Autosave`, written aside and then renamed, so a crash mid-write leaves
+  the last good save.
+- Each running window leaves a marker named for its process. At start, a marker whose
+  process is gone means that window crashed, and Lookroom offers to restore its autosave.
+  A second open window is never mistaken for a crash.
+- Running out of memory ends a program without a report, so the autosave is the cover for
+  that.
+- Scripted test runs skip all of this.
+
+## Picking clips and copying adjustments
+
+**Picking:**
+- Ctrl and a click on a clip adds it to the picked clips or takes it away.
+- Shift and a click picks the run from the last picked clip.
+- A plain click picks one, and moves the playhead.
+- Picked clips have a yellow edge; the main one keeps its trim handles.
+- Delete removes them all.
+
+**The right-click menu of a clip** (`ui/clipsel.rs`):
+- **Adjustments:**
+  - Copy Adjustments takes the clip's whole grade.
+  - Paste Adjustments puts it on every picked clip, and Paste to Every Clip on all of them.
+    Each keeps its own crop and frame shape, which belong to its picture.
+  - Reset Adjustments clears the grade, keeping the framing.
+- **Picking:** Select Every Clip, and Select Clips From This File.
+- **Sound:** Mute or Unmute, and Clean Up Sound, on every picked clip.
+- **Delete.**
+
+**Sound of several clips.** The Audio page opens with Clip Sound, or "Sound of N Clips"
+when several are picked. Volume, Mute and Clean Up Noise there change every picked clip at
+once.
+
+## Muting and volume of clips
+
+What was wrong:
+- **Playback.** Playback built its sound mix when it started, so muting a clip or changing
+  its volume while playing wasn't heard until the next play.
+- **Two mutes that disagreed.** The toolbar's mute acted on the clicked clip, and silently
+  did nothing without one; the M key acted on the clip being edited. The button's icon
+  never showed the state.
+- **The Original Sound bar** under each clip could only be looked at, and always showed
+  the sound-on icon.
+
+What it does now:
+- **Playback** keeps the sound it started with (`Run::sound_at_start`) and restarts from
+  the same moment when the project's sound changes, as a picture change already did.
+- **One mute** (`toggle_clip_mute`) serves the toolbar button and M: it mutes the picked
+  clips, or the clip being edited when none is picked, and unmutes them if they're all
+  muted. The button shows a crossed-out speaker when they are.
+- **The Original Sound bar:**
+  - its speaker mutes and unmutes;
+  - a click picks the clip, with Ctrl and Shift as on the clip;
+  - dragging up or down sets the volume of every picked clip, up to 200%, with the value
+    in a bubble and a line while pointed at;
+  - a double-click puts it back to 100%;
+  - a right-click opens the clip's menu;
+  - its label says "muted", or the volume when it isn't 100%.
+
+Checked in the app on two clips:
+- clicking the second clip's speaker muted only that clip;
+- dragging the first clip's bar raised only its volume, to 163%;
+- Ctrl-click on both, then M, muted both;
+- muting a clip during playback restarted the sound at once.
+
+**Film strips.** Each strip now decodes only the key frames, in one pass, and picks its
+pictures evenly from them. For a 16-second 4K camera clip that takes 5.3 seconds instead
+of 37.7, so a big project's strips arrive in minutes, not tens of minutes.
+
+## Clean up noise
+
+Each clip, and each sound item, has a noise clean-up strength (`denoise`, 0 to 1). It
+survives Detach Audio. In the mix, a part with clean-up gets a high-pass at 60 to 90 Hz,
+for rumble, then ffmpeg's FFT noise reducer (`afftdn`). The reducer learns the steady noise
+as it goes and takes it down by 6 to 30 dB, as the strength rises. It suits wind, fans, hum
+and room hiss; very strong settings can make voices sound thin. Playback and export share
+the mix, so both hear it.
+
+## How long an export takes
+
+**Before.** The Export sheet shows "Takes about … on this computer". `player::estimate`
+makes a few real frames at four points across the timeline, at the export's size, not
+counting the first at each, which starts the decoders. From the median it works out the
+whole: times the number of frames, plus a share for writing the file (more on the
+processor than on a graphics chip) and a moment for each clip's decoder to start. It
+runs in the background and is worked out again when the choices change.
+
+**During.** The progress shows the share done and the time left at the pace so far.
+
+**Checked.** For the 4K NBDF video project the estimate said about 5 h 50 min; its real
+pace over the first 350 frames gives 5 h 41 min. `lookroom --estimate PROJECT [SIZE]`
+prints the estimate.
+
+## Video layers
+
+**On the picture** (`ui/onpicture.rs`). The picked layer (a video over the picture, a
+text, a sticker or a design layer) shows an outline and a corner handle on the picture:
+- drag inside it to move it;
+- drag the handle to resize it.
+
+The outline's size comes from the layer itself: a video's height and shape, a sticker's
+size, a design layer's bounds, or roughly a text's letters. A keyframed layer gets a
+keyframe at the playhead, as with the sliders. Text and stickers without keyframes grow by
+their own size, so letters stay sharp.
+
+**On the timeline.** A video layer is labelled with its file's name instead of "Video".
+Right-clicking any layer offers:
+- Bring to Front, Bring Forward, Send Backward and Send to Back (later in the list draws
+  on top);
+- for a video, Full Frame (fills the picture, cropping if its shape differs), Picture in
+  Picture (a small window low on the right), and Mute or Unmute its sound;
+- Duplicate and Delete.
+
+## Picture shape
+
+**Choosing a shape.** The header has a shape menu: 16:9, 9:16, 1:1, 4:5, 4:3, 3:2 and 21:9.
+A new shape keeps the picture's long side, so a 4K project stays 4K.
+
+**Fit and Fill.** Beside the menu, Fit and Fill decide how a clip of another shape sits:
+- Fit shows all of it, with bars;
+- Fill enlarges it to fill the frame and crops the edges (`overlay::cover`), for Reels,
+  TikTok and Shorts.
+
+Playback and export use the same composer, so they agree.
+
+**The paused picture.** It used to show the open clip in its own shape. It is now framed to
+the project's shape first (`player::frame_to`), so titles sit where they will in the video.
+Mask editing and Before and After keep the clip's own shape so their overlays line up.
+
+## GIF export
+
+GIF is the fourth format in Export:
+- silent and looping, at 15 frames a second;
+- 1080, 720 or 480 on the long side;
+- one palette made for the whole video, dithered with sierra2_4a.
+
+Export builds only the frames the GIF keeps. On the test clip (11.5 seconds), the GIF came
+out at 720 × 404 with 173 frames, in 9.4 seconds. A single clip exported as a GIF drops its
+sound too. `lookroom --edit-test OUT.gif CLIPS` makes one from the command line.
+
+## Export speed
+
+Measured on this laptop (i7-1255U with Intel Iris Xe), exporting a 19-second, two-clip
+720p project with a dissolve, an effect and a title (`lookroom --edit-test OUT CLIPS`):
+- before: 39.7 seconds;
+- after: 12.6 seconds, 45 frames a second.
+
+The picture matches the old export at 44.9 dB PSNR, and the file is 28% smaller. The
+changes, largest first:
+- **Graphics chip encoding.** Fast Export, on by default, encodes on NVIDIA NVENC, Intel
+  Quick Sync, AMD AMF or Apple VideoToolbox. `video::chip_for` tries each on a few small
+  frames the first time it's needed and remembers the answer; ffmpeg builds list them all
+  whether or not the chip is there. Without a chip it uses quicker software settings
+  (`veryfast`). If a chip fails partway through a file, the export starts again in software.
+  Graphics chips don't write 10-bit H.264, so that choice stays in software. Turning Fast
+  Export off brings back the slower settings for the smallest file.
+- **Staged colour tables.** A look's per-pixel colour steps cost about 100 ms a 720p frame
+  worked out exactly. Export now bakes the steps before clarity and the steps after it into
+  separate 65-point tables, so their order with sharpening, bloom and the rest is unchanged.
+  - At bake time each cell's centre is checked against the exact answer. Where a step bends
+    too sharply, such as the shadow lift on dark, saturated colours, that cell and its
+    neighbours are worked out exactly. So are pixels beyond 0 to 1.
+  - Across every built-in look, no pixel differs by as much as one 8-bit step; the average
+    is under half a 10-bit step. A test holds it to that.
+  - 20 ms a frame instead of 100. Playback's single, coarser table is unchanged.
+- **Untouched clips skip grading** (about 11 ms a frame).
+- **Grading and writing overlap.** A feeder thread turns finished frames into bytes and
+  writes them while the next frame is graded. An 8-bit file is sent as 8-bit, half the bytes.
+- **The next clip starts decoding** before the cut, as in playback.
+- **Quicker colour conversion.** Fast Export drops `full_chroma_int` from the conversion to
+  YUV, several times quicker at 1080p for a difference too small to see.
+
+`lookroom --bench CLIP` prints the timing of each step, and `--edit-test` prints the export
+speed beside the speed of making the frames alone.
 
 ## What this app does not copy
 

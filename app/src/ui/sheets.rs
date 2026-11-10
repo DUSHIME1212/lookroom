@@ -18,6 +18,19 @@ const SHEET_W: f32 = 380.0;
 const KEYS_SHEET_W: f32 = 760.0;
 const KEYS_SHEET_H: f32 = 620.0;
 const RESOLUTIONS: [(&str, usize); 4] = [("4K", 3840), ("1440p", 2560), ("1080p", 1920), ("720p", 1280)];
+/// GIF sizes by long side: bigger ones make files too large to share easily.
+const GIF_SIZES: [(&str, usize); 3] = [("1080", 1080), ("720", 720), ("480", 480)];
+
+/// What an export estimate depends on: length, clips, items, size and the choices.
+type GuessKey = (u32, usize, usize, (usize, usize), usize, Codec, bool, bool);
+
+/// The worked-out export time for some choices.
+#[derive(Default)]
+pub struct Guess {
+    key: Option<GuessKey>,
+    rx: Option<std::sync::mpsc::Receiver<Option<f64>>>,
+    seconds: Option<f64>,
+}
 
 #[derive(Clone, PartialEq, Debug)]
 pub enum Sheet {
@@ -140,7 +153,10 @@ impl App {
             (Some(Task::Photo(_)), _) => ("Exporting".to_string(), None),
             (Some(Task::Clip(j)), _) => {
                 let d = j.done.load(Ordering::Relaxed);
-                (format!("Exporting frame {d} of {}", j.total), Some(d as f32 / j.total.max(1) as f32))
+                let spent = j.started.elapsed().as_secs_f64();
+                // Time left at the pace so far, once a few seconds give a fair pace.
+                let left = if d > 0 && spent > 3.0 { format!(", {} left", video::spoken(spent / d as f64 * j.total.saturating_sub(d) as f64)) } else { String::new() };
+                (format!("{:.0}% done{left}", d as f32 * 100.0 / j.total.max(1) as f32), Some(d as f32 / j.total.max(1) as f32))
             }
             (Some(Task::Batch(b)), _) => {
                 let d = b.done.load(Ordering::Relaxed);
@@ -290,7 +306,22 @@ impl App {
         let mut at = Codec::ALL.iter().position(|c| *c == self.clip_opts.codec).unwrap_or(0);
         segmented(ui, &names, &mut at);
         let o = &mut self.clip_opts;
+        let was_gif = o.codec == Codec::Gif;
         o.codec = Codec::ALL[at];
+        if o.codec == Codec::Gif {
+            if !was_gif {
+                o.side = 720;
+            }
+            let mut size = GIF_SIZES.iter().position(|r| r.1 == o.side).unwrap_or(1);
+            let labels: Vec<&str> = GIF_SIZES.iter().map(|r| r.0).collect();
+            segmented(ui, &labels, &mut size);
+            o.side = GIF_SIZES[size].1;
+            note(ui, &format!("Silent and looping, {} frames a second, with a palette made for this video. 720 or smaller suits chats and pages.", video::GIF_FPS));
+            return;
+        }
+        if was_gif {
+            o.side = 1920;
+        }
         let mut size = RESOLUTIONS.iter().position(|r| r.1 == o.side).unwrap_or(0);
         let labels: Vec<&str> = RESOLUTIONS.iter().map(|r| r.0).collect();
         segmented(ui, &labels, &mut size);
@@ -303,6 +334,59 @@ impl App {
             segmented(ui, &["MP4", "MOV"], &mut c);
             o.mov = c == 1;
             toggle(ui, "10-bit", &mut o.ten_bit);
+            toggle(ui, "Fast Export", &mut o.fast);
+            let how = if !o.fast {
+                "Slower, for the smallest file at this quality.".to_string()
+            } else if o.ten_bit && o.codec == Codec::H264 {
+                "Quicker settings on the processor; graphics chips don't write 10-bit H.264.".to_string()
+            } else {
+                match video::chip_soon(o.codec, o.ten_bit) {
+                    Some(Some(chip)) => format!("Encodes on {}, for a slightly larger file.", chip.name()),
+                    Some(None) => "No graphics chip encoder here, so quicker settings on the processor.".to_string(),
+                    None => {
+                        // Being looked for; show the answer when it comes.
+                        ui.ctx().request_repaint_after(std::time::Duration::from_millis(250));
+                        "Uses the graphics chip's encoder when there is one, for a slightly larger file.".to_string()
+                    }
+                }
+            };
+            note(ui, &how);
+        }
+    }
+
+    /// How long exporting with these choices will take, timed on a few real frames in the
+    /// background and shown when ready. Worked out again when the choices change.
+    fn export_estimate(&mut self, ui: &mut Ui) {
+        let o = self.clip_opts;
+        let p = &self.project;
+        let key: GuessKey = (p.total(), p.clips.len(), p.items.len(), p.size, o.side, o.codec, o.fast, o.ten_bit);
+        if self.export_guess.key != Some(key) {
+            self.export_guess = Guess { key: Some(key), ..Guess::default() };
+            let scene = self.scene();
+            let (tx, rx) = std::sync::mpsc::channel();
+            std::thread::spawn(move || {
+                let _ = tx.send(player::estimate(scene, &o));
+            });
+            self.export_guess.rx = Some(rx);
+        }
+        if let Some(rx) = &self.export_guess.rx
+            && let Ok(got) = rx.try_recv()
+        {
+            self.export_guess.seconds = got;
+            self.export_guess.rx = None;
+        }
+        match (self.export_guess.seconds, self.export_guess.rx.is_some()) {
+            (Some(s), _) => {
+                ui.label(egui::RichText::new(format!("Takes about {} on this computer.", video::spoken(s))).font(semi(12.5)).color(Color32::WHITE));
+            }
+            (None, true) => {
+                ui.horizontal(|ui| {
+                    ui.spinner();
+                    ui.label(egui::RichText::new("Working out how long it will take…").font(regular(12.0)).color(MUTED));
+                });
+                ui.ctx().request_repaint_after(std::time::Duration::from_millis(200));
+            }
+            (None, false) => {}
         }
     }
 
@@ -313,14 +397,16 @@ impl App {
             self.video_choices(ui);
             let p = &self.project;
             let text = format!(
-                "{} clips, {:.1} seconds at {:.2} frames a second, {} × {}. Sound is mixed in.",
+                "{} clips, {:.1} seconds at {:.2} frames a second, {} × {}.{}",
                 p.clips.len(),
                 p.seconds(p.total()),
                 p.fps,
                 p.size.0,
                 p.size.1,
+                if self.clip_opts.codec == Codec::Gif { "" } else { " Sound is mixed in." },
             );
             note(ui, &text);
+            self.export_estimate(ui);
         } else {
             self.photo_choices(ui);
             let text = format!("{} × {}", self.full.w, self.full.h);
@@ -359,7 +445,7 @@ impl App {
 
     fn start_clip_export(&mut self) {
         let o = self.clip_opts;
-        let extension = if o.mov || o.codec == Codec::ProRes { "mov" } else { "mp4" };
+        let extension = o.codec.extension(o.mov);
         let Some(out) = rfd::FileDialog::new()
             .add_filter(extension.to_uppercase(), &[extension])
             .set_file_name(format!("{}.{extension}", self.project.name))

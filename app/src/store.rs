@@ -21,6 +21,18 @@ pub struct Settings {
     pub favorites: Vec<String>,
     #[serde(default)]
     pub layout: Layout,
+    /// The assistant's Anthropic API key, kept on this computer only.
+    #[serde(default)]
+    pub assistant_key: String,
+    /// Which Claude model the assistant uses; empty is the default.
+    #[serde(default)]
+    pub assistant_model: String,
+    /// The KLIPY key for video memes, kept on this computer only.
+    #[serde(default)]
+    pub klipy_key: String,
+    /// An anonymous id for this computer, which KLIPY keeps recent clips under.
+    #[serde(default)]
+    pub klipy_customer: String,
 }
 
 /// Panel sizes the person dragged to. None keeps the size that suits the window.

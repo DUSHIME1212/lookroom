@@ -174,7 +174,8 @@ fn arguments(job: &Job, out: &str) -> Vec<String> {
     let graph = format!("{mix};[mix]aformat=sample_fmts=flt:channel_layouts=mono:sample_rates={RATE},{whisper}[heard]");
     let mut a: Vec<String> = ["-v", "error", "-nostdin", "-progress", "pipe:1", "-nostats"].map(String::from).to_vec();
     a.extend(inputs);
-    a.extend(["-filter_complex".into(), graph, "-map".into(), "[heard]".into(), "-f".into(), "null".into(), "-".into()]);
+    a.extend(crate::timeline::graph_args(&graph));
+    a.extend(["-map".into(), "[heard]".into(), "-f".into(), "null".into(), "-".into()]);
     a
 }
 
@@ -243,7 +244,7 @@ mod tests {
     #[test]
     fn the_command_hears_the_mix_at_whispers_rate() {
         let job = Job {
-            parts: vec![Part { path: "talk.mp4".into(), at: 0.0, start: 0.0, len: 4.0, volume: 1.0, speed: 1.0 }],
+            parts: vec![Part { path: "talk.mp4".into(), at: 0.0, start: 0.0, len: 4.0, volume: 1.0, speed: 1.0, denoise: 0.0 }],
             from: 0.0,
             seconds: 4.0,
             model: PathBuf::from("models/ggml-base.bin"),

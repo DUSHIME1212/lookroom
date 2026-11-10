@@ -37,14 +37,17 @@ pub const CHANNELS: [Color32; 4] = [
     Color32::from_rgb(92, 150, 255),
 ];
 
+/// Medium is the largest interface type size; canvas artwork keeps its own sizing.
+pub const MEDIUM_FONT_SIZE: f32 = 14.0;
+
 pub fn bold(size: f32) -> FontId {
-    FontId::new(size, FontFamily::Name("bold".into()))
+    FontId::new(size.min(MEDIUM_FONT_SIZE), FontFamily::Name("bold".into()))
 }
 pub fn semi(size: f32) -> FontId {
-    FontId::new(size, FontFamily::Name("semibold".into()))
+    FontId::new(size.min(MEDIUM_FONT_SIZE), FontFamily::Name("semibold".into()))
 }
 pub fn regular(size: f32) -> FontId {
-    FontId::new(size, FontFamily::Proportional)
+    FontId::new(size.min(MEDIUM_FONT_SIZE), FontFamily::Proportional)
 }
 
 pub fn text_width(ui: &Ui, s: &str, font: FontId) -> f32 {
@@ -346,6 +349,17 @@ pub fn toggle(ui: &mut Ui, label: &str, on: &mut bool) -> bool {
     p.circle_filled(pos2(x, s.center().y), 10.0, Color32::WHITE);
     focus_ring(ui, &resp, s, 12);
     resp.clicked()
+}
+
+/// A colour button that changes `c` only when the person picks a colour. egui's own writes
+/// back a round trip through its colour space every frame, which would look like an edit.
+pub fn colour_button(ui: &mut Ui, c: &mut [f32; 3]) -> Response {
+    let mut v = *c;
+    let resp = egui::widgets::color_picker::color_edit_button_rgb(ui, &mut v);
+    if resp.changed() {
+        *c = v;
+    }
+    resp
 }
 
 pub fn note(ui: &mut Ui, text: &str) {

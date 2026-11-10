@@ -47,6 +47,8 @@ enum MemeNews {
 }
 
 pub struct ExtrasState {
+    transition_search: String,
+    transition_category: usize,
     sticker_tab: usize,
     emoji_group: usize,
     emoji_search: String,
@@ -68,12 +70,15 @@ pub struct ExtrasState {
     samples: Option<(u64, Arc<Picture>, Arc<Picture>)>,
     still: HashMap<String, TextureHandle>,
     live: Option<(String, TextureHandle)>,
+    hover_started: Option<(String, f64)>,
 }
 
 impl Default for ExtrasState {
     fn default() -> Self {
         let (news_tx, news_rx) = mpsc::channel();
         Self {
+            transition_search: String::new(),
+            transition_category: 0,
             sticker_tab: 0,
             emoji_group: 0,
             emoji_search: String::new(),
@@ -94,6 +99,7 @@ impl Default for ExtrasState {
             samples: None,
             still: HashMap::new(),
             live: None,
+            hover_started: None,
         }
     }
 }
@@ -282,7 +288,7 @@ impl App {
             Err(e) => return self.say(format!("That sound could not be read: {e}")),
         };
         let Some(out) = self.audio_out.as_ref() else { return self.say("No sound device was found.") };
-        let part = Part { path, at: 0.0, start: 0.0, len: seconds, volume: 1.0, speed: 1.0 };
+        let part = Part { path, at: 0.0, start: 0.0, len: seconds, volume: 1.0, speed: 1.0, denoise: 0.0 };
         let feed = audio::Feed::start(out, vec![part], 0.0, seconds);
         out.start_together();
         self.edit.extras.sound_feed = Some(feed);
@@ -304,7 +310,7 @@ impl App {
             },
         };
         let len = self.project.frames(seconds);
-        self.put(ROW_MUSIC, len, Body::Audio { media, start: 0.0, volume: 1.0, name: s.name.to_string(), speed: 1.0 });
+        self.put(ROW_MUSIC, len, Body::Audio { media, start: 0.0, volume: 1.0, name: s.name.to_string(), speed: 1.0, denoise: 0.0 });
         self.say(format!("Added {}", s.name));
     }
 
@@ -472,7 +478,7 @@ impl App {
 
     /// A grid of tiles, each drawn by \`draw\` on the two sample pictures. A tile shows its
     /// middle at rest, and plays from start to end while the pointer is over it.
-    fn fx_tiles(&mut self, ui: &mut Ui, list: &[(String, bool)], draw: &dyn Fn(usize, &Picture, &Picture, f32) -> Picture) -> Option<usize> {
+    fn fx_tiles(&mut self, ui: &mut Ui, library: &str, list: &[(String, bool)], draw: &dyn Fn(usize, &Picture, &Picture, f32) -> Picture) -> Option<usize> {
         let (a, b) = self.fx_samples();
         let w = ui.available_width();
         let gap = 6.0;
@@ -485,30 +491,39 @@ impl App {
         let mut hovered = None;
         for (i, (name, on)) in list.iter().enumerate() {
             let r = Rect::from_min_size(pos2(area.left() + (cell + gap) * (i % FX_COLUMNS) as f32, area.top() + (tall + gap) * (i / FX_COLUMNS) as f32), vec2(cell, tall));
+            if !ui.is_rect_visible(r) {
+                continue;
+            }
             let pic = Rect::from_min_size(r.min, vec2(cell, pic_h));
-            let resp = ui.interact(r, ui.scope_id().with(("fx", name.as_str())), Sense::click());
+            let resp = ui.interact(r, ui.scope_id().with(("fx", name.as_str())), Sense::click()).on_hover_text(name);
+            let cache_key = format!("{library}:{name}");
             let tex = if resp.hovered() {
                 hovered = Some(i);
+                let time = ui.input(|i| i.time);
+                let started = self.edit.extras.hover_started.get_or_insert_with(|| (cache_key.clone(), time));
+                if started.0 != cache_key {
+                    *started = (cache_key.clone(), time);
+                }
                 let lap = FX_RUN + FX_HOLD;
-                let t = ((ui.input(|i| i.time) as f32 % lap) / FX_RUN).min(1.0);
+                let t = (((time - started.1) as f32 % lap) / FX_RUN).min(1.0);
                 let img = image_of(&draw(i, &a, &b, t));
                 match &mut self.edit.extras.live {
-                    Some((key, tex)) if *key == *name => {
+                    Some((key, tex)) if *key == cache_key => {
                         tex.set(img, TextureOptions::LINEAR);
                         tex.clone()
                     }
                     slot => {
                         let tex = ui.ctx().load_texture("fx-live", img, TextureOptions::LINEAR);
-                        *slot = Some((name.clone(), tex.clone()));
+                        *slot = Some((cache_key.clone(), tex.clone()));
                         tex
                     }
                 }
             } else {
-                match self.edit.extras.still.get(name) {
+                match self.edit.extras.still.get(&cache_key) {
                     Some(t) => t.clone(),
                     None => {
                         let tex = ui.ctx().load_texture(format!("fx-{name}"), image_of(&draw(i, &a, &b, 0.5)), TextureOptions::LINEAR);
-                        self.edit.extras.still.insert(name.clone(), tex.clone());
+                        self.edit.extras.still.insert(cache_key, tex.clone());
                         tex
                     }
                 }
@@ -524,14 +539,41 @@ impl App {
         }
         if hovered.is_some() {
             ui.ctx().request_repaint();
+        } else {
+            self.edit.extras.hover_started = None;
         }
         ui.add_space(4.0);
         chosen
     }
 
     pub(super) fn transition_tiles(&mut self, ui: &mut Ui, now: Option<Wipe>) -> Option<Wipe> {
-        let list: Vec<(String, bool)> = Wipe::ALL.iter().map(|k| (k.name().to_string(), Some(*k) == now)).collect();
-        self.fx_tiles(ui, &list, &|i, a, b, t| overlay::blend(a, b, Wipe::ALL[i], t)).map(|i| Wipe::ALL[i])
+        use crate::transitions::CATEGORIES;
+        ui.add(egui::TextEdit::singleline(&mut self.edit.extras.transition_search)
+            .hint_text("Search transitions…").desired_width(f32::INFINITY));
+        let mut chips = Chips::new(ui, 26.0);
+        for (i, name) in CATEGORIES.iter().enumerate() {
+            if chips.add(name, self.edit.extras.transition_category == i) {
+                self.edit.extras.transition_category = i;
+            }
+        }
+        chips.end();
+        let query = self.edit.extras.transition_search.trim().to_lowercase();
+        let category = CATEGORIES[self.edit.extras.transition_category];
+        let kinds: Vec<Wipe> = Wipe::ALL.iter().copied().filter(|k| {
+            (category == "All" || k.category() == category)
+                && format!("{} {}", k.name(), k.category()).to_lowercase().contains(&query)
+        }).collect();
+        note(ui, &format!("{} of {} transitions · hover to preview", kinds.len(), Wipe::ALL.len()));
+        if kinds.is_empty() {
+            note(ui, "No matches. Try another name or choose All.");
+            return None;
+        }
+        let list: Vec<(String, bool)> = kinds.iter().map(|k| (k.name().to_string(), Some(*k) == now)).collect();
+        let grid_height = (ui.clip_rect().bottom() - ui.cursor().top() - 8.0).clamp(80.0, 360.0);
+        egui::ScrollArea::vertical().id_salt("transition-catalogue").max_height(grid_height)
+            .auto_shrink([false, true]).show(ui, |ui| {
+                self.fx_tiles(ui, "transition", &list, &|i, a, b, t| overlay::blend(a, b, kinds[i], t)).map(|i| kinds[i])
+            }).inner
     }
 
     pub(super) fn effect_tiles(&mut self, ui: &mut Ui, now: Option<Fx>) -> Option<Fx> {
@@ -541,7 +583,7 @@ impl App {
             overlay::effect(&mut p, Fx::ALL[i], 1.0, t, (t * 48.0) as u32);
             p
         };
-        self.fx_tiles(ui, &list, &draw).map(|i| Fx::ALL[i])
+        self.fx_tiles(ui, "effect", &list, &draw).map(|i| Fx::ALL[i])
     }
 
     /// Where everything that came from elsewhere came from, with its licence.
@@ -569,7 +611,7 @@ impl App {
             self.stop_play();
         }
         self.head = from;
-        self.start_play();
+        self.start_play("a preview");
         self.play_until = Some(to);
     }
 

@@ -50,88 +50,7 @@ pub struct Media {
     pub size: (usize, usize),
 }
 
-#[derive(Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Debug)]
-pub enum Wipe {
-    Dissolve,
-    DipToBlack,
-    WipeLeft,
-    WipeUp,
-    SlideLeft,
-    ZoomIn,
-    WipeRight,
-    WipeDown,
-    SlideRight,
-    SlideUp,
-    Cover,
-    ZoomOut,
-    Spin,
-    Iris,
-    BlurDissolve,
-    WhipPan,
-    GlitchCut,
-    Flash,
-    Pixelate,
-    Clock,
-    Diagonal,
-    Blinds,
-    CrossZoom,
-}
-
-impl Wipe {
-    pub const ALL: [Wipe; 23] = [
-        Wipe::Dissolve,
-        Wipe::DipToBlack,
-        Wipe::Flash,
-        Wipe::BlurDissolve,
-        Wipe::WipeLeft,
-        Wipe::WipeRight,
-        Wipe::WipeUp,
-        Wipe::WipeDown,
-        Wipe::Diagonal,
-        Wipe::Clock,
-        Wipe::Iris,
-        Wipe::Blinds,
-        Wipe::SlideLeft,
-        Wipe::SlideRight,
-        Wipe::SlideUp,
-        Wipe::Cover,
-        Wipe::WhipPan,
-        Wipe::ZoomIn,
-        Wipe::ZoomOut,
-        Wipe::CrossZoom,
-        Wipe::Spin,
-        Wipe::GlitchCut,
-        Wipe::Pixelate,
-    ];
-
-    pub fn name(self) -> &'static str {
-        match self {
-            Wipe::Dissolve => "Cross Dissolve",
-            Wipe::DipToBlack => "Dip to Black",
-            Wipe::WipeLeft => "Wipe Left",
-            Wipe::WipeUp => "Wipe Up",
-            Wipe::SlideLeft => "Slide Left",
-            Wipe::ZoomIn => "Zoom In",
-            Wipe::WipeRight => "Wipe Right",
-            Wipe::WipeDown => "Wipe Down",
-            Wipe::SlideRight => "Slide Right",
-            Wipe::SlideUp => "Slide Up",
-            Wipe::Cover => "Cover",
-            Wipe::ZoomOut => "Zoom Out",
-            Wipe::Spin => "Spin",
-            Wipe::Iris => "Circle Open",
-            Wipe::BlurDissolve => "Blur",
-            Wipe::WhipPan => "Whip Pan",
-            Wipe::GlitchCut => "Glitch",
-            Wipe::Flash => "Flash White",
-            Wipe::Pixelate => "Pixelate",
-            Wipe::Clock => "Clock Wipe",
-            Wipe::Diagonal => "Diagonal Wipe",
-            Wipe::Blinds => "Blinds",
-            Wipe::CrossZoom => "Cross Zoom",
-        }
-    }
-}
+pub use crate::transitions::Wipe;
 
 /// How a clip takes over from the one before it. The two overlap for `len` frames.
 #[derive(Clone, Copy, Serialize, Deserialize, PartialEq, Debug)]
@@ -156,17 +75,109 @@ pub struct Clip {
     /// How fast the source plays: 2 covers twice the source in the same time.
     #[serde(default = "normal_speed")]
     pub speed: f64,
+    /// A speed ramp: how fast the clip plays at points through it. Empty plays at `speed`.
+    #[serde(default)]
+    pub ramp: Vec<RampPoint>,
+    /// J cut: seconds its sound starts before its picture.
+    #[serde(default)]
+    pub lead: f64,
+    /// L cut: seconds its sound runs on after its picture.
+    #[serde(default)]
+    pub tail: f64,
+    /// Punch in: how far the picture is enlarged, from its centre.
+    #[serde(default = "normal_zoom")]
+    pub zoom: f32,
+    /// How hard its own sound's noise is cleaned up, 0 for not at all.
+    #[serde(default)]
+    pub denoise: f32,
 }
 
 fn normal_speed() -> f64 {
     1.0
 }
 
+fn normal_zoom() -> f32 {
+    1.0
+}
+
+/// One point of a speed ramp: `at` is how far through the clip, from 0 to 1.
+#[derive(Clone, Copy, Serialize, Deserialize, PartialEq, Debug)]
+pub struct RampPoint {
+    pub at: f64,
+    pub speed: f64,
+}
+
+/// Ramps people reach for, each a list of (how far through, speed).
+pub const RAMPS: [(&str, &[(f64, f64)]); 6] = [
+    ("Montage", &[(0.0, 3.0), (0.35, 3.0), (0.5, 0.35), (0.65, 3.0), (1.0, 3.0)]),
+    ("Hero", &[(0.0, 1.0), (0.4, 0.3), (0.6, 0.3), (1.0, 1.0)]),
+    ("Bullet", &[(0.0, 1.0), (0.3, 0.2), (0.7, 0.2), (1.0, 4.0)]),
+    ("Speed Up", &[(0.0, 1.0), (1.0, 4.0)]),
+    ("Slow Down", &[(0.0, 2.5), (1.0, 0.4)]),
+    ("Flash In", &[(0.0, 5.0), (0.25, 1.0), (1.0, 1.0)]),
+];
+
 impl Clip {
     /// Seconds into the source, `offset` frames into the clip.
     pub fn source_at(&self, offset: f64, fps: f64) -> f64 {
-        self.start + offset / fps.max(1.0) * self.speed
+        let fps = fps.max(1.0);
+        if self.ramp.len() < 2 {
+            return self.start + offset / fps * self.speed;
+        }
+        let seconds = self.len.max(1) as f64 / fps;
+        self.start + seconds * ramp_area(&self.ramp, offset / self.len.max(1) as f64)
     }
+
+    /// The frame into the clip that shows `source` seconds of its source: the inverse of
+    /// `source_at`, found by halving, since a ramp never runs backwards.
+    pub fn offset_of(&self, source: f64, fps: f64) -> f64 {
+        if self.ramp.len() < 2 {
+            return (source - self.start) / self.speed * fps.max(1.0);
+        }
+        let (mut lo, mut hi) = (0.0, self.len as f64);
+        for _ in 0..40 {
+            let mid = (lo + hi) / 2.0;
+            if self.source_at(mid, fps) < source {
+                lo = mid;
+            } else {
+                hi = mid;
+            }
+        }
+        lo
+    }
+
+    /// How fast it plays at `t`, from 0 to 1 through the clip.
+    pub fn speed_at(&self, t: f64) -> f64 {
+        if self.ramp.len() < 2 { self.speed } else { ramp_speed(&self.ramp, t) }
+    }
+}
+
+fn ramp_speed(r: &[RampPoint], t: f64) -> f64 {
+    let t = t.clamp(0.0, 1.0);
+    match r.iter().position(|p| p.at >= t) {
+        Some(0) => r[0].speed,
+        Some(i) => {
+            let (a, b) = (r[i - 1], r[i]);
+            let k = if b.at > a.at { (t - a.at) / (b.at - a.at) } else { 1.0 };
+            a.speed + (b.speed - a.speed) * k
+        }
+        None => r[r.len() - 1].speed,
+    }
+}
+
+/// The ramp's speed added up from the start to `t`: source covered, in clip lengths.
+/// Exact, as the speed runs in straight lines between points.
+pub fn ramp_area(r: &[RampPoint], t: f64) -> f64 {
+    let t = t.clamp(0.0, 1.0);
+    let mut area = 0.0;
+    let mut last = (0.0, ramp_speed(r, 0.0));
+    let stops = r.iter().map(|p| p.at).filter(|a| *a > 0.0 && *a < t).chain(std::iter::once(t));
+    for at in stops {
+        let s = ramp_speed(r, at);
+        area += (at - last.0) * (s + last.1) / 2.0;
+        last = (at, s);
+    }
+    area
 }
 
 #[derive(Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Debug)]
@@ -194,10 +205,13 @@ pub enum Fx {
     Glow,
     Heartbeat,
     Duotone,
+    Flicker,
+    Flash,
+    Shutter,
 }
 
 impl Fx {
-    pub const ALL: [Fx; 23] = [
+    pub const ALL: [Fx; 26] = [
         Fx::FadeIn,
         Fx::FadeOut,
         Fx::BlackWhite,
@@ -215,6 +229,9 @@ impl Fx {
         Fx::Pixelate,
         Fx::BlockFlashes,
         Fx::Strobe,
+        Fx::Flicker,
+        Fx::Shutter,
+        Fx::Flash,
         Fx::PullIn,
         Fx::PushOut,
         Fx::Heartbeat,
@@ -248,6 +265,9 @@ impl Fx {
             Fx::Glow => "Glow",
             Fx::Heartbeat => "Heartbeat",
             Fx::Duotone => "Duotone",
+            Fx::Flicker => "Light Flicker",
+            Fx::Flash => "White Flash",
+            Fx::Shutter => "Shutter Flicker",
         }
     }
 }
@@ -261,6 +281,9 @@ pub enum Body {
         name: String,
         #[serde(default = "normal_speed")]
         speed: f64,
+        /// Noise clean-up, 0 to 1.
+        #[serde(default)]
+        denoise: f32,
     },
     Effect { kind: Fx, amount: f32 },
     Text {
@@ -328,6 +351,67 @@ impl Body {
     }
 }
 
+/// Gives `to` whatever changed between `before` and `after`, one setting at a time, so
+/// several items can be edited as one. What each says, and its keyframes, stay its own.
+/// Places, sizes and turns move by the same amount, so a group keeps its arrangement;
+/// fonts, colours and animations are copied as they are.
+pub fn spread(before: &Body, after: &Body, to: &mut Body) {
+    fn by(was: f32, now: f32, v: &mut f32) {
+        if was != now {
+            *v += now - was;
+        }
+    }
+    fn times(was: f32, now: f32, v: &mut f32) {
+        if was != now && was.abs() > 1e-6 {
+            *v *= now / was;
+        }
+    }
+    fn set<T: PartialEq + Clone>(was: &T, now: &T, v: &mut T) {
+        if was != now {
+            *v = now.clone();
+        }
+    }
+    if let (Some((bx, by_, bm)), Some((ax, ay, am)), Some((x, y, m))) = (before.placed(), after.placed(), to.placed_mut()) {
+        by(bx, ax, x);
+        by(by_, ay, y);
+        set(&bm.font, &am.font, &mut m.font);
+        set(&bm.weight, &am.weight, &mut m.weight);
+        set(&bm.italic, &am.italic, &mut m.italic);
+        set(&bm.spacing, &am.spacing, &mut m.spacing);
+        set(&bm.outline, &am.outline, &mut m.outline);
+        times(bm.scale, am.scale, &mut m.scale);
+        by(bm.rotate, am.rotate, &mut m.rotate);
+        set(&bm.opacity, &am.opacity, &mut m.opacity);
+        set(&bm.enter, &am.enter, &mut m.enter);
+        set(&bm.leave, &am.leave, &mut m.leave);
+        set(&bm.repeat, &am.repeat, &mut m.repeat);
+        set(&bm.hidden, &am.hidden, &mut m.hidden);
+        set(&bm.gradient, &am.gradient, &mut m.gradient);
+        set(&bm.highlight, &am.highlight, &mut m.highlight);
+        set(&bm.backing, &am.backing, &mut m.backing);
+        set(&bm.backing_colour, &am.backing_colour, &mut m.backing_colour);
+    }
+    match (before, after, to) {
+        (Body::Text { size: bs, colour: bc, .. }, Body::Text { size: s, colour: c, .. }, Body::Text { size, colour, .. }) => {
+            times(*bs, *s, size);
+            set(bc, c, colour);
+        }
+        (Body::Sticker { size: bs, .. }, Body::Sticker { size: s, .. }, Body::Sticker { size, .. }) | (Body::Graphic { size: bs, .. }, Body::Graphic { size: s, .. }, Body::Graphic { size, .. }) => times(*bs, *s, size),
+        (Body::Overlay { size: bs, key: bk, tolerance: bt, volume: bv, .. }, Body::Overlay { size: s, key: k, tolerance: t, volume: v, .. }, Body::Overlay { size, key, tolerance, volume, .. }) => {
+            times(*bs, *s, size);
+            set(bk, k, key);
+            set(bt, t, tolerance);
+            set(bv, v, volume);
+        }
+        (Body::Effect { kind: bk, amount: ba }, Body::Effect { kind: k, amount: a }, Body::Effect { kind, amount }) => {
+            set(bk, k, kind);
+            set(ba, a, amount);
+        }
+        (Body::Audio { volume: bv, .. }, Body::Audio { volume: v, .. }, Body::Audio { volume, .. }) => set(bv, v, volume),
+        _ => {}
+    }
+}
+
 /// Anything placed freely on a track.
 #[derive(Clone, Serialize, Deserialize, PartialEq, Debug)]
 pub struct Item {
@@ -347,7 +431,7 @@ impl Item {
         match &self.body {
             Body::Audio { name, .. } => name.clone(),
             Body::Effect { kind, .. } => kind.name().to_string(),
-            Body::Text { text, .. } => text.lines().next().unwrap_or("Text").to_string(),
+            Body::Text { text, .. } => crate::overlay::plain(text).lines().next().unwrap_or("Text").to_string(),
             Body::Sticker { .. } => "Sticker".to_string(),
             Body::Graphic { name, .. } => name.clone(),
             Body::Overlay { .. } => "Video".to_string(),
@@ -387,6 +471,8 @@ pub struct Part {
     pub len: f64,
     pub volume: f32,
     pub speed: f64,
+    /// Noise clean-up, 0 to 1.
+    pub denoise: f32,
 }
 
 #[derive(Clone, Serialize, Deserialize, PartialEq, Debug)]
@@ -399,6 +485,12 @@ pub struct Project {
     pub items: Shared<Vec<Item>>,
     pub tracks: [Track; ROWS],
     pub next_id: u32,
+    /// The brand kit new text and captions follow, by id; empty for none.
+    #[serde(default)]
+    pub brand: String,
+    /// Clips of another shape fill the picture, cropped, instead of fitting with bars.
+    #[serde(default)]
+    pub fill: bool,
 }
 
 impl Default for Project {
@@ -412,6 +504,8 @@ impl Default for Project {
             items: Shared::default(),
             tracks: [Track::default(); ROWS],
             next_id: 1,
+            brand: String::new(),
+            fill: false,
         }
     }
 }
@@ -475,10 +569,43 @@ impl Project {
 
     /// How many frames a clip could run from where it begins.
     pub fn room(&self, c: &Clip) -> u32 {
+        let pace = if c.ramp.len() < 2 { c.speed } else { ramp_area(&c.ramp, 1.0).max(1e-3) };
         match self.media_of(c.media) {
-            Some(m) if m.kind == Kind::Video => self.frames((m.seconds - c.start).max(0.0) / c.speed),
+            Some(m) if m.kind == Kind::Video => self.frames((m.seconds - c.start).max(0.0) / pace),
             _ => ENDLESS,
         }
+    }
+
+    /// Gives a clip a speed ramp, or takes it away with an empty one. The clip keeps the
+    /// stretch of source it showed, so it gets shorter or longer with the ramp's pace.
+    pub fn set_ramp(&mut self, id: u32, ramp: Vec<RampPoint>) {
+        let Some(i) = self.clip_index(id) else { return };
+        let fps = self.fps;
+        let c = &self.clips[i];
+        let span = c.source_at(c.len as f64, fps) - c.start;
+        let mut r: Vec<RampPoint> = ramp.into_iter().map(|p| RampPoint { at: p.at.clamp(0.0, 1.0), speed: p.speed.clamp(MIN_SPEED, MAX_SPEED) }).collect();
+        r.sort_by(|a, b| a.at.total_cmp(&b.at));
+        let pace = if r.len() < 2 { c.speed } else { ramp_area(&r, 1.0).max(1e-3) };
+        let len = self.frames(span / pace);
+        self.clips[i].ramp = r;
+        let room = self.room(&self.clips[i]);
+        self.clips[i].len = len.clamp(MIN_LEN, room.max(MIN_LEN));
+        for n in [i, i + 1] {
+            if let Some(t) = self.clips.get(n).and_then(|c| c.transition) {
+                self.set_transition(n, t.kind, t.len);
+            }
+        }
+    }
+
+    /// Moves a ramp point while keeping the clip's length, for dragging on the curve.
+    pub fn shape_ramp(&mut self, id: u32, ramp: Vec<RampPoint>) {
+        let Some(i) = self.clip_index(id) else { return };
+        let mut r: Vec<RampPoint> = ramp.into_iter().map(|p| RampPoint { at: p.at.clamp(0.0, 1.0), speed: p.speed.clamp(MIN_SPEED, MAX_SPEED) }).collect();
+        r.sort_by(|a, b| a.at.total_cmp(&b.at));
+        self.clips[i].ramp = r;
+        let room = self.room(&self.clips[i]);
+        let c = &mut self.clips[i];
+        c.len = c.len.min(room.max(MIN_LEN));
     }
 
     pub fn clip_for(&mut self, media: u32) -> Option<Clip> {
@@ -488,7 +615,7 @@ impl Project {
         }
         let seconds = if m.kind == Kind::Photo { PHOTO_SECONDS } else { m.seconds };
         let len = self.frames(seconds).max(MIN_LEN);
-        Some(Clip { id: self.new_id(), media, start: 0.0, len, grade: Shared::default(), transition: None, volume: 1.0, muted: false, detached: false, speed: 1.0 })
+        Some(Clip { id: self.new_id(), media, start: 0.0, len, grade: Shared::default(), transition: None, volume: 1.0, muted: false, detached: false, speed: 1.0, ramp: Vec::new(), lead: 0.0, tail: 0.0, zoom: 1.0, denoise: 0.0 })
     }
 
     pub fn insert_clip(&mut self, media: u32, index: usize) -> Option<usize> {
@@ -516,6 +643,19 @@ impl Project {
         tail.start = c.source_at(s.offset as f64, fps);
         tail.len = c.len - s.offset;
         tail.transition = None;
+        // The J cut stays with the start, the L cut goes with the end.
+        tail.lead = 0.0;
+        c.tail = 0.0;
+        // A ramp's curve spans the whole clip; each piece keeps its average pace instead.
+        if c.ramp.len() >= 2 {
+            let at = s.offset as f64 / c.len.max(1) as f64;
+            let first = ramp_area(&c.ramp, at) / at.max(1e-6);
+            let second = (ramp_area(&c.ramp, 1.0) - ramp_area(&c.ramp, at)) / (1.0 - at).max(1e-6);
+            c.ramp.clear();
+            tail.ramp.clear();
+            c.speed = first.clamp(MIN_SPEED, MAX_SPEED);
+            tail.speed = second.clamp(MIN_SPEED, MAX_SPEED);
+        }
         c.len = s.offset;
         self.clips.insert(s.clip + 1, tail);
         Some(s.clip + 1)
@@ -662,7 +802,7 @@ impl Project {
         if !m.has_audio || c.detached {
             return None;
         }
-        let body = Body::Audio { media: c.media, start: c.start, volume: c.volume, name: "Original Sound".to_string(), speed: c.speed };
+        let body = Body::Audio { media: c.media, start: c.start, volume: c.volume, name: "Original Sound".to_string(), speed: c.speed, denoise: c.denoise };
         let len = c.len;
         let new = self.new_id();
         self.items.push(Item { id: new, row: ROW_SOUND, at, len, body });
@@ -675,28 +815,60 @@ impl Project {
         let mut out = Vec::new();
         let sound = self.tracks[ROW_SOUND];
         if !sound.muted && !sound.hidden {
-            for (c, at) in self.clips.iter().zip(self.starts()) {
-                let m = self.media_of(c.media);
-                if let Some((m, path)) = m.filter(|m| m.has_audio && !c.detached && !c.muted).and_then(|m| Some((m, m.path.clone()?))) {
-                    let _ = m;
-                    out.push(Part { path, at: self.seconds(at), start: c.start, len: self.seconds(c.len), volume: c.volume, speed: c.speed });
+            let windows = self.sound_windows();
+            for ((c, at), (from, to)) in self.clips.iter().zip(self.starts()).zip(windows) {
+                // A ramped clip's own sound would warble through every change of pace, so
+                // it stays quiet; music under a ramp is the usual way.
+                if c.ramp.len() >= 2 || to <= from {
+                    continue;
+                }
+                if let Some(path) = self.media_of(c.media).filter(|m| m.has_audio && !c.detached && !c.muted).and_then(|m| m.path.clone()) {
+                    let start = (c.start + (from - self.seconds(at)) * c.speed).max(0.0);
+                    out.push(Part { path, at: from, start, len: to - from, volume: c.volume, speed: c.speed, denoise: c.denoise });
                 }
             }
         }
         for t in self.items.iter() {
             let track = self.tracks[t.row.min(ROWS - 1)];
             let sound = match &t.body {
-                Body::Audio { media, start, volume, speed, .. } => Some((*media, *start, *volume, *speed)),
-                Body::Overlay { media, start, volume, .. } => Some((*media, *start, *volume, 1.0)),
+                Body::Audio { media, start, volume, speed, denoise, .. } => Some((*media, *start, *volume, *speed, *denoise)),
+                Body::Overlay { media, start, volume, .. } => Some((*media, *start, *volume, 1.0, 0.0)),
                 _ => None,
             };
-            if let (Some((media, start, volume, speed)), false) = (sound, track.muted || track.hidden)
+            if let (Some((media, start, volume, speed, denoise)), false) = (sound, track.muted || track.hidden)
                 && let Some(path) = self.media_of(media).filter(|m| m.has_audio).and_then(|m| m.path.clone())
             {
-                out.push(Part { path, at: self.seconds(t.at), start, len: self.seconds(t.len), volume, speed });
+                out.push(Part { path, at: self.seconds(t.at), start, len: self.seconds(t.len), volume, speed, denoise });
             }
         }
         out
+    }
+
+    /// When each clip's own sound plays, in timeline seconds. A J cut starts it early and
+    /// ends the clip before it there; an L cut runs it on and starts the next one later.
+    /// Neither reaches past the source's ends.
+    pub fn sound_windows(&self) -> Vec<(f64, f64)> {
+        let starts = self.starts();
+        let mut w: Vec<(f64, f64)> = self
+            .clips
+            .iter()
+            .zip(&starts)
+            .map(|(c, at)| {
+                let (a, b) = (self.seconds(*at), self.seconds(*at + c.len));
+                let before = (c.start / c.speed).max(0.0);
+                let after = self.media_of(c.media).map_or(0.0, |m| ((m.seconds - c.start) / c.speed - (b - a)).max(0.0));
+                ((a - c.lead.min(before)).max(0.0), b + c.tail.min(after))
+            })
+            .collect();
+        for i in 0..w.len() {
+            if self.clips[i].lead > 0.0 && i > 0 {
+                w[i - 1].1 = w[i - 1].1.min(w[i].0);
+            }
+            if self.clips[i].tail > 0.0 && i + 1 < w.len() {
+                w[i + 1].0 = w[i + 1].0.max(w[i].1);
+            }
+        }
+        w
     }
 
     /// The largest clip sets the picture size and the first video sets the rate.
@@ -835,6 +1007,29 @@ fn tempo(speed: f64) -> String {
     out + &format!("atempo={left:.6},")
 }
 
+/// Noise clean-up for one part: a gentle cut of low rumble, then ffmpeg's FFT noise
+/// reducer, which learns the steady hiss and hum and takes it down by up to 30 dB.
+fn denoise(strength: f32) -> String {
+    if strength <= 0.01 {
+        return String::new();
+    }
+    let s = strength.clamp(0.0, 1.0);
+    format!("highpass=f={:.0},afftdn=nr={:.1}:nf=-30:tn=1,", 60.0 + 30.0 * s, 6.0 + 24.0 * s)
+}
+
+/// The ffmpeg arguments that hand it a filter graph. The graph goes in a temporary file
+/// (`-/filter_complex FILE`) because a project with many sound items makes one too long
+/// for a Windows command line (32,767 characters); written inline it would fail to start.
+pub fn graph_args(graph: &str) -> [String; 2] {
+    use std::sync::atomic::{AtomicU32, Ordering};
+    static N: AtomicU32 = AtomicU32::new(0);
+    let file = std::env::temp_dir().join(format!("lookroom-graph-{}-{}.txt", std::process::id(), N.fetch_add(1, Ordering::Relaxed)));
+    match std::fs::write(&file, graph) {
+        Ok(()) => ["-/filter_complex".into(), file.to_string_lossy().to_string()],
+        Err(_) => ["-filter_complex".into(), graph.to_string()],
+    }
+}
+
 pub fn mix_graph(parts: &[Part], from: f64, seconds: f64, rate: u32, first: usize) -> (Vec<String>, String) {
     let mut inputs = Vec::new();
     let mut chains = format!("anullsrc=r={rate}:cl=stereo,atrim=0:{seconds:.6}[base];");
@@ -856,8 +1051,9 @@ pub fn mix_graph(parts: &[Part], from: f64, seconds: f64, rate: u32, first: usiz
         ]);
         let index = first + n;
         chains += &format!(
-            "[{index}:a:0]{}aresample={rate},aformat=channel_layouts=stereo,volume={:.3},adelay={delay}|{delay}[a{n}];",
+            "[{index}:a:0]{}{}aresample={rate},aformat=channel_layouts=stereo,volume={:.3},adelay={delay}|{delay}[a{n}];",
             tempo(p.speed),
+            denoise(p.denoise),
             p.volume
         );
         labels += &format!("[a{n}]");
@@ -872,6 +1068,141 @@ mod tests {
 
     fn media(id: u32, kind: Kind, seconds: f64, audio: bool) -> Media {
         Media { id, path: Some(format!("m{id}.mp4").into()), name: format!("m{id}"), kind, seconds, info: None, has_audio: audio, size: (1920, 1080) }
+    }
+
+    fn ramp(points: &[(f64, f64)]) -> Vec<RampPoint> {
+        points.iter().map(|(at, speed)| RampPoint { at: *at, speed: *speed }).collect()
+    }
+
+    #[test]
+    fn a_ramp_covers_the_area_under_its_curve_and_runs_back_exactly() {
+        let r = ramp(&[(0.0, 1.0), (1.0, 3.0)]);
+        // From 1x to 3x in a straight line: on average 2x.
+        assert!((ramp_area(&r, 1.0) - 2.0).abs() < 1e-9);
+        assert!((ramp_area(&r, 0.5) - 0.75).abs() < 1e-9);
+        let mut p = project();
+        let id = p.clips[0].id;
+        p.clips[0].len = 100;
+        p.clips[0].ramp = r;
+        let c = &p.clips[0];
+        for f in [0.0, 13.0, 50.0, 99.0] {
+            let back = c.offset_of(c.source_at(f, p.fps), p.fps);
+            assert!((back - f).abs() < 1e-3, "{f} came back as {back}");
+        }
+        let _ = id;
+    }
+
+    #[test]
+    fn a_ramp_keeps_the_footage_and_a_steady_speed_brings_it_back() {
+        let mut p = project();
+        let id = p.clips[0].id;
+        p.clips[0].len = 60;
+        let span = p.clips[0].source_at(60.0, p.fps) - p.clips[0].start;
+        // Averaging 2x, the same footage takes half the time.
+        p.set_ramp(id, ramp(&[(0.0, 1.0), (1.0, 3.0)]));
+        assert_eq!(p.clips[0].len, 30);
+        let now = p.clips[0].source_at(p.clips[0].len as f64, p.fps) - p.clips[0].start;
+        assert!((now - span).abs() < 0.11, "{span} {now}");
+        p.set_ramp(id, Vec::new());
+        assert_eq!(p.clips[0].len, 60);
+        // Its own sound stays quiet while ramped.
+        p.set_ramp(id, ramp(&[(0.0, 1.0), (1.0, 3.0)]));
+        assert!(p.parts().iter().all(|part| part.path.to_string_lossy() != "m1.mp4"));
+    }
+
+    #[test]
+    fn j_and_l_cuts_move_sound_across_the_cut() {
+        let mut p = project();
+        // Room in the sources on both sides of the cut: more of the first after its end,
+        // more of the second before its start.
+        p.clips[0].len = 50;
+        p.clips[1].start = 2.0;
+        let plain = p.sound_windows();
+        assert_eq!(plain[0].1, plain[1].0);
+        p.clips[1].lead = 0.5;
+        let j = p.sound_windows();
+        assert!((j[1].0 - (plain[1].0 - 0.5)).abs() < 1e-9 && (j[0].1 - j[1].0).abs() < 1e-9);
+        p.clips[1].lead = 0.0;
+        p.clips[0].tail = 0.75;
+        let l = p.sound_windows();
+        assert!((l[0].1 - (plain[0].1 + 0.75)).abs() < 1e-9 && (l[1].0 - l[0].1).abs() < 1e-9);
+        // A J cut can't start before the source does.
+        p.clips[0].tail = 0.0;
+        p.clips[1].start = 0.2;
+        p.clips[1].lead = 1.0;
+        assert!((p.sound_windows()[1].0 - (plain[1].0 - 0.2)).abs() < 1e-9);
+    }
+
+    #[test]
+    fn cleaned_up_sound_goes_through_the_noise_filter() {
+        let mut p = project();
+        p.clips[0].denoise = 0.5;
+        let parts = p.parts();
+        assert!((parts[0].denoise - 0.5).abs() < 1e-6 && parts[1].denoise == 0.0);
+        let (_, graph) = mix_graph(&parts, 0.0, 20.0, 48000, 1);
+        assert_eq!(graph.matches("afftdn").count(), 1, "{graph}");
+        assert!(graph.contains("highpass=f=75") && graph.contains("afftdn=nr=18.0"), "{graph}");
+        // Detaching keeps it.
+        let id = p.clips[0].id;
+        p.detach_audio(id).unwrap();
+        assert!(p.parts().iter().any(|part| (part.denoise - 0.5).abs() < 1e-6));
+    }
+
+    #[test]
+    fn splitting_a_ramped_clip_keeps_each_halfs_pace() {
+        let mut p = project();
+        let id = p.clips[0].id;
+        p.clips[0].len = 100;
+        p.set_ramp(id, ramp(&[(0.0, 1.0), (1.0, 3.0)]));
+        let len = p.clips[0].len;
+        let i = p.split_clip(len / 2).unwrap();
+        assert!(p.clips[0].ramp.is_empty() && p.clips[i].ramp.is_empty());
+        assert!(p.clips[0].speed < p.clips[i].speed, "{} {}", p.clips[0].speed, p.clips[i].speed);
+    }
+
+    fn caption(text: &str, x: f32, size: f32) -> Body {
+        Body::Text { text: text.into(), size, colour: [1.0; 3], x, y: 0.86, motion: Motion { group: "captions".into(), ..Motion::default() } }
+    }
+
+    #[test]
+    fn a_change_to_one_reaches_the_others_but_their_words_stay() {
+        let before = caption("Hello", 0.5, 64.0);
+        let mut after = before.clone();
+        if let Body::Text { text, size, colour, y, motion, .. } = &mut after {
+            *text = "Changed".into();
+            *size = 96.0;
+            *colour = [1.0, 0.8, 0.0];
+            *y = 0.80;
+            motion.font = "Georgia".into();
+            motion.outline = 0.08;
+        }
+        let mut other = caption("World", 0.3, 32.0);
+        spread(&before, &after, &mut other);
+        let Body::Text { text, size, colour, x, y, motion } = other else { panic!() };
+        assert_eq!(text, "World");
+        assert_eq!((size, colour, motion.font.as_str(), motion.outline), (48.0, [1.0, 0.8, 0.0], "Georgia", 0.08));
+        assert!((x - 0.3).abs() < 1e-6 && (y - 0.80).abs() < 1e-6, "{x} {y}");
+        assert_eq!(motion.group, "captions");
+    }
+
+    #[test]
+    fn nothing_changed_means_nothing_copied_and_kinds_share_only_what_they_have() {
+        let a = caption("A", 0.5, 64.0);
+        let mut other = caption("B", 0.2, 40.0);
+        let kept = other.clone();
+        spread(&a, &a, &mut other);
+        assert_eq!(other, kept);
+        // A sticker in the group takes the new animation, but has no colour to take.
+        let mut after = a.clone();
+        if let Body::Text { colour, motion, .. } = &mut after {
+            *colour = [0.0; 3];
+            motion.enter = crate::textanim::Phase::preset(crate::textanim::Anim::Pop);
+        }
+        let mut sticker = Body::Sticker { icon: 0, emoji: String::new(), size: 200.0, x: 0.5, y: 0.5, motion: Motion::default() };
+        spread(&a, &after, &mut sticker);
+        let Body::Sticker { size, motion, .. } = sticker else { panic!() };
+        assert_eq!(size, 200.0);
+        assert_eq!(motion.enter.kind, crate::textanim::Anim::Pop);
     }
 
     /// Two ten-second clips at ten frames a second, so frames read easily.
@@ -1022,7 +1353,7 @@ mod tests {
     fn splitting_sound_keeps_it_in_step_with_itself() {
         let mut p = project();
         let id = p.new_id();
-        p.items.push(Item { id, row: ROW_MUSIC, at: 20, len: 100, body: Body::Audio { media: 4, start: 1.0, volume: 1.0, name: "m".into(), speed: 1.0 } });
+        p.items.push(Item { id, row: ROW_MUSIC, at: 20, len: 100, body: Body::Audio { media: 4, start: 1.0, volume: 1.0, name: "m".into(), speed: 1.0, denoise: 0.0 } });
         let tail = p.split_item(id, 50).unwrap();
         let t = p.items.iter().find(|t| t.id == tail).unwrap();
         assert_eq!((t.at, t.len), (50, 70));
@@ -1040,9 +1371,9 @@ mod tests {
     #[test]
     fn the_mix_skips_what_has_passed_and_delays_what_is_coming() {
         let parts = vec![
-            Part { path: "a.mp4".into(), at: 0.0, start: 1.0, len: 4.0, volume: 1.0, speed: 1.0 },
-            Part { path: "b.mp4".into(), at: 10.0, start: 0.0, len: 4.0, volume: 0.5, speed: 1.0 },
-            Part { path: "c.mp4".into(), at: 0.0, start: 0.0, len: 1.0, volume: 1.0, speed: 1.0 },
+            Part { path: "a.mp4".into(), at: 0.0, start: 1.0, len: 4.0, volume: 1.0, speed: 1.0, denoise: 0.0 },
+            Part { path: "b.mp4".into(), at: 10.0, start: 0.0, len: 4.0, volume: 0.5, speed: 1.0, denoise: 0.0 },
+            Part { path: "c.mp4".into(), at: 0.0, start: 0.0, len: 1.0, volume: 1.0, speed: 1.0, denoise: 0.0 },
         ];
         let (inputs, filter) = mix_graph(&parts, 2.0, 20.0, 48000, 0);
         assert_eq!(inputs.iter().filter(|s| *s == "-i").count(), 2);
@@ -1218,7 +1549,7 @@ mod tests {
 
     #[test]
     fn fast_sound_reads_more_source_and_keeps_its_pitch() {
-        let parts = [Part { path: "a.mp4".into(), at: 0.0, start: 1.0, len: 2.0, volume: 1.0, speed: 3.0 }];
+        let parts = [Part { path: "a.mp4".into(), at: 0.0, start: 1.0, len: 2.0, volume: 1.0, speed: 3.0, denoise: 0.0 }];
         let (inputs, filter) = mix_graph(&parts, 0.0, 4.0, 48000, 0);
         assert!(inputs.contains(&"6.000000".to_string()), "{inputs:?}");
         assert!(filter.contains("atempo=2,atempo=1.500000,"), "{filter}");

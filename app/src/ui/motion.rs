@@ -487,6 +487,8 @@ impl App {
             return;
         };
         let Some(now) = self.project.clips.iter().find(|c| c.id == id).map(|c| c.speed) else { return };
+        // With a ramp, no single speed is the clip's.
+        let ramped = self.project.clips.iter().any(|c| c.id == id && c.ramp.len() >= 2);
         let screen = ui.ctx().content_rect();
         let x = (anchor.right() - SPEED_W).clamp(screen.left() + 8.0, screen.right() - SPEED_W - 8.0);
         let mut set = None;
@@ -503,7 +505,7 @@ impl App {
                 ui.add_space(6.0);
                 let mut chips = Chips::new(ui, 28.0);
                 for s in SPEEDS {
-                    if chips.add(&speed_label(s), (s - now).abs() < 1e-6) {
+                    if chips.add(&speed_label(s), !ramped && (s - now).abs() < 1e-6) {
                         set = Some(s);
                     }
                 }
@@ -513,6 +515,7 @@ impl App {
                     set = Some((v as f64 * 20.0).round() / 20.0);
                 }
                 note(ui, "Faster plays more of the clip in less time, and shortens it. Sound keeps its pitch.");
+                self.ramp_editor(ui, id);
                 let (r, _) = ui.allocate_exact_size(vec2(ui.available_width(), 30.0), Sense::hover());
                 if action(ui, r, "Done", true, 12.5).clicked() {
                     close = true;
@@ -520,6 +523,10 @@ impl App {
             });
         });
         if let Some(s) = set {
+            // A steady speed replaces any ramp.
+            if self.project.clips.iter().any(|c| c.id == id && c.ramp.len() >= 2) {
+                self.project.set_ramp(id, Vec::new());
+            }
             self.project.set_speed(id, s);
             self.needs_activate = true;
         }
@@ -690,6 +697,8 @@ fn font_image(name: &str) -> Option<ColorImage> {
         outline: 0.0,
         finest: Unit::Line,
         scrambles: false,
+        gradient: None,
+        highlight: [1.0; 3],
     };
     let cells = overlay::text_cells(&setting)?;
     let s = cells.stamps.first()?;

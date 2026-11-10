@@ -50,6 +50,10 @@ const TEXT: Color32 = Color32::from_rgb(0x98, 0x50, 0x88);
 const OVERLAY: Color32 = Color32::from_rgb(0x2E, 0x6E, 0x8E);
 const DESIGN: Color32 = Color32::from_rgb(0x7A, 0x5A, 0xB8);
 const NUDGE_SECONDS: f64 = 5.0;
+/// The loudest a clip can be set, as a multiple of how it was recorded.
+const MOST_VOLUME: f32 = 2.0;
+/// Film strips made at once. Each decodes a whole video, so a few keep memory in hand.
+const STRIP_WORKERS: usize = 2;
 const CANVASES: [(&str, (usize, usize)); 6] = [
     ("16:9", (1920, 1080)),
     ("4K", (3840, 2160)),
@@ -58,6 +62,32 @@ const CANVASES: [(&str, (usize, usize)); 6] = [
     ("4:5", (1080, 1350)),
     ("4:3", (1440, 1080)),
 ];
+/// Picture shapes, each with the size it has at 1080 on its short side.
+pub(super) const RATIOS: [(&str, (usize, usize)); 7] = [
+    ("16:9", (1920, 1080)),
+    ("9:16", (1080, 1920)),
+    ("1:1", (1080, 1080)),
+    ("4:5", (1080, 1350)),
+    ("4:3", (1440, 1080)),
+    ("3:2", (1620, 1080)),
+    ("21:9", (2520, 1080)),
+];
+const RATIO_NAMES: [&str; 7] = ["16:9 Landscape", "9:16 Vertical", "1:1 Square", "4:5 Portrait", "4:3 Classic", "3:2 Photo", "21:9 Cinema"];
+
+/// A shape at the resolution the project already has: its long side stays as it was.
+pub(super) fn reshape(shape: (usize, usize), now: (usize, usize)) -> (usize, usize) {
+    let long = now.0.max(now.1).max(shape.0.max(shape.1)) as f64;
+    let k = long / shape.0.max(shape.1) as f64;
+    let even = |v: usize| ((v as f64 * k).round() as usize) & !1;
+    (even(shape.0).max(2), even(shape.1).max(2))
+}
+
+/// Which shape a size is, if it is one of them.
+pub(super) fn ratio_of(size: (usize, usize)) -> Option<usize> {
+    let r = size.0 as f64 / size.1.max(1) as f64;
+    RATIOS.iter().position(|(_, s)| (s.0 as f64 / s.1 as f64 - r).abs() < 0.01)
+}
+
 const TEXT_COLOURS: [[f32; 3]; 6] = [[1.0, 1.0, 1.0], [0.0, 0.0, 0.0], [1.0, 0.85, 0.1], [1.0, 0.25, 0.25], [0.2, 0.75, 1.0], [0.3, 0.9, 0.5]];
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -71,11 +101,13 @@ pub enum Rail {
     Effect,
     Sticker,
     Adjustment,
+    Brand,
+    Assistant,
     Settings,
 }
 
 impl Rail {
-    pub const ALL: [Rail; 9] = [Rail::Media, Rail::Video, Rail::Photo, Rail::Audio, Rail::Text, Rail::Transitions, Rail::Effect, Rail::Sticker, Rail::Adjustment];
+    pub const ALL: [Rail; 11] = [Rail::Media, Rail::Video, Rail::Photo, Rail::Audio, Rail::Text, Rail::Transitions, Rail::Effect, Rail::Sticker, Rail::Adjustment, Rail::Brand, Rail::Assistant];
 
     fn name(self) -> &'static str {
         match self {
@@ -88,6 +120,8 @@ impl Rail {
             Rail::Effect => "Effect",
             Rail::Sticker => "Sticker",
             Rail::Adjustment => "Adjustment",
+            Rail::Brand => "Brand",
+            Rail::Assistant => "Assistant",
             Rail::Settings => "Settings",
         }
     }
@@ -103,6 +137,8 @@ impl Rail {
             Rail::Effect => Icon::Sparkles,
             Rail::Sticker => Icon::Sticker,
             Rail::Adjustment => Icon::SlidersHorizontal,
+            Rail::Brand => Icon::PaintBoard,
+            Rail::Assistant => Icon::MagicWand01,
             Rail::Settings => Icon::Settings01,
         }
     }
@@ -131,6 +167,8 @@ pub struct EditState {
     strips: HashMap<u32, Vec<TextureHandle>>,
     strip_tx: Sender<(u32, Vec<ColorImage>)>,
     strip_rx: Receiver<(u32, Vec<ColorImage>)>,
+    /// Film strips waiting for one of the few workers that make them.
+    strip_queue: Option<Sender<(u32, video::Info)>>,
     tree: [bool; 3],
     sort_by_name: bool,
     pub fullscreen: bool,
@@ -138,12 +176,20 @@ pub struct EditState {
     pub(super) extras: super::extras::ExtrasState,
     pub(super) design: super::design::DesignState,
     pub(super) captions: super::captions::CaptionsState,
+    pub(super) brand: super::brand::BrandState,
+    pub(super) assistant: super::assistant::AssistantState,
+    pub(super) klipy: super::klipy::KlipyState,
+    pub(super) cuts: super::cuts::CutsState,
+    pub(super) templates: super::templates::TemplatesState,
+    pub(super) clips: super::clipsel::ClipSel,
     /// Edges, cuts and the playhead pull a dragged item to them.
     pub snap: bool,
     /// Where in a dragged item the pointer took hold, in frames from its start.
     grab: i64,
     /// What the drag is lined up with this frame, for the guide line.
     snapped: Option<u32>,
+    /// Items selected together with the picked one (see `many.rs`).
+    pub(super) group: Vec<u32>,
 }
 
 impl Default for EditState {
@@ -159,6 +205,7 @@ impl Default for EditState {
             strips: HashMap::new(),
             strip_tx,
             strip_rx,
+            strip_queue: None,
             tree: [true, true, true],
             sort_by_name: false,
             fullscreen: false,
@@ -166,9 +213,16 @@ impl Default for EditState {
             extras: Default::default(),
             design: Default::default(),
             captions: Default::default(),
+            brand: Default::default(),
+            assistant: Default::default(),
+            klipy: Default::default(),
+            cuts: Default::default(),
+            templates: Default::default(),
+            clips: Default::default(),
             snap: true,
             grab: 0,
             snapped: None,
+            group: Vec::new(),
         }
     }
 }
@@ -220,12 +274,29 @@ impl App {
         let (w, h) = STRIP_SIZE;
         match (m.kind, m.info) {
             (MediaKind::Video, Some(info)) => {
-                std::thread::spawn(move || {
-                    if let Ok(frames) = video::strip(&info, STRIP_COUNT, w, h) {
-                        let images = frames.iter().map(|f| ColorImage::from_rgb([w, h], f)).collect();
-                        let _ = tx.send((id, images));
+                // A queue with a few workers, not a decoder per file at once: a project of
+                // 150 4K clips started 150 ffmpegs together and ran the computer out of memory.
+                let queue = self.edit.strip_queue.get_or_insert_with(|| {
+                    let (jobs, rx) = mpsc::channel::<(u32, video::Info)>();
+                    let rx = std::sync::Arc::new(std::sync::Mutex::new(rx));
+                    for _ in 0..STRIP_WORKERS {
+                        let (rx, tx) = (rx.clone(), tx.clone());
+                        std::thread::spawn(move || {
+                            loop {
+                                let job = rx.lock().ok().and_then(|r| r.recv().ok());
+                                let Some((id, info)) = job else { return };
+                                if let Ok(frames) = video::strip(&info, STRIP_COUNT, w, h) {
+                                    let images = frames.iter().map(|f| ColorImage::from_rgb([w, h], f)).collect();
+                                    if tx.send((id, images)).is_err() {
+                                        return;
+                                    }
+                                }
+                            }
+                        });
                     }
+                    jobs
                 });
+                let _ = queue.send((id, info));
             }
             (MediaKind::Photo, _) => {
                 if let Some(p) = self.stills.get(&id).cloned() {
@@ -254,6 +325,7 @@ impl App {
     pub(super) fn edit_layout(&mut self, ui: &mut Ui, ctx: &Context, screen: Rect) -> Rect {
         self.take_strips(ctx);
         self.poll_captions(ctx);
+        self.poll_assistant(ctx);
         if self.edit.fullscreen {
             // The picture and its controls alone, as large as the screen allows.
             return self.preview_area(ui, screen.shrink(4.0));
@@ -323,7 +395,8 @@ impl App {
 
     fn rail(&mut self, ui: &mut Ui, r: Rect) {
         card(ui, r);
-        let cell = 72.0;
+        // Every page and Settings fit the window's height, at most 72 points each.
+        let cell = ((r.height() - 12.0) / (Rail::ALL.len() + 1) as f32).clamp(54.0, 72.0);
         let mut y = r.top() + 6.0;
         let put = |app: &mut Self, ui: &mut Ui, tab: Rail, y: f32| {
             let b = Rect::from_min_size(pos2(r.left() + 6.0, y), vec2(r.width() - 12.0, cell - 6.0));
@@ -340,8 +413,8 @@ impl App {
                 p.rect_stroke(b, 10, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
             }
             let tint = if on { Color32::WHITE } else { Color32::from_rgb(0xA8, 0xA8, 0xAC) };
-            icons::paint(p, tab.icon(), Rect::from_center_size(pos2(b.center().x, b.top() + 24.0), Vec2::splat(21.0)), tint);
-            p.text(pos2(b.center().x, b.top() + 49.0), Align2::CENTER_CENTER, tab.name(), semi(11.5), tint);
+            icons::paint(p, tab.icon(), Rect::from_center_size(pos2(b.center().x, b.top() + b.height() * 0.36), Vec2::splat(21.0)), tint);
+            p.text(pos2(b.center().x, b.top() + b.height() * 0.74), Align2::CENTER_CENTER, tab.name(), semi(11.5), tint);
         };
         for tab in Rail::ALL {
             put(self, ui, tab, y);
@@ -367,6 +440,17 @@ impl App {
         let label = "Export";
         let w = text_width(ui, label, semi(13.0)) + 46.0;
         let b = Rect::from_min_size(pos2(r.right() - w - 8.0, y - 16.0), vec2(w, 32.0));
+        // The picture's shape, and whether clips fill it or fit inside it.
+        let fill_b = Rect::from_min_size(pos2(b.left() - 64.0, y - 16.0), vec2(56.0, 32.0));
+        let fill = self.project.fill;
+        if pill(ui, fill_b, if fill { "Fill" } else { "Fit" }, false, 12.5).on_hover_text(if fill { "Clips fill the frame, edges cropped. Click to fit them inside with bars." } else { "Clips fit inside the frame with bars. Click to fill it, cropping the edges." }).clicked() {
+            self.project.fill = !fill;
+        }
+        let ratio_b = Rect::from_min_size(pos2(fill_b.left() - 158.0, y - 16.0), vec2(150.0, 32.0));
+        let mut at = ratio_of(self.project.size).unwrap_or(usize::MAX);
+        if dropdown(ui, ratio_b, None, &RATIO_NAMES, &mut at) && at < RATIOS.len() {
+            self.project.size = reshape(RATIOS[at].1, self.project.size);
+        }
         let resp = ui.interact(b, ui.scope_id().with("export"), Sense::click());
         if resp.clicked() {
             self.sheet = Some(Sheet::Export);
@@ -393,16 +477,26 @@ impl App {
                 Rail::Media | Rail::Video | Rail::Photo => self.bin(ui),
                 Rail::Audio => self.audio_page(ui),
                 other => {
-                    egui::ScrollArea::vertical().id_salt(("page-scroll", other.name())).auto_shrink([false, false]).show(ui, |ui| {
+                    // Text and Captions scroll apart, so Text opens at its top after a long Captions page.
+                    let tab = if other == Rail::Text { self.edit.captions.tab } else { 0 };
+                    egui::ScrollArea::vertical().id_salt(("page-scroll", other.name(), tab)).auto_shrink([false, false]).show(ui, |ui| {
                         ui.spacing_mut().item_spacing.y = 4.0;
                         ui.set_width(ui.available_width() - 6.0);
+                        let before = self.picked_body();
+                        // Text shows it under its tabs, as the Captions tab edits nothing.
+                        if matches!(other, Rail::Effect | Rail::Sticker) {
+                            self.group_banner(ui);
+                        }
                         match other {
                             Rail::Text => self.text_page(ui),
                             Rail::Transitions => self.transitions_page(ui),
                             Rail::Effect => self.effects_page(ui),
                             Rail::Sticker => self.sticker_page(ui),
+                            Rail::Brand => self.brand_page(ui),
+                            Rail::Assistant => self.assistant_page(ui),
                             _ => self.settings_page(ui),
                         }
+                        self.spread_picked(before);
                     });
                 }
             }
@@ -422,6 +516,7 @@ impl App {
 
     /// The bin's sound files, or the sound effects library.
     fn audio_page(&mut self, ui: &mut Ui) {
+        self.clip_sound_section(ui);
         let mut tab = self.edit.extras.sound_tab;
         segmented(ui, &["My Audio", "Sound Effects"], &mut tab);
         self.edit.extras.sound_tab = tab;
@@ -522,19 +617,34 @@ impl App {
 
     fn text_page(&mut self, ui: &mut Ui) {
         let mut tab = self.edit.captions.tab;
-        segmented(ui, &["Text", "Captions"], &mut tab);
+        segmented(ui, &["Text", "Templates", "Captions"], &mut tab);
         self.edit.captions.tab = tab;
         if tab == 1 {
+            return self.templates_page(ui);
+        }
+        if tab == 2 {
             return self.captions_page(ui);
         }
+        self.group_banner(ui);
         let w = ui.available_width();
         let (r, _) = ui.allocate_exact_size(vec2(w, 38.0), Sense::hover());
         if action(ui, r, "Add Text", true, 13.5).clicked() {
             self.add_title();
         }
         ui.add_space(8.0);
+        // One caption on its own: a step to all of them, which is what's usually wanted.
+        let captions = self.project.items.iter().filter(|t| super::captions::is_caption(t)).count();
+        let lone = self.selection().len() < 2 && self.picked_item().is_some_and(|t| super::captions::is_caption(t));
+        if lone && captions > 1 {
+            let (r, _) = ui.allocate_exact_size(vec2(w, 32.0), Sense::hover());
+            if action(ui, r, &format!("Edit All {captions} Captions"), false, 12.5).on_hover_text("Select every caption, so a change here reaches them all").clicked() {
+                self.select_captions();
+            }
+            ui.add_space(4.0);
+        }
+        let palette = self.project_brand().map(|b| b.colours.clone()).unwrap_or_default();
         let Some(t) = self.picked_item() else {
-            note(ui, "Choose a text item on the timeline to change it.");
+            note(ui, "Choose a text item on the timeline to change it. Ctrl or Shift and a click selects more; Select All, below the timeline, takes every one.");
             return;
         };
         let Body::Text { text, size, colour, .. } = &mut t.body else {
@@ -545,9 +655,23 @@ impl App {
         ui.add_space(4.0);
         slider(ui, "Size", size, 24.0, 320.0, 96.0, Fmt::Int);
         let dots: Vec<Color32> = TEXT_COLOURS.iter().map(|c| Color32::from_rgb((c[0] * 255.0) as u8, (c[1] * 255.0) as u8, (c[2] * 255.0) as u8)).collect();
-        let mut at = TEXT_COLOURS.iter().position(|c| c == colour).unwrap_or(0);
+        let mut at = TEXT_COLOURS.iter().position(|c| c == colour).unwrap_or(usize::MAX);
+        let was = at;
         swatches(ui, &dots, &mut at);
-        *colour = TEXT_COLOURS[at];
+        if at != was && at < TEXT_COLOURS.len() {
+            *colour = TEXT_COLOURS[at];
+        }
+        if !palette.is_empty() {
+            ui.label(egui::RichText::new("Brand colours").font(regular(11.5)).color(MUTED));
+            let dots: Vec<Color32> = palette.iter().map(|c| Color32::from_rgb((c[0] * 255.0) as u8, (c[1] * 255.0) as u8, (c[2] * 255.0) as u8)).collect();
+            let mut at = palette.iter().position(|c| c == colour).unwrap_or(usize::MAX);
+            let was = at;
+            swatches(ui, &dots, &mut at);
+            if at != was && at < palette.len() {
+                *colour = palette[at];
+            }
+        }
+        self.style_section(ui);
         self.font_section(ui);
         self.animation_section(ui);
         self.keyframe_section(ui);
@@ -563,30 +687,38 @@ impl App {
     }
 
     fn transitions_page(&mut self, ui: &mut Ui) {
+        let mut tab = self.edit.cuts.tab;
+        segmented(ui, &["Transitions", "Cuts"], &mut tab);
+        self.edit.cuts.tab = tab;
+        if tab == 1 {
+            return self.cuts_page(ui);
+        }
         let Some(cut) = self.project.nearest_cut(self.head) else {
-            note(ui, "Point at a tile to watch it. Add a second clip to place one between them.");
+            note(ui, "Add a second clip to apply a transition.");
             self.transition_tiles(ui, None);
             return;
         };
         let now = self.project.clips[cut].transition;
-        note(ui, "Point at a tile to watch it. Click one to put it on the cut nearest the playhead.");
         if let Some(t) = now {
+            ui.label(egui::RichText::new(t.kind.name()).font(semi(13.0)).color(Color32::WHITE));
             let fps = self.project.fps as f32;
             let mut s = t.len as f32 / fps;
             slider(ui, "Seconds", &mut s, 0.1, 3.0, 1.0, Fmt::Plain);
             self.project.set_transition(cut, t.kind, (s * fps).round() as u32);
-            self.preview_button(ui);
+            let (preview, remove) = split_row(ui, 28.0, 6.0);
+            if action(ui, preview, "Preview (P)", true, 12.5).clicked() {
+                self.preview_fx();
+            }
+            if action(ui, remove, "Remove Transition", false, 12.5).clicked() {
+                self.project.clips[cut].transition = None;
+                return;
+            }
+        } else {
+            note(ui, "Applies to the cut nearest the playhead.");
         }
         if let Some(k) = self.transition_tiles(ui, now.map(|t| t.kind)) {
             let len = now.map_or(self.project.frames(1.0), |t| t.len);
             self.project.set_transition(cut, k, len);
-        }
-        if now.is_some() {
-            let w = ui.available_width();
-            let (r, _) = ui.allocate_exact_size(vec2(w, 32.0), Sense::hover());
-            if action(ui, r, "Remove Transition", false, 12.5).clicked() {
-                self.project.clips[cut].transition = None;
-            }
         }
     }
 
@@ -680,6 +812,18 @@ impl App {
         }
         self.plugins_section(ui);
         ui.add_space(8.0);
+        ui.label(egui::RichText::new("KLIPY").font(semi(13.0)).color(Color32::WHITE));
+        if self.settings.klipy_key.is_empty() {
+            note(ui, if crate::klipy::key("").is_some() { "Using the key in KLIPY_API_KEY." } else { "No key yet. Paste one on Sticker, Clips, KLIPY." });
+        } else {
+            note(ui, "A key is saved on this computer for video memes.");
+            let (r, _) = ui.allocate_exact_size(vec2(ui.available_width(), 32.0), Sense::hover());
+            if action(ui, r, "Remove KLIPY Key", false, 12.5).clicked() {
+                self.settings.klipy_key.clear();
+                crate::store::save_settings(&self.settings);
+            }
+        }
+        ui.add_space(8.0);
         self.credits_section(ui);
         ui.add_space(8.0);
         let w = ui.available_width();
@@ -701,6 +845,10 @@ impl App {
         let photo = Rect::from_min_max(pos2(meter.right(), r.top() + 2.0), pos2(r.right() - 2.0, r.bottom() - 46.0));
         let bar = Rect::from_min_max(pos2(r.left(), photo.bottom()), r.max);
         self.photo(ui, photo);
+        // Layers move and resize on the picture, except while masks or the crop use it.
+        if self.edit.rail != Rail::Adjustment || !matches!(self.tool, Tool::Masks | Tool::Crop) {
+            self.layer_handles(ui, photo);
+        }
         if !matches!(self.tool, Tool::Masks | Tool::Crop) || self.edit.rail != Rail::Adjustment {
             self.original_button(ui, photo);
         } else {
@@ -743,7 +891,7 @@ impl App {
         }
         let playing = self.run.is_some();
         if play_button(ui, at(0.0).center(), playing).clicked() {
-            self.play_or_pause();
+            self.play_or_pause("the play button");
         }
         if icon_button(ui, at(1.0), Icon::Next, "Forward one frame", false).clicked() {
             self.seek_head(self.head + 1);
@@ -954,22 +1102,30 @@ impl App {
                 clipped.rect_filled(band, 0, Color32::from_rgba_unmultiplied(255, 255, 255, 46));
                 clipped.line_segment([band.left_bottom(), band.right_top()], Stroke::new(1.0, Color32::WHITE));
             }
-            let picked = self.picked == Some(Picked::Clip(c.id));
+            let primary = self.picked == Some(Picked::Clip(c.id));
+            let picked = self.clip_selected(c.id);
             if rect.width() < SLIVER && !picked && !near(&rect) {
                 continue;
             }
             let inner = (rect.width() > EDGE * 3.0).then(|| rect.shrink2(vec2(EDGE, 0.0))).unwrap_or(rect);
             let resp = ui.interact(inner.intersect(body), ui.scope_id().with(("clip", c.id)), Sense::click_and_drag());
             if resp.clicked() {
-                self.picked = Some(Picked::Clip(c.id));
-                let at = ui.input(|i| i.pointer.interact_pos()).map_or(starts[i], |p| to_frame(p.x));
-                go = Some(at.clamp(starts[i], starts[i] + c.len.saturating_sub(1)));
+                let (ctrl, shift) = ui.input(|i| (i.modifiers.command, i.modifiers.shift));
+                self.click_clip(c.id, ctrl, shift);
+                // A plain click also moves the playhead there; picking more leaves it be.
+                if !ctrl && !shift {
+                    let at = ui.input(|i| i.pointer.interact_pos()).map_or(starts[i], |p| to_frame(p.x));
+                    go = Some(at.clamp(starts[i], starts[i] + c.len.saturating_sub(1)));
+                }
             }
+            resp.context_menu(|ui| self.clip_menu(ui, c.id));
             if resp.drag_started() && !locked(self, ROW_VIDEO) {
                 self.picked = Some(Picked::Clip(c.id));
                 self.edit.hold = Some(Hold::Clip(i));
             }
-            if picked {
+            if picked && !primary {
+                clipped.rect_stroke(rect, 3, Stroke::new(2.0, YELLOW), StrokeKind::Inside);
+            } else if primary {
                 clipped.rect_stroke(rect, 3, Stroke::new(3.0, YELLOW), StrokeKind::Inside);
                 for (x, glyph) in [(rect.left() + 5.0, Icon::ArrowLeft01), (rect.right() - 5.0, Icon::ArrowRight01)] {
                     let bar = Rect::from_center_size(pos2(x, rect.center().y), vec2(10.0, rect.height()));
@@ -1007,12 +1163,60 @@ impl App {
             let fill = if sound_on && !c.muted { SOUND } else { Color32::from_gray(70) };
             used[ROW_SOUND] = true;
             clipped.rect_filled(bar, 5, fill);
+            if self.clip_selected(c.id) {
+                clipped.rect_stroke(bar, 5, Stroke::new(1.5, YELLOW), StrokeKind::Inside);
+            }
             if bar.width() < SLIVER {
                 continue;
             }
             let row = bar.intersect(area);
-            icons::paint(&clipped, Icon::VolumeHigh, Rect::from_center_size(pos2(bar.left() + 18.0, bar.center().y), Vec2::splat(17.0)), Color32::WHITE);
-            clipped.with_clip_rect(row).text(pos2(bar.left() + 36.0, bar.center().y), Align2::LEFT_CENTER, "Original Sound", semi(12.0), Color32::WHITE);
+            // Click picks the clip, drag up or down sets the volume, double-click puts it back
+            // to as recorded, right-click opens the clip's menu.
+            let hit = ui.interact(row, ui.scope_id().with(("sound", c.id)), Sense::click_and_drag()).on_hover_text("Drag up or down for volume; double-click for 100%");
+            let speaker = Rect::from_center_size(pos2(bar.left() + 18.0, bar.center().y), Vec2::splat(24.0));
+            let mute = ui.interact(speaker.intersect(area), ui.scope_id().with(("sound-mute", c.id)), Sense::click()).on_hover_text(if c.muted { "Unmute (M)" } else { "Mute (M)" });
+            if mute.clicked() {
+                if !self.clip_selected(c.id) {
+                    self.click_clip(c.id, false, false);
+                }
+                self.toggle_clip_mute();
+            } else if hit.clicked() {
+                let (ctrl, shift) = ui.input(|i| (i.modifiers.command, i.modifiers.shift));
+                self.click_clip(c.id, ctrl, shift);
+            }
+            if hit.drag_started() && !self.clip_selected(c.id) {
+                self.click_clip(c.id, false, false);
+            }
+            let targets = self.sound_targets();
+            if hit.double_clicked() {
+                for t in self.project.clips.iter_mut().filter(|t| targets.contains(&t.id)) {
+                    t.volume = 1.0;
+                }
+            }
+            if hit.dragged() {
+                let change = -hit.drag_delta().y / bar.height().max(1.0) * MOST_VOLUME;
+                for t in self.project.clips.iter_mut().filter(|t| targets.contains(&t.id)) {
+                    t.volume = (t.volume + change).clamp(0.0, MOST_VOLUME);
+                }
+                let now = self.project.clips.iter().find(|t| t.id == c.id).map_or(c.volume, |t| t.volume);
+                value_bubble(ui, pos2(hit.interact_pointer_pos().map_or(bar.center().x, |p| p.x), bar.top()), &format!("{:.0}%", now * 100.0));
+            }
+            hit.context_menu(|ui| self.clip_menu(ui, c.id));
+            // While pointed at, the volume shows as a line: the middle is as recorded, the
+            // top twice as loud. Left out otherwise, as it would cross out the label.
+            if (hit.hovered() || hit.dragged()) && !c.muted {
+                let now = self.project.clips.iter().find(|t| t.id == c.id).map_or(c.volume, |t| t.volume);
+                let y = bar.bottom() - (now / MOST_VOLUME).clamp(0.0, 1.0) * bar.height();
+                clipped.line_segment([pos2(bar.left() + 2.0, y), pos2(bar.right() - 2.0, y)], Stroke::new(2.0, YELLOW));
+            }
+            let tint = if mute.hovered() { YELLOW } else { Color32::WHITE };
+            icons::paint(&clipped, if c.muted { Icon::VolumeOff } else { Icon::VolumeHigh }, Rect::from_center_size(speaker.center(), Vec2::splat(17.0)), tint);
+            let label = match (c.muted, (c.volume - 1.0).abs() > 0.005) {
+                (true, _) => "Original Sound, muted".to_string(),
+                (false, true) => format!("Original Sound {:.0}%", c.volume * 100.0),
+                (false, false) => "Original Sound".to_string(),
+            };
+            clipped.with_clip_rect(row).text(pos2(bar.left() + 36.0, bar.center().y), Align2::LEFT_CENTER, label, semi(12.0), Color32::WHITE);
         }
 
         let items = self.project.items.clone();
@@ -1024,7 +1228,7 @@ impl App {
             if !rect.intersects(area) {
                 continue;
             }
-            let picked = self.picked == Some(Picked::Item(t.id));
+            let picked = self.is_selected(t.id);
             let sliver = rect.width() < SLIVER;
             // Two slivers can't be told apart inside one pixel, so one stands for both.
             if sliver && !picked && rect.left() < drawn_to[row] {
@@ -1037,7 +1241,12 @@ impl App {
                 let badge = Rect::from_center_size(pos2(rect.left() + 18.0, rect.center().y), Vec2::splat(24.0));
                 clipped.rect_filled(badge, 4, Color32::from_black_alpha(70));
                 icons::paint(&clipped, icon_of(t), Rect::from_center_size(badge.center(), Vec2::splat(16.0)), Color32::WHITE);
-                clipped.with_clip_rect(rect.intersect(area)).text(pos2(rect.left() + 38.0, rect.center().y), Align2::LEFT_CENTER, t.label(), semi(12.0), Color32::WHITE);
+                // A video layer goes by its file's name, so several can be told apart.
+                let label = match &t.body {
+                    Body::Overlay { media, .. } => self.project.media_of(*media).map_or_else(|| t.label(), |m| m.name.clone()),
+                    _ => t.label(),
+                };
+                clipped.with_clip_rect(rect.intersect(area)).text(pos2(rect.left() + 38.0, rect.center().y), Align2::LEFT_CENTER, label, semi(12.0), Color32::WHITE);
             }
             if picked {
                 clipped.rect_stroke(rect, 5, Stroke::new(2.0, YELLOW), StrokeKind::Inside);
@@ -1047,10 +1256,19 @@ impl App {
             }
             let free = !locked(self, row);
             let resp = ui.interact(rect.intersect(area).shrink2(vec2(EDGE.min(rect.width() / 3.0), 0.0)), ui.scope_id().with(("item", t.id)), Sense::click_and_drag());
+            resp.context_menu(|ui| self.item_menu(ui, t.id));
             if resp.clicked() {
-                self.picked = Some(Picked::Item(t.id));
+                if ui.input(|i| i.modifiers.command || i.modifiers.shift) {
+                    self.toggle_select(t.id);
+                } else {
+                    self.select_only(t.id);
+                }
                 self.edit.rail = match t.body {
-                    Body::Text { .. } => Rail::Text,
+                    Body::Text { .. } => {
+                        // A caption is changed on the Text tab, not where it was made.
+                        self.edit.captions.tab = 0;
+                        Rail::Text
+                    }
                     Body::Sticker { .. } => Rail::Sticker,
                     Body::Graphic { .. } => {
                         self.show_layers_tab();
@@ -1068,7 +1286,12 @@ impl App {
                 ui.ctx().set_cursor_icon(egui::CursorIcon::Grab);
             }
             if resp.drag_started() && free {
-                self.picked = Some(Picked::Item(t.id));
+                // Dragging one of a selection moves them all; anything else, just itself.
+                if self.is_selected(t.id) {
+                    self.picked = Some(Picked::Item(t.id));
+                } else {
+                    self.select_only(t.id);
+                }
                 self.edit.hold = Some(Hold::Item(t.id));
                 self.edit.spare = 0.0;
                 self.edit.grab = resp.interact_pointer_pos().map_or(0, |p| to_frame(p.x) as i64 - t.at as i64);
@@ -1086,7 +1309,7 @@ impl App {
                     }
                 }
             }
-            if picked {
+            if self.picked == Some(Picked::Item(t.id)) {
                 self.key_diamonds(ui, area, rect, t.id, &to_x, &to_frame);
             }
         }
@@ -1193,13 +1416,18 @@ impl App {
     /// Lines things up as they are dragged: the playhead, every cut, and the edges of every
     /// other item. `skip` is the item being dragged.
     fn snap_targets(&self, skip: Option<u32>) -> Vec<u32> {
+        // Items moving together don't line up with each other.
+        let moving: Vec<u32> = match skip {
+            Some(id) if self.is_selected(id) => self.selection(),
+            other => other.into_iter().collect(),
+        };
         let index = self.timeline_index();
         let mut v = vec![0, self.head];
         for (i, s) in index.starts.iter().enumerate() {
             v.push(*s);
             v.push(s + self.project.clips[i].len);
         }
-        for t in self.project.items.iter().filter(|t| Some(t.id) != skip) {
+        for t in self.project.items.iter().filter(|t| !moving.contains(&t.id)) {
             v.push(t.at);
             v.push(t.end());
         }
@@ -1309,8 +1537,10 @@ impl App {
                     };
                     let new_at = (want + pick.map_or(0, |p| p.0)).max(0) as u32;
                     lined = pick.map(|p| p.1);
+                    let was = self.project.items.iter().find(|t| t.id == id).map_or(new_at, |t| t.at);
+                    let moved = self.carry_selection(id, new_at as i64 - was as i64);
                     if let Some(t) = self.project.items.iter_mut().find(|t| t.id == id) {
-                        t.at = new_at;
+                        t.at = (was as i64 + moved).max(0) as u32;
                         if let Some(r) = row.filter(|r| matches!(t.body, Body::Audio { .. }) == matches!(*r, ROW_SOUND | ROW_MUSIC)) {
                             t.row = r;
                         }
@@ -1361,6 +1591,8 @@ impl App {
             self.redo();
         }
         if icon_button(ui, at(2.0), Icon::Delete02, "Delete what's selected", false).clicked()
+            && !self.delete_selection()
+            && !self.delete_clip_selection()
             && let Some(p) = self.picked.take()
         {
             self.project.delete(p);
@@ -1374,11 +1606,10 @@ impl App {
         }
         let mid = r.center().x - 60.0;
         let tool = |n: f32| Rect::from_center_size(pos2(mid + n * 40.0, y), Vec2::splat(32.0));
-        if icon_button(ui, tool(0.0), Icon::VolumeHigh, "Mute the selected clip", false).clicked()
-            && let Some(Picked::Clip(id)) = self.picked
-            && let Some(c) = self.project.clips.iter_mut().find(|c| c.id == id)
-        {
-            c.muted ^= true;
+        let muted = self.targets_muted();
+        let (icon, tip) = if muted { (Icon::VolumeOff, "Unmute the picked clips (M)") } else { (Icon::VolumeHigh, "Mute the picked clips (M)") };
+        if icon_button(ui, tool(0.0), icon, tip, muted).clicked() {
+            self.toggle_clip_mute();
         }
         if icon_button(ui, tool(1.0), Icon::MusicNote01, "Add music", false).clicked() {
             self.edit.rail = Rail::Audio;
@@ -1404,6 +1635,9 @@ impl App {
             let _ = &app;
             pill(ui, b, label, false, 13.0).clicked()
         };
+        if word(self, ui, "Select All") {
+            self.select_all_items();
+        }
         if word(self, ui, "Trim") {
             let (start, _) = self.nearer_end();
             self.trim_to_head(start);
@@ -1429,7 +1663,9 @@ impl App {
 
     pub(super) fn add_title(&mut self) {
         self.edit.rail = Rail::Text;
-        self.add_item(ROW_FX2, crate::timeline::ITEM_SECONDS, Body::Text { text: "Your title".to_string(), size: 96.0, colour: [1.0; 3], x: 0.5, y: 0.5, motion: Default::default() });
+        let (mut colour, mut motion) = ([1.0; 3], Default::default());
+        self.brand_new_text(&mut colour, &mut motion);
+        self.add_item(ROW_FX2, crate::timeline::ITEM_SECONDS, Body::Text { text: "Your title".to_string(), size: 96.0, colour, x: 0.5, y: 0.5, motion });
     }
 
     pub(super) fn zoom_by(&mut self, k: f32) {

@@ -415,6 +415,43 @@ pub struct Motion {
     pub hidden: bool,
     /// A set this belongs to, such as the captions Auto Captions wrote.
     pub group: String,
+    /// A second colour the letters blend into, top to bottom; None keeps one colour.
+    pub gradient: Option<[f32; 3]>,
+    /// Words written between *stars* take this colour and are drawn bold.
+    pub highlight: [f32; 3],
+    /// A shape behind the text: a box, a pill, a marker stroke and so on.
+    pub backing: Backing,
+    pub backing_colour: [f32; 3],
+}
+
+/// What sits behind a text, as in title and callout templates.
+#[derive(Clone, Copy, Serialize, Deserialize, PartialEq, Eq, Debug, Default)]
+pub enum Backing {
+    #[default]
+    None,
+    Box,
+    Pill,
+    /// A rough brush stroke, like a highlighter or marker.
+    Marker,
+    /// A hand-drawn line under the words.
+    Underline,
+    /// An outlined box, as in callouts.
+    Frame,
+}
+
+impl Backing {
+    pub const ALL: [Backing; 6] = [Backing::None, Backing::Box, Backing::Pill, Backing::Marker, Backing::Underline, Backing::Frame];
+
+    pub fn name(self) -> &'static str {
+        match self {
+            Backing::None => "None",
+            Backing::Box => "Box",
+            Backing::Pill => "Pill",
+            Backing::Marker => "Marker",
+            Backing::Underline => "Underline",
+            Backing::Frame => "Frame",
+        }
+    }
 }
 
 pub const DEFAULT_WEIGHT: u16 = 600;
@@ -436,6 +473,10 @@ impl Default for Motion {
             keys: Vec::new(),
             hidden: false,
             group: String::new(),
+            gradient: None,
+            highlight: [0.48, 0.38, 1.0],
+            backing: Backing::None,
+            backing_colour: [0.83, 1.0, 0.36],
         }
     }
 }

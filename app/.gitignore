@@ -5,3 +5,5 @@
 /shots/
 # Hallmark's working files, if it is ever run here.
 /.hallmark/
+# The browser engine builds its own.
+/browser-engine/target/

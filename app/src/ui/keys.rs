@@ -54,6 +54,7 @@ pub enum Act {
     SpeedPanel,
     PreviewFx,
     Snap,
+    SelectAll,
 }
 
 pub struct Binding {
@@ -95,6 +96,7 @@ pub const KEYS: &[Binding] = &[
     bind(Key::Delete, false, false, "Delete", EDIT, "Delete what's selected", Act::Delete),
     bind(Key::Backspace, false, false, "Backspace", EDIT, "Delete what's selected", Act::Delete),
     bind(Key::D, true, false, "Ctrl D", EDIT, "Duplicate", Act::Duplicate),
+    bind(Key::A, true, false, "Ctrl A", EDIT, "Select every item; Ctrl or Shift and a click adds one", Act::SelectAll),
     bind(Key::Q, false, false, "Q", EDIT, "Trim clip start to the playhead", Act::TrimStart),
     bind(Key::W, false, false, "W", EDIT, "Trim clip end to the playhead", Act::TrimEnd),
     bind(Key::A, false, false, "A", EDIT, "Detach audio", Act::DetachAudio),
@@ -210,7 +212,7 @@ impl App {
         let five = self.project.frames(5.0);
         let h = self.head;
         match a {
-            Act::PlayPause => self.play_or_pause(),
+            Act::PlayPause => self.play_or_pause("a key"),
             Act::BackFrame => self.seek_head(h.saturating_sub(1)),
             Act::ForwardFrame => self.seek_head(h + 1),
             Act::BackSecond => self.seek_head(h.saturating_sub(second)),
@@ -223,7 +225,9 @@ impl App {
             Act::ToEnd => self.seek_head(self.project.total()),
             Act::Split => self.split(),
             Act::Delete => {
-                if let Some(p) = self.picked.take() {
+                if self.delete_selection() || self.delete_clip_selection() {
+                    self.needs_activate = true;
+                } else if let Some(p) = self.picked.take() {
                     self.project.delete(p);
                     self.needs_activate = true;
                 }
@@ -236,13 +240,7 @@ impl App {
             Act::TrimStart => self.trim_to_head(true),
             Act::TrimEnd => self.trim_to_head(false),
             Act::DetachAudio => self.detach(),
-            Act::MuteClip => {
-                if let Some(id) = self.active
-                    && let Some(c) = self.project.clips.iter_mut().find(|c| c.id == id)
-                {
-                    c.muted ^= true;
-                }
-            }
+            Act::MuteClip => self.toggle_clip_mute(),
             Act::Undo => self.undo(),
             Act::Redo => self.redo(),
             Act::Deselect if self.edit.fullscreen => self.set_fullscreen(ctx, false),
@@ -268,6 +266,7 @@ impl App {
             Act::Slower => self.nudge_speed(false),
             Act::SpeedPanel => self.edit.motion.speed_open = !self.edit.motion.speed_open,
             Act::PreviewFx => self.preview_fx(),
+            Act::SelectAll => self.select_all_items(),
             Act::Snap => {
                 self.edit.snap = !self.edit.snap;
                 self.say(if self.edit.snap { "Snapping on" } else { "Snapping off" });

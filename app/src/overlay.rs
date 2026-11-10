@@ -42,7 +42,7 @@ fn luma(c: [f32; 3]) -> f32 {
 }
 
 #[inline]
-fn sample(p: &Picture, x: f32, y: f32) -> [f32; 3] {
+pub(crate) fn sample(p: &Picture, x: f32, y: f32) -> [f32; 3] {
     let (w, h) = (p.w, p.h);
     let (x, y) = (x.clamp(0.0, (w - 1) as f32), y.clamp(0.0, (h - 1) as f32));
     let (x0, y0) = (x as usize, y as usize);
@@ -119,7 +119,7 @@ fn hue_turn(c: [f32; 3], angle: f32) -> [f32; 3] {
     ]
 }
 
-fn mixed(c: [f32; 3], d: [f32; 3], k: f32) -> [f32; 3] {
+pub(crate) fn mixed(c: [f32; 3], d: [f32; 3], k: f32) -> [f32; 3] {
     std::array::from_fn(|i| c[i] + (d[i] - c[i]) * k)
 }
 
@@ -129,6 +129,12 @@ pub fn blend(a: &Picture, b: &Picture, kind: Wipe, t: f32) -> Picture {
     use std::f32::consts::{PI, TAU};
     let (w, h) = (b.w, b.h);
     let t = t.clamp(0.0, 1.0);
+    if t <= 0.0 { return a.clone(); }
+    if t >= 1.0 { return b.clone(); }
+    let recipe = kind.recipe();
+    if !matches!(recipe, crate::transitions::Recipe::Legacy) {
+        return crate::transitions::render(a, b, recipe, t);
+    }
     let eased = t * t * (3.0 - 2.0 * t);
     // Strongest in the middle, nothing at either end.
     let swell = (PI * t).sin();
@@ -256,6 +262,7 @@ pub fn blend(a: &Picture, b: &Picture, kind: Wipe, t: f32) -> Picture {
                     let (bx, by) = ((x / block * block + block / 2).min(w - 1), (y / block * block + block / 2).min(h - 1));
                     from.px[bx.min(from.w - 1) + by.min(from.h - 1) * from.w]
                 }
+                _ => unreachable!("procedural transitions rendered above"),
             };
         }
     });
@@ -297,6 +304,25 @@ pub fn effect(p: &mut Picture, kind: Fx, amount: f32, t: f32, frame: u32) {
             if frame % 4 < 2 {
                 p.px.par_iter_mut().for_each(|c| *c = c.map(|v| v + (1.0 - v) * 0.7 * amount));
             }
+        }
+        Fx::Flicker => {
+            // Uneven light, as from an old bulb or a projector: mostly a little dimmer or
+            // brighter, now and then a deep dip.
+            let n = noise01(frame, 11, 4);
+            let k = if n > 0.9 { 0.35 } else { 0.8 + noise01(frame, 5, 8) * 0.35 };
+            let k = 1.0 + (k - 1.0) * amount;
+            p.px.par_iter_mut().for_each(|c| *c = c.map(|v| v * k));
+        }
+        Fx::Shutter => {
+            // Black frames at uneven gaps, the jittery flicker of fast edits.
+            if noise01(frame / 2, 13, 6) > 0.62 {
+                p.px.par_iter_mut().for_each(|c| *c = c.map(|v| v * (1.0 - amount)));
+            }
+        }
+        Fx::Flash => {
+            // White at once, fading out over the effect's length: a smash cut's hit.
+            let k = (1.0 - t).powf(1.6) * amount;
+            p.px.par_iter_mut().for_each(|c| *c = c.map(|v| v + (1.0 - v) * k));
         }
         Fx::Glitch => {
             let reach = fw * 0.012 * amount * (0.4 + noise01(frame, 1, 9) * 1.2);
@@ -522,6 +548,91 @@ pub struct Setting {
     pub outline: f32,
     pub finest: Unit,
     pub scrambles: bool,
+    /// The colour the letters blend into, top to bottom.
+    pub gradient: Option<[f32; 3]>,
+    /// The colour of words written between *stars*, which are drawn bold too.
+    pub highlight: [f32; 3],
+}
+
+/// A line's letters with the stars taken out, and which letters were between them.
+pub fn marked(line: &str) -> (Vec<char>, Vec<bool>) {
+    let (mut chars, mut marks, mut on) = (Vec::new(), Vec::new(), false);
+    for c in line.chars() {
+        if c == '*' {
+            on = !on;
+            continue;
+        }
+        chars.push(c);
+        marks.push(on);
+    }
+    (chars, marks)
+}
+
+/// The shape behind a text `w` by `h` pixels, at text size `em`. Rough shapes take their
+/// wobble from `seed`, so each text keeps its own and it never shimmers between frames.
+/// The stamp is larger than the text by its margin on every side.
+pub fn backing(style: crate::textanim::Backing, colour: [f32; 3], w: f32, h: f32, em: f32, seed: u32) -> Option<Stamp> {
+    use crate::textanim::Backing as B;
+    let (px, py) = (em * 0.35, em * 0.16);
+    let m = em * 0.3;
+    let (bw, bh) = (w + px * 2.0, if style == B::Underline { em * 0.3 } else { h + py * 2.0 });
+    let (cw, ch) = ((bw + m * 2.0).ceil(), (bh + m * 2.0).ceil());
+    let fill = hex_of(colour);
+    let wobble = |i: u32, k: u32| (noise01(i, k, seed) - 0.5) * em * 0.22;
+    let shape = match style {
+        B::None => return None,
+        B::Box => format!(r#"<rect x="{m}" y="{m}" width="{bw}" height="{bh}" rx="{}" fill="{fill}"/>"#, em * 0.08),
+        B::Pill => format!(r#"<rect x="{m}" y="{m}" width="{bw}" height="{bh}" rx="{}" fill="{fill}"/>"#, bh / 2.0),
+        B::Frame => format!(r#"<rect x="{m}" y="{m}" width="{bw}" height="{bh}" fill="none" stroke="{fill}" stroke-width="{}"/>"#, (em * 0.06).max(1.5)),
+        B::Marker => {
+            // A brush stroke: wobbling top and bottom edges, ragged ends, and a few
+            // bristle streaks running past them.
+            let steps = ((bw / (em * 0.5)).ceil() as u32).max(3);
+            let mut d = String::new();
+            for i in 0..=steps {
+                let x = m + bw * i as f32 / steps as f32;
+                d.push_str(&format!("{}{x:.1},{:.1} ", if i == 0 { "M" } else { "L" }, m + wobble(i, 1).abs() * 0.6));
+            }
+            for i in (0..=steps).rev() {
+                let x = m + bw * i as f32 / steps as f32 + if i == steps || i == 0 { wobble(i, 7) } else { 0.0 };
+                d.push_str(&format!("L{x:.1},{:.1} ", m + bh - wobble(i, 2).abs() * 0.6));
+            }
+            let mut s = format!(r#"<path d="{d}Z" fill="{fill}"/>"#);
+            for k in 0..3 {
+                let y = m + bh * (0.2 + 0.3 * k as f32) + wobble(k, 3) * 0.3;
+                let (x0, x1) = (m - em * 0.2 * noise01(k, 4, seed), m + bw + em * 0.25 * noise01(k, 5, seed));
+                s.push_str(&format!(r#"<path d="M{x0:.1},{y:.1} L{x1:.1},{:.1}" stroke="{fill}" stroke-width="{:.1}" stroke-linecap="round" opacity="0.8"/>"#, y + wobble(k, 6) * 0.3, em * 0.05));
+            }
+            s
+        }
+        B::Underline => {
+            // A quick hand-drawn line: a gentle wave, thick in the middle, round at the ends.
+            let y = m + bh / 2.0;
+            let mut d = format!("M{m:.1},{y:.1} ");
+            let parts = 4;
+            for i in 1..=parts {
+                let x = m + bw * i as f32 / parts as f32;
+                let cx = x - bw / parts as f32 / 2.0;
+                d.push_str(&format!("Q{cx:.1},{:.1} {x:.1},{:.1} ", y + wobble(i, 8), y + wobble(i, 9) * 0.3));
+            }
+            format!(r#"<path d="{d}" fill="none" stroke="{fill}" stroke-width="{:.1}" stroke-linecap="round"/>"#, em * 0.09)
+        }
+    };
+    let svg = format!(r#"<svg xmlns="http://www.w3.org/2000/svg" width="{cw}" height="{ch}">{shape}</svg>"#);
+    let tree = resvg::usvg::Tree::from_str(&svg, &resvg::usvg::Options::default()).ok()?;
+    let mut map = resvg::tiny_skia::Pixmap::new(cw as u32, ch as u32)?;
+    resvg::render(&tree, resvg::tiny_skia::Transform::identity(), &mut map.as_mut());
+    Some(stamp_of(&map))
+}
+
+/// The text as it reads, without the stars that mark highlighted words.
+pub fn plain(text: &str) -> String {
+    text.replace('*', "")
+}
+
+fn hex_of(c: [f32; 3]) -> String {
+    let b = |v: f32| (v.clamp(0.0, 1.0) * 255.0).round() as u8;
+    format!("#{:02x}{:02x}{:02x}", b(c[0]), b(c[1]), b(c[2]))
 }
 
 /// A text cut into pieces, ready to animate. Each piece is drawn in the place the
@@ -582,18 +693,37 @@ fn band(size: f32) -> (f32, f32) {
 
 /// Draws one stretch of a line on an empty strip the height of a line. The rest of the
 /// line is laid out but left invisible, which keeps the stretch in its true place.
-fn strip(line: &[char], from: usize, to: usize, s: &Setting, width: u32) -> Option<Stamp> {
+fn strip(line: &[char], marks: &[bool], from: usize, to: usize, s: &Setting, width: u32) -> Option<Stamp> {
     let (h, baseline) = band(s.size);
-    let fill = format!("#{:02x}{:02x}{:02x}", (s.colour[0] * 255.0) as u8, (s.colour[1] * 255.0) as u8, (s.colour[2] * 255.0) as u8);
-    let run = |a: usize, b: usize| escape(&line[a..b].iter().collect::<String>());
-    let hidden = |t: String| if t.is_empty() { t } else { format!(r#"<tspan fill-opacity="0" stroke-opacity="0">{t}</tspan>"#) };
+    // A gradient runs down each line, so every piece of it shows its own part.
+    let (defs, fill) = match s.gradient {
+        Some(g) => (
+            format!(r#"<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{}"/><stop offset="1" stop-color="{}"/></linearGradient></defs>"#, hex_of(s.colour), hex_of(g)),
+            "url(#g)".to_string(),
+        ),
+        None => (String::new(), hex_of(s.colour)),
+    };
+    let bold = s.weight.max(800);
+    // Runs of letters that share being shown and being highlighted, each its own tspan.
+    // The rest of the line is laid out but invisible, which keeps the shown part in place.
+    let mut body = String::new();
+    let mut i = 0;
+    while i < line.len() {
+        let shown = i >= from && i < to;
+        let lit = marks.get(i).copied().unwrap_or(false);
+        let end = (i..line.len()).find(|j| (*j >= from && *j < to) != shown || marks.get(*j).copied().unwrap_or(false) != lit).unwrap_or(line.len());
+        let words = escape(&line[i..end].iter().collect::<String>());
+        let look = if lit { format!(r#" fill="{}" font-weight="{bold}""#, hex_of(s.highlight)) } else { String::new() };
+        let hide = if shown { "" } else { r#" fill-opacity="0" stroke-opacity="0""# };
+        body.push_str(&format!("<tspan{look}{hide}>{words}</tspan>"));
+        i = end;
+    }
     // The edge is drawn under the letter, so it never eats into it.
     let edge = if s.outline > 0.0 { format!(r##" stroke="#000000" stroke-width="{}" stroke-linejoin="round" paint-order="stroke""##, s.outline * s.size * 2.0) } else { String::new() };
-    let (before, shown, after) = (hidden(run(0, from)), run(from, to), hidden(run(to, line.len())));
     let fallback = default_font();
     let family = if s.font.is_empty() { fallback.as_str() } else { &s.font };
     let svg = format!(
-        r#"<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{}"><text xml:space="preserve" x="{}" y="{baseline}" font-family="{}" font-weight="{}" font-style="{}" letter-spacing="{}" font-size="{}" fill="{fill}"{edge} text-anchor="middle">{before}<tspan>{shown}</tspan>{after}</text></svg>"#,
+        r#"<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{}">{defs}<text xml:space="preserve" x="{}" y="{baseline}" font-family="{}" font-weight="{}" font-style="{}" letter-spacing="{}" font-size="{}" fill="{fill}"{edge} text-anchor="middle">{body}</text></svg>"#,
         h.ceil(),
         width / 2,
         escape(family),
@@ -622,7 +752,7 @@ fn trimmed(s: &Stamp) -> Option<(Stamp, usize)> {
 
 /// Cuts a text into the pieces its animations need, and draws them.
 pub fn text_cells(s: &Setting) -> Option<TextCells> {
-    let lines: Vec<Vec<char>> = s.text.lines().map(|l| l.chars().collect()).collect();
+    let (lines, marks): (Vec<Vec<char>>, Vec<Vec<bool>>) = s.text.lines().map(marked).unzip();
     let longest = lines.iter().map(|l| l.len()).max()?.max(1) as f32;
     let width = ((longest * s.size * (WIDEST_LETTER + s.spacing.max(0.0)) + s.size) as u32).max(8);
     let (line_h, (strip_h, _)) = (s.size * LINE_STEP, band(s.size));
@@ -630,7 +760,7 @@ pub fn text_cells(s: &Setting) -> Option<TextCells> {
     let drawn: Vec<(Stamp, usize, &Piece)> = list
         .par_iter()
         .filter_map(|p| {
-            let (stamp, left) = trimmed(&strip(&lines[p.line], p.from, p.to, s, width)?)?;
+            let (stamp, left) = trimmed(&strip(&lines[p.line], &marks[p.line], p.from, p.to, s, width)?)?;
             Some((stamp, left, p))
         })
         .collect();
@@ -651,7 +781,7 @@ pub fn text_cells(s: &Setting) -> Option<TextCells> {
     if s.scrambles {
         let spare = Setting { spacing: 0.0, ..s.clone() };
         let glyphs: Vec<char> = SPARE_GLYPHS.chars().collect();
-        out.spares = glyphs.par_iter().filter_map(|g| Some(trimmed(&strip(&[*g], 0, 1, &spare, (s.size * 2.0).max(8.0) as u32)?)?.0)).collect();
+        out.spares = glyphs.par_iter().filter_map(|g| Some(trimmed(&strip(&[*g], &[false], 0, 1, &spare, (s.size * 2.0).max(8.0) as u32)?)?.0)).collect();
     }
     Some(out)
 }
@@ -781,6 +911,37 @@ pub fn place(p: &mut Picture, s: &Stamp, x: f32, y: f32) {
 }
 
 /// Fits a picture inside a frame without stretching it, black filling what's left.
+/// Enlarges a picture `by` times from its centre, keeping its size and cropping the edges.
+pub fn zoom(p: Picture, by: f32) -> Picture {
+    let (w, h) = (p.w, p.h);
+    let scale = 1.0 / by.max(1.0);
+    let (ox, oy) = (w as f32 * (1.0 - scale) / 2.0, h as f32 * (1.0 - scale) / 2.0);
+    let mut px = vec![[0.0f32; 3]; w * h];
+    px.par_chunks_mut(w).enumerate().for_each(|(y, row)| {
+        for (x, o) in row.iter_mut().enumerate() {
+            *o = sample(&p, ox + x as f32 * scale, oy + y as f32 * scale);
+        }
+    });
+    Picture { w, h, px }
+}
+
+/// Enlarges a picture to fill `w` by `h`, keeping its shape and cropping what spills over.
+pub fn cover(p: Picture, w: usize, h: usize) -> Picture {
+    if p.w == w && p.h == h {
+        return p;
+    }
+    let s = (w as f32 / p.w as f32).max(h as f32 / p.h as f32);
+    let (ox, oy) = ((p.w as f32 * s - w as f32) / 2.0, (p.h as f32 * s - h as f32) / 2.0);
+    let scale = 1.0 / s;
+    let mut px = vec![[0.0f32; 3]; w * h];
+    px.par_chunks_mut(w).enumerate().for_each(|(y, row)| {
+        for (x, o) in row.iter_mut().enumerate() {
+            *o = sample(&p, (x as f32 + ox) * scale, (y as f32 + oy) * scale);
+        }
+    });
+    Picture { w, h, px }
+}
+
 pub fn letterbox(p: Picture, w: usize, h: usize) -> Picture {
     if p.w == w && p.h == h {
         return p;
@@ -838,7 +999,9 @@ mod tests {
     #[test]
     fn every_transition_is_part_way_in_the_middle() {
         let (a, b) = (flat(0.0), flat(1.0));
-        for k in Wipe::ALL.into_iter().filter(|k| *k != Wipe::DipToBlack) {
+        // A uniform image has only one luma/chroma threshold: content mattes can
+        // legitimately hold it until later. Their progression is tested on gradients.
+        for k in Wipe::ALL.into_iter().filter(|k| !matches!(k, Wipe::DipToBlack | Wipe::LumaBright | Wipe::LumaDark | Wipe::ChromaReveal | Wipe::ChromaErase)) {
             let m = blend(&a, &b, k, 0.5);
             let mean = m.px.iter().map(|c| c[0]).sum::<f32>() / m.px.len() as f32;
             assert!(mean > 0.02 && mean.is_finite(), "{k:?} {mean}");
@@ -923,7 +1086,43 @@ mod tests {
     }
 
     fn set(text: &str, finest: Unit) -> Setting {
-        Setting { text: text.into(), size: 48.0, colour: [1.0, 0.0, 0.0], font: String::new(), weight: 600, italic: false, spacing: 0.0, outline: 0.0, finest, scrambles: false }
+        Setting { text: text.into(), size: 48.0, colour: [1.0, 0.0, 0.0], font: String::new(), weight: 600, italic: false, spacing: 0.0, outline: 0.0, finest, scrambles: false, gradient: None, highlight: [0.0, 0.0, 1.0] }
+    }
+
+    /// The reddest and bluest ink in a set of pieces.
+    fn inks(t: &TextCells) -> (f32, f32) {
+        let solid = t.stamps.iter().flat_map(|s| s.px.iter()).filter(|p| p[3] > 0.9);
+        solid.fold((0.0f32, 0.0f32), |(r, b), p| (r.max(p[0] - p[2]), b.max(p[2] - p[0])))
+    }
+
+    #[test]
+    fn starred_words_take_the_highlight_and_the_stars_vanish() {
+        assert_eq!(marked("be *easier* now").0.iter().collect::<String>(), "be easier now");
+        assert_eq!(marked("be *easier* now").1.iter().filter(|m| **m).count(), 6);
+        let lit = text_cells(&set("Money *easy*", Unit::Line)).unwrap();
+        let (red, blue) = inks(&lit);
+        assert!(red > 0.5 && blue > 0.5, "both colours drawn: {red} {blue}");
+        let (_, none) = inks(&text_cells(&set("Money easy", Unit::Line)).unwrap());
+        assert!(none < 0.1);
+    }
+
+    #[test]
+    fn a_gradient_runs_from_one_colour_to_the_other() {
+        let t = text_cells(&Setting { gradient: Some([0.0, 0.0, 1.0]), ..set("HHHH", Unit::Line) }).unwrap();
+        let s = &t.stamps[0];
+        let row = |y: usize| s.px[y * s.w..(y + 1) * s.w].iter().filter(|p| p[3] > 0.9).map(|p| p[2]).fold(0.0f32, f32::max);
+        let (top, bottom) = ((0..s.h).find(|y| row(*y) > 0.0).unwrap(), (0..s.h).rev().find(|y| row(*y) > 0.0).unwrap());
+        assert!(row(bottom) > row(top) + 0.2, "bluer lower down: {} {}", row(top), row(bottom));
+    }
+
+    #[test]
+    fn every_backing_draws_something_around_the_words() {
+        use crate::textanim::Backing;
+        for b in Backing::ALL.into_iter().filter(|b| *b != Backing::None) {
+            let s = backing(b, [0.8, 1.0, 0.4], 300.0, 60.0, 60.0, 7).unwrap();
+            assert!(s.w > 300 && s.px.iter().any(|p| p[3] > 0.5), "{b:?}");
+        }
+        assert!(backing(Backing::None, [1.0; 3], 10.0, 10.0, 10.0, 1).is_none());
     }
 
     fn still(c: &Cell, i: usize) -> Placed {

@@ -2,18 +2,28 @@
 //! On a wide window the panels move to a column beside the photo.
 
 pub mod edit;
+pub(crate) use safety::install_panic_hook;
+mod assistant;
+mod brand;
 mod captions;
+mod clipsel;
+mod cuts;
 mod design;
 mod extras;
 mod keys;
 mod motion;
 mod kit;
+mod klipy;
 mod layers;
 mod library;
+mod many;
+mod onpicture;
 mod overlay;
 mod panels;
 mod playback;
+mod safety;
 mod sheets;
+mod templates;
 
 use crate::audio;
 use crate::crop::{Crop, Sides};
@@ -244,6 +254,15 @@ impl Worker {
                             pipeline::render_at(&picture, &grade, &bank, true, !framing, frame)
                         };
                         if !framing {
+                            // The project's shape, so text sits where it will in the video.
+                            // Mask editing and Before and After keep the clip's own shape to line up.
+                            if overlay.is_none() && !compare {
+                                p = player::frame_to(p, project.size, project.fill);
+                                // A punch-in, as playback and export show it.
+                                if let Some(z) = project.at(head).map(|s| project.clips[s.clip].zoom).filter(|z| *z > 1.001) {
+                                    p = crate::overlay::zoom(p, z);
+                                }
+                            }
                             laid.apply(&mut p, &project, &index, head, &Default::default());
                         }
                         p
@@ -342,6 +361,23 @@ fn scripted_input(spec: &str) -> Vec<egui::Event> {
                 out.push(button(at, true));
                 out.push(button(at, false));
             }
+            // The other button, for menus; and clicks with Ctrl or Shift held.
+            ("rclick" | "ctrlclick" | "shiftclick", [x, y]) => {
+                let at = pos2(*x, *y);
+                let which = if kind == "rclick" { egui::PointerButton::Secondary } else { egui::PointerButton::Primary };
+                let (ctrl, shift) = (kind == "ctrlclick", kind == "shiftclick");
+                let modifiers = egui::Modifiers { ctrl, command: ctrl, shift, ..egui::Modifiers::NONE };
+                out.push(egui::Event::PointerMoved(at));
+                if ctrl || shift {
+                    out.push(egui::Event::ModifiersChanged(modifiers));
+                }
+                for pressed in [true, false] {
+                    out.push(egui::Event::PointerButton { pos: at, button: which, pressed, modifiers });
+                }
+                if ctrl || shift {
+                    out.push(egui::Event::ModifiersChanged(egui::Modifiers::NONE));
+                }
+            }
             _ => {}
         }
     }
@@ -400,6 +436,8 @@ pub struct App {
     play_until: Option<u32>,
     user: Vec<UserPreset>,
     settings: Settings,
+    /// Autosave and crash recovery; off for scripted test runs.
+    safety: Option<safety::Safety>,
     imported: Vec<(String, String)>,
 
     full: Arc<Picture>,
@@ -445,6 +483,8 @@ pub struct App {
     tracking: Option<(usize, usize, track::Run)>,
     photo_opts: PhotoOptions,
     clip_opts: VideoOptions,
+    /// How long the export will take, worked out in the background.
+    export_guess: sheets::Guess,
     batch_files: Vec<PathBuf>,
     spread: Option<(u64, scopes::Spread)>,
     hold_original: bool,
@@ -461,7 +501,12 @@ impl App {
         v.widgets.inactive.weak_bg_fill = BUTTON;
         v.selection.bg_fill = ACCENT;
         cc.egui_ctx.set_visuals(v);
-        cc.egui_ctx.global_style_mut(|s| s.spacing.scroll = egui::style::ScrollStyle::thin());
+        cc.egui_ctx.global_style_mut(|s| {
+            s.spacing.scroll = egui::style::ScrollStyle::thin();
+            for font in s.text_styles.values_mut() {
+                font.size = font.size.min(kit::MEDIUM_FONT_SIZE);
+            }
+        });
 
         let mut bank = looks::build_bank();
         let mut imported = Vec::new();
@@ -493,6 +538,8 @@ impl App {
         project.suit_first(sample);
         let mut stills = HashMap::new();
         stills.insert(sample, full.clone());
+        // Scripted test runs leave no autosaves and look for no crashes.
+        let scripted = start.screenshot.is_some() || start.input.is_some() || start.play_test.is_some() || start.ui_bench.is_some();
         let mut app = Self {
             ui_log: start.ui_bench.map(|o| (o, Vec::new())),
             frame_began: None,
@@ -524,6 +571,7 @@ impl App {
             plugins,
             play_until: None,
             user: store::load_presets(),
+            safety: (!scripted).then(safety::Safety::start),
             settings: store::load_settings(),
             imported,
             full,
@@ -567,6 +615,7 @@ impl App {
             tracking: None,
             photo_opts: PhotoOptions::default(),
             clip_opts: VideoOptions::default(),
+            export_guess: Default::default(),
             batch_files: Vec::new(),
             spread: None,
             hold_original: false,
@@ -596,7 +645,12 @@ impl App {
         }
         app.want_strip(sample);
         for path in &start.open {
-            app.import(Path::new(path), true);
+            let path = Path::new(path);
+            if path.extension().is_some_and(|e| e.eq_ignore_ascii_case("lookroom")) {
+                app.load_project(path);
+            } else {
+                app.import(path, true);
+            }
         }
         app.activate(&cc.egui_ctx);
         if let Some(f) = start.frame {
@@ -628,7 +682,7 @@ impl App {
         app.sheet = start.sheet.as_deref().and_then(Sheet::named);
         if let Some(out) = start.play_test {
             app.play_log = Some((out, Vec::new()));
-            app.start_play();
+            app.start_play("--play-test");
         }
         app.set_orig_texture(&cc.egui_ctx);
         app.rebuild_all_thumbs(&cc.egui_ctx);
@@ -1191,7 +1245,7 @@ impl App {
         let y = r.center().y;
         let button = Rect::from_center_size(pos2(r.left() + 16.0, y), Vec2::splat(30.0));
         if icon_button(ui, button, if playing { Icon::Pause } else { Icon::Play }, "Play", false).clicked() {
-            self.play_or_pause();
+            self.play_or_pause("the play button");
         }
         let p = ui.painter();
         p.text(pos2(r.left() + 38.0, y), Align2::LEFT_CENTER, clock(frame), semi(12.0), Color32::WHITE);
@@ -1639,6 +1693,8 @@ impl eframe::App for App {
         self.run_keys(&ctx);
         self.refresh_view(&ctx);
         self.note_history(&ctx);
+        self.tick_autosave();
+        self.restore_offer(&ctx);
 
         // Preset tiles show the picture under the playhead, redrawn only when they're wanted.
         let media = self.active.and_then(|id| self.project.clips.iter().find(|c| c.id == id)).map(|c| c.media);

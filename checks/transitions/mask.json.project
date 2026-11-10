@@ -1,0 +1,885 @@
+{
+  "name": "Untitled Project",
+  "fps": 30.0,
+  "size": [
+    1800,
+    1200
+  ],
+  "media": [
+    {
+      "id": 1,
+      "path": null,
+      "name": "Sample landscape",
+      "kind": "Photo",
+      "seconds": 0.0,
+      "info": null,
+      "has_audio": false,
+      "size": [
+        1800,
+        1200
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "id": 2,
+      "media": 1,
+      "start": 0.0,
+      "len": 60,
+      "grade": {
+        "luts": [
+          {
+            "id": "look:Cool Print 60",
+            "name": "Cool Print 60",
+            "intensity": 1.0
+          }
+        ],
+        "exposure": -0.22,
+        "contrast": 0.856,
+        "brightness": -0.042,
+        "highlight": -0.32,
+        "shadow": 0.0,
+        "whites": 0.0,
+        "blacks": 0.0,
+        "gamma": 0.0,
+        "saturation": 1.16,
+        "vibrance": 0.27,
+        "hue": 0.0,
+        "temp": -870.0,
+        "tint": -16.0,
+        "fade": 0.0,
+        "clarity": 0.0,
+        "sharpness": 0.0,
+        "vignette": 0.0,
+        "grain_intensity": 0.0,
+        "grain_size": 1.0,
+        "grain_roughness": 1.0,
+        "halation_intensity": 0.0,
+        "halation_threshold": 0.7,
+        "halation_glow": 50.0,
+        "bloom_intensity": 0.0,
+        "bloom_threshold": 0.75,
+        "film_contrast": 0.0,
+        "film_density": 0.0,
+        "film_saturation": 1.0,
+        "shadows_tint": {
+          "r": 0.3,
+          "g": 0.87,
+          "b": 1.0,
+          "opacity": 0.15
+        },
+        "midtones_tint": {
+          "r": 1.0,
+          "g": 0.6,
+          "b": 0.35,
+          "opacity": 0.17
+        },
+        "highlights_tint": {
+          "r": 1.0,
+          "g": 0.8,
+          "b": 0.0,
+          "opacity": 0.23
+        },
+        "frame_ratio": 0.0,
+        "crop": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0,
+          "angle": 0.0,
+          "turns": 0,
+          "flip_h": false,
+          "flip_v": false,
+          "ratio": 0.0
+        },
+        "layers": [],
+        "shot": null,
+        "cst": {
+          "source": "Rec709",
+          "tone": "Filmic",
+          "wide": false
+        },
+        "toe": 0.0,
+        "shoulder": 0.0,
+        "structure": 0.0,
+        "dehaze": 0.0,
+        "curves": {
+          "master": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "red": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "green": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "blue": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "hue_hue": [],
+          "hue_sat": [],
+          "hue_lum": [],
+          "lum_sat": [],
+          "sat_sat": [],
+          "sat_lum": []
+        },
+        "wheels": {
+          "lift": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "gamma": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "gain": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "offset": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "lum_mix": 1.0
+        },
+        "zones": {
+          "exposure": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "saturation": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "global_tint": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "opacity": 0.0
+        },
+        "mixer": {
+          "red": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "green": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "blue": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "mono": false,
+          "mono_mix": [
+            0.3,
+            0.59,
+            0.11
+          ]
+        },
+        "slices": [
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          }
+        ],
+        "hsl": [
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          }
+        ],
+        "color_lum": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "separation": {
+          "amount": 0.0,
+          "anchor": 28.0,
+          "width": 30.0,
+          "saturation": 0.0
+        },
+        "density_rgb": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tetra": {
+          "red": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "green": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "blue": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cyan": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "magenta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "yellow": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "film": {
+          "on": false,
+          "stock": 4,
+          "gauge": 1,
+          "output": 0,
+          "print": 0,
+          "intensity": 0.77,
+          "halation": 0.25,
+          "grain": 0.2,
+          "softness": 0.15,
+          "weave": 0.0,
+          "dust": 0.0
+        },
+        "super8": {
+          "on": false,
+          "amount": 0.7,
+          "flicker": 0.3,
+          "dust": 0.3,
+          "softness": 0.4,
+          "frame": true
+        },
+        "split": {
+          "style": 0,
+          "amount": 0.0,
+          "balance": 0.0
+        },
+        "bleach": 0.0,
+        "saturate": 0.0,
+        "technicolor": 0.0,
+        "foliage": {
+          "hue": 0.0,
+          "saturation": 0.0,
+          "lightness": 0.0
+        },
+        "print": {
+          "paper": 1,
+          "amount": 0.0
+        },
+        "diffusion": {
+          "filter": 1,
+          "strength": 0.0,
+          "size": 1.0
+        },
+        "gate_weave": 0.0,
+        "crt": {
+          "amount": 0.0,
+          "scanlines": 0.6,
+          "mask": 0.5,
+          "curve": 0.35,
+          "glow": 0.4
+        },
+        "texture": {
+          "kind": 0,
+          "amount": 0.0,
+          "scale": 1.0
+        },
+        "aberration": 0.0,
+        "lens": 0.0
+      },
+      "transition": null,
+      "volume": 1.0,
+      "muted": false,
+      "detached": false,
+      "speed": 1.0,
+      "ramp": [],
+      "lead": 0.0,
+      "tail": 0.0,
+      "zoom": 1.0
+    },
+    {
+      "id": 3,
+      "media": 1,
+      "start": 2.0,
+      "len": 90,
+      "grade": {
+        "luts": [
+          {
+            "id": "look:Cool Print 60",
+            "name": "Cool Print 60",
+            "intensity": 1.0
+          }
+        ],
+        "exposure": -0.22,
+        "contrast": 0.856,
+        "brightness": -0.042,
+        "highlight": -0.32,
+        "shadow": 0.0,
+        "whites": 0.0,
+        "blacks": 0.0,
+        "gamma": 0.0,
+        "saturation": 1.16,
+        "vibrance": 0.27,
+        "hue": 0.0,
+        "temp": -870.0,
+        "tint": -16.0,
+        "fade": 0.0,
+        "clarity": 0.0,
+        "sharpness": 0.0,
+        "vignette": 0.0,
+        "grain_intensity": 0.0,
+        "grain_size": 1.0,
+        "grain_roughness": 1.0,
+        "halation_intensity": 0.0,
+        "halation_threshold": 0.7,
+        "halation_glow": 50.0,
+        "bloom_intensity": 0.0,
+        "bloom_threshold": 0.75,
+        "film_contrast": 0.0,
+        "film_density": 0.0,
+        "film_saturation": 1.0,
+        "shadows_tint": {
+          "r": 0.3,
+          "g": 0.87,
+          "b": 1.0,
+          "opacity": 0.15
+        },
+        "midtones_tint": {
+          "r": 1.0,
+          "g": 0.6,
+          "b": 0.35,
+          "opacity": 0.17
+        },
+        "highlights_tint": {
+          "r": 1.0,
+          "g": 0.8,
+          "b": 0.0,
+          "opacity": 0.23
+        },
+        "frame_ratio": 0.0,
+        "crop": {
+          "x": 0.0,
+          "y": 0.0,
+          "w": 1.0,
+          "h": 1.0,
+          "angle": 0.0,
+          "turns": 0,
+          "flip_h": false,
+          "flip_v": false,
+          "ratio": 0.0
+        },
+        "layers": [],
+        "shot": null,
+        "cst": {
+          "source": "Rec709",
+          "tone": "Filmic",
+          "wide": false
+        },
+        "toe": 0.0,
+        "shoulder": 0.0,
+        "structure": 0.0,
+        "dehaze": 0.0,
+        "curves": {
+          "master": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "red": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "green": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "blue": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "hue_hue": [],
+          "hue_sat": [],
+          "hue_lum": [],
+          "lum_sat": [],
+          "sat_sat": [],
+          "sat_lum": []
+        },
+        "wheels": {
+          "lift": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "gamma": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "gain": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "offset": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "lum_mix": 1.0
+        },
+        "zones": {
+          "exposure": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "saturation": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "global_tint": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "opacity": 0.0
+        },
+        "mixer": {
+          "red": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "green": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "blue": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "mono": false,
+          "mono_mix": [
+            0.3,
+            0.59,
+            0.11
+          ]
+        },
+        "slices": [
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "density": 0.0
+          }
+        ],
+        "hsl": [
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          },
+          {
+            "hue": 0.0,
+            "saturation": 0.0,
+            "value": 0.0,
+            "range": 1.0
+          }
+        ],
+        "color_lum": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "separation": {
+          "amount": 0.0,
+          "anchor": 28.0,
+          "width": 30.0,
+          "saturation": 0.0
+        },
+        "density_rgb": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "tetra": {
+          "red": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "green": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "blue": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "cyan": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "magenta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "yellow": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "film": {
+          "on": false,
+          "stock": 4,
+          "gauge": 1,
+          "output": 0,
+          "print": 0,
+          "intensity": 0.77,
+          "halation": 0.25,
+          "grain": 0.2,
+          "softness": 0.15,
+          "weave": 0.0,
+          "dust": 0.0
+        },
+        "super8": {
+          "on": false,
+          "amount": 0.7,
+          "flicker": 0.3,
+          "dust": 0.3,
+          "softness": 0.4,
+          "frame": true
+        },
+        "split": {
+          "style": 0,
+          "amount": 0.0,
+          "balance": 0.0
+        },
+        "bleach": 0.0,
+        "saturate": 0.0,
+        "technicolor": 0.0,
+        "foliage": {
+          "hue": 0.0,
+          "saturation": 0.0,
+          "lightness": 0.0
+        },
+        "print": {
+          "paper": 1,
+          "amount": 0.0
+        },
+        "diffusion": {
+          "filter": 1,
+          "strength": 0.0,
+          "size": 1.0
+        },
+        "gate_weave": 0.0,
+        "crt": {
+          "amount": 0.0,
+          "scanlines": 0.6,
+          "mask": 0.5,
+          "curve": 0.35,
+          "glow": 0.4
+        },
+        "texture": {
+          "kind": 0,
+          "amount": 0.0,
+          "scale": 1.0
+        },
+        "aberration": 0.0,
+        "lens": 0.0
+      },
+      "transition": {
+        "kind": "LumaBright",
+        "len": 30
+      },
+      "volume": 1.0,
+      "muted": false,
+      "detached": false,
+      "speed": 1.0,
+      "ramp": [],
+      "lead": 0.0,
+      "tail": 0.0,
+      "zoom": 1.0
+    }
+  ],
+  "items": [],
+  "tracks": [
+    {
+      "locked": false,
+      "muted": false,
+      "hidden": false
+    },
+    {
+      "locked": false,
+      "muted": false,
+      "hidden": false
+    },
+    {
+      "locked": false,
+      "muted": false,
+      "hidden": false
+    },
+    {
+      "locked": false,
+      "muted": false,
+      "hidden": false
+    },
+    {
+      "locked": false,
+      "muted": false,
+      "hidden": false
+    }
+  ],
+  "next_id": 4,
+  "brand": "",
+  "fill": false
+}

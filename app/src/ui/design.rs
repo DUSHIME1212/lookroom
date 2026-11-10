@@ -70,13 +70,17 @@ impl App {
         };
         let (pw, ph) = (self.project.size.0 as f32, self.project.size.1 as f32);
         let len = self.project.frames(DESIGN_SECONDS);
+        let mut ids = Vec::new();
         for (i, layer) in d.layers.iter().enumerate() {
             let (x, y) = d.place(i, pw, ph);
             let body = Body::Graphic { file: file.clone(), layer: i, name: layer.name.clone(), size: 1.0, x, y, motion: Motion::default() };
             let (id, at) = (self.project.new_id(), self.head);
             self.project.items.push(Item { id, row: ROW_FX2, at, len, body });
-            self.picked = Some(Picked::Item(id));
+            ids.push(id);
         }
+        // Selected together, top layer shown, so the design moves and sizes as one.
+        ids.reverse();
+        self.select_these(ids);
         self.edit.rail = Rail::Sticker;
         self.show_layers_tab();
         self.say(format!("Added {} layers", d.layers.len()));
@@ -113,7 +117,7 @@ impl App {
                 Err(e) => self.say(format!("That file could not be read: {e}")),
             }
         }
-        note(ui, "From Figma: pick a frame, choose Copy as SVG, and press Ctrl+V here. Each layer arrives on its own, ready to animate.");
+        note(ui, "From Figma: pick a frame, choose Copy as SVG, and press Ctrl+V here. Each layer arrives on its own, ready to animate. Ctrl or Shift and a click selects several, to change together.");
         ui.label(egui::RichText::new("Layers at the Playhead").font(bold(14.0)).color(Color32::WHITE));
         ui.add_space(2.0);
         let head = self.head;
@@ -124,17 +128,13 @@ impl App {
         if here.is_empty() {
             note(ui, "Nothing is laid over the picture here. Move the playhead over text, a sticker, a video or a design.");
         }
-        let picked = match self.picked {
-            Some(Picked::Item(id)) => Some(id),
-            _ => None,
-        };
         let mut act = None;
         // Top of the list draws on top.
         for (n, &i) in here.iter().enumerate().rev() {
             let t = &self.project.items[i];
             let hidden = t.body.placed().is_some_and(|p| p.2.hidden);
             let (row, resp) = ui.allocate_exact_size(vec2(w, ROW_H), Sense::click());
-            let on = picked == Some(t.id);
+            let on = self.is_selected(t.id);
             let p = ui.painter();
             if on {
                 chosen_row(p, row.shrink2(vec2(0.0, 1.0)), 8);
@@ -159,7 +159,8 @@ impl App {
             }
         }
         match act {
-            Some(LayerAct::Pick(id)) => self.picked = Some(Picked::Item(id)),
+            Some(LayerAct::Pick(id)) if ui.input(|i| i.modifiers.command || i.modifiers.shift) => self.toggle_select(id),
+            Some(LayerAct::Pick(id)) => self.select_only(id),
             Some(LayerAct::Hide(i)) => {
                 if let Some((_, _, m)) = self.project.items[i].body.placed_mut() {
                     m.hidden ^= true;
@@ -233,6 +234,13 @@ impl App {
 
     /// The video meme library: the person's own clips, laid over the picture when picked.
     pub(super) fn clip_library(&mut self, ui: &mut Ui) {
+        let mut source = self.edit.klipy.source;
+        segmented(ui, &["KLIPY", "My Clips"], &mut source);
+        self.edit.klipy.source = source;
+        if source == 0 {
+            self.klipy_library(ui);
+            return self.overlay_settings(ui);
+        }
         self.take_clip_news(&ui.ctx().clone());
         let w = ui.available_width();
         let (r, _) = ui.allocate_exact_size(vec2(w, 34.0), Sense::hover());
@@ -310,6 +318,11 @@ impl App {
                 self.add_overlay(&clip, key);
             }
         }
+        self.overlay_settings(ui);
+    }
+
+    /// Size, green screen and sound of the picked video over the picture.
+    fn overlay_settings(&mut self, ui: &mut Ui) {
         ui.add_space(6.0);
         if let Some(t) = self.picked_item()
             && let Body::Overlay { size, key, tolerance, volume, .. } = &mut t.body
@@ -331,7 +344,7 @@ impl App {
 
     /// A library clip over the picture at the playhead. Green-screen clips fill the frame;
     /// others sit in a corner, picture in picture.
-    fn add_overlay(&mut self, clip: &Clip, key: Option<[f32; 3]>) {
+    pub(super) fn add_overlay(&mut self, clip: &Clip, key: Option<[f32; 3]>) {
         let known = self.project.media.iter().find(|m| m.path.as_deref() == Some(clip.path.as_path())).map(|m| m.id);
         let media = match known {
             Some(id) => id,

@@ -1,10 +1,12 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod assets;
+mod assistant;
 mod audio;
 mod captions;
 mod clips;
 mod bench;
+mod brand;
 mod color;
 mod crop;
 mod curves;
@@ -15,6 +17,7 @@ mod graphics;
 mod heic;
 mod icon_set;
 mod icons;
+mod klipy;
 mod looks;
 mod lut;
 mod masks;
@@ -32,6 +35,7 @@ mod store;
 mod textanim;
 mod tiff;
 mod timeline;
+mod transitions;
 mod tools;
 mod track;
 mod ui;
@@ -59,7 +63,7 @@ fn render_file(input: &str, out: &str, grade: Grade, codec: &str, deep: bool) ->
             "prores" => video::Codec::ProRes,
             _ => video::Codec::Hevc,
         };
-        let job = video::Export { source, out: out.to_path_buf(), codec, side: video::MAX_SIDE, ten_bit: true, first: 0, last };
+        let job = video::Export { source, out: out.to_path_buf(), codec, side: video::MAX_SIDE, ten_bit: true, fast: false, first: 0, last };
         video::export(&job, &grade, &bank, &AtomicU32::new(0), &AtomicBool::new(false))
     } else {
         let o = export::open_photo(input)?;
@@ -104,6 +108,21 @@ fn contact_sheet(out: &str) -> Result<(), String> {
         }
     }
     image::save_buffer(out, &sheet, sw as u32, sh as u32, image::ExtendedColorType::Rgb8).map_err(|e| e.to_string())
+}
+
+/// Hears a file's speech with the first model downloaded and prints it as SubRip.
+fn captions_file(file: &str) -> Result<(), String> {
+    let model = captions::MODELS.iter().find(|m| captions::have(m)).ok_or("No captions model is downloaded yet.")?;
+    let path = Path::new(file);
+    let seconds = video::sound_seconds(path)?;
+    let parts = vec![timeline::Part { path: path.into(), at: 0.0, start: 0.0, len: seconds, volume: 1.0, speed: 1.0, denoise: 0.0 }];
+    let job = captions::Job { parts, from: 0.0, seconds, model: captions::model_path(model), language: "auto".into(), max_len: 42, translate: false };
+    let cues = captions::transcribe(&job, Default::default(), Default::default())?;
+    let stamp = |s: f64| format!("{:02}:{:02}:{:06.3}", (s / 3600.0) as u32, (s / 60.0) as u32 % 60, s % 60.0).replace('.', ",");
+    for (n, c) in cues.iter().enumerate() {
+        println!("{}\n{} --> {}\n{}\n", n + 1, stamp(c.start), stamp(c.end), c.text);
+    }
+    Ok(())
 }
 
 /// The app's logo at `side` pixels square, unpremultiplied, for windows and packages.
@@ -164,7 +183,7 @@ fn edit_test(out: &str, files: &[String]) -> Result<(), String> {
             let seconds = video::sound_seconds(path)?;
             p.media.push(Media { id, path: Some(path.into()), name: name.clone(), kind: Kind::Audio, seconds, info: None, has_audio: true, size: (0, 0) });
             let (at, len, item) = (0, p.frames(seconds), p.new_id());
-            p.items.push(Item { id: item, row: ROW_MUSIC, at, len, body: Body::Audio { media: id, start: 0.0, volume: 0.5, name, speed: 1.0 } });
+            p.items.push(Item { id: item, row: ROW_MUSIC, at, len, body: Body::Audio { media: id, start: 0.0, volume: 0.5, name, speed: 1.0, denoise: 0.0 } });
         } else {
             let i = video::probe(path)?;
             p.media.push(Media { id, path: Some(path.into()), name, kind: Kind::Video, seconds: i.seconds(i.frames), has_audio: i.has_audio, size: (i.w, i.h), info: Some(i) });
@@ -179,8 +198,47 @@ fn edit_test(out: &str, files: &[String]) -> Result<(), String> {
     p.items.push(Item { id: a, row: ROW_FX, at: 0, len: c, body: Body::Effect { kind: Fx::BlackWhite, amount: 1.0 } });
     p.items.push(Item { id: b, row: ROW_FX2, at: c, len: c, body: Body::Text { text: "Lookroom".into(), size: 120.0, colour: [1.0; 3], x: 0.5, y: 0.5, motion: Default::default() } });
     let scene = std::sync::Arc::new(player::Scene { project: p, bank: looks::build_bank(), stills: Default::default() });
-    let opts = export::VideoOptions { side: 1280, ..Default::default() };
-    player::export(scene, Path::new(out), &opts, &AtomicU32::new(0), &AtomicBool::new(false))
+    // A .gif name makes a GIF; anything else the usual video.
+    let gif = out.to_lowercase().ends_with(".gif");
+    let opts = if gif { export::VideoOptions { side: 720, codec: video::Codec::Gif, ..Default::default() } } else { export::VideoOptions { side: 1280, ..Default::default() } };
+    // Export, then the same frames made with nothing written, to show which side is slower.
+    let began = std::time::Instant::now();
+    player::export(scene.clone(), Path::new(out), &opts, &AtomicU32::new(0), &AtomicBool::new(false))?;
+    let all = began.elapsed().as_secs_f64();
+    let (w, h) = player::fit_size(scene.project.size, opts.side);
+    let mut c = player::Composer::new(scene.clone(), w, h, false, true);
+    let began = std::time::Instant::now();
+    let total = scene.project.total();
+    for f in 0..total {
+        std::hint::black_box(c.frame(f));
+    }
+    let made = began.elapsed().as_secs_f64();
+    let chip = video::chip_for(opts.codec, opts.ten_bit).map_or("the processor", |c| c.name());
+    eprintln!("{total} frames: export {all:.1} s ({:.0} a second, encoded on {chip}); making the frames alone {made:.1} s ({:.0} a second)", total as f64 / all, total as f64 / made);
+    Ok(())
+}
+
+/// Exports a saved project the way the Export button does: `--export PROJECT OUT [SIDE]`.
+/// H.264, 8-bit, the long side SIDE pixels (default: the project's, up to 4K); progress
+/// goes to stderr.
+fn export_project(path: &str, out: &str, side: Option<usize>) -> Result<(), String> {
+    let text = std::fs::read_to_string(path).map_err(|e| format!("{path}: {e}"))?;
+    let project: timeline::Project = serde_json::from_str(&text).map_err(|e| format!("{path}: {e}"))?;
+    let side = side.unwrap_or(project.size.0.max(project.size.1));
+    let total = project.total().max(1);
+    let scene = std::sync::Arc::new(player::Scene { project, bank: looks::build_bank(), stills: Default::default() });
+    let opts = export::VideoOptions { codec: video::Codec::H264, ten_bit: false, side, ..Default::default() };
+    let done = std::sync::Arc::new(AtomicU32::new(0));
+    let watch = done.clone();
+    let began = std::time::Instant::now();
+    std::thread::spawn(move || loop {
+        std::thread::sleep(std::time::Duration::from_secs(15));
+        let d = watch.load(std::sync::atomic::Ordering::Relaxed);
+        eprintln!("{d}/{total} frames ({:.0}%), {:.0} s", d as f64 * 100.0 / total as f64, began.elapsed().as_secs_f64());
+    });
+    player::export(scene, Path::new(out), &opts, &done, &AtomicBool::new(false))?;
+    eprintln!("exported {out} in {:.0} s", began.elapsed().as_secs_f64());
+    Ok(())
 }
 
 /// Tracks a square around a point: `--track CLIP X Y SIZE`, printing the frame-by-frame move.
@@ -200,6 +258,7 @@ fn track_file(path: &str, x: f32, y: f32, size: f32, back: bool) -> Result<(), S
 }
 
 fn main() -> eframe::Result<()> {
+    ui::install_panic_hook();
     let args: Vec<String> = std::env::args().collect();
     let mut start = ui::Start::default();
     let mut size = [1360.0f32, 840.0];
@@ -226,6 +285,15 @@ fn main() -> eframe::Result<()> {
             "--dump" => start.dump = next(&mut i),
             "--play-test" => start.play_test = next(&mut i),
             "--ui-bench" => start.ui_bench = next(&mut i),
+            "--captions" => {
+                // Captions for a file, printed as SubRip: what Auto Captions hears, without the window.
+                let file = next(&mut i).unwrap_or_default();
+                if let Err(e) = captions_file(&file) {
+                    eprintln!("{e}");
+                    std::process::exit(1);
+                }
+                return Ok(());
+            }
             "--icon" => {
                 // The app's icon as a PNG, for the macOS and Linux packages.
                 let (out, side) = (next(&mut i).unwrap_or_else(|| "icon.png".into()), next(&mut i).and_then(|s| s.parse().ok()).unwrap_or(512));
@@ -251,6 +319,33 @@ fn main() -> eframe::Result<()> {
             "--edit-test" => {
                 let Some(out) = next(&mut i) else { std::process::exit(2) };
                 if let Err(e) = edit_test(&out, &args[i + 1..]) {
+                    eprintln!("{e}");
+                    std::process::exit(1);
+                }
+                return Ok(());
+            }
+            "--estimate" => {
+                // How long exporting a project would take: `--estimate PROJECT [SIZE]`.
+                let Some(project) = next(&mut i) else { std::process::exit(2) };
+                let side = args.get(i + 1).and_then(|s| s.parse::<usize>().ok());
+                let text = std::fs::read_to_string(&project).unwrap_or_default();
+                let Ok(p) = serde_json::from_str::<timeline::Project>(&text) else { std::process::exit(1) };
+                let opts = export::VideoOptions { codec: video::Codec::H264, ten_bit: false, side: side.unwrap_or(p.size.0.max(p.size.1)), ..Default::default() };
+                let scene = std::sync::Arc::new(player::Scene { project: p, bank: looks::build_bank(), stills: Default::default() });
+                let began = std::time::Instant::now();
+                match player::estimate(scene, &opts) {
+                    Some(s) => println!("about {} ({s:.0} s), worked out in {:.1} s", video::spoken(s), began.elapsed().as_secs_f64()),
+                    None => println!("nothing to export"),
+                }
+                return Ok(());
+            }
+            "--export" => {
+                let (Some(project), Some(out)) = (next(&mut i), next(&mut i)) else { std::process::exit(2) };
+                let side = args.get(i + 1).and_then(|s| s.parse().ok());
+                if side.is_some() {
+                    i += 1;
+                }
+                if let Err(e) = export_project(&project, &out, side) {
                     eprintln!("{e}");
                     std::process::exit(1);
                 }

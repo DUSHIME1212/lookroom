@@ -108,6 +108,24 @@ pub fn run(clip: Option<&str>) -> String {
     timed(&mut o, "turn a 720p frame into a screen image", 30, |_| {
         std::hint::black_box(crate::player::image_of(&pic));
     });
+    let preset_table = pipeline::bake_lut(&g, &bank, crate::film::PLAY_TABLE);
+    timed(&mut o, "play: same look as pause, table ready", 5, |f| {
+        std::hint::black_box(pipeline::render_play(&pic, &g, &preset_table, &bank, f));
+    });
+    timed(&mut o, "export: bake one clip's staged tables", 3, |_| {
+        std::hint::black_box(pipeline::bake_staged(&g, &bank));
+    });
+    let staged = pipeline::bake_staged(&g, &bank);
+    timed(&mut o, "export: same look as pause, staged", 10, |f| {
+        std::hint::black_box(pipeline::render_staged(&pic, &g, &staged, &bank, f));
+    });
+    timed(&mut o, "export: full render, no grade, 720p", 10, |f| {
+        std::hint::black_box(pipeline::render_at(&pic, &Grade::default(), &bank, true, true, f));
+    });
+    let mut bytes = Vec::new();
+    timed(&mut o, "export: 720p frame to 16-bit writer bytes", 30, |_| {
+        video::frame_bytes(&pic, w, h, true, &mut bytes);
+    });
 
     if let Some(path) = clip
         && let Ok(info) = video::probe(Path::new(path))
@@ -131,6 +149,32 @@ pub fn run(clip: Option<&str>) -> String {
         let all = info.frames;
         timed(&mut o, "paused: first step back into unseen footage", 3, |i| wait(all / (4 << i)));
         timed(&mut o, "paused: jump ahead into unseen footage", 3, |i| wait(all - all / (4 << i)));
+
+        // The clip alone on a timeline, made the way export makes it.
+        let mut p = Project::default();
+        let id = p.new_id();
+        p.media.push(Media { id, path: Some(path.into()), name: path.into(), kind: Kind::Video, seconds: info.seconds(info.frames), has_audio: info.has_audio, size: (info.w, info.h), info: Some(info.clone()) });
+        p.insert_clip(id, 0);
+        p.suit_first(id);
+        let scene = std::sync::Arc::new(crate::player::Scene { project: p, bank: bank.clone(), stills: Default::default() });
+        let (w, h) = crate::player::fit_size(scene.project.size, 1280);
+        let mut c = crate::player::Composer::new(scene.clone(), w, h, false, true);
+        c.frame(0);
+        timed(&mut o, "export: compose a frame, 720p, in order", 60, |f| {
+            std::hint::black_box(c.frame(f + 1));
+        });
+        let (mut read, mut graded) = (Duration::ZERO, Duration::ZERO);
+        let mut r = video::Reader::conformed(&info, 0.0, w, h, scene.project.fps, 1.0, false, true).ok();
+        for f in 0..60 {
+            let began = Instant::now();
+            let Some(frame) = r.as_mut().and_then(|r| r.next()) else { break };
+            read += began.elapsed();
+            let began = Instant::now();
+            std::hint::black_box(pipeline::render_at(&frame, &Grade::default(), &bank, true, true, f));
+            graded += began.elapsed();
+        }
+        let _ = writeln!(o, "{:<44} {:>10.2} ms", "export: of which reading a 16-bit frame", read.as_secs_f64() * 1000.0 / 60.0);
+        let _ = writeln!(o, "{:<44} {:>10.2} ms", "export: of which grading it", graded.as_secs_f64() * 1000.0 / 60.0);
     }
     o
 }
