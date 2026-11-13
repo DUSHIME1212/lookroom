@@ -486,10 +486,10 @@ impl App {
             let on = self.pick.curve_mode == i;
             let p = ui.painter();
             if on || resp.hovered() {
-                p.rect_filled(r, 8, BUTTON);
+                p.rect_filled(r, 4, BUTTON);
             }
             if on {
-                p.rect_stroke(r, 8, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
+                p.rect_stroke(r, 4, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
             }
             let (big, small) = mode_icons(*m);
             let tint = if on { Color32::WHITE } else { Color32::from_rgb(0xC0, 0xC0, 0xC4) };

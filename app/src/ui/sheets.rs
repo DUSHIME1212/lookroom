@@ -168,8 +168,8 @@ impl App {
         let w = 240.0f32.min(photo.width() - 20.0);
         let r = Rect::from_center_size(pos2(photo.center().x, photo.bottom() - 34.0), vec2(w, 48.0));
         let p = ui.painter();
-        p.rect_filled(r, 14, MENU);
-        p.rect_stroke(r, 14, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
+        p.rect_filled(r, 4, MENU);
+        p.rect_stroke(r, 4, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
         p.text(r.left_top() + vec2(14.0, 16.0), Align2::LEFT_CENTER, label, semi(12.5), Color32::WHITE);
         let bar = Rect::from_min_max(pos2(r.left() + 14.0, r.bottom() - 14.0), pos2(r.right() - 40.0, r.bottom() - 10.0));
         p.rect_filled(bar, 2, TRACK);
@@ -243,7 +243,7 @@ impl App {
     fn list_row(&self, ui: &mut Ui, icon: Icon, label: &str) -> bool {
         let (r, resp) = ui.allocate_exact_size(vec2(ui.available_width(), 42.0), Sense::click());
         let p = ui.painter();
-        p.rect_filled(r, 12, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+        p.rect_filled(r, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
         icons::paint(p, icon, Rect::from_center_size(pos2(r.left() + 22.0, r.center().y), Vec2::splat(20.0)), Color32::WHITE);
         p.text(pos2(r.left() + 42.0, r.center().y), Align2::LEFT_CENTER, label, semi(13.5), Color32::WHITE);
         resp.clicked()
@@ -463,7 +463,7 @@ impl App {
         let mut gone = None;
         for (i, n) in names.iter().enumerate() {
             let (r, _) = ui.allocate_exact_size(vec2(ui.available_width(), 30.0), Sense::hover());
-            ui.painter().rect_filled(r, 8, BUTTON);
+            ui.painter().rect_filled(r, 4, BUTTON);
             ui.painter().text(pos2(r.left() + 12.0, r.center().y), Align2::LEFT_CENTER, n, semi(12.5), Color32::WHITE);
             let x = Rect::from_center_size(pos2(r.right() - 16.0, r.center().y), Vec2::splat(26.0));
             if icon_button(ui, x, Icon::Cancel01, "Remove", false).clicked() {
@@ -516,7 +516,7 @@ impl App {
                 if i == at {
                     chosen_row(p, r, 8);
                 } else {
-                    p.rect_filled(r, 8, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+                    p.rect_filled(r, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
                 }
                 let col = if future { MUTED } else { Color32::WHITE };
                 p.text(pos2(r.left() + 12.0, r.center().y), Align2::LEFT_CENTER, format!("{}. {l}", i + 1), semi(13.0), col);

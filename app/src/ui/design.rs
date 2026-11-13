@@ -18,7 +18,7 @@ use std::sync::mpsc::{self, Receiver, Sender};
 
 /// How long a design stays on screen when it arrives.
 const DESIGN_SECONDS: f64 = 5.0;
-const ROW_H: f32 = 34.0;
+const ROW_H: f32 = 46.0;
 const THUMB: (usize, usize) = (192, 108);
 const CLIP_COLUMNS: usize = 2;
 const CLIP_LIST_H: f32 = 380.0;
@@ -28,6 +28,7 @@ const DESIGN_INS: [Anim; 9] = [Anim::Fade, Anim::SlideUp, Anim::SlideLeft, Anim:
 type Thumb = (PathBuf, Result<(ColorImage, Option<[f32; 3]>), String>);
 
 pub struct DesignState {
+    all_layers: bool,
     /// Seconds between one layer arriving and the next, for Animate Every Layer.
     stagger: f32,
     clips: Option<Vec<Clip>>,
@@ -42,7 +43,7 @@ pub struct DesignState {
 impl Default for DesignState {
     fn default() -> Self {
         let (news_tx, news_rx) = mpsc::channel();
-        Self { stagger: 0.12, clips: None, thumbs: HashMap::new(), asked: HashSet::new(), failed: HashSet::new(), news_tx, news_rx, worker: None }
+        Self { all_layers: true, stagger: 0.12, clips: None, thumbs: HashMap::new(), asked: HashSet::new(), failed: HashSet::new(), news_tx, news_rx, worker: None }
     }
 }
 
@@ -117,29 +118,38 @@ impl App {
                 Err(e) => self.say(format!("That file could not be read: {e}")),
             }
         }
-        note(ui, "From Figma: pick a frame, choose Copy as SVG, and press Ctrl+V here. Each layer arrives on its own, ready to animate. Ctrl or Shift and a click selects several, to change together.");
-        ui.label(egui::RichText::new("Layers at the Playhead").font(bold(14.0)).color(Color32::WHITE));
+        note(ui, "Select a layer to edit it. Ctrl or Shift-click selects several. The top layer draws in front.");
+        let mut scope = usize::from(self.edit.design.all_layers);
+        segmented(ui, &["At playhead", "All layers"], &mut scope);
+        self.edit.design.all_layers = scope == 1;
+        ui.label(egui::RichText::new("Layer stack").font(bold(14.0)).color(Color32::WHITE));
         ui.add_space(2.0);
         let head = self.head;
         let here: Vec<usize> = (0..self.project.items.len()).filter(|i| {
             let t = &self.project.items[*i];
-            t.body.placed().is_some() && head >= t.at && head < t.end()
+            t.body.placed().is_some() && (self.edit.design.all_layers || (head >= t.at && head < t.end()))
         }).collect();
         if here.is_empty() {
             note(ui, "Nothing is laid over the picture here. Move the playhead over text, a sticker, a video or a design.");
         }
         let mut act = None;
         // Top of the list draws on top.
-        for (n, &i) in here.iter().enumerate().rev() {
+        egui::ScrollArea::vertical().id_salt("design-layer-stack").max_height(240.0).auto_shrink([false, true]).show_rows(ui, ROW_H, here.len(), |ui, range| {
+        let w = ui.available_width();
+        for n in range {
+            let n = here.len() - 1 - n;
+            let i = here[n];
             let t = &self.project.items[i];
             let hidden = t.body.placed().is_some_and(|p| p.2.hidden);
-            let (row, resp) = ui.allocate_exact_size(vec2(w, ROW_H), Sense::click());
+            let (row, _) = ui.allocate_exact_size(vec2(w, ROW_H), Sense::hover());
+            let select = Rect::from_min_max(pos2(row.left() + 36.0, row.top()), pos2(row.right() - 62.0, row.bottom()));
+            let resp = ui.interact(select, ui.scope_id().with(("pick-layer", t.id)), Sense::click()).on_hover_text(t.label());
             let on = self.is_selected(t.id);
             let p = ui.painter();
             if on {
                 chosen_row(p, row.shrink2(vec2(0.0, 1.0)), 8);
             } else {
-                p.rect_filled(row.shrink2(vec2(0.0, 1.0)), 8, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+                p.rect_filled(row.shrink2(vec2(0.0, 1.0)), 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
             }
             let eye = Rect::from_center_size(pos2(row.left() + 18.0, row.center().y), Vec2::splat(28.0));
             if icon_button(ui, eye, if hidden { Icon::ViewOff } else { Icon::View }, "Show or hide", false).clicked() {
@@ -147,7 +157,9 @@ impl App {
             }
             icons::paint(ui.painter(), layer_icon(&t.body), Rect::from_center_size(pos2(row.left() + 46.0, row.center().y), Vec2::splat(15.0)), if hidden { MUTED } else { Color32::WHITE });
             let tint = if hidden { MUTED } else { Color32::WHITE };
-            ui.painter().with_clip_rect(row.shrink2(vec2(60.0, 0.0))).text(pos2(row.left() + 62.0, row.center().y), Align2::LEFT_CENTER, t.label(), semi(12.5), tint);
+            ui.painter().with_clip_rect(row.shrink2(vec2(60.0, 0.0))).text(pos2(row.left() + 62.0, row.top() + 15.0), Align2::LEFT_CENTER, t.label(), semi(12.5), tint);
+            ui.painter().with_clip_rect(select).text(pos2(row.left() + 62.0, row.top() + 32.0), Align2::LEFT_CENTER,
+                format!("{:.1}s – {:.1}s{}", self.project.seconds(t.at), self.project.seconds(t.end()), if hidden { " · hidden" } else { "" }), regular(11.0), MUTED);
             if n + 1 < here.len() && icon_button(ui, Rect::from_center_size(pos2(row.right() - 46.0, row.center().y), Vec2::splat(26.0)), Icon::ArrowUp01, "Bring forward", false).clicked() {
                 act = Some(LayerAct::Swap(i, here[n + 1]));
             }
@@ -158,9 +170,14 @@ impl App {
                 act = Some(LayerAct::Pick(t.id));
             }
         }
+        });
         match act {
             Some(LayerAct::Pick(id)) if ui.input(|i| i.modifiers.command || i.modifiers.shift) => self.toggle_select(id),
-            Some(LayerAct::Pick(id)) => self.select_only(id),
+            Some(LayerAct::Pick(id)) => {
+                self.select_only(id);
+                if let Some(t) = self.project.items.iter().find(|t| t.id == id)
+                    && (self.head < t.at || self.head >= t.end()) { self.seek_head(t.at); }
+            },
             Some(LayerAct::Hide(i)) => {
                 if let Some((_, _, m)) = self.project.items[i].body.placed_mut() {
                     m.hidden ^= true;
@@ -170,6 +187,18 @@ impl App {
             None => {}
         }
         ui.add_space(6.0);
+        if let Some(t) = self.picked_item() {
+            ui.separator();
+            ui.strong(format!("Editing: {}", t.label()));
+            if let Body::Text { text, size, .. } = &mut t.body {
+                ui.add(egui::TextEdit::multiline(text).desired_rows(2).desired_width(f32::INFINITY));
+                slider(ui, "Text size", size, 24.0, 700.0, 96.0, Fmt::Int);
+            }
+            if let Some((x, y, _)) = t.body.placed_mut() {
+                slider(ui, "Position X", x, -0.25, 1.25, 0.5, Fmt::Percent);
+                slider(ui, "Position Y", y, -0.25, 1.25, 0.5, Fmt::Percent);
+            }
+        }
         let mut animate = None;
         if let Some(t) = self.picked_item()
             && let Body::Graphic { name, size, file, .. } = &mut t.body
@@ -279,7 +308,7 @@ impl App {
                         let pic = Rect::from_min_max(b.min, pos2(b.right(), b.bottom() - 30.0));
                         let resp = ui.interact(b, ui.scope_id().with(("clip", clip.path.to_string_lossy().as_ref())), Sense::click());
                         let p = ui.painter();
-                        p.rect_filled(pic, 8, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+                        p.rect_filled(pic, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
                         match self.edit.design.thumbs.get(&clip.path) {
                             Some((tex, key)) => {
                                 p.image(tex.id(), pic, Rect::from_min_max(pos2(0.0, 0.0), pos2(1.0, 1.0)), Color32::WHITE);

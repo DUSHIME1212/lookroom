@@ -287,7 +287,7 @@ impl App {
         let out = self.audio_out.as_ref();
         let Some(r) = self.run.as_mut() else { return };
         if r.began.is_none() {
-            let frames = r.player.made.load(Ordering::Relaxed) >= PREROLL;
+            let frames = r.player.made.load(Ordering::Relaxed) >= PREROLL.min(r.total.saturating_sub(r.from));
             let sound = !r.by_sound || out.is_some_and(|o| o.has_sound_ready());
             let late = r.asked.elapsed() > SOUND_WAIT;
             if frames && (sound || late) {
@@ -341,7 +341,7 @@ impl App {
             return;
         };
         match serde_json::to_string_pretty(&self.project).map_err(|e| e.to_string()).and_then(|t| std::fs::write(&path, t).map_err(|e| e.to_string())) {
-            Ok(()) => self.say("Project saved"),
+            Ok(()) => { self.remember_project(&path); self.say("Project saved"); },
             Err(e) => self.say(format!("The project could not be saved: {e}")),
         }
     }
@@ -363,6 +363,8 @@ impl App {
                 return;
             }
         };
+        self.remember_project(path);
+        self.home = false;
         self.stop_play();
         let mut missing = 0;
         for m in project.media.iter() {

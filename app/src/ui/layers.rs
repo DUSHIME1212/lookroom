@@ -10,7 +10,7 @@ use crate::track;
 use eframe::egui::{Align2, Color32, Context, Rect, Response, Sense, Shape as Line, Stroke, Ui, Vec2, pos2, vec2};
 use std::sync::atomic::Ordering;
 
-const LAYER_ROW_H: f32 = 30.0;
+const LAYER_ROW_H: f32 = 40.0;
 const GRAPH_H: f32 = 74.0;
 const CROP_RATIOS: [(&str, f32); 10] = [
     ("Free", 0.0),
@@ -51,7 +51,7 @@ fn layer_row(ui: &mut Ui, name: &str, visible: Option<bool>, on: bool) -> Respon
     let (r, resp) = ui.allocate_exact_size(vec2(ui.available_width(), LAYER_ROW_H), Sense::click());
     let p = ui.painter();
     let fill = if on { ACCENT_SOFT } else if resp.hovered() { BUTTON_EDGE } else { BUTTON };
-    p.rect_filled(r, 8, fill);
+    p.rect_filled(r, 4, fill);
     if let Some(v) = visible {
         let c = pos2(r.left() + LAYER_ROW_H / 2.0, r.center().y);
         let i = Rect::from_center_size(c, Vec2::splat(16.0));
@@ -136,7 +136,7 @@ fn graph(ui: &mut Ui, m: &Mask, frames: u32, frame: u32) {
     let w = ui.available_width();
     let (r, _) = ui.allocate_exact_size(vec2(w, GRAPH_H), Sense::hover());
     let p = ui.painter().with_clip_rect(r);
-    p.rect_filled(r, 8, Color32::from_rgb(0x10, 0x10, 0x12));
+    p.rect_filled(r, 4, Color32::from_rgb(0x10, 0x10, 0x12));
     p.hline(r.x_range(), r.center().y, Stroke::new(1.0, Color32::from_white_alpha(26)));
     let x = |f: u32| r.left() + r.width() * f as f32 / frames.saturating_sub(1).max(1) as f32;
     if let Some(k0) = m.keys.first().copied() {
@@ -221,6 +221,9 @@ impl App {
 
     fn layer_controls(&mut self, ui: &mut Ui, i: usize) {
         let mut act = None;
+        ui.separator();
+        ui.label("Selected adjustment layer");
+        ui.add(eframe::egui::TextEdit::singleline(&mut self.grade.layers[i].name).hint_text("Layer name").desired_width(f32::INFINITY));
         let has_masks = !self.grade.layers[i].masks.is_empty();
         let mut chips = Chips::new(ui, 28.0);
         if chips.add("Edit Layer", false) {
@@ -411,7 +414,7 @@ impl App {
             x += tw + 22.0;
         }
         let seg = Rect::from_min_size(pos2(row.right() - 104.0, row.top()), vec2(104.0, 30.0));
-        ui.painter().rect_filled(seg, 15, BUTTON);
+        ui.painter().rect_filled(seg, 4, BUTTON);
         let part = |n: f32| Rect::from_min_size(pos2(seg.left() + 52.0 * n, seg.top()), vec2(52.0, 30.0)).shrink(2.0);
         if pill(ui, part(0.0), "Clip", self.pick.track_scope == 0, 12.0).clicked() {
             self.pick.track_scope = 0;

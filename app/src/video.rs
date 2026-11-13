@@ -16,7 +16,7 @@ use std::sync::{Arc, OnceLock};
 pub const MAX_SIDE: usize = 3840;
 /// Memory each open clip may spend on decoded frames for the paused picture.
 const CACHE_BYTES: usize = 320 * 1024 * 1024;
-const MIN_CACHED: usize = 16;
+const MIN_CACHED: usize = 1;
 /// Frames to read past the one asked for, while nothing else is wanted.
 const READ_AHEAD: u32 = 24;
 /// How far before a backward step to start reading.
@@ -71,13 +71,15 @@ pub fn cannot_start(e: &std::io::Error) -> String {
 }
 
 pub fn tool(name: &str) -> Command {
-    let mut c = Command::new(locate(name));
+    let c = Command::new(locate(name));
     #[cfg(windows)]
-    {
+    let c = {
         use std::os::windows::process::CommandExt;
         const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        let mut c = c;
         c.creation_flags(CREATE_NO_WINDOW);
-    }
+        c
+    };
     c
 }
 
@@ -214,25 +216,27 @@ pub fn sound_seconds(path: &Path) -> Result<f64, String> {
 }
 
 /// A few small pictures spread through a clip, for the timeline's film strip. A clip
-/// longer than a few seconds has only its key frames decoded, in one pass, and the
-/// pictures picked evenly from them: for a 16-second 4K camera clip that is 5 seconds
-/// instead of 38. A short one may hold just one key frame, so it is read in full.
+/// longer than a few seconds uses a fixed number of seeks, keeping memory and
+/// output size bounded regardless of the source duration. Short clips read in full.
 pub fn strip(info: &Info, count: usize, w: usize, h: usize) -> Result<Vec<Vec<u8>>, String> {
     let seconds = info.seconds(info.frames).max(0.1);
+    if count == 0 || w == 0 || h == 0 { return Ok(Vec::new()); }
     if seconds > STRIP_KEYS_AFTER {
-        let out = tool("ffmpeg")
-            .args(["-v", "error", "-nostdin", "-threads", "2", "-skip_frame", "nokey", "-i"])
-            .arg(&info.path)
-            .args(["-map", "0:v:0", "-vf", &format!("scale={w}:{h}:flags=fast_bilinear"), "-fps_mode", "passthrough", "-f", "rawvideo", "-pix_fmt", "rgb24", "pipe:1"])
-            .stdin(Stdio::null())
-            .stderr(Stdio::null())
-            .output()
-            .map_err(|e| cannot_start(&e))?;
-        let keys: Vec<&[u8]> = out.stdout.chunks_exact(w * h * 3).collect();
-        // Too few key frames to spread out: read it in full below instead.
-        if keys.len() >= count.min(3) {
-            return Ok(spread_evenly(&keys, count));
+        // Seek to a bounded number of samples instead of collecting every keyframe.
+        let mut pictures = Vec::with_capacity(count);
+        for i in 0..count {
+            let at = seconds * (i as f64 + 0.5) / count as f64;
+            let out = tool("ffmpeg")
+                .args(["-v", "error", "-nostdin", "-threads", "2", "-ss"])
+                .arg(format!("{at:.6}"))
+                .arg("-i").arg(&info.path)
+                .args(["-map", "0:v:0", "-vf", &format!("scale={w}:{h}:flags=fast_bilinear"),
+                    "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "pipe:1"])
+                .stdin(Stdio::null()).output().map_err(|e| cannot_start(&e))?;
+            if !out.status.success() { return Err(String::from_utf8_lossy(&out.stderr).trim().to_string()); }
+            if out.stdout.len() == w * h * 3 { pictures.push(out.stdout); }
         }
+        return Ok(pictures);
     }
     let mut c = tool("ffmpeg");
     // Two threads are plenty for a strip and keep each decoder's memory small.
@@ -253,11 +257,6 @@ pub fn strip(info: &Info, count: usize, w: usize, h: usize) -> Result<Vec<Vec<u8
         .output()
         .map_err(|e| cannot_start(&e))?;
     Ok(out.stdout.chunks_exact(w * h * 3).map(<[u8]>::to_vec).collect())
-}
-
-/// `count` pictures picked evenly from `all`, repeating some when there are fewer.
-fn spread_evenly(all: &[&[u8]], count: usize) -> Vec<Vec<u8>> {
-    (0..count).map(|i| all[((i as f64 + 0.5) * all.len() as f64 / count as f64) as usize % all.len()].to_vec()).collect()
 }
 
 /// A running decode of a clip, one frame at a time.
@@ -384,8 +383,12 @@ impl Reading {
     }
 }
 
+fn cache_limit(w: usize, h: usize) -> usize {
+    (CACHE_BYTES / w.saturating_mul(h).saturating_mul(size_of::<[f32; 3]>()).max(1)).max(MIN_CACHED)
+}
+
 fn feed_loop(info: Info, w: usize, h: usize, rx: Receiver<u32>, out: Sender<(u32, Arc<Picture>)>) {
-    let limit = (CACHE_BYTES / (w * h * size_of::<[f32; 3]>()).max(1)).max(MIN_CACHED);
+    let limit = cache_limit(w, h);
     let read_ahead = READ_AHEAD.min(limit as u32 / 2);
     let mut cache: Lru<u32, Arc<Picture>> = Lru::new(limit);
     let mut reading: Option<Reading> = None;
@@ -722,11 +725,28 @@ impl Feeder {
 }
 
 /// Grades every frame between `first` and `last` and writes the clip, keeping its sound.
+/// Drain encoder diagnostics while frames are written so a full stderr pipe cannot
+/// deadlock a long export. Retain only the final 64 KiB for error reporting.
+pub fn drain_errors(stderr: Option<std::process::ChildStderr>) -> std::thread::JoinHandle<String> {
+    std::thread::spawn(move || {
+        let mut tail = Vec::new();
+        if let Some(mut pipe) = stderr {
+            let mut buf = [0u8; 8192];
+            while let Ok(n) = pipe.read(&mut buf) {
+                if n == 0 { break; }
+                tail.extend_from_slice(&buf[..n]);
+                if tail.len() > 65536 { tail.drain(..tail.len() - 65536); }
+            }
+        }
+        String::from_utf8_lossy(&tail).into_owned()
+    })
+}
+
 pub fn export(e: &Export, g: &Grade, bank: &LutBank, done: &AtomicU32, cancel: &AtomicBool) -> Result<(), String> {
     let (w, h) = e.source.size_within(e.side.min(MAX_SIDE));
     let total = e.last.saturating_sub(e.first) + 1;
     let mut reader = Reader::open(&e.source, e.first, w, h, Some(total))?;
-    let mut encoder: Option<(Child, Feeder)> = None;
+    let mut encoder: Option<(Child, Feeder, std::thread::JoinHandle<String>)> = None;
     let deep = e.codec.deep(e.ten_bit);
     let staged = pipeline::bake_staged(g, bank);
     let mut result = Ok(());
@@ -751,24 +771,22 @@ pub fn export(e: &Export, g: &Grade, bank: &LutBank, done: &AtomicU32, cancel: &
                 .spawn()
                 .map_err(|x| cannot_start(&x))?;
             let Some(pipe) = child.stdin.take() else { break };
-            encoder = Some((child, Feeder::start(pipe, size.0, size.1, deep)));
+            let errors = drain_errors(child.stderr.take());
+            encoder = Some((child, Feeder::start(pipe, size.0, size.1, deep), errors));
         }
-        let Some((_, feeder)) = encoder.as_ref() else { break };
+        let Some((_, feeder, _)) = encoder.as_ref() else { break };
         if !feeder.send(out) {
             break;
         }
         n += 1;
         done.store(n, Ordering::Relaxed);
     }
-    let Some((mut child, feeder)) = encoder else { return result.and(Err("No frames could be read.".to_string())) };
+    let Some((mut child, feeder, errors)) = encoder else { return result.and(Err("No frames could be read.".to_string())) };
     let fed = feeder.finish();
     if result.is_ok() {
         result = fed;
     }
-    let mut err = String::new();
-    if let Some(mut s) = child.stderr.take() {
-        let _ = s.read_to_string(&mut err);
-    }
+    let err = errors.join().unwrap_or_default();
     let status = child.wait().map_err(|x| x.to_string())?;
     finished(&e.out, result, status.success(), &err, cancel)
 }
@@ -817,6 +835,24 @@ mod tests {
         Export { source: info(), out: "out.mp4".into(), codec, side: 3840, ten_bit, fast: false, first: 0, last: 47 }
     }
 
+    #[cfg(unix)]
+    #[test]
+    fn encoder_diagnostics_are_drained_and_bounded() {
+        let mut child = Command::new("sh")
+            .args(["-c", "head -c 200000 /dev/zero >&2"])
+            .stderr(Stdio::piped()).spawn().unwrap();
+        let errors = drain_errors(child.stderr.take());
+        assert!(child.wait().unwrap().success());
+        assert_eq!(errors.join().unwrap().len(), 65536);
+    }
+
+    #[test]
+    fn decoded_cache_respects_budget_at_4k() {
+        let frame_bytes = 3840 * 2160 * size_of::<[f32; 3]>();
+        assert!(cache_limit(3840, 2160) * frame_bytes <= CACHE_BYTES);
+        assert_eq!(cache_limit(usize::MAX, usize::MAX), 1);
+    }
+
     #[test]
     fn fast_takes_a_working_chip_and_keeps_the_colour_tags() {
         let a = picture_args_with(Codec::Hevc, true, true, Some(Chip::Intel));
@@ -833,17 +869,6 @@ mod tests {
         assert!(Chip::Intel.args(Codec::H264, true).is_none() && Chip::Nvidia.args(Codec::ProRes, false).is_none());
         let p = picture_args_with(Codec::ProRes, true, true, Some(Chip::Apple));
         assert!(p.iter().any(|s| s == "prores_ks"));
-    }
-
-    #[test]
-    fn a_strip_spreads_its_pictures_evenly() {
-        let frames: Vec<Vec<u8>> = (0..18u8).map(|n| vec![n]).collect();
-        let refs: Vec<&[u8]> = frames.iter().map(|f| f.as_slice()).collect();
-        let picked: Vec<u8> = spread_evenly(&refs, 12).iter().map(|f| f[0]).collect();
-        assert_eq!(picked.len(), 12);
-        assert!(picked.windows(2).all(|w| w[0] <= w[1]) && picked[0] < 3 && picked[11] > 14, "{picked:?}");
-        let few: Vec<u8> = spread_evenly(&refs[..2], 4).iter().map(|f| f[0]).collect();
-        assert_eq!(few, [0, 0, 1, 1]);
     }
 
     #[test]

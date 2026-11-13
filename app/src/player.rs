@@ -15,7 +15,6 @@ use crate::video::{self, Codec, Reader};
 use eframe::egui::{Color32, ColorImage};
 use rayon::prelude::*;
 use std::collections::HashMap;
-use std::io::Read;
 use std::path::{Path, PathBuf};
 use std::process::Stdio;
 use std::sync::atomic::{AtomicBool, AtomicU32, AtomicUsize, Ordering};
@@ -603,18 +602,23 @@ impl Player {
         let (flag, count, time, size) = (stop.clone(), made.clone(), clock.clone(), side.clone());
         std::thread::spawn(move || {
             let total = scene.project.total();
-            let chosen = pick_side(&scene);
+            let mut chosen = pick_side(&scene);
             size.store(chosen, Ordering::Relaxed);
             let (w, h) = fit_size(scene.project.size, chosen);
             let mut c = Composer::new(scene.clone(), w, h, true, false);
             let (mut f, mut n) = (from, 0u32);
+            let mut work = 0.0;
+            let mut samples = 0u32;
             while f < total && !flag.load(Ordering::Relaxed) {
+                let began = Instant::now();
                 let pic = c.frame(f);
                 let scope = scope.filter(|_| n % SCOPE_EVERY == 0).map(|k| {
                     let s = scopes::draw(k, &pic);
                     ColorImage::from_rgba_unmultiplied([s.w, s.h], &s.rgba)
                 });
                 let image = image_of(&pic);
+                work += began.elapsed().as_secs_f64();
+                samples += 1;
                 n += 1;
                 if tx.send(Shown { frame: f, image, scope }).is_err() {
                     return;
@@ -623,6 +627,21 @@ impl Player {
                 // Behind the clock: drop a few frames rather than freeze on one.
                 let behind = time.load(Ordering::Relaxed).saturating_sub(f);
                 f += 1 + behind.min(MOST_SKIPPED);
+                // The startup benchmark only measures grading. Use sustained actual
+                // decode/composite/scope work to recover when that estimate was optimistic.
+                if samples >= 30 {
+                    let budget = 1.0 / scene.project.fps.max(1.0);
+                    if behind > 2 && work / samples as f64 > budget
+                        && let Some(next) = PLAY_SIDES.iter().copied().find(|s| *s < chosen)
+                    {
+                        chosen = next;
+                        size.store(chosen, Ordering::Relaxed);
+                        let (w, h) = fit_size(scene.project.size, chosen);
+                        c = Composer::new(scene.clone(), w, h, true, false);
+                    }
+                    work = 0.0;
+                    samples = 0;
+                }
             }
         });
         Self { frames, stop, made, clock, side }
@@ -676,6 +695,7 @@ fn write_project(scene: Arc<Scene>, out: &Path, o: &VideoOptions, done: &AtomicU
     }
     a.extend(["-t".into(), format!("{seconds:.6}"), out.to_string_lossy().to_string()]);
     let mut child = video::tool("ffmpeg").args(a).stdin(Stdio::piped()).stdout(Stdio::null()).stderr(Stdio::piped()).spawn().map_err(|e| video::cannot_start(&e))?;
+    let errors = video::drain_errors(child.stderr.take());
     let mut c = Composer::new(scene.clone(), w, h, false, true);
     let mut result = Ok(());
     if let Some(pipe) = child.stdin.take() {
@@ -696,10 +716,7 @@ fn write_project(scene: Arc<Scene>, out: &Path, o: &VideoOptions, done: &AtomicU
             result = fed;
         }
     }
-    let mut err = String::new();
-    if let Some(mut s) = child.stderr.take() {
-        let _ = s.read_to_string(&mut err);
-    }
+    let err = errors.join().unwrap_or_default();
     let status = child.wait().map_err(|e| e.to_string())?;
     video::finished(out, result, status.success(), &err, cancel)
 }

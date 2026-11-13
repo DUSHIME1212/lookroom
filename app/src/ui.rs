@@ -24,6 +24,7 @@ mod playback;
 mod safety;
 mod sheets;
 mod templates;
+mod home;
 
 use crate::audio;
 use crate::crop::{Crop, Sides};
@@ -403,6 +404,7 @@ pub struct Start {
 }
 
 pub struct App {
+    home: bool,
     ui_log: Option<(String, Vec<f32>)>,
     frame_began: Option<Instant>,
     project: Project,
@@ -500,6 +502,9 @@ impl App {
         v.extreme_bg_color = Color32::from_rgb(0x10, 0x10, 0x12);
         v.widgets.inactive.weak_bg_fill = BUTTON;
         v.selection.bg_fill = ACCENT;
+        v.window_corner_radius = 4.into();
+        v.menu_corner_radius = 4.into();
+        for widget in [&mut v.widgets.inactive, &mut v.widgets.hovered, &mut v.widgets.active, &mut v.widgets.open, &mut v.widgets.noninteractive] { widget.corner_radius = 4.into(); }
         cc.egui_ctx.set_visuals(v);
         cc.egui_ctx.global_style_mut(|s| {
             s.spacing.scroll = egui::style::ScrollStyle::thin();
@@ -541,6 +546,7 @@ impl App {
         // Scripted test runs leave no autosaves and look for no crashes.
         let scripted = start.screenshot.is_some() || start.input.is_some() || start.play_test.is_some() || start.ui_bench.is_some();
         let mut app = Self {
+            home: start.open.is_empty() && !scripted,
             ui_log: start.ui_bench.map(|o| (o, Vec::new())),
             frame_began: None,
             active: project.clips.first().map(|c| c.id),
@@ -1063,7 +1069,7 @@ impl App {
         let cell = 40.0;
         let n = 5.0;
         let bar = Rect::from_center_size(pos2(r.center().x, y), vec2(cell * n + 12.0, 40.0));
-        ui.painter().rect_filled(bar, 20, BUTTON);
+        ui.painter().rect_filled(bar, 4, BUTTON);
         let at = |i: f32| Rect::from_min_size(pos2(bar.left() + 6.0 + cell * i, bar.top()), vec2(cell, 40.0));
         if icon_button(ui, at(0.0), Icon::Undo02, "Undo", false).clicked() {
             self.undo();
@@ -1272,7 +1278,7 @@ impl App {
         let resp = ui.interact(r, ui.scope_id().with("original"), Sense::click_and_drag());
         self.hold_original = resp.is_pointer_button_down_on();
         let p = ui.painter();
-        p.rect_filled(r, 15, if self.hold_original { ACCENT } else { Color32::from_rgba_unmultiplied(0x2C, 0x2C, 0x2E, 225) });
+        p.rect_filled(r, 4, if self.hold_original { ACCENT } else { Color32::from_rgba_unmultiplied(0x2C, 0x2C, 0x2E, 225) });
         p.text(r.center(), Align2::CENTER_CENTER, "Original Image", semi(12.5), Color32::WHITE);
     }
 
@@ -1343,7 +1349,7 @@ impl App {
         let total = n * size + (n - 1.0) * gap;
         let cy = r.bottom() - 8.0 - size / 2.0 - 2.0;
         let capsule = Rect::from_center_size(pos2(r.center().x, cy), vec2(total + 12.0, size + 6.0));
-        ui.painter().rect_filled(capsule, 23, BUTTON);
+        ui.painter().rect_filled(capsule, 4, BUTTON);
         let mut bx = r.center().x - total / 2.0;
         for t in TOOLS {
             let rect = Rect::from_center_size(pos2(bx + size / 2.0, cy), Vec2::splat(size));
@@ -1351,10 +1357,10 @@ impl App {
             let on = self.tool == t;
             let p = ui.painter();
             if on {
-                p.circle_filled(rect.center(), size / 2.0, RAISED);
-                p.circle_stroke(rect.center(), size / 2.0, Stroke::new(1.5, ACCENT));
+                p.rect_filled(rect, 4, RAISED);
+                p.rect_stroke(rect, 4, Stroke::new(1.5, ACCENT), StrokeKind::Inside);
             } else if resp.hovered() {
-                p.circle_filled(rect.center(), size / 2.0, BUTTON_EDGE);
+                p.rect_filled(rect, 4, BUTTON_EDGE);
             }
             let inner = Rect::from_center_size(rect.center(), Vec2::splat(22.0));
             match t.colours().filter(|_| !on) {
@@ -1576,8 +1582,8 @@ impl App {
             let g = p.layout_no_wrap(t.clone(), semi(13.0), Color32::WHITE);
             let c = pos2(photo.center().x, photo.bottom() - 26.0);
             let r = Rect::from_center_size(c, g.size() + vec2(28.0, 14.0));
-            p.rect_filled(r, 14, MENU);
-            p.rect_stroke(r, 14, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
+            p.rect_filled(r, 4, MENU);
+            p.rect_stroke(r, 4, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
             p.galley(r.center() - g.size() / 2.0, g, Color32::WHITE);
             ctx.request_repaint_after(Duration::from_millis(200));
         } else {
@@ -1670,6 +1676,8 @@ impl eframe::App for App {
 
     fn ui(&mut self, ui: &mut Ui, _frame: &mut eframe::Frame) {
         let ctx = ui.ctx().clone();
+        if self.home { self.home_page(ui); return; }
+        if ui.button("⌂ Home").clicked() { self.stop_play(); self.home = true; return; }
         let dropped: Vec<PathBuf> = ctx.input(|i| i.raw.dropped_files.iter().map(|f| f.path().to_path_buf()).collect());
         for path in dropped {
             let is_cube = path.extension().is_some_and(|x| x.eq_ignore_ascii_case("cube"));

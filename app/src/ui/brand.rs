@@ -293,7 +293,7 @@ impl App {
         let (r, resp) = ui.allocate_exact_size(vec2(w, 34.0), Sense::click());
         let open = self.edit.brand.font_open == Some(key);
         let p = ui.painter();
-        p.rect_filled(r, 10, if resp.hovered() || open { BUTTON_EDGE } else { BUTTON });
+        p.rect_filled(r, 4, if resp.hovered() || open { BUTTON_EDGE } else { BUTTON });
         p.text(pos2(r.left() + 12.0, r.center().y), egui::Align2::LEFT_CENTER, label, regular(12.0), MUTED);
         let shown = if font.is_empty() { "App default" } else { font.as_str() };
         p.with_clip_rect(r.shrink2(vec2(10.0, 0.0))).text(pos2(r.right() - 12.0, r.center().y), egui::Align2::RIGHT_CENTER, shown, semi(12.5), Color32::WHITE);

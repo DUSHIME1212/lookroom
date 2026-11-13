@@ -145,9 +145,9 @@ fn tiles(ui: &mut Ui, list: &[(String, Motion, bool)]) -> Option<usize> {
         );
         let resp = ui.interact(r, ui.scope_id().with(("tile", i, name.as_str())), Sense::click());
         let p = ui.painter();
-        p.rect_filled(r, 10, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+        p.rect_filled(r, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
         if *on {
-            p.rect_stroke(r, 10, Stroke::new(2.0, ACCENT), StrokeKind::Inside);
+            p.rect_stroke(r, 4, Stroke::new(2.0, ACCENT), StrokeKind::Inside);
         }
         let stage = Rect::from_min_max(r.min, pos2(r.right(), r.bottom() - 18.0));
         paint_preview(ui, stage, m, resp.hovered());
@@ -355,7 +355,7 @@ impl App {
         let (r, resp) = ui.allocate_exact_size(vec2(w, 38.0), Sense::click());
         let open = self.edit.motion.font_open;
         let p = ui.painter();
-        p.rect_filled(r, 10, if resp.hovered() || open { BUTTON_EDGE } else { BUTTON });
+        p.rect_filled(r, 4, if resp.hovered() || open { BUTTON_EDGE } else { BUTTON });
         icons::paint(p, Icon::TextFont, Rect::from_center_size(pos2(r.left() + 18.0, r.center().y), Vec2::splat(17.0)), MUTED);
         let found = fonts.iter().position(|f| *f == current);
         if !self.font_sample(ui, found, pos2(r.left() + 36.0, r.center().y), r.width() - 70.0, true) {
@@ -379,7 +379,7 @@ impl App {
                         if fonts[i] == current {
                             chosen_row(ui.painter(), row, 8);
                         } else {
-                            ui.painter().rect_filled(row, 8, BUTTON_EDGE);
+                            ui.painter().rect_filled(row, 4, BUTTON_EDGE);
                         }
                     }
                     let can_draw = drawn < FONT_SAMPLES_A_FRAME || self.edit.motion.samples.contains(&i);
@@ -494,7 +494,7 @@ impl App {
         let mut set = None;
         let mut close = false;
         let shown = Area::new(ui.scope_id().with("speed-popup")).order(Layer::Foreground).pivot(Align2::LEFT_BOTTOM).fixed_pos(pos2(x, anchor.top() - 8.0)).show(ui.ctx(), |ui| {
-            egui::Frame::new().fill(MENU).stroke(Stroke::new(1.0, BUTTON_EDGE)).corner_radius(14).inner_margin(12.0).show(ui, |ui| {
+            egui::Frame::new().fill(MENU).stroke(Stroke::new(1.0, BUTTON_EDGE)).corner_radius(4).inner_margin(12.0).show(ui, |ui| {
                 ui.set_width(SPEED_W - 24.0);
                 ui.horizontal(|ui| {
                     ui.label(egui::RichText::new("Clip Speed").font(bold(14.0)).color(Color32::WHITE));
@@ -634,7 +634,7 @@ impl App {
             let w = ui.available_width();
             let (r, _) = ui.allocate_exact_size(vec2(w, 54.0), Sense::hover());
             let paint = ui.painter();
-            paint.rect_filled(r, 10, BUTTON);
+            paint.rect_filled(r, 4, BUTTON);
             icons::paint(paint, Icon::Puzzle, Rect::from_center_size(pos2(r.left() + 20.0, r.center().y), Vec2::splat(18.0)), ACCENT);
             let by = if p.author.is_empty() { String::new() } else { format!(" by {}", p.author) };
             let version = if p.version.is_empty() { String::new() } else { format!(" {}", p.version) };

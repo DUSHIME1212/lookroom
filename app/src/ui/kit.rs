@@ -10,9 +10,9 @@ use eframe::egui::{
 };
 
 /// The one accent: the main action on a page, a value being set, and state. Never decoration.
-pub const ACCENT: Color32 = Color32::from_rgb(0x7B, 0x61, 0xFF);
+pub const ACCENT: Color32 = Color32::from_rgb(0x52, 0x78, 0x8B);
 /// The accent at a whisper, behind a chosen row or chip.
-pub const ACCENT_SOFT: Color32 = Color32::from_rgba_premultiplied(0x16, 0x11, 0x2E, 0x2E);
+pub const ACCENT_SOFT: Color32 = Color32::from_rgb(0x25, 0x32, 0x39);
 /// A chosen tab or segment: lifted, not lit.
 pub const RAISED: Color32 = Color32::from_rgb(0x3C, 0x3C, 0x42);
 /// Secondary text: values, names under tiles.
@@ -20,7 +20,7 @@ pub const TEXT_2: Color32 = Color32::from_rgb(0xD0, 0xD0, 0xD4);
 /// Something went wrong.
 pub const ERROR: Color32 = Color32::from_rgb(0xF2, 0x55, 0x7A);
 /// The ring round whatever the keyboard is on.
-pub const FOCUS: Color32 = Color32::from_rgb(0xA8, 0x97, 0xFF);
+pub const FOCUS: Color32 = Color32::from_rgb(0xA6, 0xC9, 0xD8);
 pub const PANEL: Color32 = Color32::from_rgb(0x16, 0x16, 0x18);
 pub const PANEL_EDGE: Color32 = Color32::from_rgb(0x2C, 0x2C, 0x2E);
 pub const BUTTON: Color32 = Color32::from_rgb(0x2C, 0x2C, 0x2E);
@@ -28,7 +28,7 @@ pub const BUTTON_EDGE: Color32 = Color32::from_rgb(0x3E, 0x3E, 0x41);
 pub const MENU: Color32 = Color32::from_rgb(0x24, 0x24, 0x26);
 pub const MUTED: Color32 = Color32::from_rgb(0x8E, 0x8E, 0x93);
 pub const TRACK: Color32 = Color32::from_rgb(0x3A, 0x3A, 0x3C);
-pub const PANEL_RADIUS: u8 = 20;
+pub const PANEL_RADIUS: u8 = 4;
 
 pub const CHANNELS: [Color32; 4] = [
     Color32::WHITE,
@@ -71,7 +71,7 @@ pub fn split_row(ui: &mut Ui, h: f32, gap: f32) -> (Rect, Rect) {
 pub fn pill(ui: &mut Ui, r: Rect, label: &str, on: bool, size: f32) -> Response {
     let resp = ui.interact(r, ui.scope_id().with(("pill", label, r.min.x as i32, r.min.y as i32)), Sense::click());
     let p = ui.painter();
-    let radius = (r.height() / 2.0) as u8;
+    let radius = 4;
     let fill = if on {
         RAISED
     } else if resp.hovered() {
@@ -111,6 +111,7 @@ pub fn focus_ring(ui: &Ui, resp: &Response, r: Rect, radius: u8) {
 
 /// A chosen row in a list: a soft wash of the accent with a mark at its edge.
 pub fn chosen_row(p: &egui::Painter, r: Rect, radius: u8) {
+    let radius = radius.min(4);
     p.rect_filled(r, radius, ACCENT_SOFT);
     p.rect_stroke(r, radius, Stroke::new(1.0, ACCENT.gamma_multiply(0.55)), StrokeKind::Inside);
 }
@@ -121,9 +122,9 @@ pub fn play_button(ui: &mut Ui, c: Pos2, playing: bool) -> Response {
     let resp = ui.interact(r, ui.scope_id().with("play"), Sense::click()).on_hover_text(if playing { "Pause (Space)" } else { "Play (Space)" });
     let p = ui.painter();
     let disc = if resp.is_pointer_button_down_on() { Color32::from_gray(200) } else if resp.hovered() { Color32::from_gray(235) } else { Color32::WHITE };
-    p.circle_filled(c, 18.0, disc);
+    p.rect_filled(Rect::from_center_size(c, Vec2::splat(36.0)), 4, disc);
     icons::paint(p, if playing { Icon::Pause } else { Icon::Play }, Rect::from_center_size(c + vec2(if playing { 0.0 } else { 1.0 }, 0.0), Vec2::splat(18.0)), PANEL);
-    focus_ring(ui, &resp, Rect::from_center_size(c, Vec2::splat(36.0)), 18);
+    focus_ring(ui, &resp, Rect::from_center_size(c, Vec2::splat(36.0)), 4);
     resp
 }
 
@@ -137,7 +138,7 @@ pub fn error_note(ui: &mut Ui, text: &str) {
 pub fn action(ui: &mut Ui, r: Rect, label: &str, on: bool, size: f32) -> Response {
     let resp = ui.interact(r, ui.scope_id().with(("action", label, r.min.x as i32, r.min.y as i32)), Sense::click());
     let p = ui.painter();
-    let radius = (r.height() / 2.0) as u8;
+    let radius = 4;
     let fill = if on {
         ACCENT
     } else if resp.hovered() {
@@ -176,7 +177,7 @@ impl<'a> Chips<'a> {
         let r = Rect::from_min_size(pos2(self.x, self.y), vec2(w, self.h));
         self.x += w + 6.0;
         let resp = self.ui.interact(r, self.ui.scope_id().with(("chip", label, r.min.x as i32, r.min.y as i32)), Sense::click());
-        let radius = (r.height() / 2.0) as u8;
+        let radius = 4;
         let p = self.ui.painter();
         if on {
             chosen_row(p, r, radius);
@@ -199,7 +200,7 @@ pub fn icon_button(ui: &mut Ui, r: Rect, icon: Icon, tip: &str, on: bool) -> Res
     let resp = ui.interact(r, ui.scope_id().with(("icon", tip, r.min.x as i32, r.min.y as i32)), Sense::click()).on_hover_text(tip);
     let p = ui.painter();
     if resp.hovered() {
-        p.rect_filled(r, (r.height() / 2.0) as u8, Color32::from_white_alpha(22));
+        p.rect_filled(r, 4, Color32::from_white_alpha(22));
     }
     let side = (r.height() * 0.62).round();
     let tint = if on { ACCENT } else { Color32::WHITE };
@@ -213,9 +214,9 @@ pub fn round_button(ui: &mut Ui, c: Pos2, side: f32, icon: Icon, tip: &str) -> R
     let r = Rect::from_center_size(c, Vec2::splat(side));
     let resp = ui.interact(r, ui.scope_id().with(("round", tip)), Sense::click()).on_hover_text(tip);
     let p = ui.painter();
-    p.circle_filled(c, side / 2.0, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+    p.rect_filled(r, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
     icons::paint(p, icon, Rect::from_center_size(c, Vec2::splat((side * 0.52).round())), Color32::WHITE);
-    focus_ring(ui, &resp, r, (side / 2.0) as u8);
+    focus_ring(ui, &resp, r, 4);
     resp
 }
 
@@ -240,8 +241,8 @@ pub fn fmt_value(v: f32, f: Fmt) -> String {
     }
 }
 
-/// Label on the left, value on the right, a thin track with a white knob beneath.
-/// A double click puts the slider back to its neutral value.
+/// Label and editable value above a dedicated track. Shift-drag adjusts precisely;
+/// keyboard arrows step, Home/End reach bounds, and reset restores the neutral value.
 pub fn slider(ui: &mut Ui, label: &str, v: &mut f32, min: f32, max: f32, neutral: f32, f: Fmt) -> Response {
     slider_on(ui, label, v, min, max, neutral, f, None)
 }
@@ -256,53 +257,88 @@ pub fn slider_on(
     f: Fmt,
     band: Option<&[Color32]>,
 ) -> Response {
-    let w = ui.available_width();
-    let (r, mut resp) = ui.allocate_exact_size(vec2(w, 40.0), Sense::click_and_drag());
-    let track_y = r.top() + 29.0;
-    let (tl, tr) = (r.left() + 8.0, r.right() - 8.0);
-    if let Some(p) = resp.interact_pointer_pos()
-        && (resp.dragged() || resp.drag_started() || resp.clicked())
-    {
-        let t = ((p.x - tl) / (tr - tl)).clamp(0.0, 1.0);
-        let new = min + (max - min) * t;
-        if new != *v {
-            *v = new;
-            resp.mark_changed();
-        }
+    let old = *v;
+    let (r, allocated) = ui.allocate_exact_size(vec2(ui.available_width(), 58.0), Sense::hover());
+    let span = (max - min).max(f32::EPSILON);
+    let neutral = neutral.clamp(min, max);
+    let reset_rect = Rect::from_min_size(pos2(r.right() - 24.0, r.top()), vec2(24.0, 24.0));
+    let value_rect = Rect::from_min_size(pos2((reset_rect.left() - 86.0).max(r.left()), r.top()), vec2(80.0, 24.0));
+    let label_rect = Rect::from_min_max(r.min, pos2(value_rect.left() - 6.0, r.top() + 24.0));
+    ui.painter().with_clip_rect(label_rect).text(pos2(r.left(), r.top() + 12.0), Align2::LEFT_CENTER, label, regular(13.0), TEXT_2);
+
+    // Edit in the units shown, so typing 50 into a percentage means 50%, not 5000%.
+    let (scale, offset, suffix, decimals) = match f {
+        Fmt::Percent => (100.0, 0.0, "%", 1),
+        Fmt::Kelvin => (1.0, 6500.0, " K", 0),
+        Fmt::Degrees => (1.0, 0.0, "°", 1),
+        Fmt::Int => (1.0, 0.0, "", 0),
+        Fmt::Stops => (1.0, 0.0, "", 2),
+        Fmt::Plain => (1.0, 0.0, "", 2),
+    };
+    let mut displayed = *v * scale + offset;
+    let step = match f { Fmt::Int | Fmt::Kelvin => 1.0, _ => span / 200.0 };
+    ui.painter().rect_filled(value_rect, 6, BUTTON);
+    let value_response = ui.put(value_rect, egui::DragValue::new(&mut displayed)
+        .range((min * scale + offset)..=(max * scale + offset))
+        .speed(step * scale).max_decimals(decimals).suffix(suffix))
+        .on_hover_text("Click to type a value · drag to adjust · Shift for precision");
+    ui.painter().rect_stroke(value_rect, 6, Stroke::new(1.0, if value_response.has_focus() { FOCUS } else if value_response.hovered() { MUTED } else { BUTTON_EDGE }), StrokeKind::Inside);
+    if value_response.changed() { *v = ((displayed - offset) / scale).clamp(min, max); }
+    let reset = ui.put(reset_rect, egui::Button::new("↺").frame(false))
+        .on_hover_text(format!("Reset to {}", fmt_value(neutral, f)));
+    if reset.clicked() { *v = neutral; }
+
+    let hit = Rect::from_min_max(pos2(r.left(), r.top() + 26.0), pos2(r.right(), r.bottom()));
+    let mut resp = ui.interact(hit, allocated.id.with("track"), Sense::click_and_drag())
+        .on_hover_text("Drag to adjust · Shift for precision · arrows to step · double-click to reset");
+    let (tl, tr) = (hit.left() + 9.0, hit.right() - 9.0);
+    let width = (tr - tl).max(1.0);
+    if resp.clicked() {
+        resp.request_focus();
+        if let Some(p) = resp.interact_pointer_pos() { *v = min + ((p.x - tl) / width).clamp(0.0, 1.0) * span; }
     }
-    if resp.double_clicked() {
-        *v = neutral;
-        resp.mark_changed();
+    let drag_id = allocated.id.with("drag-value");
+    if resp.drag_started() { ui.data_mut(|d| d.insert_temp(drag_id, *v)); }
+    if resp.dragged() {
+        resp.request_focus();
+        let delta = ui.input(|i| i.pointer.delta().x * if i.modifiers.shift { 0.1 } else { 1.0 });
+        let raw = ui.data(|d| d.get_temp::<f32>(drag_id)).unwrap_or(*v);
+        let raw = (raw + delta / width * span).clamp(min, max);
+        ui.data_mut(|d| d.insert_temp(drag_id, raw));
+        *v = raw;
     }
+    if resp.double_clicked() { *v = neutral; }
+    if resp.has_focus() {
+        ui.input(|i| {
+            let fine = if i.modifiers.shift && !matches!(f, Fmt::Int | Fmt::Kelvin) { 0.1 } else { 1.0 };
+            if i.key_pressed(egui::Key::ArrowRight) || i.key_pressed(egui::Key::ArrowUp) { *v += step * fine; }
+            if i.key_pressed(egui::Key::ArrowLeft) || i.key_pressed(egui::Key::ArrowDown) { *v -= step * fine; }
+            if i.key_pressed(egui::Key::Home) { *v = min; }
+            if i.key_pressed(egui::Key::End) { *v = max; }
+        });
+    }
+    if *v != old {
+        *v = (*v).clamp(min, max);
+        if matches!(f, Fmt::Int | Fmt::Kelvin) { *v = v.round().clamp(min, max); }
+    }
+    let y = hit.center().y;
+    let x = tl + width * ((*v - min) / span).clamp(0.0, 1.0);
+    let nx = tl + width * ((neutral - min) / span).clamp(0.0, 1.0);
+    let bar = Rect::from_min_max(pos2(tl, y - 2.5), pos2(tr, y + 2.5));
     let p = ui.painter();
-    let resting = band.is_some() && (*v - neutral).abs() < 5e-3;
-    let weight = if resting { regular(13.0) } else { semi(13.0) };
-    p.text(r.left_top() + vec2(0.0, 8.0), Align2::LEFT_CENTER, label, weight.clone(), Color32::WHITE);
-    p.text(pos2(r.right(), r.top() + 8.0), Align2::RIGHT_CENTER, fmt_value(*v, f), weight, TEXT_2);
-    let t = ((*v - min) / (max - min)).clamp(0.0, 1.0);
-    let n = ((neutral - min) / (max - min)).clamp(0.0, 1.0);
-    let x = tl + (tr - tl) * t;
-    let nx = tl + (tr - tl) * n;
-    let bar = Rect::from_min_max(pos2(tl, track_y - 2.0), pos2(tr, track_y + 2.0));
-    match band {
-        Some(colours) => icons::colour_band(p, bar, colours),
-        None => {
-            p.rect_filled(bar, 2, TRACK);
-            let fill = Rect::from_min_max(pos2(x.min(nx), track_y - 2.0), pos2(x.max(nx), track_y + 2.0));
-            p.rect_filled(fill, 2, ACCENT);
-        }
-    }
-    let knob = pos2(x, track_y);
-    let active = resp.dragged() || resp.hovered();
-    p.circle_filled(knob, if resp.dragged() { 9.0 } else { 8.0 }, Color32::WHITE);
-    p.circle_stroke(knob, if resp.dragged() { 9.0 } else { 8.0 }, Stroke::new(2.0, if band.is_some() { PANEL } else { ACCENT }));
-    if resp.has_focus() && keyboard_moved(ui.ctx()) {
-        p.circle_stroke(knob, 12.5, Stroke::new(2.0, FOCUS));
-    }
-    if active {
-        value_bubble(ui, knob - vec2(0.0, 16.0), &fmt_value(*v, f));
-    }
-    resp
+    p.rect_filled(bar, 3, TRACK);
+    if let Some(colours) = band { icons::colour_band(p, bar, colours); }
+    else { p.rect_filled(Rect::from_min_max(pos2(x.min(nx), y - 2.5), pos2(x.max(nx), y + 2.5)), 3, ACCENT); }
+    p.line_segment([pos2(nx, y - 5.0), pos2(nx, y + 5.0)], Stroke::new(1.0, MUTED));
+    let handle = Rect::from_center_size(pos2(x, y), vec2(10.0, 20.0));
+    if resp.hovered() || resp.dragged() { p.rect_filled(handle.expand(4.0), 4, Color32::from_white_alpha(18)); }
+    p.rect_filled(handle, 2, Color32::WHITE);
+    p.rect_stroke(handle, 2, Stroke::new(1.0, if resp.dragged() { ACCENT } else { BUTTON_EDGE }), StrokeKind::Inside);
+    if resp.has_focus() { p.rect_stroke(handle.expand(3.0), 4, Stroke::new(1.5, FOCUS), StrokeKind::Inside); }
+    if resp.dragged() { value_bubble(ui, pos2(x, y - 16.0), &fmt_value(*v, f)); }
+    if *v != old { resp.mark_changed(); }
+    resp.widget_info(|| egui::WidgetInfo::slider(ui.is_enabled(), *v as f64, label));
+    resp | value_response | reset
 }
 
 /// The value over a slider's knob, on top of everything so no panel edge cuts it off.
@@ -321,7 +357,7 @@ pub fn value_bubble(ui: &Ui, tip: Pos2, text: &str) {
 pub fn segmented(ui: &mut Ui, options: &[&str], at: &mut usize) -> bool {
     let w = ui.available_width();
     let (r, _) = ui.allocate_exact_size(vec2(w, 32.0), Sense::hover());
-    ui.painter().rect_filled(r, 16, BUTTON);
+    ui.painter().rect_filled(r, 4, BUTTON);
     let cell = w / options.len().max(1) as f32;
     let mut changed = false;
     for (i, o) in options.iter().enumerate() {
@@ -344,10 +380,10 @@ pub fn toggle(ui: &mut Ui, label: &str, on: &mut bool) -> bool {
     let p = ui.painter();
     p.text(pos2(r.left(), r.center().y), Align2::LEFT_CENTER, label, semi(13.0), Color32::WHITE);
     let s = Rect::from_min_size(pos2(r.right() - 42.0, r.center().y - 12.0), vec2(42.0, 24.0));
-    p.rect_filled(s, 12, if *on { ACCENT } else { TRACK });
+    p.rect_filled(s, 4, if *on { ACCENT } else { TRACK });
     let x = if *on { s.right() - 12.0 } else { s.left() + 12.0 };
-    p.circle_filled(pos2(x, s.center().y), 10.0, Color32::WHITE);
-    focus_ring(ui, &resp, s, 12);
+    p.rect_filled(Rect::from_center_size(pos2(x, s.center().y), vec2(16.0, 18.0)), 2, Color32::WHITE);
+    focus_ring(ui, &resp, s, 4);
     resp.clicked()
 }
 
@@ -401,7 +437,7 @@ pub fn dropdown(ui: &mut Ui, r: Rect, label: Option<&str>, options: &[&str], at:
     };
     let resp = ui.interact(box_r, id, Sense::click());
     let p = ui.painter();
-    p.rect_filled(box_r, 10, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+    p.rect_filled(box_r, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
     let name = options.get(*at).copied().unwrap_or("");
     let clip = p.with_clip_rect(box_r.shrink2(vec2(10.0, 0.0)));
     clip.text(pos2(box_r.left() + 12.0, box_r.center().y), Align2::LEFT_CENTER, name, semi(12.5), Color32::WHITE);
@@ -423,13 +459,13 @@ pub fn dropdown(ui: &mut Ui, r: Rect, label: Option<&str>, options: &[&str], at:
         let shown = Area::new(id.with("list")).order(Order::Foreground).fixed_pos(pos2(x, y)).show(ui.ctx(), |ui| {
             let (bg, _) = ui.allocate_exact_size(vec2(w, h), Sense::click());
             let p = ui.painter();
-            p.rect_filled(bg, 14, MENU);
-            p.rect_stroke(bg, 14, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
+            p.rect_filled(bg, 4, MENU);
+            p.rect_stroke(bg, 4, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
             for (i, o) in options.iter().enumerate() {
                 let rr = Rect::from_min_size(pos2(bg.left() + 4.0, bg.top() + 4.0 + row * i as f32), vec2(w - 8.0, row));
                 let hit = ui.interact(rr, id.with(("row", i)), Sense::click());
                 if hit.hovered() {
-                    ui.painter().rect_filled(rr, 10, BUTTON_EDGE);
+                    ui.painter().rect_filled(rr, 4, BUTTON_EDGE);
                 }
                 let p = ui.painter();
                 if *at == i {
@@ -455,15 +491,26 @@ pub fn dropdown(ui: &mut Ui, r: Rect, label: Option<&str>, options: &[&str], at:
 pub fn jog(ui: &mut Ui, v: &mut f32, speed: f32) -> Response {
     const SPACING: f32 = 5.0;
     let w = ui.available_width();
-    let (r, resp) = ui.allocate_exact_size(vec2(w, 22.0), Sense::click_and_drag());
+    let old = *v;
+    let (r, mut resp) = ui.allocate_exact_size(vec2(w, 30.0), Sense::click_and_drag());
+    resp = resp.on_hover_text("Drag to adjust master · Shift for precision · arrows to step · double-click to reset");
+    if resp.clicked() || resp.dragged() { resp.request_focus(); }
     if resp.dragged() {
-        *v += resp.drag_delta().x * speed;
+        *v += resp.drag_delta().x * speed * ui.input(|i| if i.modifiers.shift { 0.1 } else { 1.0 });
+    }
+    if resp.has_focus() {
+        ui.input(|i| {
+            let step = speed * if i.modifiers.shift { 0.1 } else { 1.0 };
+            if i.key_pressed(egui::Key::ArrowRight) { *v += step; }
+            if i.key_pressed(egui::Key::ArrowLeft) { *v -= step; }
+        });
     }
     if resp.double_clicked() {
         *v = 0.0;
     }
     let p = ui.painter().with_clip_rect(r);
-    let phase = (*v / speed).rem_euclid(SPACING);
+    p.rect_filled(r, 6, BUTTON);
+    let phase = (*v / speed.max(f32::EPSILON)).rem_euclid(SPACING);
     let mut x = r.left() + phase;
     while x < r.right() {
         let edge = ((x - r.left()).min(r.right() - x) / 40.0).min(1.0);
@@ -471,6 +518,9 @@ pub fn jog(ui: &mut Ui, v: &mut f32, speed: f32) -> Response {
         p.vline(x, r.top() + 5.0..=r.bottom() - 5.0, Stroke::new(1.0, c));
         x += SPACING;
     }
+    p.vline(r.center().x, r.top() + 3.0..=r.bottom() - 3.0, Stroke::new(2.0, ACCENT));
+    focus_ring(ui, &resp, r, 6);
+    if *v != old { resp.mark_changed(); }
     resp
 }
 
@@ -598,7 +648,7 @@ fn paint_backdrop(p: &egui::Painter, r: Rect, b: Backdrop) {
     const SHADE: [(f32, u8); 3] = [(0.0, 175), (0.5, 105), (1.0, 175)];
     match b {
         Backdrop::Plain => {
-            p.rect_filled(r, 8, Color32::from_rgb(0x10, 0x10, 0x12));
+            p.rect_filled(r, 4, Color32::from_rgb(0x10, 0x10, 0x12));
             return;
         }
         Backdrop::Hue => icons::colour_band(p, r, &hue_colours()),
@@ -766,13 +816,13 @@ pub fn menu_button(ui: &mut Ui, r: Rect, icon: Icon, tip: &str, on: bool, option
         let shown = Area::new(id.with("list")).order(Order::Foreground).fixed_pos(at).show(ui.ctx(), |ui| {
             let (bg, _) = ui.allocate_exact_size(vec2(w, h), Sense::click());
             let p = ui.painter();
-            p.rect_filled(bg, 14, MENU);
-            p.rect_stroke(bg, 14, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
+            p.rect_filled(bg, 4, MENU);
+            p.rect_stroke(bg, 4, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
             for (i, o) in options.iter().enumerate() {
                 let rr = Rect::from_min_size(pos2(bg.left() + 4.0, bg.top() + 4.0 + row * i as f32), vec2(w - 8.0, row));
                 let hit = ui.interact(rr, id.with(("row", i)), Sense::click());
                 if hit.hovered() {
-                    ui.painter().rect_filled(rr, 10, BUTTON_EDGE);
+                    ui.painter().rect_filled(rr, 4, BUTTON_EDGE);
                 }
                 ui.painter().text(pos2(rr.left() + 12.0, rr.center().y), Align2::LEFT_CENTER, *o, semi(13.0), Color32::WHITE);
                 if hit.clicked() {
@@ -842,5 +892,43 @@ mod tests {
         let a = WHEEL_AXES[0].to_radians();
         let rgb = rgb_of(vec2(a.cos(), -a.sin()));
         assert!(rgb[0] > 0.9 && rgb[1] < 0.0 && rgb[2] < 0.0, "{rgb:?}");
+    }
+}
+
+#[cfg(test)]
+mod slider_tests {
+    use super::*;
+
+    fn draw(ctx: &Context, value: &mut f32, input: egui::RawInput, format: Fmt) -> Response {
+        let mut response = None;
+        let _ = ctx.run_ui(input, |ui| {
+            ui.set_width(300.0);
+            response = Some(slider(ui, "Amount", value, 0.0, 1.0, 0.5, format));
+        });
+        response.unwrap()
+    }
+
+    #[test]
+    fn displaying_a_rounded_value_does_not_change_the_project() {
+        let ctx = Context::default();
+        let mut value = 0.375;
+        let response = draw(&ctx, &mut value, Default::default(), Fmt::Int);
+        assert_eq!(value, 0.375);
+        assert!(!response.changed());
+    }
+
+    #[test]
+    fn focused_slider_supports_steps_and_endpoints() {
+        let ctx = Context::default();
+        let mut value = 0.5;
+        let response = draw(&ctx, &mut value, Default::default(), Fmt::Plain);
+        ctx.memory_mut(|m| m.request_focus(response.id));
+        for (key, expected) in [(egui::Key::ArrowRight, 0.505), (egui::Key::Home, 0.0), (egui::Key::End, 1.0)] {
+            let input = egui::RawInput { events: vec![egui::Event::Key {
+                key, physical_key: None, pressed: true, repeat: false, modifiers: Default::default(),
+            }], ..Default::default() };
+            assert!(draw(&ctx, &mut value, input, Fmt::Plain).changed());
+            assert!((value - expected).abs() < 1e-5);
+        }
     }
 }

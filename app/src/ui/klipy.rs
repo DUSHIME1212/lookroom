@@ -164,7 +164,7 @@ impl App {
                     let pic = Rect::from_min_max(b.min, pos2(b.right(), b.bottom() - 22.0));
                     let resp = ui.interact(b, ui.scope_id().with(("klipy", &c.id)), Sense::click()).on_hover_text(&c.title);
                     let p = ui.painter();
-                    p.rect_filled(pic, 8, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+                    p.rect_filled(pic, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
                     match self.edit.klipy.thumbs.get(&c.id) {
                         Some(t) => {
                             p.image(t.id(), pic, Rect::from_min_max(pos2(0.0, 0.0), pos2(1.0, 1.0)), Color32::WHITE);
@@ -178,7 +178,7 @@ impl App {
                         }
                     }
                     if adding.as_deref() == Some(c.id.as_str()) {
-                        p.rect_filled(pic, 8, Color32::from_black_alpha(150));
+                        p.rect_filled(pic, 4, Color32::from_black_alpha(150));
                         p.text(pic.center(), Align2::CENTER_CENTER, "Adding…", semi(12.0), Color32::WHITE);
                     }
                     p.with_clip_rect(b).text(pos2(b.left() + 2.0, b.bottom() - 10.0), Align2::LEFT_CENTER, &c.title, semi(11.5), Color32::WHITE);

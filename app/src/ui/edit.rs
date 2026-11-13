@@ -25,7 +25,7 @@ const FOLLOW_AT: f32 = 0.25;
 const ROW_NAMES: [&str; ROWS] = ["Video", "Sound", "Effects", "Text, stickers and videos", "Music and sound effects"];
 const TOOLBAR_H: f32 = 40.0;
 const TRACK_HEADS_W: f32 = 156.0;
-const TREE_W: f32 = 132.0;
+const TREE_W: f32 = 196.0;
 const ROW_H: [f32; ROWS] = [58.0, 38.0, 38.0, 38.0, 38.0];
 /// How far tracks can be squeezed or stretched by dragging.
 const LEAST_ROWS: f32 = 0.6;
@@ -169,7 +169,6 @@ pub struct EditState {
     strip_rx: Receiver<(u32, Vec<ColorImage>)>,
     /// Film strips waiting for one of the few workers that make them.
     strip_queue: Option<Sender<(u32, video::Info)>>,
-    tree: [bool; 3],
     sort_by_name: bool,
     pub fullscreen: bool,
     pub(super) motion: super::motion::MotionState,
@@ -206,7 +205,6 @@ impl Default for EditState {
             strip_tx,
             strip_rx,
             strip_queue: None,
-            tree: [true, true, true],
             sort_by_name: false,
             fullscreen: false,
             motion: Default::default(),
@@ -336,29 +334,42 @@ impl App {
         let header = Rect::from_min_size(body.min, vec2(body.width(), HEADER_H));
         let least_lower = RULER_H + TOOLBAR_H + 140.0;
         let lower_h = self.settings.layout.lower_h.unwrap_or((body.height() * 0.44).clamp(RULER_H + TOOLBAR_H + 280.0, 400.0)).clamp(least_lower, (body.height() - HEADER_H - 220.0).max(least_lower));
+        let lower_h = if self.settings.layout.hide_timeline { 0.0 } else { lower_h };
         let lower = Rect::from_min_max(pos2(body.left(), body.bottom() - lower_h), body.max);
-        let mid = Rect::from_min_max(pos2(body.left(), header.bottom() + 6.0), pos2(body.right(), lower.top() - 8.0));
+        let mid = Rect::from_min_max(pos2(body.left(), header.bottom() + 6.0), pos2(body.right(), lower.top() - if self.settings.layout.hide_timeline { 0.0 } else { 8.0 }));
         let bin_w = self.settings.layout.bin_w.unwrap_or((mid.width() * 0.36).clamp(330.0, 480.0)).clamp(LEAST_BIN, (mid.width() - LEAST_VIEW).max(LEAST_BIN));
-        let bin = Rect::from_min_max(mid.min, pos2(mid.left() + bin_w, mid.bottom()));
-        let view = Rect::from_min_max(pos2(bin.right() + 8.0, mid.top()), mid.max);
+        let (bin, view) = if self.settings.layout.inspector_right {
+            let bin = Rect::from_min_max(pos2(mid.right() - bin_w, mid.top()), mid.max);
+            (bin, Rect::from_min_max(mid.min, pos2(bin.left() - 8.0, mid.bottom())))
+        } else {
+            let bin = Rect::from_min_max(mid.min, pos2(mid.left() + bin_w, mid.bottom()));
+            (bin, Rect::from_min_max(pos2(bin.right() + 8.0, mid.top()), mid.max))
+        };
 
         self.rail(ui, rail);
         self.header(ui, header);
         self.page(ui, ctx, bin);
         let photo = self.preview_area(ui, view);
-        self.timeline(ui, lower);
-        self.carry_ghost(ui, lower);
+        if !self.settings.layout.hide_timeline {
+            self.timeline(ui, lower);
+            self.carry_ghost(ui, lower);
+        }
         self.splitters(ui, mid, bin, lower);
         photo
     }
 
     /// Bars in the gaps between panels. Drag one to resize; double-click to put it back.
     fn splitters(&mut self, ui: &mut Ui, mid: Rect, bin: Rect, lower: Rect) {
-        let side = Rect::from_min_max(pos2(bin.right(), mid.top()), pos2(bin.right() + 8.0, mid.bottom()));
+        let side_x = if self.settings.layout.inspector_right { bin.left() - 8.0 } else { bin.right() };
+        let side = Rect::from_min_max(pos2(side_x, mid.top()), pos2(side_x + 8.0, mid.bottom()));
         let under = Rect::from_min_max(pos2(mid.left(), mid.bottom()), pos2(mid.right(), lower.top()));
         let mut changed = false;
         for (r, across) in [(side, true), (under, false)] {
-            let resp = ui.interact(r, ui.scope_id().with(("split", across)), Sense::click_and_drag());
+            if !across && self.settings.layout.hide_timeline { continue; }
+            let resp = ui.interact(r, ui.scope_id().with(("split", across)), Sense::click_and_drag())
+                .on_hover_text("Drag to resize · double-click to reset");
+            let grip = if across { Rect::from_center_size(r.center(), vec2(2.0, 28.0)) } else { Rect::from_center_size(r.center(), vec2(34.0, 2.0)) };
+            ui.painter().rect_filled(grip, 1, BUTTON_EDGE);
             if resp.hovered() || resp.dragged() {
                 ui.ctx().set_cursor_icon(if across { egui::CursorIcon::ResizeHorizontal } else { egui::CursorIcon::ResizeVertical });
                 let bar = if across { Rect::from_center_size(r.center(), vec2(3.0, r.height() * 0.3)) } else { Rect::from_center_size(r.center(), vec2(r.width() * 0.1, 3.0)) };
@@ -368,7 +379,7 @@ impl App {
             let layout = &mut self.settings.layout;
             if resp.dragged() {
                 if across {
-                    layout.bin_w = Some(bin.width() + d.x);
+                    layout.bin_w = Some(bin.width() + if layout.inspector_right { -d.x } else { d.x });
                 } else {
                     layout.lower_h = Some(lower.height() - d.y);
                 }
@@ -407,10 +418,10 @@ impl App {
             let on = app.edit.rail == tab;
             let p = ui.painter();
             if on || resp.hovered() {
-                p.rect_filled(b, 10, BUTTON);
+                p.rect_filled(b, 4, BUTTON);
             }
             if on {
-                p.rect_stroke(b, 10, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
+                p.rect_stroke(b, 4, Stroke::new(1.0, BUTTON_EDGE), StrokeKind::Inside);
             }
             let tint = if on { Color32::WHITE } else { Color32::from_rgb(0xA8, 0xA8, 0xAC) };
             icons::paint(p, tab.icon(), Rect::from_center_size(pos2(b.center().x, b.top() + b.height() * 0.36), Vec2::splat(21.0)), tint);
@@ -430,6 +441,8 @@ impl App {
         if icon_button(ui, back, Icon::ArrowLeft01, "Open, save and batch", false).clicked() {
             self.sheet = Some(Sheet::Home);
         }
+        let layout_button = Rect::from_min_size(pos2(r.left() + 137.0, y - 14.0), vec2(68.0, 28.0));
+        if action(ui, layout_button, "Layout", false, 12.0).clicked() { self.edit.rail = Rail::Settings; }
         let p = ui.painter();
         icons::paint(p, Icon::Cloud, Rect::from_center_size(pos2(r.left() + 52.0, y), Vec2::splat(18.0)), MUTED);
         let state = if self.history_at == 0 { "No changes" } else { "Edited" };
@@ -456,7 +469,7 @@ impl App {
             self.sheet = Some(Sheet::Export);
         }
         let p = ui.painter();
-        p.rect_stroke(b, 8, Stroke::new(1.0, if resp.hovered() { Color32::WHITE } else { BUTTON_EDGE }), StrokeKind::Inside);
+        p.rect_stroke(b, 4, Stroke::new(1.0, if resp.hovered() { Color32::WHITE } else { BUTTON_EDGE }), StrokeKind::Inside);
         p.text(pos2(b.left() + 12.0, y), Align2::LEFT_CENTER, label, semi(13.0), Color32::WHITE);
         icons::paint(p, Icon::Upload01, Rect::from_center_size(pos2(b.right() - 16.0, y), Vec2::splat(17.0)), Color32::WHITE);
     }
@@ -533,7 +546,7 @@ impl App {
         let b = Rect::from_min_size(row.min, vec2(96.0, 34.0));
         let resp = ui.interact(b, ui.scope_id().with("upload"), Sense::click());
         let p = ui.painter();
-        p.rect_filled(b, 8, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+        p.rect_filled(b, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
         icons::paint(p, Icon::Upload01, Rect::from_center_size(pos2(b.left() + 18.0, b.center().y), Vec2::splat(17.0)), Color32::WHITE);
         p.text(pos2(b.left() + 34.0, b.center().y), Align2::LEFT_CENTER, "Upload", semi(13.0), Color32::WHITE);
         if resp.clicked() {
@@ -769,7 +782,7 @@ impl App {
             let c = Rect::from_min_size(pos2(r.left() + cell * (i % 4) as f32, r.top() + cell * (i / 4) as f32), Vec2::splat(cell)).shrink(5.0);
             let resp = ui.interact(c, ui.scope_id().with(("sticker", i)), Sense::click());
             let p = ui.painter();
-            p.rect_filled(c, 8, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+            p.rect_filled(c, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
             icons::paint(p, *icon, Rect::from_center_size(c.center(), Vec2::splat(c.width() * 0.5)), Color32::WHITE);
             if resp.clicked() {
                 chosen = Some(i);
@@ -780,7 +793,36 @@ impl App {
         }
     }
 
+    fn workspace_settings(&mut self, ui: &mut Ui) {
+        use crate::store::Layout;
+        ui.strong("Workspace layout");
+        note(ui, "Drag the dividers to resize panels. Changes are remembered on this computer.");
+        let mut save = false;
+        ui.horizontal_wrapped(|ui| {
+            if ui.button("Editing").clicked() { self.settings.layout = Layout::default(); save = true; }
+            if ui.button("Color").clicked() { self.settings.layout = Layout { inspector_right: true, hide_timeline: true, bin_w: Some(420.0), ..Default::default() }; save = true; }
+            if ui.button("Motion").clicked() { self.settings.layout = Layout { inspector_right: true, lower_h: Some(360.0), layers_w: Some(240.0), rows: Some(1.25), ..Default::default() }; save = true; }
+        });
+        let layout = &mut self.settings.layout;
+        save |= ui.checkbox(&mut layout.inspector_right, "Inspector on the right").changed();
+        let mut timeline = !layout.hide_timeline;
+        if ui.checkbox(&mut timeline, "Show timeline").changed() { layout.hide_timeline = !timeline; save = true; }
+        let mut layers = !layout.hide_layers;
+        if ui.add_enabled(timeline, egui::Checkbox::new(&mut layers, "Show layer stack")).changed() { layout.hide_layers = !layers; save = true; }
+        let mut width = layout.layers_w.unwrap_or(TREE_W);
+        if slider(ui, "Layer stack width", &mut width, 140.0, 320.0, TREE_W, Fmt::Int).changed() { layout.layers_w = Some(width); save = true; }
+        ui.horizontal_wrapped(|ui| {
+            if ui.button("Save my layout").clicked() { self.settings.saved_layout = Some(self.settings.layout.clone()); save = true; }
+            if ui.add_enabled(self.settings.saved_layout.is_some(), egui::Button::new("Restore my layout")).clicked()
+                && let Some(saved) = &self.settings.saved_layout { self.settings.layout = saved.clone(); save = true; }
+            if ui.button("Reset layout").clicked() { self.settings.layout = Layout::default(); save = true; }
+        });
+        if save { crate::store::save_settings(&self.settings); }
+    }
+
     fn settings_page(&mut self, ui: &mut Ui) {
+        self.workspace_settings(ui);
+        ui.separator();
         ui.label(egui::RichText::new("Project Name").font(semi(13.0)).color(Color32::WHITE));
         ui.add(egui::TextEdit::singleline(&mut self.project.name).desired_width(f32::INFINITY));
         ui.add_space(8.0);
@@ -965,35 +1007,56 @@ impl App {
 
     fn tree(&mut self, ui: &mut Ui, r: Rect) {
         ui.painter().vline(r.right(), r.y_range(), Stroke::new(1.0, PANEL_EDGE));
-        let top = Rect::from_min_size(r.min + vec2(8.0, 8.0), vec2(r.width() - 16.0, 66.0));
-        let media = self.active.and_then(|id| self.project.clips.iter().find(|c| c.id == id)).map(|c| c.media);
-        if let Some(t) = media.and_then(|m| self.edit.strips.get(&m)).and_then(|s| s.first()) {
-            egui::Image::new((t.id(), top.size())).corner_radius(4).paint_at(ui, top);
-        }
-        let list = Rect::from_min_max(pos2(r.left() + 6.0, top.bottom() + 6.0), r.max);
-        let names: [(&str, MediaKind); 3] = [("Video", MediaKind::Video), ("Photo", MediaKind::Photo), ("Sound", MediaKind::Audio)];
-        ui.scope_builder(UiBuilder::new().max_rect(list).id_salt("tree"), |ui| {
-            ui.set_clip_rect(list.intersect(ui.clip_rect()));
-            egui::ScrollArea::vertical().id_salt("tree-scroll").auto_shrink([false, false]).show(ui, |ui| {
-                ui.spacing_mut().item_spacing.y = 1.0;
-                ui.label(egui::RichText::new("Layers").font(regular(11.5)).color(MUTED));
-                for (i, (name, kind)) in names.iter().enumerate() {
-                    let (row, resp) = ui.allocate_exact_size(vec2(ui.available_width(), 21.0), Sense::click());
-                    if resp.clicked() {
-                        self.edit.tree[i] ^= true;
-                    }
-                    let icon = if self.edit.tree[i] { Icon::ArrowDown01 } else { Icon::ArrowRight01 };
-                    icons::paint(ui.painter(), icon, Rect::from_center_size(pos2(row.left() + 7.0, row.center().y), Vec2::splat(11.0)), MUTED);
-                    ui.painter().text(pos2(row.left() + 17.0, row.center().y), Align2::LEFT_CENTER, *name, regular(11.5), Color32::from_rgb(0xC8, 0xC8, 0xCC));
-                    if self.edit.tree[i] {
-                        for m in self.project.media.iter().filter(|m| m.kind == *kind) {
-                            let (row, _) = ui.allocate_exact_size(vec2(ui.available_width(), 19.0), Sense::hover());
-                            ui.painter().text(pos2(row.left() + 24.0, row.center().y), Align2::LEFT_CENTER, short(&m.name, 15), regular(11.0), MUTED);
-                        }
+        let items: Vec<_> = self.project.items.iter().filter(|t| t.body.placed().is_some() && self.head >= t.at && self.head < t.end())
+            .map(|t| (t.id, t.label(), icon_of(t), t.body.placed().is_some_and(|p| p.2.hidden))).rev().collect();
+        let mut picked = None;
+        let mut visibility = None;
+        ui.scope_builder(UiBuilder::new().max_rect(r.shrink(8.0)).id_salt("layer-stack"), |ui| {
+            ui.set_clip_rect(r.intersect(ui.clip_rect()));
+            ui.horizontal(|ui| {
+                ui.strong("Layers");
+                if ui.small_button("Manage").clicked() { self.edit.rail = Rail::Sticker; self.show_layers_tab(); }
+            });
+            ui.label(egui::RichText::new("At playhead · front to back").font(regular(11.0)).color(MUTED));
+            egui::ScrollArea::vertical().id_salt("layer-stack-scroll").auto_shrink([false, false]).show(ui, |ui| {
+                for (id, name, icon, hidden) in &items {
+                    let (row, _) = ui.allocate_exact_size(vec2(ui.available_width(), 38.0), Sense::hover());
+                    let eye = Rect::from_min_size(row.min, vec2(30.0, row.height()));
+                    let select = Rect::from_min_max(pos2(eye.right(), row.top()), row.max);
+                    let resp = ui.interact(select, ui.scope_id().with(("layer", id)), Sense::click()).on_hover_text(name);
+                    if self.is_selected(*id) { chosen_row(ui.painter(), row, 4); }
+                    else if resp.hovered() { ui.painter().rect_filled(row, 4, BUTTON); }
+                    if icon_button(ui, eye, if *hidden { Icon::ViewOff } else { Icon::View }, "Toggle layer visibility", false).clicked() { visibility = Some(*id); }
+                    icons::paint(ui.painter(), *icon, Rect::from_center_size(pos2(select.left() + 12.0, row.center().y), Vec2::splat(16.0)), if *hidden { MUTED } else { TEXT_2 });
+                    let text = Rect::from_min_max(pos2(select.left() + 26.0, row.top()), select.max);
+                    ui.painter().with_clip_rect(text).text(pos2(text.left(), row.center().y), Align2::LEFT_CENTER, name, regular(12.0), if *hidden { MUTED } else { Color32::WHITE });
+                    if resp.clicked() { picked = Some(*id); }
+                }
+                if items.is_empty() { ui.label("No overlays here"); }
+                ui.separator();
+                if let Some(shot) = self.project.at(self.head) {
+                    let clip = &self.project.clips[shot.clip];
+                    let name = self.project.media_of(clip.media).map_or("Base video", |m| m.name.as_str());
+                    if ui.add(egui::Button::new(format!("Base · {}", short(name, 20))).selected(self.picked == Some(Picked::Clip(clip.id)))).clicked() {
+                        self.click_clip(clip.id, false, false);
+                        self.edit.rail = Rail::Adjustment;
                     }
                 }
             });
         });
+        if let Some(id) = visibility
+            && let Some(t) = self.project.items.iter_mut().find(|t| t.id == id)
+            && let Some((_, _, motion)) = t.body.placed_mut() { motion.hidden ^= true; }
+        if let Some(id) = picked {
+            if ui.input(|i| i.modifiers.command || i.modifiers.shift) { self.toggle_select(id); }
+            else { self.select_only(id); }
+            let body = self.project.items.iter().find(|t| t.id == id).map(|t| t.body.clone());
+            match body {
+                Some(Body::Text { .. }) => { self.edit.rail = Rail::Text; self.edit.captions.tab = 0; }
+                Some(Body::Overlay { .. }) => { self.edit.rail = Rail::Sticker; self.show_clips_tab(); }
+                _ => { self.edit.rail = Rail::Sticker; self.show_layers_tab(); }
+            }
+        }
     }
 
     fn timeline(&mut self, ui: &mut Ui, r: Rect) {
@@ -1001,7 +1064,10 @@ impl App {
         let rh = self.row_heights();
         let bottom = Rect::from_min_max(pos2(r.left(), r.bottom() - TOOLBAR_H), r.max);
         let heads = Rect::from_min_max(pos2(r.left(), r.top() + RULER_H), pos2(r.left() + TRACK_HEADS_W, bottom.top()));
-        let tree = Rect::from_min_max(pos2(heads.right(), r.top()), pos2(heads.right() + TREE_W, bottom.top()));
+        let tree_w = if self.settings.layout.hide_layers { 0.0 } else {
+            self.settings.layout.layers_w.unwrap_or(TREE_W).clamp(140.0, 320.0).min((r.width() - TRACK_HEADS_W - 240.0).max(0.0))
+        };
+        let tree = Rect::from_min_max(pos2(heads.right(), r.top()), pos2(heads.right() + tree_w, bottom.top()));
         let area = Rect::from_min_max(pos2(tree.right(), r.top()), pos2(r.right() - 4.0, bottom.top()));
         let ruler = Rect::from_min_size(area.min, vec2(area.width(), RULER_H));
         let lanes = Rect::from_min_max(pos2(area.left(), ruler.bottom()), area.max);
@@ -1015,7 +1081,15 @@ impl App {
         self.track_heads(ui, heads, &ys);
         self.timeline_controls(ui, Rect::from_min_max(r.min, pos2(heads.right(), heads.top())));
         ui.painter().vline(heads.right(), r.top()..=bottom.top(), Stroke::new(1.0, PANEL_EDGE));
-        self.tree(ui, tree);
+        if tree_w > 0.0 {
+            self.tree(ui, tree);
+            let grip = Rect::from_min_max(pos2(tree.right() - 3.0, tree.top()), pos2(tree.right() + 3.0, tree.bottom()));
+            let resize = ui.interact(grip, ui.scope_id().with("layers-width"), Sense::click_and_drag());
+            if resize.hovered() || resize.dragged() { ui.ctx().set_cursor_icon(egui::CursorIcon::ResizeHorizontal); }
+            if resize.dragged() { self.settings.layout.layers_w = Some((tree_w + resize.drag_delta().x).clamp(140.0, 320.0)); }
+            if resize.double_clicked() { self.settings.layout.layers_w = None; }
+            if resize.drag_stopped() || resize.double_clicked() { crate::store::save_settings(&self.settings); }
+        }
         ui.painter().hline(r.x_range(), bottom.top(), Stroke::new(1.0, PANEL_EDGE));
 
         let total = self.project.total().max(1);

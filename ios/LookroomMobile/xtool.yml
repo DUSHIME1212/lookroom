@@ -1,0 +1,5 @@
+version: 1
+bundleID: com.donaime.lookroom
+product: LookroomMobile
+infoPath: Info.plist
+iconPath: Icon.png

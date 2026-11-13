@@ -373,7 +373,7 @@ pub fn plugin_row(ui: &mut Ui) {
     let w = ui.available_width();
     let (r, _) = ui.allocate_exact_size(vec2(w, 54.0), Sense::hover());
     let p = ui.painter();
-    p.rect_filled(r, 10, BUTTON);
+    p.rect_filled(r, 4, BUTTON);
     crate::icons::paint(p, crate::icons::Icon::ClosedCaption, Rect::from_center_size(pos2(r.left() + 20.0, r.center().y), egui::Vec2::splat(18.0)), ACCENT);
     p.text(pos2(r.left() + 40.0, r.top() + 17.0), Align2::LEFT_CENTER, "Auto Captions, comes with the app", semi(13.0), Color32::WHITE);
     p.text(pos2(r.left() + 40.0, r.top() + 37.0), Align2::LEFT_CENTER, format!("Whisper speech to text, on this computer; {state}"), regular(11.5), MUTED);

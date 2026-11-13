@@ -342,9 +342,6 @@ fn main() -> eframe::Result<()> {
             "--export" => {
                 let (Some(project), Some(out)) = (next(&mut i), next(&mut i)) else { std::process::exit(2) };
                 let side = args.get(i + 1).and_then(|s| s.parse().ok());
-                if side.is_some() {
-                    i += 1;
-                }
                 if let Err(e) = export_project(&project, &out, side) {
                     eprintln!("{e}");
                     std::process::exit(1);

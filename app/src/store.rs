@@ -18,9 +18,13 @@ pub struct UserPreset {
 #[derive(Clone, Default, Serialize, Deserialize)]
 pub struct Settings {
     #[serde(default)]
+    pub recent_projects: Vec<PathBuf>,
+    #[serde(default)]
     pub favorites: Vec<String>,
     #[serde(default)]
     pub layout: Layout,
+    #[serde(default)]
+    pub saved_layout: Option<Layout>,
     /// The assistant's Anthropic API key, kept on this computer only.
     #[serde(default)]
     pub assistant_key: String,
@@ -38,6 +42,14 @@ pub struct Settings {
 /// Panel sizes the person dragged to. None keeps the size that suits the window.
 #[derive(Clone, Default, Serialize, Deserialize)]
 pub struct Layout {
+    #[serde(default)]
+    pub inspector_right: bool,
+    #[serde(default)]
+    pub hide_timeline: bool,
+    #[serde(default)]
+    pub hide_layers: bool,
+    #[serde(default)]
+    pub layers_w: Option<f32>,
     pub bin_w: Option<f32>,
     pub lower_h: Option<f32>,
     /// Track heights as a share of their usual height.
@@ -107,4 +119,28 @@ pub fn now_seconds() -> f64 {
         .duration_since(std::time::UNIX_EPOCH)
         .map(|d| d.as_secs_f64())
         .unwrap_or(0.0)
+}
+
+#[cfg(test)]
+mod layout_tests {
+    use super::*;
+
+    #[test]
+    fn old_settings_keep_panel_sizes_and_default_new_layout_options() {
+        let s: Settings = serde_json::from_str(r#"{"layout":{"bin_w":380,"lower_h":300,"rows":1.2}}"#).unwrap();
+        assert_eq!(s.layout.bin_w, Some(380.0));
+        assert_eq!(s.layout.lower_h, Some(300.0));
+        assert!(!s.layout.inspector_right && !s.layout.hide_timeline && !s.layout.hide_layers);
+        assert!(s.saved_layout.is_none());
+    }
+
+    #[test]
+    fn saved_workspace_survives_a_settings_roundtrip() {
+        let layout = Layout { inspector_right: true, hide_timeline: true, layers_w: Some(240.0), ..Default::default() };
+        let s = Settings { layout: layout.clone(), saved_layout: Some(layout), ..Default::default() };
+        let restored: Settings = serde_json::from_str(&serde_json::to_string(&s).unwrap()).unwrap();
+        let saved = restored.saved_layout.unwrap();
+        assert!(saved.inspector_right && saved.hide_timeline);
+        assert_eq!(saved.layers_w, Some(240.0));
+    }
 }

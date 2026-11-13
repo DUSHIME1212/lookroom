@@ -146,7 +146,7 @@ impl App {
             for l in &lines {
                 match l {
                     Line::You(t) => {
-                        egui::Frame::new().fill(RAISED).corner_radius(10).inner_margin(egui::Margin::symmetric(10, 8)).show(ui, |ui| {
+                        egui::Frame::new().fill(RAISED).corner_radius(4).inner_margin(egui::Margin::symmetric(10, 8)).show(ui, |ui| {
                             ui.set_width(ui.available_width());
                             ui.label(egui::RichText::new(t).font(regular(12.5)).color(Color32::WHITE));
                         });

@@ -514,10 +514,6 @@ impl Motion {
         self.keys.retain(|k| k.frame != frame);
     }
 
-    pub fn key_at(&mut self, frame: u32) -> Option<&mut TextKey> {
-        self.keys.iter_mut().find(|k| k.frame == frame)
-    }
-
     /// Moves a keyframe in time. It stops short of its neighbours, keeping their order.
     pub fn retime_key(&mut self, index: usize, frame: u32, len: u32) -> u32 {
         let low = index.checked_sub(1).map_or(0, |p| self.keys[p].frame + 1);
@@ -587,12 +583,7 @@ impl Motion {
         (stretch, seconds - out_span * stretch)
     }
 
-    /// When the Out starts, in frames from the start of the item.
-    pub fn leave_frame(&self, len: u32, fps: f32) -> u32 {
-        let counts = [1; 4];
-        let (_, from) = self.timing(len as f32 / fps.max(1.0), &counts);
-        ((from * fps) as u32).min(len.saturating_sub(1))
-    }
+
 }
 
 /// One drawn piece of a text, and where it sits in the text.

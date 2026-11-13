@@ -182,7 +182,7 @@ impl App {
         let to_y = |s: f64| r.bottom() - ((s.ln() - RAMP_LOW.ln()) / (RAMP_HIGH.ln() - RAMP_LOW.ln())) as f32 * r.height();
         let from_y = |y: f32| (RAMP_LOW.ln() + ((r.bottom() - y) / r.height()) as f64 * (RAMP_HIGH.ln() - RAMP_LOW.ln())).exp();
         let p = ui.painter();
-        p.rect_filled(r, 8, PANEL);
+        p.rect_filled(r, 4, PANEL);
         for (s, label) in [(1.0, "1x"), (4.0, "4x"), (0.25, "0.25x")] {
             let y = to_y(s);
             p.line_segment([pos2(r.left(), y), pos2(r.right(), y)], Stroke::new(1.0, BUTTON_EDGE));

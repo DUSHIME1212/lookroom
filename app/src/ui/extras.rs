@@ -180,7 +180,7 @@ impl App {
                     let b = Rect::from_min_size(pos2(row.left() + cell * c as f32, row.top()), Vec2::splat(cell)).shrink(3.0);
                     let resp = ui.interact(b, ui.scope_id().with(("emoji", i)), Sense::click()).on_hover_text(all[i].label());
                     if resp.hovered() {
-                        ui.painter().rect_filled(b, 8, BUTTON_EDGE);
+                        ui.painter().rect_filled(b, 4, BUTTON_EDGE);
                     }
                     let tex = match self.edit.extras.emoji_tex.get(&i) {
                         Some(t) => Some(t),
@@ -245,7 +245,7 @@ impl App {
                 let i = shown[n];
                 let (row, _) = ui.allocate_exact_size(vec2(ui.available_width(), SOUND_ROW_H), Sense::hover());
                 let r = row.shrink2(vec2(0.0, 2.0));
-                ui.painter().rect_filled(r, 8, BUTTON);
+                ui.painter().rect_filled(r, 4, BUTTON);
                 let on = playing == Some(i);
                 let play = Rect::from_center_size(pos2(r.left() + 18.0, r.center().y), Vec2::splat(28.0));
                 let icon = if on { crate::icons::Icon::Pause } else { crate::icons::Icon::Play };
@@ -413,7 +413,7 @@ impl App {
                     let pic = Rect::from_min_max(b.min, pos2(b.right(), b.bottom() - 18.0));
                     let resp = ui.interact(b, ui.scope_id().with(("meme", t.id.as_str())), Sense::click()).on_hover_text(&t.name);
                     let p = ui.painter();
-                    p.rect_filled(pic, 8, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
+                    p.rect_filled(pic, 4, if resp.hovered() { BUTTON_EDGE } else { BUTTON });
                     match self.edit.extras.meme_thumbs.get(&t.id) {
                         Some(tex) => {
                             let s = tex.size_vec2();

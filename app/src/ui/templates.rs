@@ -267,9 +267,9 @@ impl App {
 fn paint_template(ui: &Ui, r: Rect, t: &Template, hot: bool) {
     let p = ui.painter().with_clip_rect(r);
     let dark = t.pieces.iter().all(|x| x.colour[0] + x.colour[1] + x.colour[2] > 1.5 || x.backing != Backing::None);
-    p.rect_filled(r, 8, if dark { Color32::from_rgb(0x1E, 0x22, 0x2A) } else { Color32::from_rgb(0xEE, 0xEF, 0xF2) });
+    p.rect_filled(r, 4, if dark { Color32::from_rgb(0x1E, 0x22, 0x2A) } else { Color32::from_rgb(0xEE, 0xEF, 0xF2) });
     if hot {
-        p.rect_stroke(r, 8, egui::Stroke::new(1.5, ACCENT), egui::StrokeKind::Inside);
+        p.rect_stroke(r, 4, egui::Stroke::new(1.5, ACCENT), egui::StrokeKind::Inside);
     }
     let col = |c: [f32; 3]| Color32::from_rgb((c[0] * 255.0) as u8, (c[1] * 255.0) as u8, (c[2] * 255.0) as u8);
     let k = r.height() / 1080.0 * 1.6;
